@@ -1,7 +1,3 @@
-# File produced by Open Asset Import Library (http://www.assimp.sf.net)
-# (assimp v5.0.567765771)
-
-newmtl __defaultMaterial__
-Kd 0.600000024 0.600000024 0.600000024
-illum 1
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:f72e5c64b17e104ca55d09d570e30d13f8629d7f9a36cfe01589d730bba8ed04
+size 174
