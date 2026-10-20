@@ -1,0 +1,71 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.01
+    startTimeCode = 0
+    timeCodesPerSecond = 30
+    upAxis = "Y"
+)
+
+def Xform "World" (
+        variants = {
+        string physicsVariants = "Physics"
+    }
+    add variantSets = "physicsVariants"
+)
+{
+    def Cube "Cube"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+    variantSet "physicsVariants" = {
+        "Physics" {
+            over "Cube" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+            )
+            {
+                rel material:binding:physics = </World/PhysicsMaterial> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                bool physics:collisionEnabled = 1
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+            }
+
+            def Material "PhysicsMaterial" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                float physics:density = 60
+            }
+        }
+        "PhysicsLowDensity" {
+            over "Cube" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+            )
+            {
+                rel material:binding:physics = </World/PhysicsMaterial> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                bool physics:collisionEnabled = 1
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+            }
+
+            def Material "PhysicsMaterial" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                float physics:density = 10
+            }
+        }
+        "Default" {
+        }
+    }
+}

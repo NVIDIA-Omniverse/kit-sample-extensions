@@ -1,0 +1,65 @@
+[package]
+title = "Variant Editor"
+description = "Tool for authoring and editing variant sets"
+version = "107.5.13"
+category = "Utility"
+authors = ["Adam Shaw"]
+keywords = ["kit", "usd", "variant"]
+changelog = "docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+icon = "data/variant_editor_icon_base.svg"
+readme = "docs/README.md"
+writeTarget.kit = true
+target.kit = ["110.0"]  # Required for Event 2.0
+
+[documentation.pages]
+"Overview" = "docs/overview.md"
+"Changelog" = "docs/CHANGELOG.md"
+
+[dependencies]
+"omni.client" = {}
+"omni.usd" = {}
+"omni.kit.commands" = {}
+"omni.kit.material.library" = {}
+"omni.kit.menu.utils" = {}
+"omni.kit.notification_manager" = {}
+"omni.kit.property.material" = {}
+"omni.kit.property.usd" = {}
+"omni.kit.usd.layers" = {}
+"omni.kit.widget.stage" = {}
+"omni.kit.widgets.custom" = {}
+"omni.kit.window.content_browser" = {}
+"omni.kit.window.file_importer" = {}
+"omni.kit.window.property" = {}
+"omni.kit.widget.searchfield" = {}
+"omni.kit.usd_undo" = {}
+"omni.kit.widget.versioning" = {}
+"omni.kit.widget.live_session_management" = {}
+"omni.kit.context_menu" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.example.hello".
+[[python.module]]
+name = "omni.kit.variant.editor"
+
+# Additional python module with tests, to make them discoverable by test system.
+[[test]]
+name = "omni.kit.variant.editor.tests"
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--no-window",
+    "--/exts/omni.ui/tooltip_delay=999.0",
+    "--/exts/omni.kit.notification_manager/disable_notifications=true",
+    "--/exts/omni.kit.test/testExtRandomOrder=true",
+]
+
+dependencies = [
+    "omni.kit.stage_templates",
+    "omni.kit.ui_test",
+]
+
+stdoutFailPatterns.exclude = [
+    "*[Error] [rtx.neuraylib.plugin]*",
+]
+
+timeout = 300

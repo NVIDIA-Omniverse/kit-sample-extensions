@@ -1,0 +1,60 @@
+[package]
+version = "1.1.5"
+authors = ["Bob White", "Victor Yudin"]
+title = "Data Driven Core"
+description="Actions, commands, menus for creating USD objects used in Data Driven UI workflows"
+readme  = "docs/README.md"
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+category = "UI"
+keywords = ["kit", "datadriven", "ui"]
+changelog="docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+support_level = "Sample"
+
+[package.target]
+kit = ["107.0"]
+
+[package.writeTarget]
+kit = true
+
+[dependencies]
+"omni.ui" = {}
+"omni.ui.scene" = {}
+"omni.kit.scene_view.opengl" = {optional=true}
+# XR and Usd are mutually exclusive, pybind throws an error.
+"omni.kit.scene_view.usd" = {optional=true}
+# "omni.kit.xr.scene_view.core" = {optional=true}
+"omni.usd" = {}
+"usdrt.scenegraph" = {}
+"omni.kit.viewport.utility" = {}
+
+[[python.module]]
+name = "omni.kit.data2ui.core"
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.md",
+]
+
+
+[[test]]
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/persistent/app/viewport/displayOptions=0",
+    "--/renderer/multiGpu/enabled=false",
+    "--/renderer/multiGpu/autoEnable=false",
+    "--/renderer/multiGpu/maxGpuCount=1",
+    "--/renderer/decoupledPresent/supported=true",
+    "--/renderer/decoupledPresent/unittest=true",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    "--no-window"
+]
+
+dependencies = [
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+    "omni.kit.test_suite.helpers",
+]

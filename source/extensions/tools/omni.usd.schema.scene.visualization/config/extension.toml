@@ -1,0 +1,40 @@
+[core]
+reloadable = false
+# Load at the start, load all schemas with order -100 (with order -1000 the USD libs are loaded)
+order = -100
+
+[package]
+version = "2.0.2"
+category = "Visualization"
+authors = ["Ed Quigley"]
+title = "USD Scene Visualization Schema"
+description = "USD schema for scene visualization"
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+keywords = ["visualization", "debugdraw"]
+toggleable = false
+readme = "docs/README.md"
+changelog = "docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+
+[package.writeTarget]
+kit = true
+
+[dependencies]
+"omni.usd.libs" = {}
+
+[[python.module]]
+name = "usd.schema.scene.visualization"
+
+[[test]]
+args = [
+    "--no-window",
+    # Tests author prims; when omni.kit.window.file is loaded it cancels the quit to
+    # prompt for a save that nobody can answer headless, and the process hangs until the test timeout.
+    "--/app/file/ignoreUnsavedOnExit=true",
+]
+
+dependencies = [
+    "omni.kit.test",
+    "omni.usd"
+]

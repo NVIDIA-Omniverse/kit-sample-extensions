@@ -1,0 +1,13 @@
+/vendor/
+/_build/
+/_repo/
+/_*/
+/logs/
+__pycache__/
+*.py[cod]
+/.cache/
+/.last_build
+/.vscode/settings.json
+/user.repo.toml
+*.packman.xml.user
+# Behavior-tree JSON schema headers are generated during native builds.

@@ -1,0 +1,81 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+
+version = "2.1.1"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Jeffrey Qiu"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Browser Folder APIs"
+description="omni kit browser folder model and widget extension."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['browser', 'folder', 'API']
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+category = "Rendering"
+readme  = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+
+[dependencies]
+"omni.kit.browser.core" = {}
+"omni.kit.window.filepicker" = {}
+"omni.kit.widget.nucleus_connector" = {}
+# Non-optional: a non-retryable scan failure has no other surface.
+"omni.kit.notification_manager" = {}
+# Imported directly by the add-collection dialogs, so not left to a transitive dependency.
+"omni.kit.window.popup_dialog" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.browser.folder.core".
+[[python.module]]
+name = "omni.kit.browser.folder.core"
+
+[settings.exts."omni.kit.browser.folder.core"]
+# Folders doing their own work at once across a traverse. Each waits for an app frame first, which
+# is what lets Kit's asyncio pump go idle so the app can draw. Raise for a faster scan and a less
+# responsive app; lower for the opposite.
+traverse.max_concurrent_folders = 16
+
+# Files a folder may resolve before handing a frame back to the app.
+traverse.yield_every_n_files = 32
+
+[settings]
+
+[[test]]
+dependencies = [
+    "omni.kit.browser.sample",
+    "omni.kit.ui_test",
+]
+
+args = [
+    "--no-window",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+]
+
+stdoutFailPatterns.exclude = [
+    "*unload wait time exceeded limit of*", # ETM test failure with kit 105.0.1 integ-master
+    # test_the_cache_is_replaced_atomically breaks a write on purpose to prove the old cache
+    # survives it. The model reports that, as it should. Matched on the injected message so a real
+    # write failure is still a failure.
+    "*: interrupted mid-write*",
+    # TestConnectionFailure drives the failed-connection path on purpose, and the model reports it
+    # as it should. Matched on the probe folder's name, so a real connection failure still fails.
+    "*unreachable_server_probe*",
+]
+
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/SETTINGS.md",
+    "docs/CHANGELOG.md",
+]

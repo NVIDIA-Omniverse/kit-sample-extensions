@@ -1,0 +1,17 @@
+#usda 1.0
+(
+    defaultPrim = "Cube"
+
+    """
+    This USD presents a gprim with both new and legacy semantics schema applied, but not valid attributes authored.
+    """
+)
+
+def Cube "Cube" (
+    prepend apiSchemas = ["SemanticsLabelsAPI:wikidata_qcode"]
+)
+{
+    def Cube "ChildCube"
+    {
+    }
+}

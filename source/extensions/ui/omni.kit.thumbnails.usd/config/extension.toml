@@ -1,0 +1,77 @@
+[package]
+authors = ["Jozef van Eenbergen"]
+category = "Internal"
+changelog = "docs/CHANGELOG.md"
+description = "When enabled a thumbnail is generated when the USD file is saved."
+icon = "data/icon.png"
+keywords = ["kit", "thumbnails"]
+preview_image = "data/preview.png"
+readme = "docs/README.md"
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+slackids = ["@U010NFP76BU"]
+title = "Thumbnail generator for USD"
+version = "1.0.14"
+
+[dependencies]
+"omni.client" = {}
+"omni.ui" = {}
+"omni.usd" = {}
+"omni.kit.renderer.capture" = {optional=true}
+"omni.kit.pip_archive" = {}
+"omni.kit.window.content_browser" = {optional=true}
+"omni.kit.viewport.utility" = {} # Optionally depend on all Viewport backends
+
+[[python.module]]
+name = "omni.kit.thumbnails.usd"
+
+[settings]
+persistent.exts."omni.kit.thumbnails.usd".thumbnail_on_save = true
+persistent.exts."omni.kit.thumbnails.usd".wait_stage_load = false
+persistent.exts."omni.kit.thumbnails.usd".wait_stage_load_timeout = 50
+exts."omni.kit.thumbnails.usd".frame_capture_delay = 5
+exts."omni.kit.thumbnails.usd".wait_stage_load_frameout = 5
+
+[[test]]
+stdoutFailPatterns.exclude = [
+    "*[Error] [gpu.foundation.plugin]*"  # Only occurs on Linux
+]
+pythonTests.include = ["omni.kit.thumbnails.usd.tests.test_thumbnail_generator.ImageResizeTestCase.*"]
+
+dependencies = [
+]
+
+args = [
+    "--/app/asyncRendering=false",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/app/hydraEngine/waitIdle=true",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/omni.kit.plugin/syncUsdLoads=true",
+    "--/renderer/active=ovrtx",
+    "--/renderer/enabled=ovrtx",
+    "--no-window",
+]
+
+[[test]]
+name = "viewport"
+stdoutFailPatterns.exclude = [
+    "*[Error] [gpu.foundation.plugin]*"  # Only occurs on Linux
+]
+pythonTests.exclude = ["omni.kit.thumbnails.usd.tests.test_thumbnail_generator.ImageResizeTestCase.*"]
+
+dependencies = [
+    "omni.kit.viewport.window",
+    "omni.kit.hydra_texture-ovrtx",
+]
+
+args = [
+    "--/app/asyncRendering=false",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/app/hydraEngine/waitIdle=true",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/omni.kit.plugin/syncUsdLoads=true",
+    "--/renderer/active=ovrtx",
+    "--/renderer/enabled=ovrtx",
+    "--no-window",
+]

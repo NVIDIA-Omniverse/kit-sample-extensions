@@ -1,0 +1,6 @@
+<project toolsVersion="5.0">
+  <!-- Only additions: shared dependencies retain the destination's versions. -->
+  <import path="../_build/${platform_target}/${config}/kit/dev/all-deps.packman.xml">
+    <filter include="xxhash" linkPath="../_build/target-deps/xxhash" />
+  </import>
+</project>

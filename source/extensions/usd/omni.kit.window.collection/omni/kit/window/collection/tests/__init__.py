@@ -1,0 +1,1 @@
+from .stage_window_tests import TestCollectionStageWindow

@@ -1,0 +1,66 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.1.0"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Ning Li"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Viewport bottom menubar"
+description="Provide the home button and functon in navigation bar."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['navigation', 'bar', 'waypoint']
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.rst"
+
+category = "Kit::exts"
+readme = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+
+[package.target]
+kit = ["107.3"]
+
+[dependencies]
+"omni.kit.viewport.navigation.core" = {}
+"omni.kit.playlist.core" = {}
+"omni.kit.waypoint.core" = {}
+"omni.kit.waypoint.playlist" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.viewport.navigation.home".
+[[python.module]]
+name = "omni.kit.viewport.navigation.waypoint"
+
+[settings]
+exts."omni.kit.viewport.navigation.waypoint".order= -854
+exts."omni.kit.viewport.navigation.waypoint".visible= true
+
+[[test]]
+dependencies = [
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+    "omni.kit.viewport.menubar.display",
+]
+args = [
+    "--/app/window/width=800",
+    "--/app/window/height=300",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    "--/persistent/app/viewport/displayOptions=1568",
+    "--no-window",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/app/fastShutdown=1",
+]
+
+stdoutFailPatterns.exclude = [
+    "*[gpu.foundation.plugin]*rtx/utils/BufferTexture.comp.hlsl*",
+    "*[gpu.foundation.plugin] PsoCompute::createPipeline and shader loading failed.*",
+     "*[Error] [asyncio] Task was destroyed but it is pending!*"
+]

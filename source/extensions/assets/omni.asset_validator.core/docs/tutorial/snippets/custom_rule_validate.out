@@ -1,0 +1,12 @@
+Results(
+    asset="tutorial.usda",
+    issues=[
+        Issue(
+            message="Goodbye!",
+            severity=IssueSeverity.FAILURE,
+            rule=MyRule,
+            at=PrimId(stage_id=StageId(root_layer=LayerId(identifier='tutorial.usda')), path=/Hello/World),
+            suggestion=Suggestion(callable=Callable, message='Avoids saying goodbye!', at=None)
+        )
+    ]
+)

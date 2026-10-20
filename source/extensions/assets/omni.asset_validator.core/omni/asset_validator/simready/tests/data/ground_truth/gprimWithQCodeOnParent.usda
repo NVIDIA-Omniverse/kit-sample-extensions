@@ -1,0 +1,19 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+
+    """
+    This USD presents a gprim with qcode authored to its ancestors.
+    """
+)
+
+def Xform "World" (
+    prepend apiSchemas = ["SemanticsLabelsAPI:wikidata_qcode"]
+)
+{
+    token[] semantics:labels:wikidata_qcode = ["Q12345"]
+
+    def Cube "Cube"
+    {
+    }
+}

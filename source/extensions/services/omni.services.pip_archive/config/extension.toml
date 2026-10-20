@@ -1,0 +1,41 @@
+[package]
+authors = ["Kit Team"]
+category = "services"
+changelog = "docs/CHANGELOG.md"
+description = "Services prebundled pip packages"
+icon = "data/icon.png"
+keywords = ["pip", "services"]
+preview_image = "data/preview.png"
+readme  = "docs/README.md"
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+slackids = ["@U010NFP76BU"]
+title = "Service Pip Archive"
+version = "0.18.16"
+
+# publish to each platform & kit version separately
+writeTarget.platform = true
+writeTarget.python = true
+writeTarget.kit = true
+
+[core]
+# Load as early as possible
+order = -1000
+reloadable = false
+
+[dependencies]
+
+# We bundle not only the "prometheus_client" package, but many others.
+# Add a whole folder (pip_prebundle) to sys.path.
+[[python.module]]
+path = "pip_prebundle"
+
+# That is empty module, added here only to make tests discoverable in test run
+[[python.module]]
+name = "omni.services.pip_archive"
+
+[python.pipapi]
+# That extension brings folder with pip wheels, to enable offline pip install (prebundling). It is specified here:
+archiveDirs = ["pip_archive"]
+
+# https://pip.pypa.io/en/stable/reference/pip_install/#requirements-file-format
+requirements = []

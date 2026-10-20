@@ -1,0 +1,9 @@
+<svg id="mouseTip_middle_dark" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <rect id="Icon_Base" width="40" height="40" fill="none"/>
+  <g id="Mouse" transform="translate(10.398 1.785)">
+    <path id="RightClick" d="M269.3,27.829a9.064,9.064,0,0,0-7.627-7.228,2.087,2.087,0,0,1-1.639.822V23.97a.851.851,0,0,1,.826.848v6.639a.851.851,0,0,1-.826.848v1.558h9.362Z" transform="translate(-250.429 -20.601)" fill="none" stroke="#444" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="LeftClick" d="M139.383,28.2a9.064,9.064,0,0,1,7.627-7.228,2.087,2.087,0,0,0,1.639.822v2.547a.851.851,0,0,0-.826.848v6.639a.851.851,0,0,0,.826.848v1.558h-9.362Z" transform="translate(-139.008 -20.944)" fill="#1a91c5" stroke="#444" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Body" d="M135.923,192.771l-.212,13.343a9.443,9.443,0,0,0,9.421,9.366h.36a9.443,9.443,0,0,0,9.421-9.366l-.212-13.343Z" transform="translate(-135.711 -179.48)" fill="none" stroke="#444" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="ScrollWheel" d="M.849,0h0A.849.849,0,0,1,1.7.849V7.488a.849.849,0,0,1-.849.849h0A.849.849,0,0,1,0,7.488V.849A.849.849,0,0,1,.849,0Z" transform="translate(8.777 3.397)" fill="none" stroke="#444" stroke-width="1"/>
+  </g>
+</svg>

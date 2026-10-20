@@ -1,0 +1,18 @@
+#usda 1.0
+(
+    defaultPrim = "mtl_test"
+    metersPerUnit = 0.01
+    upAxis = "Y"
+)
+def Material "mtl_test"
+{
+    token outputs:surface.connect = </mtl_test/Shader.outputs:out>
+
+    def Shader "Shader"
+    {
+        uniform token info:implementationSource = "mdlMaterial"
+        custom asset module = @OmniPBR.mdl@
+        custom string name = "OmniPBR"
+        token outputs:out
+    }
+}

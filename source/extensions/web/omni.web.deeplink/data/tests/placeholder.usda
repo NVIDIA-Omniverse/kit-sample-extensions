@@ -1,0 +1,147 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (0, 0, 50000)
+                double radius = 500
+            }
+            dictionary Perspective = {
+                double3 position = (500, 500, 500)
+                double3 target = (-0.00000397803842133726, 0.000007956076785831101, -0.00000397803842133726)
+            }
+            dictionary Right = {
+                double3 position = (-50000, 0, 0)
+                double radius = 500
+            }
+            dictionary Top = {
+                double3 position = (0, 50000, 0)
+                double radius = 500
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./test.usda"
+            dictionary locked = {
+            }
+            dictionary muteness = {
+            }
+        }
+        dictionary renderSettings = {
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.01
+    startTimeCode = 0
+    timeCodesPerSecond = 60
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def Camera "Camera"
+    {
+        token cameraProjectionType = "fisheyePolynomial" (
+            allowedTokens = ["pinhole", "pinholeOpenCV", "fisheyePolynomial", "fisheyeSpherical", "fisheyeKannalaBrandtK3", "fisheyeOpenCV", "fisheyeRadTanThinPrism", "omniDirectionalStereo", "generalizedProjection"]
+        )
+        float2 clippingRange = (1, 10000000)
+        float focalLength = 18.147562
+        float focusDistance = 400
+        float fthetaCx = 971.10004
+        float fthetaCy = 600.9
+        float fthetaHeight = 1216.5
+        float fthetaMaxFov = 200.7
+        float fthetaPolyA = 1.2
+        float fthetaPolyB = 0.4
+        float fthetaPolyC = 0.90000004
+        float fthetaPolyD = 0.6
+        float fthetaPolyE = 1.1
+        float fthetaPolyF = 3.1000001
+        float fthetaWidth = 1938.1
+        float interpupillaryDistance = 6.7000003
+        float openCVFx = 732.60004
+        float openCVFy = 732.3
+        float p0 = 0.6
+        float p1 = 0.8
+        float s0 = 1.1
+        float s1 = 1
+        float s2 = 0.6
+        float s3 = 0.3
+        double3 xformOp:rotateYXZ = (0, -0, -0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateYXZ", "xformOp:scale"]
+    }
+
+    def Camera "Camera_01"
+    {
+        float2 clippingRange = (1, 10000000)
+        float focalLength = 18.147562
+        float focusDistance = 400
+        double3 xformOp:rotateYXZ = (0, -0, -0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateYXZ", "xformOp:scale"]
+    }
+
+    def Camera "Camera_reset"
+    {
+        token cameraProjectionType = "pinhole" (
+            allowedTokens = ["pinhole", "pinholeOpenCV", "fisheyePolynomial", "fisheyeSpherical", "fisheyeKannalaBrandtK3", "fisheyeOpenCV", "fisheyeRadTanThinPrism", "omniDirectionalStereo", "generalizedProjection"]
+        )
+        float2 clippingRange = (1, 10000000)
+        float focalLength = 18.147562
+        float focusDistance = 400
+        float fthetaCx = 970.94244
+        float fthetaCy = 600.3748
+        float fthetaHeight = 1216
+        float fthetaMaxFov = 200
+        float fthetaPolyA = 0
+        float fthetaPolyB = 0.002454171
+        float fthetaPolyC = 3.727479e-8
+        float fthetaPolyD = -1.4352052e-9
+        float fthetaPolyE = 9.760618e-13
+        float fthetaPolyF = 0
+        float fthetaWidth = 1936
+        float interpupillaryDistance = 6.4
+        float openCVFx = 731.7879
+        float openCVFy = 731.7879
+        float p0 = -0.00036721907
+        float p1 = -0.0007413905
+        float s0 = -0.0005839985
+        float s1 = -0.00021934124
+        float s2 = 0.00019362685
+        float s3 = -0.00020424734
+        double3 xformOp:rotateYXZ = (0, -0, -0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateYXZ", "xformOp:scale"]
+    }
+}
+
+def Xform "Environment"
+{
+    double3 xformOp:rotateXYZ = (0, 0, 0)
+    double3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+
+    def DistantLight "defaultLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float inputs:angle = 1
+        float inputs:intensity = 3000
+        float inputs:shaping:cone:angle = 180
+        float inputs:shaping:cone:softness
+        float inputs:shaping:focus
+        color3f inputs:shaping:focusTint
+        asset inputs:shaping:ies:file
+        double3 xformOp:rotateXYZ = (315, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+}
+

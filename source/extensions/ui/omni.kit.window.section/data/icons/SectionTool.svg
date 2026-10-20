@@ -1,0 +1,16 @@
+<svg id="SectionTool" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <rect id="BaseIcon" width="30" height="30" fill="none"/>
+  <g id="SectionGraphics" transform="translate(-7611 3034.112)">
+    <g id="Path_4317" data-name="Path 4317" transform="translate(7619.755 -3030.064)" fill="none">
+      <path d="M13.433,22.016H0L3.487,0h9.946a2,2,0,0,1,2,2V20.016A2,2,0,0,1,13.433,22.016Z" stroke="none"/>
+      <path d="M 13.43250465393066 21.01580047607422 C 13.98379421234131 21.01580047607422 14.43230438232422 20.56728935241699 14.43230438232422 20.01600074768066 L 14.43230438232422 1.999800205230713 C 14.43230438232422 1.4485102891922 13.98379421234131 1.000000238418579 13.43250465393066 1.000000238418579 L 4.340990543365479 1.000000238418579 L 1.170626521110535 21.01580047607422 L 13.43250465393066 21.01580047607422 M 13.43250465393066 22.01580047607422 L -0.0002355876204092056 22.01580047607422 L 3.486914396286011 2.380371029175876e-07 L 13.43250465393066 2.380371029175876e-07 C 14.53519439697266 2.380371029175876e-07 15.43230438232422 0.8971102237701416 15.43230438232422 1.999800205230713 L 15.43230438232422 20.01600074768066 C 15.43230438232422 21.11869049072266 14.53519439697266 22.01580047607422 13.43250465393066 22.01580047607422 Z" stroke="none" fill="#77878a"/>
+    </g>
+    <path id="Path_4316" data-name="Path 4316" d="M2.714,22.017c-1.5,0-2.714-.9-2.714-2V2C0,.9,1.218,0,2.714,0H9.593l-4.2,22.017Z" transform="translate(7617 -3030.064)" fill="#77878a"/>
+    <line id="Line_661" data-name="Line 661" x1="6" y1="5" transform="translate(7620.5 -3013.612)" fill="none" stroke="#77878a" stroke-width="0.75" stroke-dasharray="3 1.5"/>
+    <line id="Line_788" data-name="Line 788" x1="12" y2="12" transform="translate(7633.5 -3020.612) rotate(90)" fill="none" stroke="#77878a" stroke-width="0.75" stroke-dasharray="3 1.5"/>
+    <line id="Line_789" data-name="Line 789" x1="14" y2="14" transform="translate(7634.5 -3028.612) rotate(90)" fill="none" stroke="#77878a" stroke-width="0.75" stroke-dasharray="3 1.5"/>
+    <line id="Line_790" data-name="Line 790" x1="8" y2="8" transform="translate(7634.5 -3029.612) rotate(90)" fill="none" stroke="#77878a" stroke-width="0.75" stroke-dasharray="3 1.5"/>
+    <path id="Path_4314" data-name="Path 4314" d="M9.6,0,0,9.7" transform="translate(7625.904 -3015.612)" fill="none"/>
+    <line id="Line_657" data-name="Line 657" y1="24.888" x2="4.786" transform="translate(7622.265 -3031.5)" fill="none" stroke="#77878a" stroke-linecap="round" stroke-width="1"/>
+  </g>
+</svg>

@@ -1,0 +1,118 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.1.7"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Bob White", "Stephen Mackenzie"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Data Driven USD Extension"
+description="Actions, commands, menus for creating USD objects used in Data Driven UI workflows"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme  = "docs/README.md"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# One of categories for UI.
+category = "UI"
+
+# Keywords for the extension
+keywords = ["kit", "datadriven", "ui", "usd"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+# Preview image and icon. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+# Preview image is shown in "Overview" of Extensions window. Screenshot of an extension might be a good preview image.
+preview_image = "data/preview.png"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "data/icon.png"
+support_level = "Sample"
+
+[package.target]
+kit = ["107.0"]
+
+[package.writeTarget]
+kit = true
+
+[dependencies]
+"omni.kit.data2ui.core" = {}
+"omni.kit.commands" = {}
+"omni.kit.actions.core" = {}
+"omni.graph.nodes" = { optional = true } # necessary for read/write attrib on UI Prims to load in actiongraph
+"omni.ui" = {}
+"omni.ui.scene" = {}
+"omni.kit.scene_view.opengl" = {optional=true}
+# XR and Usd are mutually exclusive, pybind throws an error.
+"omni.kit.scene_view.usd" = {optional=true}
+# "omni.kit.xr.scene_view.core" = {optional=true}
+"omni.usd" = {}
+"omni.usd.core" = {}
+"omni.kit.menu.utils" = {optional=true}
+"omni.kit.context_menu" = {optional=true}
+"omni.kit.property.usd" = {optional=true}
+"omni.kit.viewport.utility" = {}
+"omni.kit.window.property" = {optional=true}
+"omni.kit.widget.highlight_label" = {optional=true}
+"omni.kit.widget.searchfield" = {optional=true}
+"omni.kit.widget.stage" = {optional=true}
+"omni.kit.widget.stage_icons" = {optional=true}
+"omni.kit.actions.window" = {optional=true} # Used for Callable properties search field
+"usdrt.scenegraph" = {}
+# "omni.hydra.usdrt_delegate" = {}  # Kit 111 removed the Hydra usdrt delegate (OVRTX renders Fabric/ovstage); nothing imports it
+
+# When using the UsdSceneView, we need to explicitly opt into mouse input.
+[settings]
+exts."omni.kit.scene_view.usd".use_mouse_input = true
+
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.data2ui.usd".
+[[python.module]]
+name = "omni.kit.data2ui.usd"
+
+[[test]]
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/persistent/app/viewport/displayOptions=0",
+    "--/renderer/multiGpu/enabled=false",
+    "--/renderer/multiGpu/autoEnable=false",
+    "--/renderer/multiGpu/maxGpuCount=1",
+    "--/renderer/decoupledPresent/supported=true",
+    "--/renderer/decoupledPresent/unittest=true",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    "--/exts/omni.no_code_ui.authoring/enabled=true",
+    "--no-window",
+]
+
+dependencies = [
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+    "omni.kit.test_suite.helpers",
+    "omni.kit.menu.utils",
+    "omni.kit.context_menu",
+    "omni.kit.property.usd",
+    "omni.kit.window.property",
+    "omni.kit.widget.highlight_label",
+    "omni.kit.widget.searchfield",
+    "omni.kit.widget.stage",
+    "omni.kit.widget.stage_icons",
+    "omni.kit.actions.window",
+]
+
+stdoutFailPatterns.exclude = [
+    # EA1 only (Kit 111): the published libraries refuse a custom string attribute's write (OVStage "has a different type"); every test passes. Remove when the libraries ship #2840.
+    "*[omni.runtime.core]*ovstage pump_apply_usd_changes op * failed: failed to enqueue write_attributes for *: write_attributes: existing attribute '*' has a different type*",
+    "*[omni.runtime.core]*ovstage pump_apply_usd_changes failed (12): *",
+    "*[omni.runtime.core]*PUMP apply_usd_changes at ordinal * failed; nothing commits until the stage is repopulated past it*",
+]
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.md",
+]

@@ -1,0 +1,40 @@
+{
+    "RandomTransform": {
+        "exclude" : ["tests"],
+        "description": ["Generate a random transform in a range."],
+        "language": "python",
+        "inputs":{
+            "scale":{
+                "type": "vectord[3]",
+                "description": "Scale center.",
+                "default":[1, 1, 1]
+            },
+            "scaleRandom":{
+                "type": "vectord[3]",
+                "description": "Scale range."
+            },
+            "rotateXYZ":{
+                "type": "vectord[3]",
+                "description": "Rotation center."
+            },
+            "rotateXYZRandom":{
+                "type": "vectord[3]",
+                "description": "Rotation range."
+            },
+            "position":{
+                "type": "vectord[3]",
+                "description": "Position center."
+            },
+            "positionRandom":{
+                "type": "vectord[3]",
+                "description": "Position range."
+            }
+        },
+        "outputs": {
+            "transform": {
+                "type": "matrixd[4]",
+                "description": "Generated random transform."
+            }
+        }
+    }
+}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="18"
+   height="18"
+   viewBox="0 0 18 18"
+   version="1.1"
+   id="svg836"
+   sodipodi:docname="stroke_l_dark.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs840" />
+  <sodipodi:namedview
+     id="namedview838"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="45.608387"
+     inkscape:cx="3.9576054"
+     inkscape:cy="8.737428"
+     inkscape:window-width="3440"
+     inkscape:window-height="1369"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg836" />
+  <g
+     id="g1102">
+    <rect
+       id="iconBase"
+       width="18.000027"
+       height="17.969046"
+       fill="none"
+       x="-4.3409244e-08"
+       y="-5.2425346e-08"
+       transform="matrix(0.99999852,0.00171969,0,1,0,0)"
+       style="stroke-width:1.22369" />
+    <path
+       id="Intersection_15"
+       data-name="Intersection 15"
+       d="M 4.6505,17.5 9.2065,0.49999994 h 4.143 L 8.7945,17.5 Z"
+       fill="#ffffff"
+       style="fill:#a8a8a8;fill-opacity:1" />
+  </g>
+</svg>

@@ -1,0 +1,45 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+
+version = "106.3.7"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Jeff Hanna"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Omniverse Light Rigs"
+description="Provides lighting rig presets"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['light rigs', 'lighting']
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.rst"
+
+category = "Kit::exts"
+readme = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+
+[dependencies]
+
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.viewport.navigation.home".
+[[python.module]]
+name = "omni.light_rigs"
+
+[[test]]
+dependencies = []
+args = []
+
+stdoutFailPatterns.exclude = []
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.rst",
+]

@@ -1,0 +1,183 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+
+version = "110.0.4"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Ning Li"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Viewport bottom menubar"
+description="Provide the home button and functon in navigation bar."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['navigation', 'bar', 'home']
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.rst"
+
+category = "Kit::exts"
+readme = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+writeTarget.kit = true
+
+[package.target]
+kit = ["107.3"]  # Required for Event 2.0
+
+[dependencies]
+"omni.kit.viewport.navigation.core" = {}
+"omni.kit.viewport.utility" = {}
+"omni.kit.manipulator.camera" = {}
+"omni.kit.window.cursor" = {}
+"omni.kit.notification_manager" = {optional = true}
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.viewport.navigation.home".
+[[python.module]]
+name = "omni.kit.viewport.navigation.camera_manipulator"
+
+[settings]
+"app.navigation.test".golden_compare= true
+exts."omni.kit.viewport.navigation.camera_manipulator".dolly_order= -900
+exts."omni.kit.viewport.navigation.camera_manipulator".pan_order= -899
+exts."omni.kit.viewport.navigation.camera_manipulator".orbit_order= -888
+exts."omni.kit.viewport.navigation.camera_manipulator".look_order= -887
+exts."omni.kit.viewport.navigation.camera_manipulator".frame_order= -887
+exts."omni.kit.viewport.navigation.camera_manipulator".sporder= -800
+exts."omni.kit.viewport.navigation.camera_manipulator".dolly_visible= true
+exts."omni.kit.viewport.navigation.camera_manipulator".pan_visible= true
+exts."omni.kit.viewport.navigation.camera_manipulator".orbit_visible= true
+exts."omni.kit.viewport.navigation.camera_manipulator".look_visible= true
+exts."omni.kit.viewport.navigation.camera_manipulator".frame_visible= true
+exts."omni.kit.viewport.navigation.camera_manipulator".defaultOperation = "none"
+exts."omni.kit.viewport.navigation.camera_manipulator".quitWhenKeyPressed = false
+exts."omni.kit.viewport.navigation.camera_manipulator".alwaysOn = false
+exts."omni.kit.viewport.navigation.camera_manipulator".orbitAutoCenter = true
+exts."omni.kit.viewport.navigation.camera_manipulator".orbitAutoFrameSelected = true
+exts."omni.kit.viewport.navigation.camera_manipulator".orbitDelayRaycastscene = true
+exts."omni.kit.viewport.navigation.camera_manipulator".defaultOrbitDistance = 500 # in centimeter
+exts."omni.kit.viewport.navigation.camera_manipulator".minCenterOfInterestDistance = 10.0 # minimum COI distance in stage units to prevent dolly infinity-point
+exts."omni.kit.viewport.navigation.camera_manipulator".maxNavigationMagnitude = 2000.0 # maximum navigation clamp magnitude for ndc_scale/world_speed
+persistent.exts."omni.kit.viewport.navigation.camera_manipulator".orbitMaintainDistanceToFocal = true
+persistent.exts."omni.kit.viewport.navigation.camera_manipulator".fov = 8
+# Maximum interval for double click, default is 100
+exts."omni.ui".clickGesture.multiClickWait = 200
+
+[[test]]
+name="ui"
+pythonTests.include = [ "omni.kit.viewport.navigation.camera_manipulator.tests.test_ui*" ]
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+    "omni.kit.test_suite.helpers",
+    "omni.kit.viewport.menubar.display",
+    "omni.kit.notification_manager",
+]
+"filter:platform"."windows-x86_64".dependencies = [
+    # fix [Error][gpu.foundation.plugin] Cannot load shader file
+    "omni.rtx.shadercache.d3d12",
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+    "omni.kit.test_suite.helpers",
+    "omni.kit.viewport.menubar.display",
+    "omni.kit.notification_manager",
+]
+args = [
+    # OMPE-66357: the emulated double click in _set_orbit_target() separates its two clicks by four
+    # frames, and both sc.DoubleClickGesture and PreventOthers.amend_input pair clicks by wall clock.
+    # A cold/loaded agent renders these path-traced tests slowly enough that four frames exceed the
+    # 200ms product default, so widen the window for the test process only.
+    "--/exts/omni.ui/clickGesture/multiClickWait=1000",
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/persistent/rtx/modes/pt/enabled=true",
+    "--/renderer/multiGpu/enabled=false",
+    "--/renderer/multiGpu/autoEnable=false",
+    "--/renderer/multiGpu/maxGpuCount=1",
+    "--/ngx/enabled=false", # Disable AntiAliasing and Reflections
+    "--/rtx/post/aa/op=0",
+    "--/rtx/reflections/enabled=0",
+    "--/app/window/width=800",
+    "--/app/window/height=300",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    "--/exts/omni.kit.viewport.navigation.core/bottom_offset=10",
+    "--/persistent/app/viewport/displayOptions=1568",
+    "--/persistent/app/viewport/Viewport/Viewport0/hud/cameraSpeed/visible=false",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/app/fastShutdown=1",
+    "--/app/useFabricSceneDelegate=false",
+]
+
+stdoutFailPatterns.exclude = [
+    "*[gpu.foundation.plugin]*rtx/utils/BufferTexture.comp.hlsl*",
+    "*[gpu.foundation.plugin] PsoCompute::createPipeline and shader loading failed.*",
+    "*[gpu.foundation.plugin] Cannot load shader file*",
+    "*[gpu.foundation.plugin] buildShaderAsync() failed*",
+    "*[Error] [rtx.denoising.plugin] Failed*",
+    "*[Error] [rtx.scenedb] Failed*",
+    "*[Error] [omni.rtx] Failed*",
+]
+
+[[test]]
+name="camera"
+pythonTests.include = [
+    "omni.kit.viewport.navigation.camera_manipulator.tests.tests.TestCamera*",
+    "omni.kit.viewport.navigation.camera_manipulator.tests.test_extent*",
+]
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+    "omni.kit.test_suite.helpers",
+    "omni.kit.viewport.menubar.display",
+    "omni.kit.notification_manager",
+    # "omni.rtx.shadercache.vulkan",  # legacy RTX shader cache; absent from Kit 111 (OVRTX)
+    # "omni.hydra.usdrt_delegate",  # removed from Kit 111 (K111-RENDER-001); OVRTX renders Fabric/ovstage directly
+    "usdrt.scenegraph", # bring in FSD, required for one of the tests
+]
+args = [
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/persistent/rtx/modes/pt/enabled=true",
+    "--/renderer/multiGpu/enabled=false",
+    "--/renderer/multiGpu/autoEnable=false",
+    "--/renderer/multiGpu/maxGpuCount=1",
+    "--/ngx/enabled=false", # Disable AntiAliasing and Reflections
+    "--/rtx/post/aa/op=0",
+    "--/rtx/reflections/enabled=0",
+    "--/app/window/width=800",
+    "--/app/window/height=300",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    "--/exts/omni.kit.viewport.navigation.core/bottom_offset=10",
+    "--/persistent/app/viewport/displayOptions=1568",
+    "--/persistent/app/viewport/Viewport/Viewport0/hud/cameraSpeed/visible=false",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/app/fastShutdown=1",
+    "--/app/useFabricSceneDelegate=true", # enable FSD
+]
+
+stdoutFailPatterns.exclude = [
+    "*failed to get rt interface*",
+    "*Could not load any plugins to populate Fabric*",
+    "*usdrt::population::IUtils could not be created*",
+    "*Failed to create Fabric Scene Delegate, falling back to UsdImaging*",
+    "*[Error] [gpu.foundation.plugin] Failed*",
+    "*[Error] [rtx.scenedb.plugin] Failed*",
+    "*[Error] [rtx.scenedb] Failed*",
+    "*[Error] [omni.rtx] Failed*",
+]
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.rst",
+]

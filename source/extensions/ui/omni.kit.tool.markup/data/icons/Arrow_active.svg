@@ -1,0 +1,4 @@
+<svg id="Arrow_active" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+  <rect id="iconBase" width="28" height="28" fill="none"/>
+  <path id="Arrow" d="M3.53,27V9.978H0L5,0l5,9.978H6.471V27Z" transform="translate(7.355 27.779) rotate(-135)" fill="#1a91c5"/>
+</svg>

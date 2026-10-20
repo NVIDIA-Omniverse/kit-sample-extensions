@@ -1,0 +1,12 @@
+<project toolsVersion="5.0" remotes="kit-kernel">
+  <!-- Kit 111 publiclibs fdb8d7a4: Windows/Linux x86-64 use the public feature aliases.
+       SHA256 values match Kit publication run 39334777388, attempt 4 delivery receipts.
+       ARM is internal-only and is removed from the public staging manifest. -->
+  <remote2 name="kit-kernel">
+    <transport actions="download" protocol="https" packageLocation="d4i3qtqj3r0z5.cloudfront.net/${name}@${version}" />
+  </remote2>
+  <dependency name="kit_sdk_${config}" linkPath="../_build/${platform_target}/${config}/kit" tags="${config} non-redist">
+    <package name="kit-kernel" version="111.0.0+feature.manylinux_2_35_x86_64.release" platforms="linux-x86_64 manylinux_2_35_x86_64" checksum="f4e5073210176a3b5e8744aa6ae2417637ba4c2a0afb14f631081ecd20fb72e5" />
+    <package name="kit-kernel" version="111.0.0+feature.windows-x86_64.release" platforms="windows-x86_64" checksum="99830d32d4202b21c5d3f5d230bf0dc2a7e723e0c9bffd8f2c5f9fcb6f084831" />
+  </dependency>
+</project>

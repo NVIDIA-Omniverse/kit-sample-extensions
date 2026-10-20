@@ -1,0 +1,41 @@
+[package]
+authors = ["Jozef van Eenbergen"]
+category = "Services"
+changelog="docs/CHANGELOG.md"
+description="Collect USD files as a service"
+icon = "data/icon.png"
+keywords = ["kit", "services", "asset", "collect"]
+preview_image = "data/preview.png"
+readme  = "docs/README.md"
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+title = "USD file collection service"
+version = "0.11.1"
+
+[dependencies]
+"omni.services.pip_archive" = {}
+"omni.kit.pip_archive" = {}
+"omni.services.core" = {}
+"omni.kit.usd.collect" = {}
+"omni.services.facilities.monitoring.metrics" = {}
+"omni.services.facilities.monitoring.progress" = {}
+
+[[python.module]]
+name = "omni.services.collect"
+
+[settings]
+exts."omni.services.collect".concurrency = 8
+exts."omni.services.collect".collectors.aws.region = ""
+exts."omni.services.collect".collectors.aws.profile = ""
+
+# Disabled by default == verify = True and use default ssl certs.
+# Accepted arguments:
+# - bool: True/False will enable/disable verifying SSL certificates
+# - string: Path to a certificate bundle to use
+#exts."omni.services.collect".collectors.aws.verify_ssl = ""
+
+[[test]]
+stdoutFailPatterns.exclude = [
+    # As this service runs headless, without GPU, this is not needed for the part of omni.kit.tool that is used.
+    "*Either omni::kit::renderer::IRenderer or carb::renderer::Renderer should be present*",
+    "*No device could be created*"
+]

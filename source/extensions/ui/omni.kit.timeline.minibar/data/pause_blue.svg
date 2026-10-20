@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="pause_dark"
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   version="1.1"
+   sodipodi:docname="pause_blue.svg"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="37.125"
+     inkscape:cx="12"
+     inkscape:cy="12"
+     inkscape:window-width="1920"
+     inkscape:window-height="1129"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="pause_dark" />
+  <rect
+     id="iconBase"
+     width="24"
+     height="24"
+     fill="none" />
+  <rect
+     id="Rectangle_1424"
+     data-name="Rectangle 1424"
+     width="8"
+     height="20"
+     rx="1"
+     transform="translate(3 2)"
+     fill="#c2c2c2"
+     style="fill:#33cbff;fill-opacity:1" />
+  <rect
+     id="Rectangle_1425"
+     data-name="Rectangle 1425"
+     width="8"
+     height="20"
+     rx="1"
+     transform="translate(13 2)"
+     fill="#c2c2c2"
+     style="fill:#33cbff;fill-opacity:1" />
+</svg>

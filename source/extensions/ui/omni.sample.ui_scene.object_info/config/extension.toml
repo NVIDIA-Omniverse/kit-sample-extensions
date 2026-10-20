@@ -1,0 +1,55 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: LicenseRef-NvidiaProprietary
+#
+# NVIDIA CORPORATION, its affiliates and licensors retain all intellectual
+# property and proprietary rights in and to this material, related
+# documentation and any modifications thereto. Any use, reproduction,
+# disclosure or distribution of this material and related documentation
+# without an express license agreement from NVIDIA CORPORATION or
+# its affiliates is strictly prohibited.
+
+[package]
+title = "Omni.UI Scene Sample Object Info"
+version = "1.1.0"  # Semantic Versioning is used: https://semver.org/
+description = "This sample shows a 3D info popover-type tool tip scene object"
+category = "Example"  # How to categorize this in the Extension Manager
+changelog = "docs/CHANGELOG.md"
+icon = "data/icon.png"  # Icon to show in the Extension Manager
+keywords = ["ui", "example", "scene", "docs", "documentation", "popover"]  # Search keywords for the Extension Manager
+preview_image = "data/preview.png"  # Preview to show in the Extension Manager
+readme  = "docs/README.md"  # Path (relative to the root) or content of readme markdown file for UI
+
+
+[dependencies]
+"omni.ui.scene" = {}
+"omni.usd" = {}
+"omni.kit.viewport.utility" = {}
+
+[[python.module]]  # Main python module this extension provides, it will be publicly available as "import omni.sample.ui_scene.object_info"
+name = "omni.sample.ui_scene.object_info"
+
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.md",
+]
+
+
+[[test]]
+args = [
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--no-window"
+]
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+]
+
+[[test]]
+name="startup"
+stdoutFailPatterns.exclude = [
+    "*No Viewport Window to add omni.sample.ui_scene.object_info*"
+]

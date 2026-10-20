@@ -1,0 +1,115 @@
+[package]
+# Semantic Versioning is used: https://semver.org/
+version = "1.2.87"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = [
+    "Ning Li", "Gang Zeng",
+    "Jeff Hanna", "Bob White"
+]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Markup Tool"
+description="A markuptool window"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ["markup", "tool", "view"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme  = "docs/README.md"
+
+# Preview image and icon. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+# Preview image is shown in "Overview" of Extensions window. Screenshot of an extension might be a good preview image.
+preview_image = "data/preview.png"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "data/icons/MarkUp.svg"
+category = "Other"
+feature = true
+
+[package.target]
+kit = ["107.3"]
+
+[package.writeTarget]
+kit = true
+
+# We only depend on testing framework currently:
+[dependencies]
+"omni.ui" = {}
+"omni.ui.scene" = {}
+"omni.kit.async_engine" = {}
+"omni.kit.widgets.custom" = {}
+"omni.usd" = {}
+"omni.kit.waypoint.core" = {}
+"omni.kit.markup.core" = {}
+"omni.kit.viewport.utility" = {}
+"omni.kit.viewport.registry" = {}
+"omni.kit.markup.playlist" = {}
+"omni.kit.window.preferences" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.tool.markup".
+[[python.module]]
+name = "omni.kit.tool.markup"
+path = "."
+
+[settings]
+exts."omni.kit.tool.markup".selectionTolerance = 0.5
+exts."omni.kit.tool.markup".toolbar_offset = 10
+
+[documentation]
+pages = ["docs/CHANGELOG.md"]
+
+[[test]]
+# 50 UI tests with synchronous rendering (asyncRendering=false) take ~330 s on Kit 111/OVRTX: above the 300 s default.
+timeout = 900
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+    "omni.kit.test_suite.helpers",
+    "omni.kit.hotkeys.core",
+]
+
+args = [
+    "--/app/fastShutdown=1",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/app/asyncRendering=false",
+    "--/app/viewport/defaults/guide/axis/visible=false",
+    "--/app/viewport/defaults/guide/grid/visible=false",
+    "--/app/viewport/defaults/hud/visible=false",
+    "--/app/renderer/resolution/width=1280",
+    "--/app/renderer/resolution/height=720",
+    "--/app/window/width=1280",
+    "--/app/window/height=720",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/exts/omni.kit.markup.core/enable_hotkeys=true",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    "--/renderer/active=ovrtx",
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/multiGpu/enabled=false",
+    "--/renderer/multiGpu/autoEnable=false",
+    "--/renderer/multiGpu/maxGpuCount=1",
+    "--reset-user",
+    "--no-window",
+]
+# Only seems to happen when our renderer is set to rtx
+stdoutFailPatterns.exclude = [
+    "*Task was destroyed but it is pending*",
+    "*Task exception was never retrieved*",
+    # EA1 only (Kit 111): the published libraries refuse a custom string attribute's write (OVStage "has a different type"); every test passes. Remove when the libraries ship #2840.
+    "*[omni.runtime.core]*ovstage pump_apply_usd_changes op * failed: failed to enqueue write_attributes for *: write_attributes: existing attribute '*' has a different type*",
+    "*[omni.runtime.core]*ovstage pump_apply_usd_changes failed (12): *",
+    "*[omni.runtime.core]*PUMP apply_usd_changes at ordinal * failed; nothing commits until the stage is repopulated past it*",
+]
+
+pyCoverageOmit = [
+    "omni/kit/tool/markup/tests/*"
+]

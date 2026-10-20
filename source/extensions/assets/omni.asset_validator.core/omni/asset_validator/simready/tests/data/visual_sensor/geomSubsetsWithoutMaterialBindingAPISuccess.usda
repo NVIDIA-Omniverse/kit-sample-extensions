@@ -1,0 +1,77 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    """
+    This USD presents geomsubsets with valid material bindings.
+    - All subsets have valid material binding.
+    - Partial subsets have material binding and the parent gprim has vaild material binding.
+    """
+)
+
+def Xform "World"
+{
+    def Mesh "Cube_GeomSubset"
+    {
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 0, 4, 5, 1, 1, 5, 6, 3, 2, 3, 6, 7, 0, 2, 7, 4, 4, 7, 6, 5]
+        point3f[] points = [(-50, -50, -50), (50, -50, -50), (-50, -50, 50), (50, -50, 50), (-50, 50, -50), (50, 50, -50), (50, 50, 50), (-50, 50, 50)]
+
+        def GeomSubset "first"
+        {
+            uniform token elementType = "face"
+            uniform token familyName = "materialBind"
+            int[] indices = [0, 1, 2]
+            rel material:binding:full = </World/Looks/valid_material>
+        }
+        def GeomSubset "second"
+        {
+            uniform token elementType = "face"
+            uniform token familyName = "materialBind"
+            int[] indices = [3, 4, 5]
+            rel material:binding = </World/Looks/valid_material>
+        }
+    }
+
+
+    def Mesh "Cube_GeomSubset_partial"
+    {
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 0, 4, 5, 1, 1, 5, 6, 3, 2, 3, 6, 7, 0, 2, 7, 4, 4, 7, 6, 5]
+        point3f[] points = [(-50, -50, -50), (50, -50, -50), (-50, -50, 50), (50, -50, 50), (-50, 50, -50), (50, 50, -50), (50, 50, 50), (-50, 50, 50)]
+
+        rel material:binding = </World/Looks/valid_material>
+
+        def GeomSubset "first" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform token elementType = "face"
+            uniform token familyName = "materialBind"
+            int[] indices = [0, 1, 2]
+            rel material:binding:full = </World/Looks/valid_material>
+        }
+        def GeomSubset "no_subset_material" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform token elementType = "face"
+            uniform token familyName = "materialBind"
+            int[] indices = [3, 4, 5]
+        }
+    }
+
+    def Scope "Looks"
+    {
+        def Material "valid_material"
+        {
+            token outputs:mdl:surface.connect = </World/Looks/valid_material/Shader.outputs:out>
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @SimPBR.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "SimPBR"
+                token outputs:out
+            }
+        }
+    }
+}

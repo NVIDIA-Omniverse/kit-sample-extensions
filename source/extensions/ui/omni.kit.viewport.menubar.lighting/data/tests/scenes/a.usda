@@ -1,0 +1,81 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def Xform "Xform_01"
+    {
+        def Xform "Xform_a"
+        {
+            def Xform "Xform_b"
+            {
+                def Xform "Xform_c"
+                {
+                    def Xform "Xform_d"
+                    {
+                    }
+                }
+            }
+        }
+    }
+
+    def Xform "Xform_02"
+    {
+        def Xform "Xform_a"
+        {
+            def Xform "Xform_b"
+            {
+                def Xform "Xform_c"
+                {
+                    def Xform "Xform_d"
+                    {
+                    }
+                }
+            }
+        }
+    }
+
+    def Xform "Xform_03"
+    {
+        def Xform "Xform_a"
+        {
+            def Xform "Xform_b"
+            {
+                def Xform "Xform_c"
+                {
+                    def Xform "Xform_d"
+                    {
+                        def Xform "Xform_e"
+                        {
+                            def DistantLight "defaultLight" (
+                                prepend apiSchemas = ["ShapingAPI"]
+                            )
+                            {
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    def Xform "Xform_04"
+    {
+        def Xform "Xform_a"
+        {
+            def Xform "Xform_b"
+            {
+                def Xform "Xform_c"
+                {
+                    def Xform "Xform_d"
+                    {
+                    }
+                }
+            }
+        }
+    }
+}
+

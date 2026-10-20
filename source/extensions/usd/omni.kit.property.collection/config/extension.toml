@@ -1,0 +1,42 @@
+[package]
+version = "0.2.4"
+category = "Internal"
+authors = ["Eoin Murphy"]
+title = "USD Collection Property Widget (Preview)"
+description="USD Collection Property Widget"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+keywords = ["kit", "usd", "property", "collection"]
+changelog="docs/CHANGELOG.md"
+readme = "docs/README.md"
+
+[[python.module]]
+name = "omni.kit.property.collection"
+
+[dependencies]
+"omni.usd" = {}
+"omni.ui" = {}
+"omni.kit.window.property" = {}
+"omni.kit.property.usd" = {}
+"omni.kit.core.collection" = {}
+
+[[test]]
+dependencies = [
+    # The tests attach the open stage through usdrt.Usd, which answers only with a running Runtime Core.
+    # Kit 111: usdrt.scenegraph no longer brings it, and since Kit PR 2404 a lookup without it is an error.
+    "omni.runtime.core",
+    "omni.kit.mainwindow",
+    "omni.kit.ui_test",
+    "omni.kit.window.collection",
+]
+
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--no-window",
+]
+
+stdoutFailPatterns.exclude = [
+    "*[Error] [carb.graphics-direct3d.plugin]*",
+    "*[Error] [gpu.foundation.plugin]*",
+]

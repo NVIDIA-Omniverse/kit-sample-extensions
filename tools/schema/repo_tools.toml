@@ -1,0 +1,4 @@
+[repo_build_schema]
+command = "build_schema"
+entry_point = "build_schema:setup_repo_tool"
+enabled = true

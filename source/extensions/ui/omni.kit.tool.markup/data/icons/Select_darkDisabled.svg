@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="select_markUp_dark"
+   width="40"
+   height="40"
+   viewBox="0 0 40 40"
+   version="1.1"
+   sodipodi:docname="Select_darkDisabled.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2074" />
+  <sodipodi:namedview
+     id="namedview2072"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="21.825"
+     inkscape:cx="20"
+     inkscape:cy="20"
+     inkscape:window-width="3440"
+     inkscape:window-height="1369"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="select_markUp_dark" />
+  <rect
+     id="Icon_Base"
+     width="40"
+     height="40"
+     fill="none" />
+  <path
+     id="SelectArrow"
+     d="M21.2,19.776l.242.322.042.125.042.159v.367l-.042.159-.042.163-.079.2-.121.163-.246.2-.28.163-.367.042H13.171l3.768,9.036.084.242.038.2-.038.242-.084.242-.079.2-.163.159-.163.163-.2.121-3.325,1.42-.242.079L12.524,34l-.2-.042-.242-.079-.2-.079-.163-.163-.163-.2-.121-.163L7.862,24.68,2.026,30.554l-.163.163-.2.121-.242.084-.2.038-.243-.038-.242-.084-.284-.2-.242-.2-.163-.322L0,29.743V1.253L.042.848.2.564.447.28.731.08.973,0H1.42l.242.08.2.121.163.163L21.2,19.776Z"
+     transform="translate(9 3)"
+     fill="#a8a8a8"
+     fill-rule="evenodd"
+     style="fill:#333333;fill-opacity:1" />
+</svg>

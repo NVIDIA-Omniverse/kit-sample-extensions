@@ -1,0 +1,148 @@
+[package]
+category = "Internal"
+feature = true
+title = "Movie Capture"
+description = "Render and capture the viewport for a single frame or multiple ones."
+icon = "data/icon.png"
+preview_image = "data/preview.png"
+readme = "docs/README.md"
+version = "3.0.11"
+changelog = "docs/CHANGELOG.md"
+keywords = ["render", "sequence", "farm", "movie"]
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+authors = ["Quan Chen", "Jozef van Eenbergen"]
+
+[package.target]
+kit = ["109.0"]
+
+[package.writeTarget]
+kit = true
+
+[dependencies]
+"omni.usd" = {}
+"omni.timeline" = {}
+"omni.ui" = {}
+"omni.client" = {}
+"omni.kit.capture.viewport" = {}
+"omni.kit.usd.layers" = {}
+"omni.kit.viewport.utility" = {}
+"omni.kit.window.filepicker" = {}
+"omni.rtx.window.settings" = { optional = true }
+"omni.iray.settings.core" = { optional = true }
+"omni.kit.widget.prompt" = {}
+"omni.kit.window.popup_dialog" = {}
+"omni.services.client" = {}
+"omni.services.transport.client.http_async" = {}
+"omni.anim.window.timeline" = { optional = true }
+"omni.kit.menu.utils" = {}
+
+[[python.module]]
+name = "omni.kit.window.movie_capture"
+
+[[test]]
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    # "omni.rtx.tests",  # only mentioned in test comments; absent from Kit 111
+    "omni.services.core",
+    "omni.kit.test_suite.helpers",
+    # "omni.kit.environment.sunstudy",  # optional at runtime (sunstudy UI only); in no Kit 111 build or registry
+    "omni.kit.ui_test",
+    "omni.kit.menu.aov",
+    "omni.videoencoding",
+]
+stdoutFailPatterns.exclude = [
+    "*extension object is still alive, something holds a reference on it*",
+    "*createDLSSContext error: unable to initialize context. Optional DLSS feature is disabled.*",
+    "*[Error] [carb.events.python] TypeError: set_int(): incompatible function arguments.*",
+    #FIXME: this error above is legit, although it is not affecting test results;
+    # We need to fix this issue and remove the exclude pattern later.
+    # This issue seems to be caused by setting displayOptions to None instead of an int.
+    "*Invailid resource for aov*",  # OMPE-59716
+    "*[omni.usd-abi.plugin] Type mismatch*",
+    # OMPE-97878: RTX-Minimal skips post-processing, so the renderer's unconditional HDR->LDR
+    # tonemap pass fails when capturing a product with both Ldr/Hdr AOVs. Benign for the capture.
+    "*[carb.scenerenderer-rtx.plugin] Failed to add HDR to LDR Tonemap*",
+]
+args = [
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/app/asyncRendering=true",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/exts/omni.kit.test/pyCoverageEnabled=true",
+    "--no-window",
+    "--allow-root",
+    # Workaround for issue in `omni.graph.core` where content from a USD Stage already being loaded can result in errors
+    # when attempting to unload/load a new USD Stage. This results in errors being detected when loading a test Stage in
+    # the `TestSetUiValues` test case, which requires loading a stage with known values already being persisted (see
+    # OM-113003 for details).
+    "--/app/content/emptyStageOnStart=true",
+    "--/exts/omni.kit.window.movie_capture/default_render_preset=''",
+]
+timeout = 900
+
+[settings.exts."omni.kit.window.movie_capture"]
+# Default fps to set when showing the movie capture window.
+# Supported values are 24, 25, 30, and 60.
+default_fps = 24
+fps_list = "24, 25, 30, 50, 60"
+
+# Default output capture type to set when showing the movie capture window
+# Supported values are ".png", ".tga", ".exr", and ".mp4"
+default_capture_type = ".png"
+
+# Default render mode to set when showing the movie capture window
+# Supported values are "RaytracedLighting", "PathTracing", "RealTimePathTracing",
+# "MinimalRendering" (requires `/persistent/rtx/modes/minimal/enabled`), and "iray".
+default_render_preset = "RaytracedLighting"
+
+# Default samples per pixel per iteration to set when showing the movie capture window
+# Recommended value is 1 to get better performance for multi-GPUs
+# This setting is used in PathTracing mode only.
+default_spp_per_iteration = 1
+
+# Default sample per pixel per subframe to set when showing the movie capture window
+# This setting is used in PathTracing mode only.
+default_spp_per_subframe = 1
+
+# Default subframes per frame to set when showing the movie capture window
+# This setting is used in PathTracing mode only.
+default_subframe_per_frame = 64
+
+# Default motion blur frame shutter open value to set when showing the movie capture window
+# This setting is used in PathTracing mode only.
+default_frame_shutter_open = 0.0
+
+# Default motion blur frame shutter close value to set when showing the movie capture window
+# This setting is used in PathTracing mode only.
+default_frame_shutter_close = 0.5
+
+# Default iterations number to set for IRay when showing the movie capture window
+# This setting is used in IRay mode only.
+default_iray_iterations = 1
+
+# Default subframes per frame to set when showing the movie capture window for Iray
+# This setting is used in Iray mode only.
+default_iray_subframes_per_frame = 32
+
+# Job type to submit to the Omniverse Queue.
+farm_job_name = "create-render"
+
+# Settings service to discovery farm queue.
+settings_service = "http://settings.omni-farm.svc.cluster.local"
+
+# Toggle to validate the sanity of USD file before capturing
+validate_usd = true
+
+# Endpoint of the Omniverse Queue Management to navigate to when presenting the User with quick-access button
+# NOTE: This value is expected to have a leading slash.
+queue_management_endpoint_prefix = "/queue/management"
+
+# set movie capture to work in OVC environment
+ovc_mode = false
+
+# A list of available Omniverse Farm Queues:
+[settings.exts."omni.kit.window.movie_capture".available_farms]
+"localhost Queue" = "http://localhost:8222"
+
+[documentation]
+pages = ["docs/Overview.md", "docs/AdvancedRenderingFeatures.md", "docs/CHANGELOG.md", "docs/SETTINGS.md"]

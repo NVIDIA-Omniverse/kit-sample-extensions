@@ -1,0 +1,277 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary audioSettings = {
+            double dopplerLimit = 2
+            double dopplerScale = 1
+            double nonSpatialTimeScale = 1
+            double spatialTimeScale = 1
+            double speedOfSound = 340
+        }
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (0, 0, 50000)
+                double radius = 500
+            }
+            dictionary Perspective = {
+                double3 position = (346.8879067339346, 207.16761489329494, 560.2169168632729)
+                double3 target = (-152.75321704665316, 170.7360353526244, -146.20469056351251)
+            }
+            dictionary Right = {
+                double3 position = (-50000, 0, -1.1102230246251565e-11)
+                double radius = 500
+            }
+            dictionary Top = {
+                double3 position = (-4.329780281177466e-12, 50000, 1.1102230246251565e-11)
+                double radius = 500
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            dictionary muteness = {
+            }
+        }
+        dictionary renderSettings = {
+        }
+    }
+    metersPerUnit = 0.01
+    upAxis = "Y"
+)
+
+def Mesh "Cube"
+{
+    int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+    int[] faceVertexIndices = [0, 1, 3, 2, 0, 4, 5, 1, 1, 5, 6, 3, 2, 3, 6, 7, 0, 2, 7, 4, 4, 7, 6, 5]
+    rel material:binding = </World/Looks/Adobe_Octagon_Dots> (
+        bindMaterialAs = "strongerThanDescendants"
+    )
+    normal3f[] normals = [(0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0)] (
+        interpolation = "faceVarying"
+    )
+    point3f[] points = [(-50, -50, -50), (50, -50, -50), (-50, -50, 50), (50, -50, 50), (-50, 50, -50), (50, 50, -50), (50, 50, 50), (-50, 50, 50)]
+    bool primvars:doNotCastShadows = 0
+    float2[] primvars:st = [(1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0)] (
+        interpolation = "faceVarying"
+    )
+    uniform token subdivisionScheme = "none"
+    double3 xformOp:rotateXYZ = (0, 0, 0)
+    double3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (-137.25945454498049, 161.33505825983792, 135.1916349372829)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+def Mesh "Cube_01"
+{
+    int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+    int[] faceVertexIndices = [0, 1, 3, 2, 0, 4, 5, 1, 1, 5, 6, 3, 2, 3, 6, 7, 0, 2, 7, 4, 4, 7, 6, 5]
+    rel material:binding = </World/Looks/Cherry_Planks> (
+        bindMaterialAs = "strongerThanDescendants"
+    )
+    normal3f[] normals = [(0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0)] (
+        interpolation = "faceVarying"
+    )
+    point3f[] points = [(-50, -50, -50), (50, -50, -50), (-50, -50, 50), (50, -50, 50), (-50, 50, -50), (50, 50, -50), (50, 50, 50), (-50, 50, 50)]
+    bool primvars:doNotCastShadows = 0
+    float2[] primvars:st = [(1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0)] (
+        interpolation = "faceVarying"
+    )
+    uniform token subdivisionScheme = "none"
+    double3 xformOp:rotateXYZ = (0, 0, 0)
+    double3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (-2.0096755502928545, 161.3350582598323, 12.12029648792975)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+def Mesh "Cube_02"
+{
+    int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+    int[] faceVertexIndices = [0, 1, 3, 2, 0, 4, 5, 1, 1, 5, 6, 3, 2, 3, 6, 7, 0, 2, 7, 4, 4, 7, 6, 5]
+    rel material:binding = </World/Looks/Bamboo> (
+        bindMaterialAs = "strongerThanDescendants"
+    )
+    normal3f[] normals = [(0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0)] (
+        interpolation = "faceVarying"
+    )
+    point3f[] points = [(-50, -50, -50), (50, -50, -50), (-50, -50, 50), (50, -50, 50), (-50, 50, -50), (50, 50, -50), (50, 50, 50), (-50, 50, 50)]
+    bool primvars:doNotCastShadows = 0
+    float2[] primvars:st = [(1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0)] (
+        interpolation = "faceVarying"
+    )
+    uniform token subdivisionScheme = "none"
+    double3 xformOp:rotateXYZ = (0, 0, 0)
+    double3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (147.95085125187939, 161.33505825983218, -110.17139656978964)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+def "World"
+{
+    def "Looks"
+    {
+        def Material "Bamboo_Planks"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/Bamboo_Planks/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/Bamboo_Planks/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/Bamboo_Planks/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @http://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Wood/Bamboo_Planks.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "Bamboo_Planks"
+                token outputs:out
+            }
+        }
+
+        def Material "Brick_Pavers"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/Brick_Pavers/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/Brick_Pavers/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/Brick_Pavers/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @http://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Masonry/Brick_Pavers.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "Brick_Pavers"
+                token outputs:out
+            }
+        }
+
+        def Material "Brushed_Antique_Copper"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/Brushed_Antique_Copper/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/Brushed_Antique_Copper/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/Brushed_Antique_Copper/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @http://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Metals/Brushed_Antique_Copper.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "Brushed_Antique_Copper"
+                token outputs:out
+            }
+        }
+
+        def Material "Clear_Glass"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/Clear_Glass/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/Clear_Glass/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/Clear_Glass/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @http://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Glass/Clear_Glass.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "Clear_Glass"
+                token outputs:out
+            }
+        }
+
+        def Material "Cherry_Planks"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/Cherry_Planks/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/Cherry_Planks/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/Cherry_Planks/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @http://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Wood/Cherry_Planks.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "Cherry_Planks"
+                token outputs:out
+            }
+        }
+
+        def Material "Cherry"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/Cherry/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/Cherry/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/Cherry/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @http://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Wood/Cherry.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "Cherry"
+                token outputs:out
+            }
+        }
+
+        def Material "Chrome"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/Chrome/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/Chrome/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/Chrome/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @http://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Metals/Chrome.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "Chrome"
+                token outputs:out
+            }
+        }
+
+        def Material "CorrugatedMetal"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/CorrugatedMetal/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/CorrugatedMetal/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/CorrugatedMetal/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @http://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Metals/CorrugatedMetal.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "CorrugatedMetal"
+                token outputs:out
+            }
+        }
+
+        def Material "Aluminum_Anodized"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/Aluminum_Anodized/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/Aluminum_Anodized/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/Aluminum_Anodized/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @http://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Metals/Aluminum_Anodized.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "Aluminum_Anodized"
+                token outputs:out
+            }
+        }
+
+        def Material "Adobe_Octagon_Dots"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/Adobe_Octagon_Dots/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/Adobe_Octagon_Dots/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/Adobe_Octagon_Dots/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @http://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Stone/Adobe_Octagon_Dots.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "Adobe_Octagon_Dots"
+                token outputs:out
+            }
+        }
+
+        def Material "Bamboo"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/Bamboo/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/Bamboo/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/Bamboo/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @http://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Wood/Bamboo.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "Bamboo"
+                token outputs:out
+            }
+        }
+    }
+}
+

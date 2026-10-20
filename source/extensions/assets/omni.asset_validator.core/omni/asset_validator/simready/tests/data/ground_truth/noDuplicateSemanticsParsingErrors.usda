@@ -1,0 +1,57 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+
+    """
+    This USD references other layers to create each error twice.
+    """
+)
+
+def Xform "World" (
+    documentation = "The root node. No semantics are defined here."
+)
+{
+    def Xform "Error2" (
+        references = @./gprimWithInvalidQCode.usda@
+        """
+        gprimWithInvalidQCode.usda contains two gprims with errors under an Xform.
+        To trigger each error twice, we need only one child prim under the one that
+        contains the errors. We achieve that by overriding the prims with errors
+        and defining a child Xform under the overrides that brings in a valid gprim.
+        """
+    )
+    {
+        over "InvalidTypeName"
+        {
+            def Xform "Child1" (references = @./gprimWithValidQCode.usda@){}
+        }
+        over "InvalidValue"
+        {
+            def Xform "Child1" (references = @./gprimWithValidQCode.usda@){}
+        }
+    }
+
+    def Xform "Error6" (
+        references = @./gprimWithoutNewSchema.usda@
+    )
+    {
+        def Xform "Child1" (references = @./gprimWithValidQCode.usda@){}
+        def Xform "Child2" (references = @./gprimWithValidQCode.usda@){}
+    }
+
+    def Xform "Error7" (
+        references = @./gprimWithoutQCode.usda@
+    )
+    {
+        def Xform "Child1" (references = @./gprimWithValidQCode.usda@){}
+        def Xform "Child2" (references = @./gprimWithValidQCode.usda@){}
+    }
+
+    def Xform "Error9" (
+        references = @./gprimWithQCodeTimesamples.usda@
+    )
+    {
+        def Xform "Child1" (references = @./gprimWithQCodeOnMaterial.usda@){}
+        def Xform "Child2" (references = @./gprimWithQCodeOnMaterial.usda@){}
+    }
+}

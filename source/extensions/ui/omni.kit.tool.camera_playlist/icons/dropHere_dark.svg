@@ -1,0 +1,9 @@
+<svg id="dropHere_dark" xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+  <rect id="Icon_Base" width="96" height="96" fill="none"/>
+  <g id="Group_2858" data-name="Group 2858" transform="translate(330.252 -487.36)">
+    <path id="arrow" d="M402.586,48.894l.262,1.213v1.2l-.138.4-.262.538-.262.538-.538.4L374.087,81.129l-.662.538-.538.4-.8.276h-1.475l-.8-.276-.676-.4-.524-.538-27.7-27.948-.4-.4-.4-.538-.262-.538-.138-.4v-1.2l.4-1.213.676-1.2.662-.8,1.075-.4,1.062-.138h15.925V34.744h23.536V46.357h15.787l1.337.138.938.4.8.8Z" transform="translate(-653.873 491.815)" fill="#9d9d9d" fill-rule="evenodd"/>
+    <rect id="Rectangle_898" data-name="Rectangle 898" width="23.56" height="8.803" transform="translate(-294.368 516.121)" fill="#8b8b8b" opacity="0.75"/>
+    <rect id="Rectangle_899" data-name="Rectangle 899" width="23.56" height="8.803" transform="translate(-294.368 506.061)" fill="#747474" opacity="0.51"/>
+    <path id="Rectangle_900" data-name="Rectangle 900" d="M1,0H22.56a1,1,0,0,1,1,1V8.8a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V1A1,1,0,0,1,1,0Z" transform="translate(-294.368 496)" fill="#6c6c6c" opacity="0.25"/>
+  </g>
+</svg>

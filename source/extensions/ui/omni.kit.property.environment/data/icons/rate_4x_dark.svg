@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="rate_4x_dark" transform="translate(-275 -6)">
+    <rect id="iconBase" width="24" height="24" transform="translate(275 6)" fill="none"/>
+    <path id="_4x" data-name="4x" d="M9.664.5V-1.364H8.17V-4.628H6.223v3.264H2.743L7.658-11.392H5.5L.56-1.364V.5H6.223v2.1H8.17V.5Zm10.146,2.1-3.4-5.093,3.264-4.876H17.254L15.307-4.117,13.341-7.361H10.922l3.284,4.876L10.785,2.608H13.2l2.1-3.4,2.084,3.4Z" transform="translate(276.44 22.392)" fill="#c2c2c2"/>
+  </g>
+</svg>

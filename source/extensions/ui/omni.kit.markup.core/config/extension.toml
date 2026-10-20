@@ -1,0 +1,121 @@
+[package]
+# Semantic Versioning is used: https://semver.org/
+version = "1.3.6"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Ning LI", "Bob White", "Jeff Hanna"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Markup Core API"
+description="extension for markup core APIs."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ["markup", "core", "api"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme = "docs/README.md"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "icons/Preferences.svg"
+
+# Preview image and icon. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+# Preview image is shown in "Overview" of Extensions window. Screenshot of an extension might be a good preview image.
+preview_image = "icons/preview.png"
+
+category = "Other"
+display_name = "prim icon"
+
+[package.target]
+kit = ["107.3"]
+
+[package.writeTarget]
+kit = true
+
+[dependencies]
+"omni.client" = {}
+"omni.kit.async_engine" = {}
+"omni.kit.widgets.custom" = {}
+"omni.kit.viewport.utility" = {}
+"omni.kit.prim.icon" = {}
+"omni.kit.browser.core" = {}
+"omni.kit.playlist.core" = {}
+"omni.kit.waypoint.core" = {}
+"omni.kit.viewport.menubar.display" = { optional=true }
+"omni.kit.stage.copypaste" = {}
+"omni.usd_presenter.sidecar" = {optional=true}
+"omni.kit.actions.core" = {optional=true}
+"omni.kit.hotekys.core" = {optional=true}
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.markup.core".
+[[python.module]]
+name = "omni.kit.markup.core"
+
+# Third Party python module folder. When the extension starts it adds all entries relative to path root to sys.path.
+[[python.module]]
+path = "."
+
+
+[settings]
+# Name of active markup currently being recalled.
+# Empty string means that there is no active markup currently.
+exts."omni.kit.markup.core".active_markup = ""
+exts."omni.kit.markup.core".editing_markup = ""
+exts."omni.kit.markup.core".show_icons = false
+exts."omni.kit.markup.core".list_window.save_position = true
+exts."omni.kit.markup.core".list_window.allow_resize = true
+exts."omni.kit.markup.core".enable_hotkeys = false
+
+[documentation.pages]
+"Overview" = "docs/overview.md"
+"Changelog" = "docs/CHANGELOG.md"
+
+[[test]]
+stdoutFailPatterns.exclude = [
+    "*[Error] [omni.kit.prim.icon.extension] Could not register Prim Icon for any Viewport backend*", # FIXME: remove when the issue with prim icon is gone
+    "*[Error] [omni.kit.markup.core.extension] Cannot end edit markup*",
+    "*[Error] [omni.usd.commands.usd_commands] * does not exist*",
+    "*[Error] [omni.kit.markup.core.extension] Can not rename viewport markup from*",
+    "*[Error] [asyncio] Task exception was never retrieved*",
+    "*pxr.Tf.ErrorException*",
+    "*Cannot construct EditContext with invalid stage*",
+    "*[Error] [omni.kit.app._impl] [py stderr]*",
+    # EA1 only (Kit 111): the published libraries refuse a custom string attribute's write (OVStage "has a different type"); every test passes. Remove when the libraries ship #2840.
+    "*[omni.runtime.core]*ovstage pump_apply_usd_changes op * failed: failed to enqueue write_attributes for *: write_attributes: existing attribute '*' has a different type*",
+    "*[omni.runtime.core]*ovstage pump_apply_usd_changes failed (12): *",
+    "*[omni.runtime.core]*PUMP apply_usd_changes at ordinal * failed; nothing commits until the stage is repopulated past it*",
+]
+
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.hotkeys.core",
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+    "omni.kit.test_suite.helpers",
+    "omni.kit.viewport.menubar.core",
+    "omni.kit.viewport.menubar.display"
+]
+
+args = [
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/app/window/width=800",
+    "--/app/window/height=800",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    "--/app/fastShutdown=1"
+]
+
+pyCoverageOmit = [
+    "reportlab/*",
+    "xlsxwriter/*",
+    "omni/kit/markup/core/tests/*"
+]

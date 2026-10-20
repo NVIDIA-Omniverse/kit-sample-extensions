@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="18"
+   height="18"
+   viewBox="0 0 18 18"
+   version="1.1"
+   id="svg10"
+   sodipodi:docname="Rectangle.svg"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs14" />
+  <sodipodi:namedview
+     id="namedview12"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="13.111111"
+     inkscape:cx="9.0381356"
+     inkscape:cy="9.0381356"
+     inkscape:window-width="1920"
+     inkscape:window-height="1138"
+     inkscape:window-x="3433"
+     inkscape:window-y="2153"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="button" />
+  <g
+     id="button"
+     transform="translate(-45 -289)">
+    <rect
+       id="Icon_Base"
+       width="18"
+       height="18"
+       transform="translate(45 289)"
+       fill="none" />
+    <rect
+       id="Rectangle_2276"
+       data-name="Rectangle 2276"
+       width="16"
+       height="8"
+       rx="2"
+       fill="#69a2cc"
+       x="46"
+       y="294" />
+    <g
+       id="closed_Hand"
+       data-name="closed Hand"
+       transform="translate(51.505 295.531)"
+       fill="#ccc"
+       fill-rule="evenodd" />
+  </g>
+</svg>

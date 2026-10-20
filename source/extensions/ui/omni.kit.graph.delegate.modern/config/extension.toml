@@ -1,0 +1,34 @@
+[package]
+title = "Modern Graph Delegate"
+description = "Modern Graph Delegate"
+version = "1.10.15"
+authors = ["Min Jiang, Victor Yudin"]
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+keywords = ["graph", "node", "editor"]
+changelog = "docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+readme = "docs/README.md"
+category = "Rendering"
+icon = "icons/icon.svg"
+support_level = "Sample"
+
+[dependencies]
+"omni.kit.widget.graph" = {}
+"omni.ui" = {}
+
+[[python.module]]
+name = "omni.kit.graph.delegate.modern"
+
+[[test]]
+dependencies = [
+    "omni.kit.mainwindow",
+    "omni.kit.graph.editor.example",
+    "omni.kit.graph.editor.core",
+    "omni.kit.ui_test"
+]
+
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--no-window"
+]

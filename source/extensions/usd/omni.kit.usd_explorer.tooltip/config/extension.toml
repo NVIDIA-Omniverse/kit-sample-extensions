@@ -1,0 +1,48 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.0.2"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Jeff Hanna"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "USD Explorer shared constants, widgets, windows, etc"
+description="USD Explorer shared constants, widgets, windows, etc."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ["usd explorer", "tooltip"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.rst"
+
+category = "USD Explorer"
+readme = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+
+# We only depend on testing framework currently:
+[dependencies]
+"omni.ui" = {}
+"omni.kit.widgets.custom" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.usd_explorer.tooltip".
+[[python.module]]
+name = "omni.kit.usd_explorer.tooltip"
+
+
+[[test]]
+dependencies = [
+    "omni.kit.ui_test",
+]
+
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/exts/omni.ui/tooltip_delay=0.0",
+    "--no-window",
+    "--reset-user",
+]

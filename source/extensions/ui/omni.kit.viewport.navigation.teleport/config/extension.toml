@@ -1,0 +1,75 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.0.19"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Ning Li"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Viewport bottom menubar"
+description="Provide the home button and functon in navigation bar."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['navigation', 'bar', 'teleport']
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.rst"
+
+category = "Kit::exts"
+readme = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+
+[package.target]
+kit = ["107.3"]  # Required for Event 2.0
+
+[dependencies]
+"omni.kit.viewport.navigation.core" = {}
+"omni.kit.tool.teleport" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.viewport.navigation.home".
+[[python.module]]
+name = "omni.kit.viewport.navigation.teleport"
+
+[settings]
+exts."omni.kit.viewport.navigation.teleport".order= -886
+exts."omni.kit.viewport.navigation.teleport".visible= true
+
+[[test]]
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+    "omni.kit.viewport.menubar.display",
+    # "omni.rtx.shadercache.vulkan",  # legacy RTX shader cache; absent from Kit 111 (OVRTX)
+]
+
+"filter:platform"."windows-x86_64".dependencies = [
+    # fix [Error][gpu.foundation.plugin] Cannot load shader file
+    # "omni.rtx.shadercache.d3d12",  # legacy RTX shader cache; absent from Kit 111 (OVRTX)
+]
+
+args = [
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/app/window/width=800",
+    "--/app/window/height=300",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    "--/persistent/app/viewport/displayOptions=1568",
+    "--no-window",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/app/fastShutdown=1",
+]
+
+stdoutFailPatterns.exclude = [
+    "*[gpu.foundation.plugin]*rtx/utils/BufferTexture.comp.hlsl*",
+    "*[gpu.foundation.plugin] PsoCompute::createPipeline and shader loading failed.*",
+    "*[Error] [carb] [Plugin: libomni.grpc.lib.so] Could not load the dynamic library*",
+    "*[Error] [omni.ext.plugin] [ext: omni.grpc.lib-1.0.0] failed to load*",
+]

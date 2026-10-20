@@ -1,0 +1,43 @@
+{
+    "SelectTransform": {
+        "exclude" : ["tests"],
+        "version": 0,
+        "categories": ["flowControl"],
+        "uiName": "Select Spawn Transform",
+        "description": ["Selects a transform based on the index."],
+        "language": "python",
+        "metadata": {"hidden": "true"},
+        "inputs": {
+            "index": {
+                "type": "int",
+                "description": "Which transform is selected."
+            },
+            "input0": {
+                "type": "matrixd[4]",
+                "description": "Transform."
+            },
+            "input1": {
+                "type": "matrixd[4]",
+                "description": "Transform."
+            },
+            "input2": {
+                "type": "matrixd[4]",
+                "description": "Transform."
+            },
+            "input3": {
+                "type": "bundle",
+                "description": "Accepts output of ScatterPoints node."
+            },
+            "input4": {
+                "type": "pointf[3]",
+                "description": "Accepts output of PointOnCurve node."
+            }
+        },
+        "outputs": {
+            "result": {
+                "type": "matrixd[4]",
+                "description": "The value of selected input."
+            }
+        }
+    }
+}

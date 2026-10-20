@@ -1,0 +1,85 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.1.1"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Gang Zeng", "Ning Li"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Gizmo Custom"
+description = "Custom Gizmo in viewport"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ["prim", "icon"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.rst"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme = "docs/README.md"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "icons/Preferences.svg"
+
+# Preview image and icon. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+# Preview image is shown in "Overview" of Extensions window. Screenshot of an extension might be a good preview image.
+preview_image = "icons/preview.png"
+
+category = "Other"
+
+display_name = "prim icon"
+
+[package.target]
+kit = ["107.3"]  # Required for Event 2.0
+
+[package.writeTarget]
+kit = true
+
+[dependencies]
+"omni.appwindow" = { public = true }
+"omni.usd" = {}
+"omni.kit.viewport.utility" = {}
+"omni.ui.scene" = {}
+"omni.ui" = {}
+"omni.kit.viewport.registry" = {}
+
+[[python.module]]
+name = "omni.kit.prim.icon"
+
+[settings]
+exts."omni.kit.prim.icon".showTitle = false
+
+[[test]]
+args = [
+    "--/renderer/enabled=ovrtx",               # "--/renderer/enabled=ovrtx", Can we run and pass with Storm ?
+    "--/renderer/active=ovrtx",                # "--/renderer/enabled=ovrtx", Can we run and pass with Storm ?
+    "--/app/asyncRendering=false",
+    "--/app/docks/disabled=true",
+    "--/app/viewport/forceHideFps=true",
+    "--/app/window/hideUi=true",             # Hide all Viewport UI
+    "--/app/window/width=512",               # Be explicit about the Window size
+    "--/app/window/height=512",              # Be explicit about the Window size
+    "--/app/renderer/resolution/width=512",  # Be explicit about the Viewport resolution
+    "--/app/renderer/resolution/height=512", # Be explicit about the Viewport resolution
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--no-window"
+]
+
+dependencies = [
+    "omni.kit.ui_test",
+    "omni.kit.menu.utils",
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.viewport.window",
+]
+
+stdoutFailPatterns.exclude = [
+    "*<class 'omni.kit.menu.utils.scripts.utils.MenuUtilsExtension'>: extension object is still alive*", # Leak
+    "*<class 'omni.kit.window.tests.Extension'>: extension object is still alive*", # Leak
+    "*createDLSSContext error: unable to initialize context. Optional DLSS feature is disabled.*",
+]

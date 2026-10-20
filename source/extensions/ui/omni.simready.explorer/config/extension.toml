@@ -1,0 +1,64 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.1.4"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Jeffrey Qiu", "John Kosnik", "Attila Szabo"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Browser for SimReady Assets"
+description="A browser for SimReady Assets"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['browser', 'asset', 'simready', "explorer"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+category = "Rendering"
+readme  = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+feature = true
+
+[dependencies]
+"omni.kit.browser.folder.core" = {}
+"omni.kit.commands" = {}
+"omni.kit.menu.utils" = {}
+"omni.usd" = {}
+"omni.kit.viewport.utility" = {}
+"omni.kit.window.property" = {}
+"omni.kit.viewport.window" = {}
+"omni.kit.usd.layers" = { optional=true }
+#"omni.kit.debug.python" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.simready.explorer".
+[[python.module]]
+name = "omni.simready.explorer"
+
+[settings.exts."omni.simready.explorer"]
+# The list of asset root folders to be browsed.
+folders = ["https://omniverse-content-staging.s3.us-west-2.amazonaws.com/Assets/simready_content"]
+default_physics = "RigidBody"
+
+[[trigger]]
+menu.name = "Window/Browsers/SimReady Explorer"
+menu.window = "SimReady Explorer"
+
+[[test]]
+args = [
+    "--no-window",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/app/menu/legacy_mode=false",
+]
+
+[documentation.pages]
+"Overview" = "docs/overview.md"
+"DeveloperGuide" = "docs/developer_guide.md"
+"Actions" = "docs/actions_api.md"
+"Changelog" = "docs/CHANGELOG.md"

@@ -1,0 +1,27 @@
+[package]
+authors = ["Jozef van Eenbergen"]
+category = "Services"
+changelog = "docs/CHANGELOG.md"
+description = "Omniverse Client to call micro services"
+icon = "data/icon.png"
+preview_image = "data/preview.png"
+readme = "docs/README.md"
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+slackids = ["@U010NFP76BU"]
+title = "Omniverse Services Client"
+version = "0.5.9"
+
+[dependencies]
+"omni.kit.pip_archive" = {}
+"omni.services.transport.client.base" = {}
+# Only needed if the local transport is used.
+"omni.services.core" = { optional=true }
+
+# Main python module this extension provides
+[[python.module]]
+name = "omni.services.client"
+
+[[test]]
+dependencies = [
+    "omni.services.core",
+]

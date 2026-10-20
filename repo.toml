@@ -1,0 +1,751 @@
+########################################################################################################################
+# Repo tool base settings
+########################################################################################################################
+
+[repo]
+# Use Kit Template repo configuration as a base. Only override things specific to the repo.
+import_configs = [
+    # Shared config for all kit extensions repos
+    "${root}/_repo/deps/repo_kit_tools/kit-template/repo.toml",
+]
+
+# Repository Name. It is used for solution name and final package name
+name = "kit-sample-extensions"
+
+# Source-owned behavior-tree header and node-manifest generators.
+extra_tool_paths."++" = [
+    "${root}/tools/schema",
+]
+
+[repo.tokens]
+# Only the receipt-checked Windows CI publisher overrides this token.
+kit111_signed_package = "0"
+# Required to select the native asset-converter package matching this checkout's
+# Kit SDK (OpenUSD 25.11 and Python 3.12).
+usd_flavor = "usd"
+usd_ver = "25.11"
+python_ver = "3.12"
+usdex_ver = "3.0"
+"platform:windows-x86_64".usdex_platform = "windows_v143_x86_64"
+"platform:linux-x86_64".usdex_platform = "manylinux_2_35_x86_64"
+"platform:linux-aarch64".usdex_platform = "manylinux_2_35_aarch64"
+
+
+########################################################################################################################
+# Excluded extensions
+########################################################################################################################
+
+# Extensions that need something Kit 111 does not provide (missing dependency, native/OGN code that does not
+# compile, or an excluded extension). Used below by premake (not built, so not packaged or tested) and by the Kit
+# extension solver of the precache tools (app.extensions.excluded, so not precached). Extensions that work but whose
+# tests need something missing are skipped in [repo_test.suites.alltests] exclude.
+[exclusions]
+extensions = [
+# Public staging omits extensions whose native packages are unavailable publicly.
+    "omni.anim.curve.bundle",
+    "omni.anim.curve.core",
+    "omni.anim.curve.ui",
+    "omni.anim.curve_editor",
+    "omni.anim.timeline",
+    "omni.anim.window.timeline",
+    "omni.configurator_publisher",
+    "omni.kit.asset_converter",
+    "omni.kit.converter.common",
+    "omni.kit.converter.gsplat",
+    "omni.kit.tool.asset_exporter",
+    "omni.kit.tool.asset_importer",
+    "omni.kit.tool.measure",
+    "omni.kit.viewport.navigation.measure",
+    "omni.kit.viewport.navigation.usd_explorer.bundle",
+    "omni.sample.minimap",
+    "omni.scene.optimizer.analysis",
+    "omni.scene.optimizer.bundle",
+    "omni.scene.optimizer.core",
+    "omni.scene.optimizer.ui",
+    "omni.scene.optimizer.validators",
+    "omni.services.convert.asset",
+    "omni.services.starfleet.auth",
+    "omni.warp.core",
+    "omni.warp.graph",
+# Public staging omits RTX-header consumers until their build package is public.
+    "omni.anim.shared.core",
+    "omni.curve.creator",
+    "omni.curve.manipulator",
+    "omni.genproc.bundle",
+    "omni.genproc.core",
+    "omni.genproc.ui",
+    "omni.graph.visualization.nodes",
+    "omni.kit.text3d",
+    "omni.kit.window.material",
+    "omni.kit.window.material_graph",
+    "omni.ramp",
+    "omni.scene.visualization.bundle",
+    "omni.scene.visualization.core",
+    "omni.scene.visualization.ui",
+    # Internal support level: excluded from EA1 build, tests and precaching.
+    "omni.anim.camera_tool",                   # needs omni.physx, unavailable in the selected Kit 111 registry
+    "omni.entity.spawn.bundle",                # needs excluded omni.entity.spawn.core and omni.entity.spawn.ui
+    "omni.entity.spawn.core",                  # needs unavailable omni.graph.io (GenProc restored)
+    "omni.entity.spawn.ui",                    # needs excluded omni.entity.spawn.core
+    "omni.kit.mesh.raycast",                   # native build passes; needs unavailable omni.usd.schema.physx
+    "omni.metropolis.agent_registry",          # needs omni.ai.langchain.core, omni.metropolis.utils
+    "omni.kit.graph.docs",                     # skipped by decision: needs omni.kit.documentation.builder
+]
+
+
+########################################################################################################################
+# Build tool setup
+########################################################################################################################
+
+[repo_build]
+# Match Kit 111's MSVC 14.3x toolchain and the passing Windows setup in PR #152.
+msbuild.vs_version = "vs2022"
+msbuild.msvc_version = "v143"
+# Public Windows builds use the locally installed Visual Studio and Windows SDK.
+msbuild.link_host_toolchain = true
+premake.extra_args."++" = ["--excluded-extensions=${conf:exclusions.extensions}"]
+
+# The published producer currently delivers release kernels, not debug.
+default_build_config = ["release"]
+
+# List of packman projects to pull (in order)
+fetch.packman_target_files_to_pull = [
+    "${root}/deps/kit-sdk.packman.xml",
+    "${root}/deps/kit-sdk-deps.packman.xml",
+    "${root}/deps/migrated-exts-deps.packman.xml",
+    "${root}/deps/assets-deps.packman.xml",
+    "${root}/deps/ui-deps.packman.xml",
+    "${root}/deps/particle-deps.packman.xml",
+    "${root}/deps/animation-deps.packman.xml",
+]
+
+# List of pip files to pip install from (in order)
+fetch.pip.files_to_pull = [
+    "${root}/deps/ui-pip.toml",
+    "${root}/deps/migrated-exts-pip.toml",
+    "${root}/deps/package-explorer-pip.toml",
+    "${root}/deps/services-pip.toml",
+    "${root}/deps/asset-validator-pip.toml",
+    "${root}/deps/animation-pip.toml",
+]
+
+# Skip repo_build's pip license-text aggregation. On a fresh cache build (forced by the repo_build
+# upgrade producing new cache hashes), gather_pip_licenses fatally fails on neptune-metrics==1.0.0
+# embeddable LICENSE file (only `License: NVIDIA` metadata, which repo_licensing does not read).
+# This is a first-party packaging gap, not a third-party compliance risk; each dependency's legal
+# review is tracked via SWIPAT/OSRB and every third-party wheel still carries its embedded license.
+fetch.pip.licensing_enabled = false
+
+# Warmup/bootstrap kit's python before building. OG calls it in parallel in build process which is known to randomly fail the bootstrap.
+fetch.after_pull_commands."++" = [
+    ["${root}/_build/${platform}/${config}/kit/dev/tools/packman/python${shell_ext}"],
+]
+
+pre_build.commands."++" = [
+
+]
+
+# This is a cludge WAR for the lack of control repo_publish / repo_publish_exts gives in filtering files out from the packages.
+# Currently, pip installed exes on windows fail code-signing as they are broken shims and do nothing.
+# This invokes a small job using the repo_ci definition just below it to glob and erase these after the build runs.
+post_build.commands."++" = [
+    ["${root}/_build/target-deps/python/python", "${root}/tools/ci/erase_pip_exes.py", "--config", "${config}", "--platform", "${platform}"]
+]
+# License gathering remains in internal release preparation; public builds use shipped notices.
+licensing.enabled = false
+
+
+
+########################################################################################################################
+# Test Runner
+########################################################################################################################
+
+[[repo_build.rc_file]]
+file_path = "${root}/_build/scene-optimizer.rc"
+product_name = "NVIDIA Omniverse Scene Optimizer"
+file_Description = "NVIDIA Omniverse Scene Optimizer"
+
+[repo_test]
+default_suite = ["alltests"]
+
+[repo_test.suites.alltests]
+kind = "glob_and_exec"
+path = "${test_root}"
+
+# Run all test
+include = [
+    "tests-*${shell_ext}"
+]
+exclude = [
+    # Extensions-only release: never select project app launchers.
+    "tests-omni.app.*${shell_ext}",
+    # These extensions work, but their tests need something Kit 111 does not provide.
+    "tests-omni.kit.viewport.navigation.camera_manipulator${shell_ext}", # tests need omni.hydra.usdrt_delegate, omni.rtx.shadercache.vulkan
+    "tests-omni.kit.window.movie_capture${shell_ext}",                 # tests need omni.kit.environment.sunstudy, omni.rtx.tests
+    "tests-omni.usd.schema.scene.visualization${shell_ext}",           # standard SDK harness needs qualification after retiring the particle app; previously solver exit 55
+    # The test dependencies of these two do not exist for Kit 111 in CI's registries (solver exit 55). The fleet's pods
+    # run them with source-built OmniGraph/animation payload folders and the 110 prod registries, so they keep coverage there.
+    # EA1: needs a GPU video adapter for the WebRTC stream server; headless CI runners can't start it. Re-enable with a display-capable runner or a server-less test profile.
+]
+# A "platform:" filter replaces the list (repo_man merges filters without "++").
+# The ARM and default exclusions now match after retiring the JT converters.
+"platform:linux-aarch64".exclude = [
+    # Extensions-only release: never select project app launchers.
+    "tests-omni.app.*${shell_ext}",
+    # These extensions work, but their tests need something Kit 111 does not provide.
+    "tests-omni.kit.viewport.navigation.camera_manipulator${shell_ext}", # tests need omni.hydra.usdrt_delegate, omni.rtx.shadercache.vulkan
+    "tests-omni.kit.window.movie_capture${shell_ext}",                 # tests need omni.kit.environment.sunstudy, omni.rtx.tests
+    "tests-omni.usd.schema.scene.visualization${shell_ext}",           # standard SDK harness needs qualification after retiring the particle app; previously solver exit 55
+    # The test dependencies of these two do not exist for Kit 111 in CI's registries (solver exit 55). The fleet's pods
+    # run them with source-built OmniGraph/animation payload folders and the 110 prod registries, so they keep coverage there.
+    # EA1: needs a GPU video adapter for the WebRTC stream server; headless CI runners can't start it. Re-enable with a display-capable runner or a server-less test profile.
+]
+args = [
+    "--/exts/omni.kit.test/testExtCodeChangeAnalyzerExtSourcePaths/0='source/extensions/*/'",
+]
+
+########################################################################################################################
+# Benchmarks
+########################################################################################################################
+
+[repo_stubgen]
+# These extensions contain no first-party pybind modules. Their pip bundles include
+# charset_normalizer native modules, which trigger stubgen discovery but produce no stubs.
+exts_exclude = [
+    # Stubgen discovers the native payload but therefore cannot produce any .pyi files.
+    "omni.simready.content.browser",
+]
+
+
+########################################################################################################################
+# Packaging
+########################################################################################################################
+
+[repo_package.packages.main_package]
+# The template strips only linux-x86_64. Unstripped aarch64 plugins carry DWARF, and a crash report then
+# resolves every frame with addr2line, ~10 s per frame on the ARM test runners.
+"linux-aarch64".files_strip = [
+    ["**/*.so"],
+]
+# Ship extension dependency metadata, never project applications (including stale local output).
+files_exclude."++" = [
+    ["apps/omni.app.*.kit"],
+    ["omni.app.*${shell_ext}"],
+    ["tests-omni.app.*${shell_ext}"],
+]
+
+
+########################################################################################################################
+# Extensions publisher
+########################################################################################################################
+
+[repo_publish_exts]
+# CI signs and verifies Windows packages with the shared Azure actions before publishing.
+# Match Kit: publish the already-signed bytes without invoking legacy repo_codesign.
+signing.enabled = false
+# Azure signing runs externally; retain the publisher metadata expected by public registry checks.
+"platform:windows-x86_64".kit_extra_args."++" = ["--/app/extensions/publishExtraDict/package/publish/signed=${kit111_signed_package}"]
+
+repo_name = "kit-sample-extensions"
+registries = [
+    { name = "kit/default", url = "https://stsapiwus3kit.blob.core.windows.net/kit/exts/default", storage_api_url = "https://rc.storage.omni.nvidia.com" },
+]
+use_packman_to_upload_archive = false
+
+# Extensions to publish, include and exclude among those discovered by kit. Wildcards are supported.
+exts.include = [
+    "omni.anim.graph.schema",
+    # omni.anim.test.base is intentionally omitted: animation-authoring also excludes it from publication.
+    "omni.kit.preferences.animation",
+    "omni.sample.csv_reader",
+    "omni.sample.gesture_viewport",
+    "omni.sample.gesture_window",
+    "omni.sample.in_app_guide",
+    "omni.sample.reticle",
+    "omni.sample.ui_scatter_tool",
+    "omni.sample.ui_scene.light_manipulator",
+    "omni.sample.ui_scene.object_info",
+    "omni.sample.ui_scene.slider_manipulator",
+    "omni.sample.ui_scene.widget_info",
+    "omni.asset_validator.core",
+    "omni.asset_validator.ui",
+    "omni.kit.mesh.raycast",
+    "omni.metropolis.agent_registry",
+    "omni.simready.content.browser",
+    "omni.usd.metrics.assembler",
+    "omni.usd.metrics.assembler.ui",
+    "omni.usd.metrics.assembler.usdgeom",
+    "omni.usd.schema.metrics.assembler",
+    "omni.usd.schema.scene.visualization",
+    "omni.usdex.libs",
+    "semantics.schema.editor",
+    "semantics.schema.property",
+
+    "omni.kit.browser.asset",
+    "omni.kit.browser.configurator_samples",
+    "omni.kit.browser.core",
+    "omni.kit.browser.folder.core",
+    "omni.kit.browser.material",
+    "omni.kit.browser.sample",
+    "omni.kit.converter.geojson",
+    "omni.kit.core.collection",
+    "omni.kit.data2ui.core",
+    "omni.kit.data2ui.usd",
+    "omni.kit.debug.settings",
+    "omni.kit.dev.utilities.bundle",
+    "omni.kit.developer.bundle",
+    "omni.kit.environment.core",
+    "omni.kit.graph.delegate.default",
+    "omni.kit.graph.delegate.modern",
+    "omni.kit.graph.delegate.neo",
+    "omni.kit.graph.docs",
+    "omni.kit.graph.editor.core",
+    "omni.kit.graph.editor.example",
+    "omni.kit.graph.usd.commands",
+    "omni.kit.graph.widget.variables",
+    "omni.kit.language.core",
+    "omni.kit.language.japanese",
+    "omni.kit.language.korean",
+    "omni.kit.language.simplified_chinese",
+    "omni.kit.language.traditional_chinese",
+    "omni.kit.manipulator.creo_camera",
+    "omni.kit.markup.core",
+    "omni.kit.markup.playlist",
+    "omni.kit.menu.stage",
+    "omni.kit.ngsearch",
+    "omni.kit.playlist.core",
+    "omni.kit.prim.icon",
+    "omni.kit.property.collection",
+    "omni.kit.property.environment",
+    "omni.kit.renderer.ready",
+    "omni.kit.search.files",
+    "omni.kit.search.service",
+    "omni.kit.stage_column.payload",
+    "omni.kit.stage_column.variant",
+    "omni.kit.thumbnails.mdl",
+    "omni.kit.thumbnails.usd",
+    "omni.kit.timeline.minibar",
+    "omni.kit.tool.camera_playlist",
+    "omni.kit.tool.markup",
+    "omni.kit.tool.remove_unused.controller",
+    "omni.kit.tool.remove_unused.core",
+    "omni.kit.tool.teleport",
+    "omni.kit.variant.editor",
+    "omni.kit.variant.presenter",
+    "omni.kit.viewport.menubar.bottom",
+    "omni.kit.viewport.menubar.framerate",
+    "omni.kit.viewport.menubar.lighting",
+    "omni.kit.viewport.menubar.nav_bar_toggle",
+    "omni.kit.viewport.menubar.timeline",
+    "omni.kit.waypoint.core",
+    "omni.kit.waypoint.playlist",
+    "omni.kit.widget.calendar",
+    "omni.kit.widget.collection",
+    "omni.kit.widget.extended_searchfield",
+    "omni.kit.widget.material_preview",
+    "omni.kit.widget.schema_api",
+    "omni.kit.widget.sliderbar",
+    "omni.kit.widget.zoombar",
+    "omni.kit.widgets.custom",
+    "omni.kit.window.collection",
+    "omni.kit.window.environment",
+    "omni.kit.window.modifier.titlebar",
+    "omni.kit.window.movie_capture",
+    "omni.kit.window.quicksearch",
+    "omni.kit.window.section",
+    "omni.light_rigs",
+    "omni.no_code_ui.authoring",
+    "omni.no_code_ui.bundle",
+    "omni.services.client",
+    "omni.services.collect",
+    "omni.services.core",
+    "omni.services.facilities.base",
+    "omni.services.facilities.log",
+    "omni.services.facilities.monitoring.metrics",
+    "omni.services.facilities.monitoring.progress",
+    "omni.services.farm.agent.runner",
+    "omni.services.pip_archive",
+    "omni.services.render",
+    "omni.services.transport.client.base",
+    "omni.services.transport.client.http_async",
+    "omni.services.transport.server.base",
+    "omni.services.transport.server.http",
+    "omni.services.transport.server.zeroconf",
+    "omni.services.usd",
+    "omni.simready.explorer",
+    "omni.storage_api.auth",
+    "omni.usd_viewer.samples",
+    "omni.kit.viewport.navigation.core",
+    "omni.kit.viewport.navigation.camera_manipulator",
+    "omni.kit.viewport.navigation.capture_no_ansel",
+    "omni.kit.viewport.navigation.waypoint",
+    "omni.kit.viewport.navigation.section",
+    "omni.kit.viewport.navigation.teleport",
+    "omni.kit.viewport.navigation.markup",
+    "omni.kit.widget.timeline",
+    "omni.kit.usd_explorer.window.welcome",
+    "omni.kit.usd_explorer.main.menubar",
+    "omni.kit.usd_explorer.render",
+    "omni.kit.usd_explorer.tooltip",
+    "omni.kit.viewport.menubar.markup",
+    "omni.kit.viewport.menubar.waypoint",
+    "omni.cloud.open_stage",
+    "omni.warp.menu",
+    "omni.wrapp.package_explorer",
+    "omni.web.log_downloader",
+    "omni.web.messaging.core",
+    "omni.web.deeplink",
+]
+
+# Not supported on Kit 111 EA1: not built or published. Mirrors not_supported_ea1 in tools/premake/kit111_triage.lua.
+exts.exclude = [
+    "omni.metropolis.agent_registry",
+]
+
+platforms = [
+    "windows-x86_64",
+    "linux-x86_64",
+    "linux-aarch64"
+]
+
+# verify before publishing
+publish_verification = true
+
+########################################################################################################################
+# Extensions precacher
+########################################################################################################################
+
+[repo_precache_exts]
+# Staging uses the production registries from the matching kernel kit-core.json.
+# Explicit URLs retain the existing command-scoped Storage discovery bypass.
+registries = [
+    { name = "kit/prod/sdk", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/sdk/111.0/fdb8d7a4" },
+    { name = "kit/prod/default", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/111/shared" },
+]
+# OMPE-114910: remove these appends once all SDK pins stage the facade and runtime provider.
+links.exts.include."++" = ["usdrt.scenegraph.ovstage", "usdrt.scenegraph"]
+
+# Behavior-tree core/schema now build locally in the animation group.
+
+# Precache extension dependencies only; the SDK still uses exts.deps.generated.kit.
+apps = []
+
+# Leave out the [exclusions] extensions; test dependencies of the tests skipped in repo_test do not exist.
+kit_extra_args."++" = ["--/app/extensions/excluded=${conf:exclusions.extensions}"]
+generated_app.add_test_deps = false
+# Test dependencies of tests that run, which the extensions in this repo do not already pull in.
+# omni.gpu_foundation.shadercache.vulkan: the tests run with app.vulkan = true (omni.kit.test's omni.app.test_ext.kit);
+# on Windows omni.gpu_foundation then depends on it instead of omni.gpu_foundation.shadercache.d3d12, which the
+# build itself (stubgen) uses, so the package needs both.
+generated_app.default_test_deps = [
+    "omni.gpu_foundation.shadercache.vulkan",
+    "omni.kit.quicklayout",
+    "omni.ocio",
+    "omni.rtx.settings.core",
+]
+
+ext_folders = [
+  "${root}/source/apps",
+  "${root}/source/extensions/animation",
+  "${root}/source/extensions/assets",
+  "${root}/source/extensions/devtools",
+  "${root}/source/extensions/deprecated",
+  "${root}/source/extensions/services",
+  "${root}/source/extensions/tools",
+  "${root}/source/extensions/ui",
+  "${root}/source/extensions/usd",
+  "${root}/source/extensions/utils",
+  "${root}/source/extensions/warp",
+  "${root}/source/extensions/web",
+]
+
+
+# Precache from the package in test jobs.
+[repo_kit_pull_extensions]
+# Producer builds retain internal discovery; staging activates production-only delivery.
+registries.internal = []
+registry_default = "public"
+registries.public = [
+    { name = "kit/prod/sdk", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/sdk/111.0/fdb8d7a4" },
+    { name = "kit/prod/default", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/111/shared" },
+]
+environment = [{ name = "staging" }]
+# Leave out excluded extensions. Staging also resets inherited registry fields
+# (including Storage API authentication) in the packaged tinypull command.
+kit_extra_args."++" = [
+    "--/app/extensions/excluded=${conf:exclusions.extensions}",
+    "--/exts/omni.kit.registry.nucleus/registries=[]",
+    "--/exts/omni.kit.registry.nucleus/registries/0/name=kit/prod/sdk",
+    "--/exts/omni.kit.registry.nucleus/registries/0/url=https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/sdk/111.0/fdb8d7a4",
+    "--/exts/omni.kit.registry.nucleus/registries/0/optional=false",
+    "--/exts/omni.kit.registry.nucleus/registries/1/name=kit/prod/default",
+    "--/exts/omni.kit.registry.nucleus/registries/1/url=https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/111/shared",
+    "--/exts/omni.kit.registry.nucleus/registries/1/optional=false",
+]
+
+
+########################################################################################################################
+# Tool to bump versions of Kit extensions and apps
+########################################################################################################################
+
+[repo_bump]
+
+# default paths to search for apps and extensions
+ext_folders = [
+  "${root}/source/extensions/animation",
+  "${root}/source/extensions/assets",
+  "${root}/source/extensions/devtools",
+  "${root}/source/extensions/deprecated",
+  "${root}/source/extensions/services",
+  "${root}/source/extensions/tools",
+  "${root}/source/extensions/ui",
+  "${root}/source/extensions/usd",
+  "${root}/source/extensions/utils",
+  "${root}/source/extensions/web",
+]
+
+
+########################################################################################################################
+# API Check tool
+########################################################################################################################
+
+[repo_checkapi]
+enabled = true
+
+[repo_checkapi.python]
+exts.exclude = [
+    # exclude external pip packages (should always be excluded, saves a lot of time):
+    "omni.services.pip_archive",
+    "omni.kit.markup.core",
+
+    # waiting fix for omni.kit.window.extension
+    "omni.kit.extensions.widget.create_extension",
+    # waiting fix for omni.services.moebius's MoebiusClient
+    "omni.kit.widget.cloud_share",
+    "omni.kit.widget.schema_api",
+    # omni.kit.markup.core include third python module (reportlab and xlsxwriter), so skip api check
+    "omni.kit.waypoint.core",
+    "omni.kit.tool.teleport",
+    "omni.kit.window.section",
+
+    # Vendored bindings whose generated stubs contain C++-qualified type names that are invalid Python syntax.
+    "omni.usdex.libs",
+    # Kit extscache extension; preloading its public module triggers a circular import in omni.kit.property.usd during checkapi.
+    "omni.graph.ui*",
+ ]
+
+# Skip checking for API usage errors in those extensions (needs to be fixed):
+exts.skip_check = [
+    # Migrated legacy extensions that intentionally consume Kit implementation APIs.
+    # Their source repositories do not enforce checkapi for these imports.
+    "omni.simready.content.browser",
+    # These extensions wrap generated Search/Discovery clients whose packages do not
+    # carry Kit public-API annotations. Keep checking their generated wrapper docs,
+    # but do not report the intentional imports from those bundled clients.
+    "omni.kit.ngsearch",
+    "omni.kit.search.service",
+    # Uses MultiAOVFileCapture, which exists in Kit 110.4 but is not declared as public API.
+    "omni.kit.property.collection",
+    "omni.kit.widget.collection",
+    "omni.kit.window.collection",
+    "omni.kit.variant.editor",
+    "omni.kit.variant.presenter",
+    "omni.kit.browser.material",
+    "omni.simready.explorer",
+    "omni.wrapp.package_explorer",
+    "omni.services.client",
+    "omni.services.collect",
+    "omni.services.render",
+    "omni.services.transport.server.http",
+    "omni.services.transport.client.http_async",
+    "omni.services.facilities.monitoring.progress",
+    "omni.services.usd",
+    "omni.kit.debug.settings",
+    "omni.kit.graph.delegate.default",
+    "omni.kit.graph.delegate.modern",
+    "omni.kit.graph.delegate.neo",
+    "omni.kit.graph.editor.core",
+    "omni.kit.graph.editor.example",
+    "omni.kit.graph.widget.variables",
+    "omni.kit.widget.material_preview",
+    "omni.kit.converter.geojson",
+    "omni.kit.language.core",
+    "omni.kit.viewport.navigation.camera_manipulator",
+    "omni.kit.viewport.navigation.core",
+    "omni.kit.usd_explorer.render",
+    "omni.kit.usd_explorer.tooltip",
+]
+
+skip_toplevel_packages."++" = [
+    "warp",
+]
+
+
+########################################################################################################################
+# Code formatting tool
+########################################################################################################################
+
+[repo_format.cpp]
+# Disable C++ legal-blurb maintenance (verifying/rewriting copyright years is unusably slow, and this
+# repo does not gate on it). NOTE: repo_format 3.2.x's create_legal_formatter (omni/repo/format/legal.py)
+# reads `maintain_legal_blurbs` from the [repo_format.cpp] table DIRECTLY -- the older `python.`-nested
+# key is silently ignored, so it defaults back to True and re-enables C++ legal verify, failing every
+# source file whose copyright end-year isn't the current year. Keep this key at the cpp top level.
+maintain_legal_blurbs = false
+python.maintain_legal_blurbs = false
+files.exclude = []
+
+[repo_format.python]
+# CI pods report the host's logical core count (128) via os.cpu_count() even though
+# they are allocated only 2 CPUs, causing 128 workers to thrash on 2 cores and making
+# format verification take ~10 minutes. Cap to a sensible ceiling.
+job_count = 16
+
+# repo_format 3.2.x legal-headers text files (.md/.rst/.toml/.lua/.sh/.bat/...) by DEFAULT -- a feature the
+# older repo_format on `main` did not have, so NONE of this repo's text files (docs, per-extension config,
+# build scripts, license files, even build.sh/build.bat) carry these headers. Enabling any text type here
+# makes check-code-format demand headers that don't exist across hundreds of files. Disable text-file
+# legal-blurb formatting entirely to preserve main's behavior; legal headers stay enforced on real source
+# (.py via ruff/black, .cpp/.h via clang).
+[repo_format.text_files]
+enabled_format_types = []
+
+
+########################################################################################################################
+# Documentation building
+########################################################################################################################
+
+[repo_docs]
+# extension docs
+
+# Use Kit's python for repo_docs, it has a proper version, while packman is lagging behind:
+python_path = "${root}/_build/$platform/release/kit/python/python"
+
+[repo_docs.kit]
+extensions = [
+    # "omni.kit.widget.collection",
+    "omni.kit.window.collection",
+    "omni.kit.widget.calendar",
+    "omni.kit.widget.sliderbar",
+    "omni.kit.widget.extended_searchfield",
+    "omni.kit.widgets.custom",
+    "omni.kit.stage_column.payload",
+    "omni.kit.stage_column.variant",
+    "omni.kit.markup.core",
+    "omni.kit.markup.playlist",
+    "omni.kit.timeline.minibar",
+    "omni.kit.tool.markup",
+    "omni.kit.window.modifier.titlebar",
+    "omni.kit.window.movie_capture",
+    "omni.kit.window.section",
+    "omni.kit.browser.asset",
+    "omni.kit.browser.core",
+    "omni.kit.browser.configurator_samples",
+    "omni.kit.browser.folder.core",
+    "omni.kit.browser.material",
+    "omni.kit.browser.sample",
+    "omni.kit.environment.core",
+    "omni.kit.property.environment",
+    "omni.kit.thumbnails.mdl",
+    "omni.kit.widget.zoombar",
+    "omni.kit.window.environment",
+    "omni.simready.explorer",
+    "omni.kit.menu.stage",
+    "omni.kit.viewport.menubar.framerate",
+    "omni.kit.viewport.menubar.lighting",
+    "omni.storage_api.auth",
+    "omni.web.deeplink",
+]
+
+extension_roots = [
+    "source/extensions/animation",
+    "source/extensions/assets",
+    "source/extensions/devtools",
+    "source/extensions/services",
+    "source/extensions/tools",
+    "source/extensions/ui",
+    "source/extensions/usd",
+    "source/extensions/utils",
+    "source/extensions/warp",
+    "source/extensions/web",
+]
+
+########################################################################################################################
+# Container Packaging Configuration
+########################################################################################################################
+[repo_kit_package_container]
+enabled = true
+gui_cli = true
+
+# Use default container config - allows any app to be containerized without explicit config
+default_container_config.enabled = true
+
+# Build root is the release build directory
+build_root = "${root}/_build/${platform}/release"
+
+# Precache extensions when building the container
+precache_extensions = true
+
+
+########################################################################################################################
+# NVCF (NVIDIA Cloud Functions) Deployment Configuration
+########################################################################################################################
+[repo_ngc]
+# NGC organization for NVCF and container registry operations
+org_name = "0539311403528978"  # OVC2-Development-Org
+
+[repo_ngc.nvcf]
+# Shared defaults for all Kit NVCF functions and deployments
+# These are used by `repo_ngc nvcf-create` and `repo_ngc nvcf-deploy`
+# CLI arguments and named configs override these settings
+
+# Function type for streaming applications
+function_type = "STREAMING"
+api_body_format = "CUSTOM"
+
+# Inference endpoint - WebRTC streaming uses port 49100
+inference_url = "/sign_in"
+inference_port = 49100
+
+# Health check configuration - Kit uses omni.services.livestream.session health endpoint
+health_uri = "/v1/streaming/ready"
+health_port = 8011
+health_protocol = "HTTP"
+health_timeout = "PT10S"
+health_expected_status_code = 200
+
+# Container environment variables passed to the NVCF function at runtime
+# Format: "KEY:VALUE" - override via CLI with --env "KEY:VALUE"
+container_env_vars = [
+    # --enable loads the extension and its streaming dependencies.
+    # --merge-config applies settings at app level so they override the app's .kit defaults.
+    "NVDA_KIT_NUCLEUS:apollo-swe.sample.omniverse.nvidia.com",
+    "OMNI_JWT_ENABLED:1",
+]
+
+# Default deployment settings
+gpu = "L40"
+instance_type = "DGX-CLOUD.GPU.L40_1x"
+min_instances = 1
+max_instances = 1
+
+[repo_ngc.nvcf.functions.sample-extensions-app]
+# Named function configurations
+# Usage: repo ngc nvcf-create --function <name>
+# Or via env var: NVCF_FUNCTION=<name> repo ngc nvcf-create
+# Container image should be specified via CLI or CI/CD: --container-image nvcr.io/org/image:tag
+# All other settings inherited from defaults above
+name = "${ngc_user}-sample-extensions-app"
+
+
+[repo_ngc.nvcf.deployments.sample-extensions-app]
+# Named deployment configurations
+# Usage: repo ngc nvcf-deploy --deployment <name> --function-id X --version-id Y
+# Or via env var: NVCF_DEPLOYMENT=<name> repo ngc nvcf-deploy --function-id X --version-id Y
+
+# Kit devs should use Ring 1 clusters in OVC2-Development-Org
+cluster = "nvcf-dgxc-k8s-forge-az27-prd1"
+
+
+# Internal builds call this job; staged consumer builds invoke the script directly.
+

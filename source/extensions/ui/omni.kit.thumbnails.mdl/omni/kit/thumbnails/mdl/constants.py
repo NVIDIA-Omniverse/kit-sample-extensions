@@ -1,0 +1,42 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: LicenseRef-NvidiaProprietary
+#
+# NVIDIA CORPORATION, its affiliates and licensors retain all intellectual
+# property and proprietary rights in and to this material, related
+# documentation and any modifications thereto. Any use, reproduction,
+# disclosure or distribution of this material and related documentation
+# without an express license agreement from NVIDIA CORPORATION or
+# its affiliates is strictly prohibited.
+from pathlib import Path
+
+from omni.kit.window.preferences import PERSISTENT_SETTINGS_PREFIX
+
+CURRENT_PATH = Path(__file__).parent
+DATA_PATH = CURRENT_PATH.parent.parent.parent.parent.joinpath("data")
+DEFAULT_TEMPLATE_PATH = f"{DATA_PATH}/template/Material_Default.thumbnail.usd"
+
+SETTING_ROOT = "/exts/omni.kit.thumbnails.mdl/"
+SETTING_MDL_ROOT = SETTING_ROOT + "mdl/"
+SETTING_MDL_TEMPLATE_PATH = SETTING_MDL_ROOT + "template_path"
+SETTING_MDL_STDIN = SETTING_MDL_ROOT + "stdin"
+SETTING_MDL_RENDER_MODE = SETTING_MDL_ROOT + "render_mode"
+SETTING_MDL_RENDER_SAMPLES = SETTING_MDL_ROOT + "render_samples"
+
+PERSISTENT_MDL_TEMPLATE_PATH = PERSISTENT_SETTINGS_PREFIX + SETTING_MDL_TEMPLATE_PATH
+PERSISTENT_MDL_STDIN = PERSISTENT_SETTINGS_PREFIX + SETTING_MDL_STDIN
+PERSISTENT_MDL_RENDER_MODE = PERSISTENT_SETTINGS_PREFIX + SETTING_MDL_RENDER_MODE
+PERSISTENT_MDL_RENDER_SAMPLES = PERSISTENT_SETTINGS_PREFIX + SETTING_MDL_RENDER_SAMPLES
+
+SETTING_USD_ROOT = SETTING_ROOT + "usd/"
+SETTING_USD_TEMPLATE_PATH = SETTING_USD_ROOT + "template_path"
+SETTING_USD_STDIN = SETTING_USD_ROOT + "stdin"
+SETTING_USD_RENDER_MODE = SETTING_USD_ROOT + "render_mode"
+SETTING_USD_RENDER_SAMPLES = SETTING_USD_ROOT + "render_samples"
+
+PERSISTENT_USD_TEMPLATE_PATH = PERSISTENT_SETTINGS_PREFIX + SETTING_USD_TEMPLATE_PATH
+PERSISTENT_USD_STDIN = PERSISTENT_SETTINGS_PREFIX + SETTING_USD_STDIN
+PERSISTENT_USD_RENDER_MODE = PERSISTENT_SETTINGS_PREFIX + SETTING_USD_RENDER_MODE
+PERSISTENT_USD_RENDER_SAMPLES = PERSISTENT_SETTINGS_PREFIX + SETTING_USD_RENDER_SAMPLES
+
+SETTING_TIMEOUT = SETTING_ROOT + "timeout"
+DEFAULT_TIMEOUT = 120

@@ -1,0 +1,44 @@
+#usda 1.0
+
+def "Viewport_Markups"
+{
+    def "Test_Markup" (
+        hide_in_stage_window = true
+    )
+    {
+        custom int approval = -1
+        custom string camera:path = "/OmniverseKit_Persp"
+        custom string comment = ""
+        custom string created = "2023-11-15 12:14:36"
+        custom string created_by = "bremiller"
+        custom float frame = 150
+        custom float3 icon_position = (-3416.9734, -86.277885, 337.73712)
+        custom bool omni:ignorePrim = 1
+
+        def "OmniverseKit_Persp"
+        {
+            custom float4[] clippingPlanes = []
+            custom float2 clippingRange = (1, 1000000)
+            custom float exposure = 0
+            custom float focalLength = 8
+            custom float focusDistance = 400
+            custom float fStop = 0
+            custom float horizontalAperture = 20.955
+            custom float horizontalApertureOffset = 0
+            custom bool omni:ignorePrim = 1
+            custom vector3d omni:kit:centerOfInterest = (0, 0, -1580.4081535869116)
+            custom token projection = "perspective"
+            custom token purpose = "default"
+            custom double shutter:close = 0
+            custom double shutter:open = 0
+            custom token stereoRole = "mono"
+            custom float verticalAperture = 15.2908
+            custom float verticalApertureOffset = 0
+            custom token visibility = "inherited"
+            custom float3 xformOp:rotateXYZ = (70.95996, -9.541664e-15, -122.08382)
+            custom float3 xformOp:scale = (1, 1, 1)
+            custom double3 xformOp:translate = (-3416.97330433706, -86.27788169337914, 337.7371271419533)
+            custom token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+    }
+}

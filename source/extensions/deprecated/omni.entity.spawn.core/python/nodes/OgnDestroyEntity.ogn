@@ -1,0 +1,26 @@
+{
+    "DestroyEntity": {
+        "exclude" : ["tests"],
+        "version": 0,
+        "categories": "sceneGraph",
+        "description": ["Destroy entities from an asset path."],
+        "language": "python",
+        "scheduling": ["usd-write"],
+        "inputs": {
+            "execIn": {
+                "type": "execution",
+                "description": "Input to accept the execution signal"
+            },
+            "entityNames": {
+                "type": "token[]",
+                "description": "Names of entities to destroy."
+            }
+        },
+        "outputs": {
+            "execOut": {
+                "type": "execution",
+                "description": "Execution Output to pass along the execution signal to downstream nodes"
+            }
+        }
+    }
+}

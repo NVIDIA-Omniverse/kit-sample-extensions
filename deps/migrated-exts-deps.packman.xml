@@ -1,0 +1,13 @@
+<project toolsVersion="5.0">
+  <!-- Build dependencies for extensions migrated from standalone repositories. -->
+  <import path="../_build/${platform_target}/${config}/kit/dev/all-deps.packman.xml">
+    <filter include="cuda" linkPath="../_build/target-deps/cuda" />
+    <filter include="gsl" linkPath="../_build/target-deps/gsl" />
+  </import>
+
+
+  <!-- OpenUSD Exchange libraries built for Kit 110's OpenUSD/Python ABI. -->
+  <dependency name="usd-exchange" linkPath="../_build/target-deps/usd-exchange/${config}">
+    <package name="usd-exchange_${usd_flavor}_${usd_ver}_py_${python_ver}" version="3.0.1+${usdex_platform}.${config}" />
+  </dependency>
+</project>

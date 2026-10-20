@@ -1,0 +1,21 @@
+[package]
+authors = ["Jozef van Eenbergen"]
+category = "services"
+changelog = "docs/CHANGELOG.md"
+description = "Base implementation to implement a server to serve Kit microservices"
+icon = "data/icon.png"
+keywords = ["kit", "service", "transport"]
+preview_image = "data/preview.png"
+readme = "docs/README.md"
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+slackids = ["@U010NFP76BU"]
+title = "Base service server"
+version = "1.1.2"
+
+[dependencies]
+"omni.services.core" = {}
+"omni.kit.async_engine" = { order = -1000 }
+
+# Main python module this extension provides
+[[python.module]]
+name = "omni.services.transport.server.base"

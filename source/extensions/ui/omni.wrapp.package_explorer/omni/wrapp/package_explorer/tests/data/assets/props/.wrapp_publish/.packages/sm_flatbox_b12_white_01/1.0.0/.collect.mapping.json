@@ -1,0 +1,65 @@
+{
+    "version": "1.0",
+    "file_records": [
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_mezzaninerackcomposition_s01_01/SubUSDs/textures/t_corrugatedboxes_b01_decal_albedo.png",
+            "source_hash": "sha-256-flat;1048576;f8652cab4615333796c3493942a7a02ff191d2128973c7b814aca808cd5b2be4",
+            "target_url": "./SubUSDs/textures/t_corrugatedboxes_b01_decal_albedo.png",
+            "target_hash": "sha-256-flat;1048576;f8652cab4615333796c3493942a7a02ff191d2128973c7b814aca808cd5b2be4"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_mezzaninerackcomposition_s01_01/SubUSDs/textures/t_corrugatedboxes_b01_decal_opacity.png",
+            "source_hash": "sha-256-flat;1048576;d67db243ee458d5e699024a22dd401b385cb7fc7a2e4a63d8280bb7cd239e3e0",
+            "target_url": "./SubUSDs/textures/t_corrugatedboxes_b01_decal_opacity.png",
+            "target_hash": "sha-256-flat;1048576;d67db243ee458d5e699024a22dd401b385cb7fc7a2e4a63d8280bb7cd239e3e0"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_mezzaninerackcomposition_s01_01/SubUSDs/textures/t_corrugatedboxes_b01_decal_orm.png",
+            "source_hash": "sha-256-flat;1048576;7b8f01d38bb3a1d4abaccfedd81269096c28836b428704ea9749df6d61c0af09",
+            "target_url": "./SubUSDs/textures/t_corrugatedboxes_b01_decal_orm.png",
+            "target_hash": "sha-256-flat;1048576;7b8f01d38bb3a1d4abaccfedd81269096c28836b428704ea9749df6d61c0af09"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_mezzaninerackcomposition_s01_01/SubUSDs/textures/t_corrugatedboxes_b01_tile02_albedo.png",
+            "source_hash": "sha-256-flat;1048576;a78d1bac33932083729f0e3bdc5495ca11facf5b6a619121709962a5af8b1774",
+            "target_url": "./SubUSDs/textures/t_corrugatedboxes_b01_tile02_albedo.png",
+            "target_hash": "sha-256-flat;1048576;a78d1bac33932083729f0e3bdc5495ca11facf5b6a619121709962a5af8b1774"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_mezzaninerackcomposition_s01_01/SubUSDs/textures/t_corrugatedboxes_b01_tile02_normal.png",
+            "source_hash": "sha-256-flat;1048576;578d7f18404df3f8d5ddfdef37ccfd28200db0ab79edbd5bd93b208d053d1701",
+            "target_url": "./SubUSDs/textures/t_corrugatedboxes_b01_tile02_normal.png",
+            "target_hash": "sha-256-flat;1048576;578d7f18404df3f8d5ddfdef37ccfd28200db0ab79edbd5bd93b208d053d1701"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_mezzaninerackcomposition_s01_01/SubUSDs/textures/t_corrugatedboxes_b01_tile02_orm.png",
+            "source_hash": "sha-256-flat;1048576;4209588b6ea5225e3cabd6f14c5176ef9665778533ff05857ce07171801b20e8",
+            "target_url": "./SubUSDs/textures/t_corrugatedboxes_b01_tile02_orm.png",
+            "target_hash": "sha-256-flat;1048576;4209588b6ea5225e3cabd6f14c5176ef9665778533ff05857ce07171801b20e8"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_mezzaninerackcomposition_s01_01/SubUSDs/textures/t_corrugatedboxes_b01_trim_Albedo.png",
+            "source_hash": "sha-256-flat;1048576;70aead2e4fe4c35a4bb132732349bc9657ba1224cf8307f5a73547ed0e60ee59",
+            "target_url": "./SubUSDs/textures/t_corrugatedboxes_b01_trim_Albedo.png",
+            "target_hash": "sha-256-flat;1048576;70aead2e4fe4c35a4bb132732349bc9657ba1224cf8307f5a73547ed0e60ee59"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_mezzaninerackcomposition_s01_01/SubUSDs/textures/t_corrugatedboxes_b01_trim_normal.png",
+            "source_hash": "sha-256-flat;1048576;3c5300f02b33a87aa48a7ffbb57379ddd747bbeb3b5d7dea6a507e35df4c0820",
+            "target_url": "./SubUSDs/textures/t_corrugatedboxes_b01_trim_normal.png",
+            "target_hash": "sha-256-flat;1048576;3c5300f02b33a87aa48a7ffbb57379ddd747bbeb3b5d7dea6a507e35df4c0820"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_mezzaninerackcomposition_s01_01/SubUSDs/textures/t_corrugatedboxes_b01_trim_opacity.png",
+            "source_hash": "sha-256-flat;1048576;6639b48969c123438923e0f8cb92ca45daf6070db51c3333a99402af05159a23",
+            "target_url": "./SubUSDs/textures/t_corrugatedboxes_b01_trim_opacity.png",
+            "target_hash": "sha-256-flat;1048576;6639b48969c123438923e0f8cb92ca45daf6070db51c3333a99402af05159a23"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_mezzaninerackcomposition_s01_01/SubUSDs/textures/t_corrugatedboxes_b01_trim_orm.png",
+            "source_hash": "sha-256-flat;1048576;d9ed157af5ad714e3457ef8483d9116f21c59298533d9871e1abd60e2df83aa7",
+            "target_url": "./SubUSDs/textures/t_corrugatedboxes_b01_trim_orm.png",
+            "target_hash": "sha-256-flat;1048576;d9ed157af5ad714e3457ef8483d9116f21c59298533d9871e1abd60e2df83aa7"
+        }
+    ]
+}

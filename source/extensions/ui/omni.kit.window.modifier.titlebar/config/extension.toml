@@ -1,0 +1,80 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "107.0.3"
+authors = ["John Han"]
+title = "Main Window title bar modifier"
+description = "To modify the icon, title strings, background color on the main window' title bar"
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+keywords = ["kit", "window", "modifier", "titlebar"]
+category = "Window"
+changelog = "docs/CHANGELOG.md"
+readme = "docs/README.md"
+preview_image = "icons/preview.png"
+icon = "icons/titlebar.png"
+
+[dependencies]
+# "omni.ui" = {}
+"omni.kit.window.title" = {}
+"omni.kit.uiapp" = {}
+
+[package.target]
+kit = ["107.0.3"]
+
+[package.writeTarget]
+python = true
+platform = true
+configuration = true
+
+[[python.module]]
+# This module is used to test omni.kit.window.modifier.titlebar
+name = "omni.kit.window.modifier.titlebar"
+
+
+[settings.exts."omni.kit.window.modifier.titlebar"]
+titleFormatString = "{text:OMNIVERSE, font_color=0xff00,bold=true, italic = true } {separator} Kit-Demo {verKey:/app/version, font_color=0xff00ff} {separator} {file}"
+#Color is in format of 0xBBGGRR
+showFileFullPath = false
+changeWindowRegion = false
+respondOnMouseUp = true
+
+defaultFont.name = "Arial"
+defaultFont.size = 18
+defaultFont.color = "0xA0A0A0"
+separator.color = "0xA02020"
+separator.width = 1
+#windowBorder.color = "0x202020"
+windowBorder.color = "0xFF"
+windowBorder.width = 3
+
+# in the format of 0xBBGGRR
+colors.caption = "0x454545"
+colors.client = "0xFFFF00"
+colors.button = "0xCCCCCC"
+colors.minmax = "0x636363"
+colors.close = "0x2311E8"
+colors.minmax_clicked = "0x777777"
+colors.close_clicked = "0x372FE8"
+
+[settings.app]
+window.width = 1080
+window.height = 720
+
+[documentation]
+pages = ["docs/Overview.md", "docs/SETTINGS.md", "docs/CHANGELOG.md"]
+
+[[test]]
+dependencies = [
+    "omni.kit.pip_archive",
+]
+
+args = [
+    "--/app/file/ignoreUnsavedOnExit=true",
+    # "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    # "--no-window"
+]
+
+stdoutFailPatterns.exclude = [
+    "*<class 'omni.kit.menu.utils.scripts.utils.MenuUtilsExtension'>: extension object is still alive*", # Leak
+    "*<class 'omni.kit.window.tests.Extension'>: extension object is still alive*",                      # Leak
+]

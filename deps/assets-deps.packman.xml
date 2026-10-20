@@ -1,0 +1,6 @@
+<project toolsVersion="5.0">
+  <!-- Use this file to include any dependencies for extensions in "ui" group. -->
+  <dependency name="nlohmann_json" linkPath="../_build/target-deps/nlohmann_json">
+    <package name="nlohmann_json" version="3.10.5.1-b440a32a-windows-x86_64"/>
+  </dependency>
+</project>

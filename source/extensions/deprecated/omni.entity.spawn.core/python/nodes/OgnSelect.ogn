@@ -1,0 +1,22 @@
+{
+    "Select": {
+        "exclude" : ["tests"],
+        "version": 0,
+        "categories": ["flowControl"],
+        "uiName": "Select Value By Index",
+        "description": ["Selects an input based on the index."],
+        "language": "python",
+        "inputs": {
+            "index": {
+                "type": "int",
+                "description": "Which input is selected."
+            }
+        },
+        "outputs": {
+            "result": {
+                "type": "any",
+                "description": "The value of selected input."
+            }
+        }
+    }
+}

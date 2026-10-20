@@ -1,0 +1,60 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.2.3"
+
+category = "Internal"
+feature = true
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Jeffrey Qiu", "John Han"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Environment Property Window Widgets"
+description="Property Window widgets that displays environment related information."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ["kit", "property", "environment"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+# Preview image displayed in extension manager
+preview_image = "data/preview.png"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "data/icon.png"
+
+readme  = "docs/README.md"
+
+[dependencies]
+"omni.ui" = {}
+"omni.kit.window.property" = {}
+"omni.kit.property.usd" = {}
+"omni.kit.widget.calendar" = {}
+"omni.kit.primitive.mesh" = {}
+"omni.kit.property.material" = {}
+"omni.kit.environment.core" = {}
+"omni.kit.viewport.utility" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.example.hello".
+[[python.module]]
+name = "omni.kit.property.environment"
+
+[[test]]
+args = [
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--no-window",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+]
+dependencies = [
+    "omni.kit.ui_test",
+    "omni.kit.test_suite.helpers",
+]
+
+[documentation]
+pages = ["docs/Overview.md", "docs/SETTINGS.md", "docs/USAGE_PYTHON.md", "docs/CHANGELOG.md"]

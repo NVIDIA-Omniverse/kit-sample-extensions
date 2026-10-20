@@ -1,0 +1,24 @@
+[package]
+title = "Graph Usd UI Commands"
+description = "usd commands for graph ui"
+version = "1.3.6"
+authors = ["Min Jiang, Victor Yudin"]
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+keywords = ["graph", "usd", "commands"]
+changelog = "docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+readme = "docs/README.md"
+category = "Rendering"
+icon = "icons/icon.svg"
+
+[dependencies]
+"omni.kit.commands" = {}
+"omni.usd" = {}
+"omni.ui" = {}
+
+[[python.module]]
+name = "omni.kit.graph.usd.commands"
+
+[[test]]
+dependencies = []
+args = []

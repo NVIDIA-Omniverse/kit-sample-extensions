@@ -1,0 +1,901 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (0, 0, 50000)
+                double radius = 500
+            }
+            dictionary Perspective = {
+                double3 position = (2374.9430930626554, 344.8395057721806, 415.2322929869615)
+                double3 target = (-29.740944655468866, -34.99465826204886, -88.8564766933859)
+            }
+            dictionary Right = {
+                double3 position = (-50000, 0, -1.1102230246251565e-11)
+                double radius = 500
+            }
+            dictionary Top = {
+                double3 position = (-4.329780281177466e-12, 50000, 1.1102230246251565e-11)
+                double radius = 500
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./cubes_with_waypoints.usda"
+            dictionary locked = {
+            }
+            dictionary muteness = {
+            }
+        }
+        dictionary renderSettings = {
+            float3 "rtx:background:source:color" = (0.329, 0.325, 0.325)
+            double "rtx:directLighting:sampledLighting:maxRayUnexposedIntensity" = 6399.9990234375
+            double "rtx:indirectDiffuse:maxRayUnexposedIntensity" = 6399.9990234375
+            double "rtx:pathtracing:fireflyFilter:maxPerEmissiveUnexposedIntensity" = 3199.99951171875
+            double "rtx:pathtracing:fireflyFilter:maxUnexposedIntensityPerSample" = 3199.99951171875
+            double "rtx:pathtracing:fireflyFilter:maxUnexposedIntensityPerSampleDiffuse" = 3199.99951171875
+            int "rtx:pathtracing:mgpu:enabled" = 0
+            double "rtx:post:chromaticAberration:strengthB" = -0.054999999701976776
+            double "rtx:post:chromaticAberration:strengthG" = -0.054999999701976776
+            bool "rtx:post:dof:overrideEnabled" = 1
+            double "rtx:raytracing:inscattering:maxRTSampleUnexposedIntensity" = 204799.96875
+            bool "rtx:scenedb:skipMostLights" = 1
+            double "rtx:translucency:maxRayUnexposedIntensity" = 19199.998046875
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.01
+    startTimeCode = 0
+    timeCodesPerSecond = 24
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def DistantLight "defaultLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float angle = 1
+        float intensity = 3000
+        float shaping:cone:angle = 180
+        float shaping:cone:softness
+        float shaping:focus
+        color3f shaping:focusTint
+        asset shaping:ies:file
+        double3 xformOp:rotateXYZ = (315, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_01"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, -87.63932624963442, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (286.3067927068753, -179.57678891483755, -1219.8295722457178)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_02"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1000, -687.3670015404593, 374.38582569636014)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_03"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, -87.63932624963442, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (40.11155996096195, -179.57678891483755, -1209.6802083768557)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_04"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, -87.63932624963442, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-209.85106268853445, -179.57678891483755, -1199.3755343886864)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_05"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, -87.63932624963442, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-445.670363679432, -179.57678891483755, -1189.6539168481495)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_06"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, -687.3670015404593, 374.38582569636014)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_07"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, -87.63932624963442, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (365.15649174499873, -179.57678891483755, 692.8439960136927)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_08"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, -687.3670015404593, 374.38582569636014)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_09"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, -87.63932624963442, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (118.96125899908714, -179.57678891483755, 702.9933598825628)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_10"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, -87.63932624963442, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-131.00136365041152, -179.57678891483755, 713.2980338707273)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_11"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, -87.63932624963442, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-366.82066464130514, -179.57678891483755, 723.0196514112668)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_12"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, -687.3670015404593, -899.4498868626981)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_13"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, -687.3670015404593, -634.3187931316518)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_14"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, -687.3670015404593, -899.4498868626981)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_15"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, -687.3670015404593, -387.9144461453276)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_16"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, -687.3670015404593, -137.73950929549773)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_17"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, -687.3670015404593, 98.28009278754809)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_18"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1019.2024840127239, -687.3670015404593, -899.4498868626981)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_19"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1019.2024840127239, -687.3670015404593, -634.3187931316518)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_20"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1019.2024840127239, -687.3670015404593, -899.4498868626981)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_21"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1019.2024840127239, -687.3670015404593, -387.9144461453276)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_22"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1019.2024840127239, -687.3670015404593, -137.73950929549773)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_23"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1019.2024840127239, -687.3670015404593, 98.28009278754809)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_24"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1000, 598.9316952843294, 374.38582569636014)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_25"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1000, 598.9316952843294, 639.5169194274063)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_26"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1000, 598.9316952843294, 374.38582569636014)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_27"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1000, 598.9316952843294, 885.9212664137306)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_28"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1000, 598.9316952843294, 1136.0962032635603)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_29"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1000, 598.9316952843294, 1372.1158053466056)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_30"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, 598.9316952843294, 374.38582569636014)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_31"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, 598.9316952843294, 639.5169194274063)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_32"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, 598.9316952843294, 374.38582569636014)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_33"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, 598.9316952843294, 885.9212664137306)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_34"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, 598.9316952843294, 1136.0962032635603)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_35"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, 598.9316952843294, 1372.1158053466056)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_36"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, 78.46163257364096, -899.4498868626981)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_37"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, 78.46163257364096, -634.3187931316518)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_38"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, 598.9316952843294, -899.4498868626981)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_39"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, 78.46163257364096, -387.9144461453276)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_40"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, 78.46163257364096, -137.73950929549773)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_41"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (914.2981621880601, 78.46163257364096, 98.28009278754809)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_42"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1019.2024840127239, 78.46163257364096, -899.4498868626981)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_43"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1019.2024840127239, 78.46163257364096, -634.3187931316518)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_44"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1019.2024840127239, 598.9316952843294, -899.4498868626981)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_45"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1019.2024840127239, 78.46163257364096, -387.9144461453276)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_46"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1019.2024840127239, 78.46163257364096, -137.73950929549773)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube_47"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1019.2024840127239, 78.46163257364096, 98.28009278754809)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Camera "Test_Camera" (
+        no_delete = false
+    )
+    {
+        float4[] clippingPlanes = []
+        float2 clippingRange = (1, 10000000)
+        float focalLength = 10.400001
+        float focusDistance = 0
+        float fStop = 0
+        float horizontalAperture = 20.955
+        float horizontalApertureOffset = 0
+        custom vector3d omni:kit:centerOfInterest = (0, 0, -100)
+        token projection = "perspective"
+        uniform token purpose = "default"
+        double shutter:close = 0
+        double shutter:open = 0
+        uniform token stereoRole = "mono"
+        float verticalAperture = 15.2908
+        float verticalApertureOffset = 0
+        token visibility = "inherited"
+        double3 xformOp:rotateYXZ = (-1.4659406974809117, -83.18804534085209, -12.088005929675239)
+        double3 xformOp:scale = (1.000000238418579, 0.9999994039535522, 1.0000010728836062)
+        double3 xformOp:translate = (-1.9468870959826745e-12, -1.4921397450962104e-13, 5.826450433232822e-13)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateYXZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1000, -687.3670015404593, 374.38582569636014)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+}
+
+def "Viewport_Waypoints" (
+    hide_in_stage_window = true
+)
+{
+    def "Waypoint_1"
+    {
+        custom string camera:path = "/OmniverseKit_Persp"
+        custom string comment = ""
+        custom string created = "2026-01-29 23:35:38"
+        custom string created_by = "horde"
+        custom float frame = 0
+        custom float3 icon_position = (2287.6196, 264.8511, 1996.3678)
+        custom string omni:baked_preview = "zTE\"rl=o\\O&Gb\"/,q6q&,Q>T,r`dL9T6uW6P;,g^>=57K*5.92o+sI*K`o,]+8;dj\"$6ujTJ-`faWa8]=WqY.7A-\\OOo7Nt(pt*I&G:RUGS$sTIZKg!3.HV08A5t7E&N@G6>MP%iY^X:=OA\\\\\"V3FkM.A`8,8h$U$;G&D:AuWDCbB0#mFBm_Zh=(#.l&S3Ig\\)_<0Y;Mr1d>m8DROH96K`ng:k.(MV*g`\\Cu/tT:7PuE5P:9:pnNnoRPemEr/MkK,jOjpV0%OAL(-O4G3gn-7Z9$NqU;'mN]QGRF5D3*R9OR>`Ve?3R:apfNNqT@\\iZ`XBHqI2i9uC>DD2.s$nt1R@N9tp5Q,]1&NGb!#<H)TmZ^VL7?#!P(-=J3GU)/V(d./h_p!YK&#\\=JSpN*31lXekqgRj3e(WMjDRFKt\\pNl#\\RtO\"eT;6UdjGNC5*_<\\D%-(*mbPM!Xgd.*iX\\Oe&B?TQ4Hjlf`#jGHg9et<\\+1%(POe:c,EFZKc5C)WI/0VlpAO_c35^6e87386;]k1`9>Jr$Hec#EQau_54.Z..mBk>9B<`;9B6\\=#oiZaJ5'&'70uk>^/3PpWkjAsFpjd`.M(Lh#?Y@?8'kYEDhp=CIClh:2VK27S-K(iWp@#hM#L.l35$3M'&F`aP'YO4aB!^XWN]AG6L@t:2++?bj@f/Muijo$bpR;I&-I@2(%38&es5dCi81$s18NBB89P*9.8$N\"OgHNnoF(WX`0nc$I!s_;+)1:D'>g@/opsJlk[V_MUfk\\VKG?fs=_l_`co$?$A&q=-PH[nE?n\"GO9(=CeO?$$[t+8K6/PH2IsepR)^fCU.r\\bpDOK7/j(akn26^L)<W75Jc4YU[C(FS*sNPC+j&Q7BILi\"&qAr.Fo0n\\c(cndcS-qu6IIpj4Er'aG.,gl*./b5;h'MSM*h`IS*rbS*c76\"LKC15+r?hUWG[#ODOYca0/.Dk<hjSBubim0\\Q[=hA:*=nqgUk,lDuSUB+Y0>0d:i'Z^W`W*((mu<g\\il-gIrit<km(W)bgLfW/*>/2M=*s]0%Ij[+MrRf=>nu?0jT;?qhc$s)E]h-L\"O>(@Zt95EjmVB)I7AAYG1A(*KDj'DPj0LW1_=IToI\"/U@X5bL[`Ll6g&\"#4oM]hW4nhd#&9:[g$a7>EHF&\"P1;XCYmsBsGaNL3*rn0F0jHCk@n/RJ(h_k`=-;BpCg8(qT^:!eSAO8lGStCK.aZT.8,BV6D7iYs79q+WF:3$(+,5*g<*ePoeVS`\"(B.)AeX&cA[o030+/6o]Hj=+n*fPaYpGM09'XnpUrn\\l=,RVT'_aL+Yo]emYLb=T\\qA1FeeXF@X)2;sU=\\^]\"TB9L4k`_ME+jq-S2[lCPp9T^E+E<&Z4F-*#UV6[fTMagqiIP1QbCTkF;0F.FLl79'*V+[+Rr+gXDHl<R#p\"3c87<\",>[Kc:5ED,M9gr\"Te1K10HphLM95B^18!e'j=m9>V&C6C?Q5@S;(G/fLTi\"Z.roHS;^h7b[Y+3VAmet.Q@qqQ8=R@A-/fpm**.H],Y:Gj@eN%fI8*?4k6d,UM\"q;mrM8=)+rT:S0um,#.N:[oh2YX=\\kj7`1io:knPhmR\\jF;s3N/jFm`']\\%]YH`Mr=OHSHq:aHj22tInS'_%$^$n8Dd:(V.>t\\9NjR^kRi0=.WgQn.k(?,^BG*\")&q\"N^_K?4Xd5'LAA!ObFHA#(dT$*ru7M`7V^L(>A$\\E&\"FDV8jWI.s2Bl)'ro\\8gQQUQ7T2F'e2T1-X*8kYK4+`ikUmEBO9/g<UU'*s6^,pL`4?3oo5iji_APq/bl.\\$`ZmoicW%NRe@2T(W'd(L1@F4T0BPgs2T['Eb[$BshIKjHEB:(^99pTct!Im7-!7>.#i3dAbGS'C$YNFO\\2=5>:1/4(O.mG3W%i&%IA._Rp(hZ?P/Na*bFBEE3%t5B$pWfcPV2fa_7?@\"<Zr^5Dl_>kgDMhr,@\\Y^LNKIJ<EFT'pUq[C*E1,EFl8&dsFFA,Dj?oJ+2;(MKQ9\"kikZmG>OGnAj/L^ADfZ?7qKK^W7F'hsnPk0+@M4#WC9/n`.k/='S%s<Q9IaU<WAV@3i*<RtX*%6^T*RcN@MPc2(7`/8l&!quL<\\9ZFaEg2#h8B?VJ;)n)F3.5BrsEs6FmF2K!9N9Se_-:msQZ!Pel>FV5D@hsR0;eKa@3T5W)kSiM,b<PVJYWI1'BY&ro#HbV-fj;#hp$,2/pBH,O6U/\";pq'R&J;;MKcj>K%rac-H3#9a.@'*o]a1qeqggCf[12uWEH1T5f0>(\\aIJ-h8fn'CWf.9,ucb3r?.'hfos2*l]%;PPFiZr>ep4[@;HD$8hkKg&.%/SWnoBoC(gMmQ>)Z8a.^>E*7qgr?0fHoiD\"p\\u>j:fN^@i2s,ho^KiV\"lj0\\'0<EIkOtnlTr7j[XMT9=(i900P8V#8N?asOgF^b+QbE5hL>[peO+=24rGHlr@0OuT>rhI(&j(Dp=P=M_l%n\\p\".HU)fD;cdiV#eUf<h4%Jua;\"T6p0UA^G,ThR(j;n\\Jp8h$U$;G&C7PYt+&o`aT)dBB,$OOETe3%cH=Ch:>2/!_U`,L.KSGrVFh0BQA73qN\\4C!9Ms2'P#30Y]!u@V\"m@s2WnQ#lfH9bT/<?\\hmZ)gm</EMt-#9U[o[.3ShHg\\\\H5c^n*3'gi8,FjHE@f(CBDXOAeAaj@IGVUAQEtcfroU;>pXJ@j6](X1QQFFk0];n\"sJUg`(1E61]#ecCZ1]#M]UL2(ULA>gB*Y/E/doD%\\RBaup:/AjEn?'C+3,rU<<'`ZOBfJ<5]b^]450)0,2c4aCEK-W8h&>7Wjc!1fT:CDQk=Xu\"Y8@:'oEq49`rbaWOb8blq\"s4NmS'%@@-OZ=BY)n=lb;jd=A[4<fg$<HjET+ZEf)hN5WTDG\\!hP.YIludr'!VbAtGA8Mt,D#Sj??rA-d:*Z6F1hGA/BWZnho`F5A&k&(Y.N!'H1*o5!HMkXG2T>kP9OddE=TMgS3MS[P*U7V#R?@O3H3jMHn17$MikW-[7M2W1M4ibQX+bP@K)3AcCc0>TgOU(.9!*?NZ-t6o(eF2M`#]\\qh06/N!\\kN\"Z_TafV@l1P>8.=MPkMQM>O+bYmf\"/-2\\1>_iW&R9rl6+cJ!6!-XB#%lSdMth]ldj@L+te+Biu\"FV\\pbZH&7sCFFft0[@/(24AcF/IPMfNr6LUjTq.<3UG\"@hh=CZACOu+NN:dR6.>AE+&>Df0gkql?@DKHb/Ko8I6-KN5R'R#?[hh4K[5)Dp6!T\"r3D9AbL,b05*u:L*>@BT%MJmOkf^9q+7q4,!@8KRJ#d4LTQ?3-jeFr%Pu!S4/=4?=EnLl[&_(6=kAsdi[lEbgD`?@X<]V\"8*qrbWQc5C&MjkG3<grjU5;ej&emu*IP6n4`LN3FKhq8tt8,LT)DJ1,@@im>Ejp;^@Rt4V#@;c[X4+I_YT_9/;\\iO4.H/67NkkXD6VeaA;4D=6iCh$fWjI63hOG?V9=c,'FkXXX1j`a9.pP$%?j`kq]pNZgf<6:Ha^C)F[G<%FE99D-j.'X@n,eu[$M4hUF!i\"S<s-b(*YW!<pb`(q9U;66Ag:kRL:\"f$IM_'m=V$tL]UV0ccloCrO[L0EsPVFbAf!X4A.us\"oV8_;,O,K>U1\\9bR2si3*XHlo9^95Fc=tHeV:q!4k+*aXRp77W0h8iZ'[VQhpS+O2WMu2tX5K\"Gj`UWEEUT^LWQ=)c_Z8)jOSp:0Qb,pHsI;egqb(7OG%d4jr\\R`ep>2oeC@6G+\\$gX?MSe=gK4CULsIL*urkX4dm:bHuH/4n#*(VV_L_Y5gG\"BH@@N0Wm;E\"ASa$]MXM(WDL80*jZA^SpU)/(E9FrCD>dp]u7Z!buZ\"R^R`M't\"1?caV@$)>e4\\AO)[+Ol)A-=@V&lmdM4JUV29R*0.J!OI8*K/Oja8C<-4hJ,QDcBl1CUgV*`*Ji.>fjd04]L0NDMpon2hr8GQX#TP%4*c'ET(CM!00_6mA=p#`F>EGQB6gtdl#0--OF_MB]K6&/p\\+jt/VMt<;l7\\-&rXE1JI>/tcMs%GWUTsrl`TJ's4;J86*6N=FH8f=g;TGH%KZ@mo!h\\CZ2P=;DIq<YGdr':GW3nci_,4FF7pZ?9C<tu)SfYRXodirm,a[jl6<o#^Di>c@Ds-RSY/Ai&rV#!j=b?sCSI%AjV=egNf4J6Z(&.o,f@t'W=U[Lfi.GWorS=o*Xk@*%[d;0jc(D+&nb)J7`)i8f^dTm:>;jpTYh]X6@=O(ke]S=P>8Ys0J^MR7@%8u1_X\\Dl0])S-5#4\\SRBhJb_D'*U4Q38lb05Rl%^?k8T?g`pC@1DY4_?:3J>[4=rS:=-fmJpBR9Y<gj&ij(lOd$dW1tS5AJMS$kB92kfJ]HVYjWjGX)(3b:?e-iNa9@XZnKu*n='@$mg@?-#;,r7$aXO*6K0_9X-G2:RVPES2@HU&.gC;/a5a89!F<=jg4s@f2X;U4Z18H.?1l`LVAm1Wk;tu<h=t9o0p&G(BX<d$&_WsOfLE#%C#(>p0<[rQXfk=nN3Na!iHf-eVp8`^jb)_G1:,sVJ:I[APn&_AI'I4%eS.&q!CQ5TIWG.3^1_XVTg\\Z\"]NN*-Kd(cs8cBh+Gp0E8.l+\\flU&=`4dA&C,AlYT<l$loNpZ2Af!Yj%GeI%/O5bGO%I:?;?0>Mfkro0`fj9h^\"*H4\"l\\15'[p4LX!lj(c304)q$b\\cK0#bsFmmC:sho1+,60Ks5q@nTH[`=OTS1?AR]m/+:_m:pq'Y75([8(-HZJ=F/?AuEqnMMnAneE$@!1!md-.>/pb9g`FK*Y+th>RW@.PdtgATW*]!pYa6^LZ5!Yt)Y)@XtLA*IFrSJj'&>OZF^^_>\\GZl<7hF%He=M=L;`RmA#EL8[4#;f@dtma1>%f9-N2E5*rR[b0H$@87*h!_0SPm$HX)eNbfNt'okG4oa0]9Cq#?>7.AMW\"SNH']\"i%%r\\&ojDbu:qMD51Ed_;d*Sd1M^>SdK/?.e<g\"m&CYLAf$gb&SVdJR![CEu%OTgWpW4fs3paQ,5;DDhOAu7KttTE)R&<l11*BTD/+OjmX1TbKmK/>uH-ZoWKM]AY6fI69L[f]s\"h%'>B<VDq&0s1#f^IdEs$!6!sfHH&Z8fci^?sUb1ShCK_7jqJ^79a#QKA#lHZc1FCZF0`I`DWXOt-7r^XB\\umhqJN*57rSMJ\\>AjhZ^PoE?n-TSJ_5=Hg]20$&+4qXiLD9Uo#k%e4)+Q6I\\k:M%[)A-n)Y[U$at$K2D'Y]$p+-)^JOOjt41JT0f9q]jH.#Ks?LSW5hO7pjcr%RpruX7A\"RSdcc=.?3q42s-fb>sS*ZgE,kQ@:.Z9Ej5iO,;Sa+TCc\\hI1rBte<*`nmJp`c7%NDa$@r`cZeJ\\o.>]jfj.U0hX6FP_]:s9q^Nt;.*B:n-c=@A1DS!aho16<lb0KYAm?<Cf\"MjgF)HH?qoV0LIIMch'-1$j42@@g7-\">&,V]&cXk%._*?k=pZfP#;m;t\"IN<K1]PffP2WAH'LD%-(Ycj_7iE(bTY:=]JD/6+HA\\WH.?rHRFLSaK(`?-N2AU0`*&PS(/32S7gK'&tid7ITS`]s&@eFU1?e2n9NKWMt6#4@\"1#JVOu>bj+<,-ETfFeE70P)#KM&o3ph3``EZg_J%sD%$'n!WN'\\Adn(7KtX07++SddA;h=E29]@>p=a;E\\Ltf,0Y\\rG^Qd'6`;H+;8*]0>I@bb#XSM:*agFV,o?#+Sq]+YOQ)CD=7HD&TO*bn5gn]kKJ7H=4L[gH-r%J=\\FlIHSIB)F2pcl6OYpsJ$#E+`Dl\\tZfX?3sTbh6kEp;5T!m*UM,\"QWKeIJ)-T5D\"1Wfs>>?r\"fY9dU4/<*kQZ_f<k/Kk?)qgGm:Qe7/c42JNQtU**1rIAPEmdb<:3o]'raCT=VMmi*Fl8<jGJ0.5Egtr:\\5:(CkDTon;ct9i^aYe5>7!rccU!Ea>LmN*n3p<L)DQA!$RVqK]C&\\fY3=&*FPf^bs>eTj5Yl*2/^]Zc)DFfVC[+m!7Ln3I[@]8,`m:(8.RV;p=oEDeRqhP<iUuCJ[6^XH`+7F7-d9BPabOZ:j'C_OF3LaniU2@qFKh]c'*trcm5/oUmg@@g;C@ktXsl5k!qlikh%HX02GbEfAnZpFOe)`78d0#0CoUgns!KL@@-`o64UBI^=(6$Hdc`/d_7/69ZN2$NDBiV6qIt[F)f37j.T^^a.d3F%WfEoAQCEl7$SP3;iR6l/V3`F`PVb-$(B(IJ:n]=lscIqIF(U^0EQ4bA)HcD(ga2#f]tq\"ne&LQ0rkW<_7QbAXq&BE9Rg72ng(g<m[P12hc%oU\"C_&qe..>mf3:Z0A84BYm!>rj^3&M-1l]6TL&2iF>NV4HLZ\\*a=g$Y)@%mdqKT-_PoQ:Ime>Q+HDd(*V&FA/Xq0MGc-NVs7@iK.T7jcWq;SHE``Pa(9>W_G:E7%*B3]VR`YdaZjY'9;-h3\">3EMU0*Tk#mLZ#cbfQ2N!hS!@s&dUKEaN;IdH%Q<l8`u\\P1(a9&B\\T\"p]Ks*RW$BF/?k7&0>>o#t@Y3pe\\Z=]!ES+mI\".aY^p5[EIj(F_a1/FP?;WT!6)6Nd8qh?`:,5\\\")@9\\?Lilff8II=uhPN7WPk,I`XaU:*uosg?/SaE^dcZ&o)q3'&Vg%(^,%3XP):ZSfWSif$OgA0p(:Zm7\"j:pY0mC1memb<]`YXSco`YdY4VO;@]!U;%d0tgm\\a-Bc(92+XE\\9n^E97<FkP=thpnpPPGq<P@Q?%'d2Ogp=u[9P?-eg`iI^mOau>[rP31;Aa>oB\"Wi0qi)7ni=fNfp@irTGg&IKD45Lmj6ikha?<bb-<>P)*n`Qp.4<<PaIf,2fBc%;3kekD'eUWk\"ipfE7fGUp9g2.^AcW&,#3VLAZCUqBKt%$@:(#%eQ2)KPj-Z)5+M,SUu**2=-i_Is2A&(HD]KX#P!;qF&KcW/?C_sUop!]JDZ`L_jhZqUCHuc)hBB<Qc(g8&VK':i]Q3V>)u9?4I#Flj$Lm4fq2G,C3_2o/=/Stn(2`dS3PK6cY\"WKr#D\";4uk1U,1i+A^?iVEId7@;NQ[LZCOE_i>l&V-hWs@#*-C`.odo]uog\\^Oca-faiH`@>Ya4IT]C%HSQnp+q7k2RLJ2M3$F.^M'=3AF:c/7&O-').T\\`B&p9PGNHm2P<AGDgZ;N.GYJ9<^<\\gFN.!P(.LY;*N$9k;\\2=m64fG/LRN86%0?*/]fr<IeN;;f%h_\"A=`Pq3#s;jbO:\\AeLM.rd&XD>GTEmZkBq9PHH)?7^\"+.V7[:QiQHjL7<M$sjA&W$*i#MHf`nG!O%qe8VpMuf\"A?dYV^j-g%:Y;kO,tFcdPI@(K\\O>N^m?d4#P@mlN/b!graVQP\\GWbih$Mgdi0D5pn3036J?%sELRZB(KC7\\#s8s\\F^eg9KankA(J50*7V=E!gr#7j;<s,-8q_<7/4oo3H54$^<q\\i-;OQ2RiX[qq[X?;C\"3Fl\"K=EBPc5-,97=8ThN9Q1UH/IGrXp>->E-op)6L%BWFcjHPlL8_u%kQgk\\KB;=A#I)-EP6+m4NpCkh9qX?jnS+YgHFq/;:Ol(f[\"Sh]-p@/X[k.*h6a1dGS7sDqrRK\"fkFZ_q_:D.rkpUbGkiagb4d8h\\`I9;EV@4[am^7\\91n[n&\"R(.`D^+g^8=RsQehfYRhFNI,-a*\\?p\\23oW*+U,MO6<$S:+5T#>p!I7ruWt7+K\\k'4fJ83`@G3V(o+OKI.it$*jO#AZ1D-_<LaRDojSR4l*J!u^ZFL0Dg\\j,Og\\[r$>h2bduum1O\\[Gb>ANTh[WFNSlb`n8Sa2<nnCoZN#Y\\NRh0$(h#kg=;ote`(_08]5j'rQ2rr4K%^J+4E(L,klZ+Zq*<*Xq$28LZ#T1V7<A#PnKO3;0KaaT=pDHu\"Fp);+0Xj`Hs@P,ohi`=enHn>X/C[(Q\\\"SgHO[$D5Ss6u_,IKf<.VZR1@r,*)<lgZ?m5k/pZ=QF_e4CV*r(]H)1i4Xp*F;i?&7ca^CL\"k[O:G0?>RPV/?:6<[ANPhj$0A&dfkNgL6\\d\\C.;OsnoV/<k)ha-:ZlO]t$>rk[&(R[ns_DSDpS2te-ps!U@5D'pq?jsTPfOG#o[1gQ@-i\\)Ph\"N8$)gOQ]/E=N'`ag0AA6d.k:T6d'4N6#eleQm9LG`/*o(aP@,u1o=r*Rlm>ieO]^Rd2+Nat0Cl;^t7C0.AK)k1j[Hs$A#-??@G%h7m1XMaf'+QkFsLq+JKm9CXth1`PRp@$`Pb\"S$3qGD#*E-p9!e\\$t7/SjT,/N]0[ZR#;@FKoU640D8D:X/\"NdXuQ$8IQoQl*O^T514bfSoGqP\"Z_oL$[XGjT#^TSDn:dG,ER78D;)@957YaqT$Mrs\\TI(6o@Th!P&/)2PNBML)H0OoY[>1$[T<8`Y)ha1\\$ls_Xn-[_=Gr@^r9gBST9&c8HH2Wc;a,[*icM>H\\RIM#qeGA&H/1@Gl$LGGJf-I_==EKsf*_NZ\\s2q?K`$JJ*Hh&*iOfA*23-GAp[L*1494.7&iWg#[Z9mtGV6$OXEi;hP'-om/=E-^S$IIISU/GWMRPQi*F^:&H_mnjbP/t\\I!*m1^lcB7$f;\\7U9GsTrWDMuZ$5&=(,&ufr[r]LoC9jCV`6KmLgs>c5*tdRl!)*ja<Wl\\+&ps$)Ac0+0kh`La:-b\"EZF_kIZrl6s3t8E95_mS9bLal/!p(V2H)'Em\\j,$et54I5_m4S\"dZA>)=nQL7dnR;Zq_M6\"4m26fgBOEOUHn,.ePaV?2BN;`TssJnPf.*SBbPLaRSK[LU]P![V4Ip8]ClrdgQ%If0?Ed^9W01Te*AZb])p+T9o#HV``lI35YMRjG./^8?>g?g\\Rou$bjW7(L9RXQug3M(4a-rNgu!/>H>J*lf//g*9M!e4]aj,17\">15:%m;#p--X>9.l0PLKX+i6>>9QA%p+''FJ[fQ\"%j_XUU#cCnO1d,tH'YW`rW>J5>?Xh+\\T`W^^WU9(b<f21lmF>38%OZNQX6H13anVguDY'>h\"mNfc5c4=a45&t&,))``*-XN:qB`0bP=UrI).J;2Yqnj/$@lu().r>[jibW_T]RW.3m`h.ULTh\"(q]AkY+i]Hr[KPK;J3J^hA(dCU)a(=^Me2_DR7Vg-mF0Ud>FS?ipNP1CVj6lpdY;I*qcoM&Ueb`j)4h5U,ObroMnSbfY8-b:!!]\\u&n6:[rAp8(P4:;N`VFbdCg9-SC=s1sDq']#B)&./nE,$e4a*<Q0<T;`PR\"J^E3t8\\)Nr+CP.$#;0ju.=k@\"=@Y\\3R>n%MHI_]!dDVs/+Y`9I0G:Fl1@mI/;ed;iUjnh(k08XZ6IZE[^TWtqRJfj\\rKp!pC?EL:;'k]hsVG8g.:2:$CrS,ZuY\"26>;eH%mjjX$0*4L`YIo5X=#hI)If=V(sVPUElC,gZ,fD_?(h`)W/\"o)lSjV\"ab.Q`G#P5H38Ddlt(<*jVo<=2<^U8bsJgB?'c:]'S;3KqF@Gfc'\\BN=b,Tn$17kS^\"m;&-'>Nj'3G&a*3Lfm@Vnf@?UOff6BhqVo\\WFn(XLP4P)]SN'B2:><N1[D;2=5D^M>=s)i3\\Zem&`fPKE_`G/ZJ^ID]$Z4,@V17mK/B,8Pf3*RU6:MYs%hTD!nf^l]!\\m@KPe8.?Sq@Q0:gg;kpa*KW8JSOt<ohlcq3M+Y<hoHW6e,<?$*dfsS8c,4:,TaOE-i*aRoi58PJD]*_nKt\\CRcu33prNET\\Dqg+ZZmj7mb[`KEKgTaHqunBX6%C?n[6cQl$$1]_88.n\\hjd6g6QL'5H1Q_.$s[:CSm&M_[64MNR!M2H&%^!jZ;FC^!ZS5NI#HV>4E6_HQ'k2`/h%ZPLm+pl?t>=&]2POlR.k@m5=H@3PHEV\\#fmn+MAkJO+6iHXX9a;1,*FT`5bdo:TBaGjb1-93gX*PXuOGGRH`@71NDWAj1XE\"de9tr,Af@'6csQ'iE0cF>RodKNb]4G=cU<&j]Ks`#5;stnIsgONRZ>l:\\\"+KN!o:oH`f*cMrQW%K5teoGPsalXsjt"
+        custom bool omni:ignorePrim = 1
+        custom string render = '{"/rtx/post/tonemap/op": 6, "/rtx/post/tonemap/maxWhiteLuminance": 10.0, "/rtx/post/tonemap/whiteScale": 40.20000076293945, "/rtx/post/tonemap/irayReinhard/crushBlacks": 0.5, "/rtx/post/tonemap/irayReinhard/burnHighlights": 0.699999988079071, "/rtx/post/tonemap/irayReinhard/burnHighlightsPerComponent": true, "/rtx/post/tonemap/irayReinhard/burnHighlightsMaxComponent": false, "/rtx/post/tonemap/irayReinhard/saturation": 1.0, "/rtx/post/tonemap/enableSrgbToGamma": true, "/rtx/post/tonemap/filmIso": 100.0, "/rtx/post/tonemap/exposureTime": 0.019999999552965164, "/rtx/post/tonemap/fNumber": 5.0, "/rtx/post/tonemap/responsivity": 1.1026709079742432, "/rtx/post/tonemap/whitepoint": [1.0, 1.0, 1.0], "/rtx/post/tonemap/colorMode": 0, "/rtx/post/tonemap/wrapValue": 0.0, "/rtx/post/tonemap/dither": 0.0, "/rtx/post/histogram/filterType": 0, "/rtx/post/histogram/tau": 3.5, "/rtx/post/histogram/whiteScale": 10.0, "/rtx/post/histogram/useExposureClamping": true, "/rtx/post/histogram/minEV": 50.0, "/rtx/post/histogram/maxEV": 100000.0, "/rtx/post/colorgrad/mode": 0, "/rtx/post/colorgrad/outputMode": 0, "/rtx/post/colorgrad/blackpoint": [0.0, 0.0, 0.0], "/rtx/post/colorgrad/whitepoint": [1.0, 1.0, 1.0], "/rtx/post/colorgrad/contrast": [1.0, 1.0, 1.0], "/rtx/post/colorgrad/lift": [0.0, 0.0, 0.0], "/rtx/post/colorgrad/gain": [1.0, 1.0, 1.0], "/rtx/post/colorgrad/multiply": [1.0, 1.0, 1.0], "/rtx/post/colorgrad/offset": [0.0, 0.0, 0.0], "/rtx/post/colorgrad/gamma": [1.0, 1.0, 1.0], "/rtx/post/lensFlares/flareScale": 1.0, "/rtx/post/lensFlares/cutoffPoint": [2.0, 2.0, 2.0], "/rtx/post/lensFlares/cutoffFuzziness": 0.5, "/rtx/post/lensFlares/alphaExposureScale": 1.0, "/rtx/post/lensFlares/energyConstrainingBlend": false, "/rtx/post/lensFlares/physicalSettings": true, "/rtx/post/lensFlares/apertureShapeCircular": false, "/rtx/post/lensFlares/blades": 5, "/rtx/post/lensFlares/apertureRotation": 5.0, "/rtx/post/lensFlares/sensorDiagonal": 60.0, "/rtx/post/lensFlares/sensorAspectRatio": 1.5, "/rtx/post/lensFlares/fNumber": 5.0, "/rtx/post/lensFlares/focalLength": 35.0, "/rtx/post/lensFlares/noiseStrength": 0.0, "/rtx/post/lensFlares/dustStrength": 0.0, "/rtx/post/lensFlares/scratchStrength": 0.0, "/rtx/post/lensFlares/spectralBlurSamples": 0, "/rtx/post/lensFlares/spectralBlurIntensity": 10.0, "/rtx/post/lensFlares/spectralBlurWavelengthRange": [380.0, 550.0, 770.0], "/rtx/post/lensFlares/haloFlareRadius": [75.0, 75.0, 75.0], "/rtx/post/lensFlares/haloFlareFalloff": [10.0, 10.0, 10.0], "/rtx/post/lensFlares/haloFlareWeight": 0.009999999776482582, "/rtx/post/lensFlares/anisoFlareFalloffY": [10.0, 10.0, 10.0], "/rtx/post/lensFlares/anisoFlareFalloffX": [450.0, 475.0, 500.0], "/rtx/post/lensFlares/anisoFlareWeight": 0.6000000238418579, "/rtx/post/lensFlares/isotropicFlareFalloff": [50.0, 50.0, 50.0], "/rtx/post/lensFlares/isotropicFlareWeight": 0.4000000059604645, "/rtx/post/lensFlares/debugVisMode": 0, "/rtx/renderpreset": "Draft"}'
+        custom string sunstudy = '{"date": "2022-06-30", "time": 15.897500038146973, "location": [51.426, -0.985, 0.0]}'
+
+        def "OmniverseKit_Persp"
+        {
+            custom float4[] clippingPlanes = []
+            custom float2 clippingRange = (1, 10000000)
+            custom float exposure = 0
+            custom float exposure:fStop = 5
+            custom float exposure:iso = 100
+            custom float exposure:responsivity = 1.1026709
+            custom float exposure:time = 0.02
+            custom float focalLength = 10.400001
+            custom float focusDistance = 0
+            custom float fStop = 0
+            custom float horizontalAperture = 20.955
+            custom float horizontalApertureOffset = 0
+            custom bool omni:ignorePrim = 1
+            custom vector3d omni:kit:centerOfInterest = (0, 0, -3131.7852411929093)
+            custom float omni:rtx:autoExposure:adaptationSpeed = 3.5
+            custom bool omni:rtx:autoExposure:enabled = 0
+            custom bool omni:rtx:autoExposure:histogramClamping:enabled = 1
+            custom float omni:rtx:autoExposure:histogramClamping:maxLuminance = 100000
+            custom float omni:rtx:autoExposure:histogramClamping:minLuminance = 50
+            custom token omni:rtx:autoExposure:histogramFilter = "median"
+            custom float omni:rtx:autoExposure:whitePointScale = 10
+            custom token projection = "perspective"
+            custom token purpose = "Waypoint_1"
+            custom double shutter:close = 0
+            custom double shutter:open = 0
+            custom token stereoRole = "mono"
+            custom float verticalAperture = 15.2908
+            custom float verticalApertureOffset = 0
+            custom token visibility = "inherited"
+            custom float3 xformOp:rotateXYZ = (-20.482115, 18.497282, 4.1922714e-15)
+            custom double3 xformOp:rotateYXZ = (-3.67181786802243, 48.149364174084496, 4.089617653392196)
+            custom float3 xformOp:scale = (1.0000002, 0.9999995, 1.000001)
+            custom double3 xformOp:translate = (2287.619718033844, 264.8510994192707, 1996.3677947117724)
+            custom token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateYXZ", "xformOp:scale"]
+        }
+    }
+
+    def "Waypoint_2"
+    {
+        custom string camera:path = "/OmniverseKit_Persp"
+        custom string comment = ""
+        custom string created = "2026-01-29 23:36:13"
+        custom string created_by = "horde"
+        custom float frame = 0
+        custom float3 icon_position = (2678.7568, 381.11157, 1427.4292)
+        custom string omni:baked_preview = "zTE\"rl=o\\O&Gb\"/,pRb_[h%g158hp+G!eR'n.));aMC9c:&Wde?:r,sskoqUj2hMZV6378q-#MDm]leN4l!<6GS*$8SmQ@i%q49V@h@3n;\"8Q@hkFOSEatqAQb]i2E9hr:!\"e6nE8A3m9<o9O1](LDn0$<rTl8D2Hk6j*#1<k#IIuo,ID8!BuH<6*(&,U]pNPE$,k?PAq57DH@p$5WWm2^]TYd]_kVcTGceZ\\8KKpm$nr34=,fDN+koYG@tl%AWo6;J[Lrqj4cDgTCAI(/EsM7r;em1ocsEoi_XEbl9=gKrWLHUunkD<J3SG2VhaP:\"QC>[-CFhS(q8R,!8+m5J0r`jY>&DuUifgV-T$k,Nk`Zp*/o]oPX_C?o2CDn0p4PT-UNl*toK*>3fWmD.2f8QBeTHfKVrpAXZUs0u-;IFZ%/o#pI?(LIU6e!i;.WMq>u)6b`W^oL9&?,,be<QWP>?nRet6:s9)X]`!Mh0/+dm_K,MFAG$hKNkp'SZC:UY179tc+r9<q>P$M(:SR8g.b@dZ.K)LqY,2Anq6[8mb7BMFoCS0I(f'i)t&k^/odNY`$\\IZb\\'-\"p=NjcpU.2ReK&`'d/d=^l3FD-g:5O)N/n4V^#1XDMW`F>4f<2fp`0KiMV4%PDYrtXp5D9h/,C-(pSOEtEhE9j-f([aor/!&OVWB@b5iF.?5D]X\"+6)eN4?';XR<X^T'fh?qNh$8pV,f#47\"Z1AF\\ZpV_>dR6=2k6R9*a@`P)9)C[R26?Q\\JP`@R&@h6u(LT59#1HWB5:3>M&Hqs5'TkP*c</78o(`,V]GFpc!(r3F?bGV*m-_#qu6bH]IBJ5_A3,[gNB='mK:\"7IG[EM*!A#9W<Hs8DDu_ghM]pZpk\"F/PXRRTo=',<[c;G@0pP.PZk=^$po\"'!DZ\\X4n;R[KZY:HKc`b@`=4X45u\"05QCQ*]A]HWT\\icBDkgVL]SC^HTtp(K]Bg/Z?[L$T!?^6u&p?EmlMfTmIHaBNgn&`HH1\"D1)sDWnk@J#WVk/4WIJ_dVG!A+M&9m2t8%R`A5Mk49`uP253GdY;jF]MOI:+tRk<%,I@M&7R$_Ck\"pAG<!!'eCBO#ugCZ[;D6B>S^ipd:['k<%QME%#;nQ%/aJOJ`kD8AG4Id'%lbCJ\"MTqU;&Ha$9Oe:SmgTIHV'#kn^HMSp4]^Y<INpT76Y$n;RM\\35GLfcpQWmJ,S[eAoaEU,L%h>[WkR\"\\7%b_/)-u?j6G0qHZBL5FGT*(?jM#-j(4Q`>)>K=GJM&Ppr58@pP@Sqc94+E5N2up/'jf5lD`n6q#\"LnR\"Tmkotie#@q,Vq7W[*-e7IgT/9?Y4a?\\s5OCqqq_AD\"1]C&k.6WU?p)<=g5rZKgc^ZG+&1XA1i`(TqZr/Cq&G[U:nDuoq?Y*L\\GR`-@rP\\\\mR:&6;XNoS5/T:Ero^BXV8DQp'p:-1--&TqOIZM6T?AXY+X1,U![2sTe_%I;W$re6;Xpu.\"aK+C)+lq?X`U&BmnIeh/o\\jLu>,Bo6YIJ;WK5I^CDHO#sdpK_tH4/0lq1:1bZ>I8'@$+FQ;ECL^n^saY1Nn%'XorDGbEUN?%rt>)>fE5/ogrk2N4u\"e\\pk.A;pj^Ou%V,Em,E?`Xq9<i0^:fW<q8:2nGd,_7L@tUJ@$BLSc9oHkN6O;UDoB'nmf3$PGMKh1rGTKeQHdlm9LE]M+5mmg@XQjRk+N#%FB;ajQ+QgcMqeL!TC:&dlR_dk^]-H)HAfTE^,+jIk3r<Km^qrU55X$Z#5\\\\s)a6r[Z,\"cdH.:sTqsQ1G)a\"Z0DgJ#F#N%`;T6G\\;h0eh=WI3#VpKVC8O#m8$@Y6uO_V`#P55Vi?Y.,\\NO26Zt*^13qb7dZ2_>VsN=hu/9m/r<t]In?_[F^-k\"CLH'J-X;r+Mgi`bC]2qoCgo>]>-<;A5LS.#6)VX[G^@??5ri_K@aE!NDb6ph=C*V*ckCiIC8t.msZ)N3Z%bV0CCI=aU=e\\0ci(Lo`\"aV]BcZ854C@=_*ZUF5>2L6ht503IPZsJlLNk$i+p3QW\\8hkMs:53GMM.`o6)PMK.!:;o#YtaIV<RW4L=LjqZa_H3hkUHg]U:Nqs[VGfm`O9-kEO\"qT^1FkhE0'@rODIrUu_!#-RCU:RXrS_>]4.iU!ns%dj\"UYC+;Hr4&A;h-dDT7j#tSqsU.2oS[)SU>W@F47'B,?KjY%HGBo5#M_e`$Y:9\"BRBor&)>'m*p#NT7NOekg!@OKh0.O)h<S;=)!`kHbQE:=i,[I&i4f6enW1S82n4&qIF0G^oSgg4J(uWjmlksQ^%])q?LOJ(Cs44)OFS(a*^G0@%c\"gHH-f2$K8&KlqV0o_\\`]IroX!)K<X%>IhdHp\\(7sGqo2/\"!)>nI;lbH(Hs'q*QefA_F!F^GP))6kidJpFT0lM9_5mJ_6I2LucG__joh#_gcgY:=uGqPV*Ig=[<@i-2Fp-?782`Be:Iu(@]/;.pX[MXHhReT,&KC+KuSOMQ@VkSTkBAfDO'(\"R;lIe`+2Tl-(KMDc!oL#a!o^sb>[`k<'FkI#49iC*%SC;qC*6riGO0[!3_B7t#TSjrOGH^nSfMokok2*4tBgk$is(m^00)?K4+67mSq4&I>DQu.hBb\"TR;`mXA$gqQ>pJIR[?V\"nf0k\\p>e?u=547N\"7`Sa(]Vo@k[o[1_8f(SiShjI2!k$r4T*7K:FmXsM;O?>_JpBTZq6,#G<rObtUHt2SsoM)N:-?ILi%s'4lGIFciPPaca0`,i_o8UFLqLNgi?/*beI^2`@oB>eVq;SV*:ZbUfdf:KY[[uBVWo\"<1/St>rGq?sX0cgA0D;N/M61B$oPihb8?]V]h=S:=#?Q7&MWU;kZk%ZSWNL5Q>m;pM%Ynoo[>gls997>(MIkLMj1Y:?#:(K'MkF?TgLdSl7L)\\RRg`M\"Fq_2Z1o[-0ap_R2QHk#*.&VGMt/[kj6!hYk/a1O:4@?(^t^A-]GdMt/THof-D]ojtNSVOXrZM+aKi:Ne+1bQ.:8q#O[']pufM/s_3R(p$8nJ[i-c_Us<1JEVd8uYkW-I5-@SsOC9*?G]%]^sE1;nN3AF#ZsN\\3F;Lkb3dK29bq<Ie_l9h%KJmo70s+_)3Vhk=[JBj=^B%T0o+^il08F,Q<&J7%6Z.7Rh!Mr%4o;N\\<IR[Dk9'qB<isFfrd'2Sa7\\-aaiGa?PUK(_<_q;_o]a+XuNma\"/o/)bfA5@9[3'gRL(;&U7tGdP3$*6gDh*>>3sWMsZ8Z=DZ1.fX<c\"`'-EpkcjM7SF\\\\\"9ScKI9&QeNZt[D^[rL4b2rX@6Ia:/#^@ZKYmco8^H#5NikIgE4&$\\0O='3\"B7<f>k#E0i\"!V%atWQ+ORhgMuGo#`K=UFTE#(nKi^J)3>sH?GVPI<*RNpY<+$L02HWr,8)ikBRliXn-8?IqO1g>m)5c;S8(c'i\"#2]?g;\"c\\M+R8%]).\"/EXeg&gA(/7WOu(:^$jC:iGed?I*ia&3i+1ku\"o-G8*Pr:g]_a(I(JqVEU=6d)93peKirk++K,<pPc)E!L@AlP.?ZX</(p-*ADN7]c)!FWZIM6!L\"#M%TYT^Cj?;c27DZg=5/:c\\D.PcgolN$dUWfI3ut3L45.Q@,YP?D_$3]En)YKd@[W:3#VDbDXdDJDrE^;\"^hSm7Q]Ni!E\\e0g'?42VYp$fCPD'npt^``hHqA>rTr7G*g^Y*et*>s:'dJs5EHE5=Vos#%Vi`XLI]A>oBS>g0oE5dnuc0pR(MP<qqZl8YOiYM&,hI_Dt*OY-iL51l/Ydu1XA8Jo3!/5(Uk>MR7!ILSRWQZlAi3B.JC71J6Yk;Y#TJN:FQ66`0Mb2NI4(mUJ6/^!lj6P8%q>&94PhAps$+,bD+5Znf$dS'#uJA7i^JHq]GQh.GcG\\lu/IG(,s2*/T;lu'BL4W0SJckh-hT/m1K@>dVp`ZbCqh_n^/;eI><:;p=[H'*ZJapc.q%fE4>Q*VaK8f-L)XBFgl@(fWA9OBNQ5CH`qdfFOEbKX?S=[QXBQ4pV=Zs4N9:iHD;?eINXE3/j7r0Fj(JBbi3-gq@+B2S-*5X;#]9pho\"igdjIN,D6T;<T)7Akms1Jrij@;?3L/C3?H,N.EJuBVDNMGESVA=AUa4RfCfV=j4=kB*j);;CGh7G/pGU\"Rd:_Mb@M3r![s3ZF<:1rj=B>E%N[$H%:<]Fa'Z7hn$mR=,i+PONW&1qPo_2#t/r\\On\\MkK@FN%+92.*MJI$r\\0$hrMegoXbf3ln9p_nKE24ViGQa.\\XbHfNJO>JJ:pmkOO_,:eD,M7jrAIuLdc5<\\oMGOh`2H(CenY.aP?m+OYA4GK6j:3RcdE#I9Un%ROoTmmVp#5j%5\\L&&2Pd#Rd^N\\R`f:DB8NHYpY#p(:&L1<FVBCN6!nIr1*\\6YH=/Tlr,fn<GCWUf1j`!cBf;oDLo4[(N.0Am4C&9Tb`-U3bUX?8s8+fb]/,5:(:c]a-@'A<iYT)[&JH*<.bi?4V7&'+51>12SL[4]cUmuPG/lBtp`F!djr1d\"r7BkSb=s*I[<6R-hngtcuE1:R,-eS`62)Zds5,K>]qKm!HFQ7p!+@1)<'pj:=Mp'>j9p\"*OeYQK:fESA>Cf\"t*Lq]7XTCb=RhkFHf'li0ct?jpi?*dd7YPja=_<elYE?0ofph[D6QL`9]KbV;CR,DROI.Ip7h;;aF]Z0c\\IYImq/]Vg!\"?D>/(?3EG7T8>)@CRjEFl6lZtnQDZmLo9mXi+p!Gq8C3r^s_H18GEY-[#<=Vmb8etK-#d1EB_t@Ds0QMAKt\\jm#9LB!q-PE*GF*cA_<W1K_(9PgdhmrA)<hF<uS-Y\"MMFu9f5L6-cWl?^0g4!M-s+T+Sg'.ICn!W45pPCAiu(Sk[7L7#>ARn0lXq9RTMfNo#n3>rsuAeolaS5r7g-.2W-*e$hY@Sn'=E\"JjY)8plZ2,Lc,*ds$#E:j+CZrp7n2^R?'KZ8of\"%V@ju9oJiVh=dqO#'H;NQi`u.=jkX=JUG&Ct6Q:5t&Mr(6NA;jD86qd,CrZI0D*'Xsc=bRNI:<Dm8H(^,IeMFcq@M'lE8g=`RqT;dT7A/*d-,_le`n`IRC\\`#^8uS!b:[$)VLU&,1[=QMJplg%M>Zk&>-thslZsBe[HNh<VMTQ\"5-F)17/J\"l1Ekd,NB+?VlARI`gNp3Xg$\\gj^U!cm4`(brNV+/*??i/*rUeRV2;URZPZ*0_LM(Ms(r]f<d-Y4n@m)LAl`N><FT:q-UL)_GN''Cdj4G6Mi&p\"O>\\!.*[7PK\\P-\\bcbd^.%39f/EojmqXi%GH2Fi9EG=#8RbkbIX+pu-b\"DP&lC\\50MhHGi];?tl_!%,:s/N.l''lbH<@hZJ>Ir=Kkb)kRE3KY2h.cV\"r2k@+6GRuNNVjsUW3#3<?-UjDYDe>\"[qlSiM$pkdG,H5];d<p)@1Xf9([T%hcchgOA9eQDG;K-1\"6aN]-]3olrdh!`QK,PWM!)e#k,Q^Q3kDRoRT[s7H&J2:G[g$=+F6=:G?DQF9M0!TjIf<DCt*(c\\L@)e.n6Cjpt3T#VW/IAcR3$qbeo6,MY]J@3'.oVOBn4NtR;X`I0fg=RT\"-*G;`k0k'QB6hGXo`JbG/-E(iLOS*(\\e@tC,?$Ql4%.#>A)q$\\-QrF4sW6,H'mcS=LL]k0d5KqithI,n%&/V[I3V/0+W4ON`_@^3=+\\9hkg\"d14S;_.=PLekL+-gSnG4jFkEg$:PJ@K$r:C%=+B)B\\-H*0Y<<\\1bgUK^3efN:T$qSerd+<o5Pu]\"'i?lj2>R!]ruLTaoiK5,ZDg[?5%A3O7%C8acKa'dY#O2GnQYJlHPqP@*Z>p^b-22%4qVc;/t//@\"<TlloLlO6+bC0ud_U^;2h%Z?one@hY&CV.jt\"lm7Q_m@m^8HC%pm_1&6pFadBCV%EX:HOFl:p4\"k^_?)._;%(L.OL^X2#_Jb4fi4O\"8$CCTgAZVSK+d!6Mg9lO?Pj(N5Y,$0_]ll)eG`q]&d9T\\-@>`8DdHi\\::2tDVS#b;L=$64Zt30\"r+;Aq4Z>OPSO[msa<4a>7!@PdO\\I\",a'V@hknoHD<9E%UbebG+uQE`bu=P+Jd78f/cO1m&IE)R4&?jX^TTEBPZ<L\\Y'IF[#Q1cNTr]il+RG1EM&05NpiOCH+7G:1S]jreG_B%T?Y%NjJ\\lmB)nJQmg782/P,?N5/[+o`c6/pQ5M(UJA`f8<adT7,@6X>@D@33QHuiDj-F35&982XcJ_RQM\\[U8(gqF357okiHeGV?/&\\X%K.Bl_<ZtCM^`+0c\\\\?AbX8RTN:K#j`%0`!NfJB<lmGM7`-'[;(OdTHi9ObMH<?f\"\\Lkm5mSCXn(#k<u2_gNg7_r-:Y&[e$8E[#+7XED+<Ft]6So\"LH8:nr!\\Pr-g/A<o\".cepik^cGi\\#*8#Hs,uU@Er2i2!2Wb>oq+!D8fZEF)=^u$eP'_UjA8*\\a/rm/'=.4oDPgJNZmc\"iV<KNCB8q;G6j^phgbRa+5J0&4;.AD_LAT=[s-AtO,!4(Ds?Ntbn@I,h[[?GkK/u;b>aE(jBO'XNFSCJl0Q$Zgf'`/`kM\"RUFVtji,>5Xa-RAEfPK)rF0U]u?A]na8M(=n>0oPD-?Xd(cR-;-X@XKHmj7=WI`*uQ@shSrb@RmO_H@U+<NbE>ai2Q(goe]k\"M\\HM$0]D/pr>T#rie!p\\:ae`qsWS!;NFE%P2n(#.J]'m,8O5V@gj0X::gQ6cbM_pn%Kh(K'k4gf[=\\?DCg`X`Jh1+N=0J6O$6;7mihe%m>+ccb8*1=hZR^ELC;FsqPXoMiR0ihqQfCVqH_8&8rT1J)\"p\\4*n(%FUNXRYd^)WQQrRFRHCr2`iOfrfAZ0,*-g9a?NNh<\\5'u`=Hkj\")1!]h]\"n@)X&:J30!ooslVnmf<)!;=<NW%'#I,TeIdRu2!F$mb%EQ9(9o#2RQ\\.u_#b7gERh(ltL#p,A@XGl4$rf2rV&k>D\"Fs7tp_RBq4.gKfLFUXG>F4diS/SuM,VQ\\'&qE2#aMN\\WW<o(sY;SM&1@#Xd(NFU[32WdfG:A7Un@bhl2RXRd&$7u0Lr4kkmB>\"!,]1EfL9KqSk0jfHW\"*99t_Oa=`r8A0=D[uZTiLK^KF3QT1s5&7?E,D$C(,0H62uAs3EnhV=+alaaJosrY;sr8B80$iB)[/7MN&IKa23?JlPB\\b?5@I]7C#uX[f?<]]aLHn!`eCj5FSJ[VdD8KRB!A2j[;n[mDb.KRgaKA,%;TNp:=c`Kg-7Uc`-o8L#EFn4bEjl+hqiQap[b$WgmrWBC$sDB0+HQ\"C`iSJfV8[k.$t*hSAs=cY]cecO't6t?l$\"sLaTu#/bW1rY7^A1fVe:tb:aCt$L#g+4P,$s`Gn4^,p&P87]B[8XP/(p_KulYb./hO'\\bA$'_g#3QrdfbT>tqML`at%/LSlhHfP;&4+/e4K1\"K5Hu](!>cRX*/EU+0`)Y6?QER;B`cfu6/_\"dD1-504nmFQA\"8h'qDjR-bi&g9qH-!f,-X8rD@_XDZ-d?GZ-PcL:d*SXDpP$/9X8i\"A+H%CIT7$4O^l@&Cr;QrS+BI[cId2md04@?3.X<ON$h<D\"mj5E9lLu9bb(%WN;QrF#D2:kZq4i=$T./Dj7ZXqU,*g]4pilPRK]4S(U?*qa/Ub+HWJqc[@$U(SfJWH.3778)j7+]+CA`9A^7+e\\#B:595gNZABWlqFoK21Xd\"g9&R97@s4`CS^+nRblk6Gf0i!fH(^GSGeRnoO6*gP;WTftIOECQKrrJV3VU97Xlr+OFC;`,G&eC>Y`IOsip,ic#B\\&<mW7IEs8GaI2:fV6TeSNRkPFhf?h(\\:2Q)_j-dn](PAI#qQRfV6]mf30%ST=l&qZPU@0_I43eCf;p0DQS`g6#OFgg@C&Z>I%d2gA<\\JDL[>\"pSSBOE4=VC9A6S@[KcJ$Z[*.-R5tuOR5R$'DFuZB_\\($3qJH>3Z(3q<qoF7-*HN+D9R)JC6`_`nf[j7dD>=Y,2=Nei36-C8=^cb\".Jh'%4'_Y-IAb_*fhoc;\\tOq^U^nAkl+1#X45F7=I4ssr^=_\".c;`_[j1V\\j`F)AN\\FnI8#GLn.f8$bKd-'Vb@is]Zp`HYpGtj_\\gL'WUG&/\\j1R31F#.CA2j0H7()Gb`5@Vs7q/[^B'<P\\p(_&E2Ek6>t8UuKY]6(M=l%#>SL02kF$qjA^\"`qE:N0^7hVX!o8q#<Q7+[jUU,pN:mBq16;EhBDZ%RjgN/CBe:]\\RMqgQY?,n,Yi<S:Ddm\"?isVlU<bN;*p2sr?<8gMSD!]R`IdZHl?Cs2r!mj,jhlZYjOb6N.+tE9DP<#uE`?mfCH(n')Y$E0f3\"$6]d`mrnj9nVSD#j)[t2kK]?muHS^EH,`>?9LA_L7/8BqaQV4Z5GKEK;hPoLY4knndpDMWYdX\"Ke\"62G`X,\"F1Z)>fV:.<ZBFOE)MLRasP>5.#`LALt)ii'bPaiP[#A$s%6BWf<]nDq=X0r_)WjHmn94ZrjQuE`J^3T<AoFRNSs8[7TYG^nM\\gGdhGDYNgP%^MOq]>k_o4HSkO5N?+M+)#IP/aDmm'\"VkO\"i06>o$mp@5nkgKbl<lYJPE%snPW_&7p+,r4A8<[0aBmRMPg.eB;Qo\"IbpUOZM(aPF)M2&6YKB/AAF8'YPWeX`gEGR=D5+ITYC'RESS;:\\.9l?JRJsH.UHMbAH%ns2'jRd;1nDHs%VO9UWj#7BdDf]7F.CC%f/cSCgsZb>F2,.)C6o[TNaPTORc^+inCh^(bU&DWa9D3A0G]OerHO\\&(O\\Y#a\"?a/hpEh#;kCJQV7NQgNr5S3>R=p157Nc],1s96+F-HR@p3jf^LK:Bg2_#a(?N5lS%?WASk61I*(Lm:-/I)3U[f/gE=EV%S^UBVLTQldB2mMNlm$;dC0o#b2YOTMT,h!eqSg)Y$NqOsf?DVi@Vm*c1Zn2%==i+c&MNi<[6\\\"D5LttW\",Y[;3cbU;ESRLo<W-'ap/s]DRdo9or1SG1nia0R2sFlL<UENS929@S^KR`$nB/0@%OmI@?)#&]`bUk7=mBO?aMKnLgtI#`CO7l%gl_Gp0n4GsNAnFi]ZkqEN(jc[@dK[94f_tg(n\"ZU:@sJbn#>bRod$t;e_G&aVN'c-^XWeDpS(o)m3D!/nmq#aOhE&&f4%a&EoA7s)81DRP\\4!EX4J4RWVFkg=<<J5[Vok5'U>NC+!hk(`f0bI<Ru)Kqffk@Nb@8TB3u^+kb3_':A@UoqU1X)XA*0oBB(>?>cc?Y9/`cjZ]Z;op<.FnZ&rK%10@Nd;Vt-(LK);=%nF=^lL@nmZ@?o+]H*&e3+eA@`E(>I$jLe?`;OJ-JLk-fOl]D&2lHQ7oKJ`lZ&J?Fe+(2q:hIXdT6p\":+gr/%jtL_5q.F+%_!`<]eotSP)DS_:i>oDb*p+*7%jkT0qK+4Z\\\"*CpP1,UNI_nEFK]*7)ZX-nV6ljb1\\N.l3%U.as:B#9MgHM^%%<c'eTR3\\F0\\P!_X)Lu#hf_*Go-Lq\"\\=JY$E0SCCH$<e8=d_D*.I3(1>?H4VcbC%O$aCK\\rp)7Gd:3UbVaZX+Ih^pmaKQG7s)j&U0`J94!tRMUrX[4^.<fV?)-nOI'DI;V.*-DeVI!NI1:18f8o@Vc<O0;kdk%++l6:LLftJ1\"<Z0[oLS6754/7\\bX=RD_=XB-n/#7T0A[99-^Xk,Wi!f;\\ekn.+%JBM^'iuYC+`?h/dn^MP:Ac9l&HBknr=ap@LI-so.4:`-rg+5,`4R>W)T,[817GqBIe_(-h<E$!s/l.pg-,;/i3R6gQjVr\\*1sWB-(ItD?TGb8T/\"`#AaQ@j43BNRA]_;`%Ys=rXl;2YX/.iT%(?hPi3r(Mj6AX<Q,ss9BOrcEA,hj1YIuj4-pkD\\r%$n5Z*lUX*OKKW=AK*j@D*sr)@nprYRo\"&s)(6[)!p$Zijr'i6b$d^Z4t>mI?R7RR^V7%5HZN]h\\_iYdt8lErn@C*<;j)EhctkV/Q^I]9:XQX:YV5<9`@&aTB/bZQ5L4Dn^.sXp>Sa!a0_W=aa3Fpp2E=7Z]'BeO67lTq+4a'!.82c/?D3/ljiQphgYHV]naC9a\"CL-C_,GG0o_!I\"o$t?ijm(1&a-mG5\"(feJ<R`5lk'%f5u2;4f-g4M3TZ,J\\P\"RAL[h8:W!>m?q^99qMR@o'?-5Csbb_S1POVR-5$*[*XPAY\\_R\\N0p5>3V>Q_0NH>I46Yr;^7TO@e!m)KqA.rhT$=2s[U7KC3^^Xf[a$fi[E?P/b0m,<H+Z$-VJ6[TaM#9NOB7m\\lIhJW709=82.^T#):ji#9_,(?Uf@^4Ies)]5.3=u.E<IDgd0HC;ZMR=/mU6q$)/D$'rX7FiH_>5q\\X.Oc@>nHJ(4eJ#8Ji0+>l=\\#M2PEo$fcP4Z)'!bOAXB6Ae+c/HpqKt]%rp%1#Fs`YN]ZRN1BY[k]W`h;]',lmJ'iHN4>=]`L]+>a5JeHjrBGW5=,K#mfBhr?2eM2IH?!H3H4RYjh`CY?+.)Z;6^8*<.$pnSS+@k:0hf>j\"_OeJrE78N3R1TAA\"2U7=Ra_W1'<$][udm)(rC_E`#UfIqAM?]M8p\\K4G\\E@@&G3_RfB^R4k%2d-o8)^o`9lVk5VbHA*f`NF]BEZF(lDFH8\"6TcTA[d,SkOZUYoW;ns:?NX1r[p@b*H_NOO@=.-Q5PP8/GC(LLqQ#0L<,K5u<>\\;fsWmn/\"ph>NCHf%a]jMgg)e#Q2DM-,3='6N[5ukDF:gO#He(E#g_/k*p5qns&u0nt^Y5^P(UAk?'[S>k0K@i2f8HC5'p+j&U;_VXUNnY@O,&E*>Wk)[>[[ns<g_C-GFu4<)R>*#QFj<<l`O[T>-;g9rBkdX7n0n297]al^iP_V1co]rm*8=0+,_[;&_<0+c2nm'R?A$U4sa\"EN:d2/?*[oh09hTk/3s[4QCU5Kd&lpum@JS1`:6p;h[&EanUuE*UP1:HUZu=lP!_^T!X2<m,2;ht/$_qnC4NW#3tW#/tkn93]BCGpU+'NKHs`q5,a@'?>6QnX#5K?SiUl2Dl.H!UO5Jg(TK2+kR(9($$st15.Rc+hjc6m^qpOGLTJ[c0TkikFQ+Q3qAr9#lFmRQ+j\"Cs$[YdL^hL<@aj$H3D:08ID,J_Ybo!QcC\\1b<@5og^T..8%XkTi`fscp0H8fmf&*X=e(0JAn/gV\\42j0=N?;_=L,DMrhbnrLl`IYOXgd/UE!:-s>T!/[V9MA7#^drnc]Hn\"^HL5eX;g]&k>caF\"G`N9+'@EfXhH0q2PZ$a$Zk9a^YG=iZ'aiq[2!aBBXRDODUrhbVCG`;MnLNth9!LpWQ*KH]X4;0-:YMpr_lb;emMXc^G>M>`&n1s2EcEOdc;LD?\\`tF6-`p\\(3gf%:Qs1DXDHVu*p^oCTNkmd\\SVk+Ve'h9PI\"7MT@Nu.pXPk;darg8b%u#eXP(,`Jb_*f\\!R)ao:`0X<?5it*f[`YFa)d1[bG[mr.k;J_LEX.B=a+]*)hdm<R#9;au@iuP1m)@B@^-c2<S\"oklM&gNb;n(@]CXijn\"c:/*36;j-S<J#/F,$r)MDV.bC]m[U+6\"rk[Tr[#S#C@PqJ%<`fnqJ2<n&h='GTedGu9*W13TV(&>+]6LO?YEo0hjJJnoCaK%h<IVVZ*eM<'TK(G@.r./qY3;,Tj[<m>DN-iVpp7DI5J*.oCN)PO1#H$4*2@:tpU6&A[Kkdql'KN;9T0?5NS\":2kD%:Zg3MW;>AUc!@qfa\"X_jK9V-R?dh@ILa*9Pt.\\4GL2j0b_ph>gY/b[pLP4^)(-\"bIh^CGmqp2YaV)#]0dcQhSI'7@t!'DcrQ*@t+:!eQ)-,ZE'5qXh?--.JVTGn'[-oEgSb2V3TSr[]n_ug#,\\D%uqfMgY)@69=D%Jkuk/+'Yc[,`QgJ%N=V':f+o7:2<1TB`sB\\e/Yqtl4OP<7#ju_]U@L:r<,-cJmhN('I[?A%>oKrmCfde6Cl*PAm!&>Db@uUe:u9C(Ig+DLajSkp=]O7O[MHEfQVYQbHWt98.j%H.ABr9eG?)EIrJEMWa^`\"R+89IH%ud\"uY-JoQjVN3qYJ/_&[VlDZ;l\"4J#MD`SZpe<RES`4C5Oj4,`]crN;dW=I)pQAM,&(Fl9EtC1T&@7NV]73K:d7>VoQtf1lK2OlOk7(.a-03Bk]U!^/''f7q8r@d=mZ<uj!'J\\c:jaZb%AeP*)GbkeZJDQ<MeC,05%&#?P2DIJTWr)UHrj.a4IcZnV\"`94::XAUDm!!/u3E!ei4A3SC?l*D!\"tc1lp<t:j#2!:Kosoca*RDEDj.%hZ8*XgA\\Z:[>r/,[CnHji]uM:CB'PbnsE-3PR!D#euG=Zf=(-9qfoR>&rK'AG([enp1gq*F3Bb9h*>i6[$M`P\\U\"2S!BqcBaT"
+        custom bool omni:ignorePrim = 1
+        custom string render = '{"/rtx/post/tonemap/op": 6, "/rtx/post/tonemap/maxWhiteLuminance": 10.0, "/rtx/post/tonemap/whiteScale": 40.20000076293945, "/rtx/post/tonemap/irayReinhard/crushBlacks": 0.5, "/rtx/post/tonemap/irayReinhard/burnHighlights": 0.699999988079071, "/rtx/post/tonemap/irayReinhard/burnHighlightsPerComponent": true, "/rtx/post/tonemap/irayReinhard/burnHighlightsMaxComponent": false, "/rtx/post/tonemap/irayReinhard/saturation": 1.0, "/rtx/post/tonemap/enableSrgbToGamma": true, "/rtx/post/tonemap/filmIso": 100.0, "/rtx/post/tonemap/exposureTime": 0.019999999552965164, "/rtx/post/tonemap/fNumber": 5.0, "/rtx/post/tonemap/responsivity": 1.1026709079742432, "/rtx/post/tonemap/whitepoint": [1.0, 1.0, 1.0], "/rtx/post/tonemap/colorMode": 0, "/rtx/post/tonemap/wrapValue": 0.0, "/rtx/post/tonemap/dither": 0.0, "/rtx/post/histogram/filterType": 0, "/rtx/post/histogram/tau": 3.5, "/rtx/post/histogram/whiteScale": 10.0, "/rtx/post/histogram/useExposureClamping": true, "/rtx/post/histogram/minEV": 50.0, "/rtx/post/histogram/maxEV": 100000.0, "/rtx/post/colorgrad/mode": 0, "/rtx/post/colorgrad/outputMode": 0, "/rtx/post/colorgrad/blackpoint": [0.0, 0.0, 0.0], "/rtx/post/colorgrad/whitepoint": [1.0, 1.0, 1.0], "/rtx/post/colorgrad/contrast": [1.0, 1.0, 1.0], "/rtx/post/colorgrad/lift": [0.0, 0.0, 0.0], "/rtx/post/colorgrad/gain": [1.0, 1.0, 1.0], "/rtx/post/colorgrad/multiply": [1.0, 1.0, 1.0], "/rtx/post/colorgrad/offset": [0.0, 0.0, 0.0], "/rtx/post/colorgrad/gamma": [1.0, 1.0, 1.0], "/rtx/post/lensFlares/flareScale": 1.0, "/rtx/post/lensFlares/cutoffPoint": [2.0, 2.0, 2.0], "/rtx/post/lensFlares/cutoffFuzziness": 0.5, "/rtx/post/lensFlares/alphaExposureScale": 1.0, "/rtx/post/lensFlares/energyConstrainingBlend": false, "/rtx/post/lensFlares/physicalSettings": true, "/rtx/post/lensFlares/apertureShapeCircular": false, "/rtx/post/lensFlares/blades": 5, "/rtx/post/lensFlares/apertureRotation": 5.0, "/rtx/post/lensFlares/sensorDiagonal": 60.0, "/rtx/post/lensFlares/sensorAspectRatio": 1.5, "/rtx/post/lensFlares/fNumber": 5.0, "/rtx/post/lensFlares/focalLength": 35.0, "/rtx/post/lensFlares/noiseStrength": 0.0, "/rtx/post/lensFlares/dustStrength": 0.0, "/rtx/post/lensFlares/scratchStrength": 0.0, "/rtx/post/lensFlares/spectralBlurSamples": 0, "/rtx/post/lensFlares/spectralBlurIntensity": 10.0, "/rtx/post/lensFlares/spectralBlurWavelengthRange": [380.0, 550.0, 770.0], "/rtx/post/lensFlares/haloFlareRadius": [75.0, 75.0, 75.0], "/rtx/post/lensFlares/haloFlareFalloff": [10.0, 10.0, 10.0], "/rtx/post/lensFlares/haloFlareWeight": 0.009999999776482582, "/rtx/post/lensFlares/anisoFlareFalloffY": [10.0, 10.0, 10.0], "/rtx/post/lensFlares/anisoFlareFalloffX": [450.0, 475.0, 500.0], "/rtx/post/lensFlares/anisoFlareWeight": 0.6000000238418579, "/rtx/post/lensFlares/isotropicFlareFalloff": [50.0, 50.0, 50.0], "/rtx/post/lensFlares/isotropicFlareWeight": 0.4000000059604645, "/rtx/post/lensFlares/debugVisMode": 0, "/rtx/renderpreset": "Draft"}'
+        custom string sunstudy = '{"date": "2022-06-30", "time": 15.897500038146973, "location": [51.426, -0.985, 0.0]}'
+
+        def "OmniverseKit_Persp"
+        {
+            custom float4[] clippingPlanes = []
+            custom float2 clippingRange = (1, 10000000)
+            custom float exposure = 0
+            custom float exposure:fStop = 5
+            custom float exposure:iso = 100
+            custom float exposure:responsivity = 1.1026709
+            custom float exposure:time = 0.02
+            custom float focalLength = 10.400001
+            custom float focusDistance = 0
+            custom float fStop = 0
+            custom float horizontalAperture = 20.955
+            custom float horizontalApertureOffset = 0
+            custom bool omni:ignorePrim = 1
+            custom vector3d omni:kit:centerOfInterest = (0, 0, -3131.7852411929093)
+            custom float omni:rtx:autoExposure:adaptationSpeed = 3.5
+            custom bool omni:rtx:autoExposure:enabled = 0
+            custom bool omni:rtx:autoExposure:histogramClamping:enabled = 1
+            custom float omni:rtx:autoExposure:histogramClamping:maxLuminance = 100000
+            custom float omni:rtx:autoExposure:histogramClamping:minLuminance = 50
+            custom token omni:rtx:autoExposure:histogramFilter = "median"
+            custom float omni:rtx:autoExposure:whitePointScale = 10
+            custom token projection = "perspective"
+            custom token purpose = "Waypoint_2"
+            custom double shutter:close = 0
+            custom double shutter:open = 0
+            custom token stereoRole = "mono"
+            custom float verticalAperture = 15.2908
+            custom float verticalApertureOffset = 0
+            custom token visibility = "inherited"
+            custom float3 xformOp:rotateXYZ = (-20.482115, 18.497282, 4.1922714e-15)
+            custom double3 xformOp:rotateYXZ = (-3.7212761276134927, 60.97582901231698, 6.67161835049032)
+            custom float3 xformOp:scale = (1.0000002, 0.9999995, 1.000001)
+            custom double3 xformOp:translate = (2678.7568428287836, 381.1115668506664, 1427.42916699075)
+            custom token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateYXZ", "xformOp:scale"]
+        }
+    }
+}
+
+def "Environment"
+{
+    custom string date = "2022-06-30"
+    custom double location:latitude = 51.426
+    custom double location:longitude = -0.985
+    custom double location:north_orientation = 0
+    custom float time:current = 15.8975
+}
+
+def "Render" (
+    hide_in_stage_window = true
+    no_delete = true
+)
+{
+    def "OmniverseKit"
+    {
+        def "HydraTextures" (
+            hide_in_stage_window = true
+            no_delete = true
+        )
+        {
+            def RenderProduct "omni_kit_widget_viewport_ViewportTexture_0" (
+                prepend apiSchemas = ["OmniRtxSettingsCommonAdvancedAPI_1", "OmniRtxSettingsRtAdvancedAPI_1", "OmniRtxSettingsPtAdvancedAPI_1", "OmniRtxPostColorGradingAPI_1", "OmniRtxPostChromaticAberrationAPI_1", "OmniRtxPostBloomPhysicalAPI_1", "OmniRtxPostMatteObjectAPI_1", "OmniRtxPostCompositingAPI_1", "OmniRtxPostDofAPI_1", "OmniRtxPostMotionBlurAPI_1", "OmniRtxPostTvNoiseAPI_1", "OmniRtxPostTonemapIrayReinhardAPI_1", "OmniRtxPostDebugSettingsAPI_1", "OmniRtxDebugSettingsAPI_1"]
+                hide_in_stage_window = true
+                no_delete = true
+            )
+            {
+                rel camera = </OmniverseKit_Persp>
+                token omni:rtx:ambientOcclusion:denoiserMode = "none"
+                color3f omni:rtx:background:source:color = (0.329, 0.325, 0.325)
+                token omni:rtx:background:source:texture:textureMode = "repeatMirrored"
+                token omni:rtx:background:source:type = "domeLight"
+                bool omni:rtx:debug:view:pixelDebug:enableFixedTextPos = 1
+                token omni:rtx:directLighting:sampledLighting:denoisingTechnique = "None"
+                bool omni:rtx:dlss:frameGeneration = 1
+                bool omni:rtx:indirectDiffuse:denoiser:enabled = 0
+                float omni:rtx:post:chromab:strengthB = -0.055
+                float omni:rtx:post:chromab:strengthG = -0.055
+                bool omni:rtx:post:dof:overrideEnabled = 1
+                bool omni:rtx:post:registeredCompositing:invertColorCorrection = 1
+                bool omni:rtx:post:registeredCompositing:invertToneMap = 1
+                float omni:rtx:pt:fireflyFilter:maxPerEmissiveUnexposedIntensity = 3199.9995
+                float omni:rtx:pt:fireflyFilter:maxUnexposedIntensityPerSample = 3199.9995
+                float omni:rtx:pt:fireflyFilter:maxUnexposedIntensityPerSampleDiffuse = 3199.9995
+                int omni:rtx:pt:maxSamplesPerLaunch = 2073600
+                int omni:rtx:pt:mgpu:maxPixelsPerRegionExponent = 12
+                bool omni:rtx:reflections:denoiser:enabled = 0
+                token omni:rtx:rendermode = "RealTimePathTracing"
+                color3f omni:rtx:rt:ambientLight:color = (0.1, 0.1, 0.1)
+                bool omni:rtx:rt:demoire = 0
+                float omni:rtx:rt:directLighting:maxRayUnexposedIntensity = 6399.999
+                float omni:rtx:rt:indirectdiffuse:maxRayUnexposedIntensity = 6399.999
+                float omni:rtx:rt:inscattering:maxRTSampleUnexposedIntensity = 204799.97
+                bool omni:rtx:rt:lightcache:spatialCache:dontResolveConflicts = 1
+                float omni:rtx:rt:refractions:maxRayUnexposedIntensity = 19199.998
+                int omni:rtx:rt:sss:samples = 1
+                int omni:rtx:rtpt:maxVolumeBounces = 15
+                float omni:rtx:rtpt:modulatingRoughnessThreshold = 0.08
+                bool omni:rtx:scene:skipMostLights = 1
+                uint omni:rtx:viewTile:limit = 4294967295
+                rel orderedVars = </Render/Vars/LdrColor>
+                custom bool overrideClipRange = 0
+                uniform int2 resolution = (2315, 1091)
+            }
+        }
+    }
+
+    def RenderSettings "OmniverseGlobalRenderSettings" (
+        prepend apiSchemas = ["OmniRtxSettingsGlobalRtAdvancedAPI_1", "OmniRtxSettingsGlobalPtAdvancedAPI_1"]
+        no_delete = true
+    )
+    {
+        bool omni:rtx:pt:multigpu:enabled = 0
+        rel products = </Render/OmniverseKit/HydraTextures/omni_kit_widget_viewport_ViewportTexture_0>
+    }
+
+    def "Vars"
+    {
+        def RenderVar "LdrColor" (
+            hide_in_stage_window = true
+            no_delete = true
+        )
+        {
+            uniform string sourceName = "LdrColor"
+        }
+    }
+}
+
+over "OmniverseKit_Persp" (
+    prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float4[] clippingPlanes = []
+    float2 clippingRange = (1, 10000000)
+    float exposure = 0
+    float exposure:fStop = 5
+    float exposure:iso = 100
+    float exposure:responsivity = 1.1026709
+    float exposure:time = 0.02
+    float focalLength = 10.400001
+    float focusDistance = 0
+    float fStop = 0
+    float horizontalAperture = 20.955
+    float horizontalApertureOffset = 0
+    custom bool omni:ignorePrim = 1
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -2486.136161206071)
+    float omni:rtx:autoExposure:adaptationSpeed = 3.5
+    bool omni:rtx:autoExposure:enabled = 0
+    bool omni:rtx:autoExposure:histogramClamping:enabled = 1
+    float omni:rtx:autoExposure:histogramClamping:maxLuminance = 100000
+    float omni:rtx:autoExposure:histogramClamping:minLuminance = 50
+    token omni:rtx:autoExposure:histogramFilter = "median"
+    float omni:rtx:autoExposure:whitePointScale = 10
+    token projection = "perspective"
+    uniform token purpose = "Waypoint_1"
+    double shutter:close = 0
+    double shutter:open = 0
+    uniform token stereoRole = "mono"
+    float verticalAperture = 15.2908
+    float verticalApertureOffset = 0
+    token visibility = "inherited"
+    float3 xformOp:rotateXYZ = (-20.482115, 18.497282, 4.1922714e-15)
+    custom double3 xformOp:rotateYXZ = (-1.7962933534294052, 78.2957802036151, 8.603982561532064)
+    float3 xformOp:scale = (1.0000002, 0.9999995, 1.000001)
+    double3 xformOp:translate = (2374.9430930626554, 344.8395057721806, 415.2322929869615)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateYXZ", "xformOp:scale"]
+}
+
+over "OmniverseKit_Front" (
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (1, 10000000)
+    float horizontalAperture = 5000
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -50000)
+    token projection = "orthographic"
+    float verticalAperture = 5000
+    float3 xformOp:rotateXYZ = (-0, 0, -0)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 0, 50000)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+over "OmniverseKit_Right" (
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (1, 10000000)
+    float horizontalAperture = 5000
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -50000)
+    token projection = "orthographic"
+    float verticalAperture = 5000
+    float3 xformOp:rotateXYZ = (0, -90, -0)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (-50000, 0, -1.1102230246251565e-11)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+over "OmniverseKit_Top" (
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (1, 10000000)
+    float horizontalAperture = 5000
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -50000)
+    token projection = "orthographic"
+    float verticalAperture = 5000
+    float3 xformOp:rotateXYZ = (90, -4.961563e-15, 180)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (-4.329780281177466e-12, 50000, 1.1102230246251565e-11)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}

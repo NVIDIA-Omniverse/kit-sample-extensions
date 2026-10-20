@@ -1,0 +1,126 @@
+{
+  "format_version": "2",
+  "name": "sm_flatbox_b12_white_01",
+  "version": "1.0.0",
+  "catalog": {
+    "root": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/props/.wrapp_working/.packages/sm_flatbox_b12_white_01/1.0.0",
+    "format_version": "1",
+    "items": [
+      {
+        "source_path": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/props/.wrapp_publish/.packages/sm_flatbox_b12_white_01/1.0.0/.collect.mapping.json?&1",
+        "relative_path": ".collect.mapping.json",
+        "type": "file",
+        "hash": "sha-256-flat;1048576;26c2a0cd36998dccebdfe89108b14d5b8441c9594884620bbac2d8ac0c79c21e",
+        "size": 5446,
+        "tags": null
+      },
+      {
+        "source_path": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/props/.wrapp_publish/.packages/sm_flatbox_b12_white_01/1.0.0/SubUSDs",
+        "relative_path": "SubUSDs",
+        "type": "folder",
+        "hash": null,
+        "size": null,
+        "tags": null
+      },
+      {
+        "source_path": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/props/.wrapp_publish/.packages/sm_flatbox_b12_white_01/1.0.0/SubUSDs/textures",
+        "relative_path": "SubUSDs/textures",
+        "type": "folder",
+        "hash": null,
+        "size": null,
+        "tags": null
+      },
+      {
+        "source_path": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/props/.wrapp_publish/.packages/sm_flatbox_b12_white_01/1.0.0/SubUSDs/textures/t_corrugatedboxes_b01_decal_albedo.png?&1",
+        "relative_path": "SubUSDs/textures/t_corrugatedboxes_b01_decal_albedo.png",
+        "type": "file",
+        "hash": "sha-256-flat;1048576;f8652cab4615333796c3493942a7a02ff191d2128973c7b814aca808cd5b2be4",
+        "size": 1092832,
+        "tags": null
+      },
+      {
+        "source_path": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/props/.wrapp_publish/.packages/sm_flatbox_b12_white_01/1.0.0/SubUSDs/textures/t_corrugatedboxes_b01_decal_opacity.png?&1",
+        "relative_path": "SubUSDs/textures/t_corrugatedboxes_b01_decal_opacity.png",
+        "type": "file",
+        "hash": "sha-256-flat;1048576;d67db243ee458d5e699024a22dd401b385cb7fc7a2e4a63d8280bb7cd239e3e0",
+        "size": 345574,
+        "tags": null
+      },
+      {
+        "source_path": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/props/.wrapp_publish/.packages/sm_flatbox_b12_white_01/1.0.0/SubUSDs/textures/t_corrugatedboxes_b01_decal_orm.png?&1",
+        "relative_path": "SubUSDs/textures/t_corrugatedboxes_b01_decal_orm.png",
+        "type": "file",
+        "hash": "sha-256-flat;1048576;7b8f01d38bb3a1d4abaccfedd81269096c28836b428704ea9749df6d61c0af09",
+        "size": 653905,
+        "tags": null
+      },
+      {
+        "source_path": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/props/.wrapp_publish/.packages/sm_flatbox_b12_white_01/1.0.0/SubUSDs/textures/t_corrugatedboxes_b01_tile02_albedo.png?&1",
+        "relative_path": "SubUSDs/textures/t_corrugatedboxes_b01_tile02_albedo.png",
+        "type": "file",
+        "hash": "sha-256-flat;1048576;a78d1bac33932083729f0e3bdc5495ca11facf5b6a619121709962a5af8b1774",
+        "size": 5011737,
+        "tags": null
+      },
+      {
+        "source_path": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/props/.wrapp_publish/.packages/sm_flatbox_b12_white_01/1.0.0/SubUSDs/textures/t_corrugatedboxes_b01_tile02_normal.png?&1",
+        "relative_path": "SubUSDs/textures/t_corrugatedboxes_b01_tile02_normal.png",
+        "type": "file",
+        "hash": "sha-256-flat;1048576;578d7f18404df3f8d5ddfdef37ccfd28200db0ab79edbd5bd93b208d053d1701",
+        "size": 3691365,
+        "tags": null
+      },
+      {
+        "source_path": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/props/.wrapp_publish/.packages/sm_flatbox_b12_white_01/1.0.0/SubUSDs/textures/t_corrugatedboxes_b01_tile02_orm.png?&1",
+        "relative_path": "SubUSDs/textures/t_corrugatedboxes_b01_tile02_orm.png",
+        "type": "file",
+        "hash": "sha-256-flat;1048576;4209588b6ea5225e3cabd6f14c5176ef9665778533ff05857ce07171801b20e8",
+        "size": 3834772,
+        "tags": null
+      },
+      {
+        "source_path": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/props/.wrapp_publish/.packages/sm_flatbox_b12_white_01/1.0.0/SubUSDs/textures/t_corrugatedboxes_b01_trim_Albedo.png?&1",
+        "relative_path": "SubUSDs/textures/t_corrugatedboxes_b01_trim_Albedo.png",
+        "type": "file",
+        "hash": "sha-256-flat;1048576;70aead2e4fe4c35a4bb132732349bc9657ba1224cf8307f5a73547ed0e60ee59",
+        "size": 2459866,
+        "tags": null
+      },
+      {
+        "source_path": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/props/.wrapp_publish/.packages/sm_flatbox_b12_white_01/1.0.0/SubUSDs/textures/t_corrugatedboxes_b01_trim_normal.png?&1",
+        "relative_path": "SubUSDs/textures/t_corrugatedboxes_b01_trim_normal.png",
+        "type": "file",
+        "hash": "sha-256-flat;1048576;3c5300f02b33a87aa48a7ffbb57379ddd747bbeb3b5d7dea6a507e35df4c0820",
+        "size": 1290348,
+        "tags": null
+      },
+      {
+        "source_path": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/props/.wrapp_publish/.packages/sm_flatbox_b12_white_01/1.0.0/SubUSDs/textures/t_corrugatedboxes_b01_trim_opacity.png?&1",
+        "relative_path": "SubUSDs/textures/t_corrugatedboxes_b01_trim_opacity.png",
+        "type": "file",
+        "hash": "sha-256-flat;1048576;6639b48969c123438923e0f8cb92ca45daf6070db51c3333a99402af05159a23",
+        "size": 155873,
+        "tags": null
+      },
+      {
+        "source_path": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/props/.wrapp_publish/.packages/sm_flatbox_b12_white_01/1.0.0/SubUSDs/textures/t_corrugatedboxes_b01_trim_orm.png?&1",
+        "relative_path": "SubUSDs/textures/t_corrugatedboxes_b01_trim_orm.png",
+        "type": "file",
+        "hash": "sha-256-flat;1048576;d9ed157af5ad714e3457ef8483d9116f21c59298533d9871e1abd60e2df83aa7",
+        "size": 1817980,
+        "tags": null
+      },
+      {
+        "source_path": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/props/.wrapp_publish/.packages/sm_flatbox_b12_white_01/1.0.0/sm_flatbox_b12_white_01.usd?&1",
+        "relative_path": "sm_flatbox_b12_white_01.usd",
+        "type": "file",
+        "hash": "sha-256-flat;1048576;c6b338e7070707ae652f6ca73f990133a6c7edc452c5374d92730b8f6c5011f8",
+        "size": 408399,
+        "tags": null
+      }
+    ],
+    "storage_map": null
+  },
+  "repository": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/props/.wrapp_working/",
+  "dependencies": null
+}

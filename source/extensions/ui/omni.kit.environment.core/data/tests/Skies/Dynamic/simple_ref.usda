@@ -1,0 +1,19 @@
+#usda 1.0
+(
+    doc = """Dynamic sky that provides the same skyMode, skyTarget and Cone as simple_alt.usda,
+    with a skyMode of its own. Used by test_readonly_root as the sky simple_alt.usda replaces,
+    so both bring these in through the reference of the sky rather than authoring them on it."""
+    defaultPrim = "World"
+    metersPerUnit = 0.01
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    custom string skyMode = "base"
+    custom rel skyTarget = </World/Cone>
+
+    def Mesh "Cone"
+    {
+    }
+}

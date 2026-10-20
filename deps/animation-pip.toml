@@ -1,0 +1,6 @@
+[[dependency]]
+# Templates used by the destination USD's codeless-schema generator.
+python = "${root}/_build/target-deps/python"
+extra_args = ["--index-url", "https://pypi.org/simple"]
+packages = ["Jinja2==3.1.6", "MarkupSafe==3.0.3"]
+target = "${root}/_build/target-deps/animation-schema-python"

@@ -1,0 +1,55 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.0.11"
+
+# The title and description fields are primarily for displaying extension info in UI
+title = "Omniverse Cloud Open Stage"
+description = "Omniverse Cloud Open Stage"
+author = "NVIDIA"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme  = "docs/README.md"
+
+# URL of the extension source repository.
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# One of categories for UI.
+category = "cloud"
+changelog="docs/CHANGELOG.md"
+
+# Keywords for the extension
+keywords = ["kit", "streaming"]
+
+# Icon to show in the extension manager
+icon = "data/icon.png"
+
+# Preview to show in the extension manager
+preview_image = "data/preview.png"
+
+[package.writeTarget]
+kit = false
+
+# Use omni.ui to build simple UI
+[dependencies]
+"omni.kit.usd.layers" = {}
+"omni.kit.viewport.utility" = {}
+"omni.kit.window.filepicker" = {}
+"omni.kit.window.content_browser" = {}
+"omni.services.core" = {}
+"omni.services.transport.server.http" = {}
+"omni.usd" = {}
+
+[settings]
+
+# Main python module this extension provides, it will be publicly available as "import omni.cloud.open_stage".
+[[python.module]]
+name = "omni.cloud.open_stage"
+
+[[python.scriptFolder]]
+# path = "scripts"
+
+[[test]]
+# Extra dependencies only to be used during test run
+dependencies = [
+    "omni.kit.ui_test", # UI testing extension
+]

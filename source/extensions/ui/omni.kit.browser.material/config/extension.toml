@@ -1,0 +1,107 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.7.0"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Jeffrey Qiu"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Material Browser"
+description="A browser to show and bind materials."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['browser', 'material']
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+category = "Rendering"
+readme  = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+
+[dependencies]
+"omni.kit.browser.folder.core" = {}
+"omni.kit.material.library" = {}
+"omni.kit.thumbnails.mdl" = { optional=true }
+"omni.kit.viewport.utility" = {}
+"omni.kit.window.filepicker" = {}
+"omni.kit.menu.utils" = {}
+"omni.kit.actions.core" = { optional=true }
+"omni.kit.widget.stage" = { optional=true }
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.browser.material".
+[[python.module]]
+name = "omni.kit.browser.material"
+
+[settings.exts."omni.kit.browser.material"]
+folders = [
+        "https://omniverse-content-production.s3.us-west-2.amazonaws.com/Materials/2023_1"
+    ]
+folders_hide_in_category = ["2023_1"]
+min_thumbnail_size = 32
+max_thumbnail_size = 512
+
+# Materials defined in these folders will force donot cast shadows. For example: ["Glass"]
+# Now set it to empty to ignore for all materials
+doNotCastShadows.folders = []
+doNotCastShadows.exception_files = ["Mirror.mdl"]
+load_after_startup = false
+
+# Do not compose arcs - payloads, references, sublayers, clips - whose target is in a different
+# storage location: another server, or remote against local. That is external content, not the
+# materials in this file, and an unreachable host costs minutes (139 s measured). Same-location and
+# relative arcs still compose, so this does not stop a file reaching another folder on the same
+# disk. A reference left uncomposed is read from the file's own layer, so a material that arrives
+# only through it is not listed. False composes everything, and a scan stops on any unreachable
+# host it meets.
+usd_reader.skip_foreign_arcs = true
+
+# Open USD files on a worker thread rather than the event loop. True by default: one large file
+# is enough to stop the app drawing for as long as its open takes. False reads on the loop.
+usd_reader.threaded = true
+enabled = true
+data.timeout = 5
+
+[[test]]
+dependencies = [
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+    "omni.kit.thumbnails.mdl",
+]
+args = [
+    "--no-window",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/app/asyncRendering=false",
+    "--/rtx/materialDb/syncLoads=true",
+    "--/omni.kit.plugin/syncUsdLoads=true",
+    "--/rtx/hydra/materialSyncLoads=true",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/app/fastShutdown=true", # For ETM Linux test failure
+    "--/exts/omni.kit.browser.material/folders/0=${omni.kit.browser.material}/data/tests/materials/1_single",
+    "--/exts/omni.kit.browser.material/folders/1=${omni.kit.browser.material}/data/tests/materials/2_multi",
+    "--/exts/omni.kit.browser.material/doNotCastShadows/folders/0=2_multi",
+    "--/exts/omni.kit.browser.material/load_after_startup=true",
+    "--/app/window/width=800",
+    "--/app/window/height=600",
+    "--reset-user",
+]
+
+stdoutFailPatterns.exclude = [
+    "*Failed to acquire interface [omni::kit::renderer::IGpuFoundation v0.2]*", # Leak
+    # test_a_file_that_is_not_utf8_still_reports hands the reader a file that is not text, which is
+    # the point of it: the fallback runs the mdl compiler, and the compiler says so. Named after the
+    # fixture so nothing else is silenced.
+    "*latin1.mdl*",
+]
+[documentation.pages]
+"Overview" = "docs/overview.md"
+"Settings" = "docs/SETTINGS.md"
+"UsagePython" = "docs/USAGE_PYTHON.md"
+"Actions" = "docs/actions_api.md"
+"Changelog" = "docs/CHANGELOG.md"

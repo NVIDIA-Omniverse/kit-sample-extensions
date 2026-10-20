@@ -1,0 +1,105 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    """
+    This USD presents materials with valid 'inputs:nonvisual:base', 'inputs:nonvisual:coating', 'inputs:nonvisual:attributes' attributes.
+    This is used to test
+        Materials bound to a mesh prim or a geomsubset. 
+        Materials not bound to any mesh will not be tested.
+        Materials bound to a mesh that is not a descendant of default prim will not be tested.
+        Materials bound to a mesh that its purpose is not render or default will not be tested.
+        Materials without "full" purpose will not be tested.
+    """
+)
+
+def Xform "World"
+{
+    def Mesh "Cube_GeomSubset"
+    {
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 0, 4, 5, 1, 1, 5, 6, 3, 2, 3, 6, 7, 0, 2, 7, 4, 4, 7, 6, 5]
+        point3f[] points = [(-50, -50, -50), (50, -50, -50), (-50, -50, 50), (50, -50, 50), (-50, 50, -50), (50, 50, -50), (50, 50, 50), (-50, 50, 50)]
+
+        def GeomSubset "first" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform token elementType = "face"
+            uniform token familyName = "materialBind"
+            int[] indices = [0, 1]
+            rel material:binding:full = </World/Looks/valid_material>
+        }
+        def GeomSubset "second" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform token elementType = "face"
+            uniform token familyName = "materialBind"
+            int[] indices = [4, 5]
+            rel material:binding = </World/Looks/valid_material>
+        }
+
+        def GeomSubset "third" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform token elementType = "face"
+            uniform token familyName = "materialBind"
+            int[] indices = [2, 3]
+            rel material:binding:preview = </World/Looks/invalid_material>
+        }
+    }
+
+    def Cube "Cube_01" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </World/Looks/valid_material>
+    }
+
+    def Cube "Cube_02" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        uniform token purpose = "proxy"
+        rel material:binding = </World/Looks/invalid_material>
+    }
+
+    def Scope "Looks"
+    {
+        def Material "valid_material"
+        {
+            token omni:simready:nonvisual:base = "aluminum"
+            token omni:simready:nonvisual:coating = "clearcoat"
+            token[] omni:simready:nonvisual:attributes = ["none"]
+        }
+
+        def Material "invalid_material"
+        {
+            token omni:simready:nonvisual:base = "something"
+            token omni:simready:nonvisual:coating = "else"
+            token[] omni:simready:nonvisual:attributes = ["something", "else", "emissive"]
+        }
+
+        def Material "invalid_material_not_used"
+        {
+            token omni:simready:nonvisual:base = "something"
+            token omni:simready:nonvisual:coating = "else"
+            token[] omni:simready:nonvisual:attributes = ["something", "else", "emissive"]
+        }
+
+        def Material "invalid_material_non_default_prim"
+        {
+            token omni:simready:nonvisual:base = "something"
+            token omni:simready:nonvisual:coating = "else"
+            token[] omni:simready:nonvisual:attributes = ["something", "else", "emissive"]
+        }
+    }
+}
+def Cube "Cube_03" (
+    prepend apiSchemas = ["MaterialBindingAPI"]
+)
+{
+    rel material:binding:preview = </World/Looks/invalid_material_non_default_prim>
+}
+

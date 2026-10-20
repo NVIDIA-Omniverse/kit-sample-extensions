@@ -1,0 +1,61 @@
+[package]
+authors = ["Jozef van Eenbergen", "Philippe Sawicki"]
+category = "services"
+changelog = "docs/CHANGELOG.md"
+description = "Core of Kit micro services framework."
+icon = "data/icon.png"
+keywords = ["kit", "service", "core"]
+preview_image = "data/preview.png"
+readme = "docs/README.md"
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+slackids = ["@U010NFP76BU"]
+title = "Kit Services Core"
+version = "1.12.1"
+
+[dependencies]
+"omni.kit.async_engine" = { order = -1000 }
+"omni.kit.pipapi" = {}
+"omni.kit.pip_archive" = {}
+"omni.kit.loop" = {}
+"omni.services.facilities.base" = {}
+
+[[python.module]]
+name = "omni.services.core"
+
+# Main python module this extension provides
+[[python.module]]
+name = "omni.services.core.main"
+
+# # If support for `asgi_correlation_id` is enabled:
+# [[python.module]]
+# name = "asgi_correlation_id"
+
+[settings.exts."omni.services.core"]
+# The applications URL root (ie: /api/v0) in case a service is fronted by a Proxy
+# (https://fastapi.tiangolo.com/advanced/behind-a-proxy/)
+root_path = ""
+show_status_endpoint = true
+# Preserve compatibility with clients that send JSON request bodies without a Content-Type header. Applications can
+# opt in to FastAPI's stricter CSRF protection by overriding this setting to true.
+strict_content_type = false
+
+[settings.exts."omni.services.core".health]
+# List of health check provider names that contribute to /livez, /readyz, /startupz.
+# Default: ["omni.kit.app"] -- checks Kit app readiness out of the box.
+# Set to [] (empty list) to disable all provider checks.
+activeProviders = ["omni.kit.app"]
+
+# Configuration options for generating Correlation IDs to requests issues against the Services framework:
+[settings.exts."omni.services.core".correlation_id]
+# Flag indicating whether to use the default Correlation ID middleware provided by the Services framework:
+use_default_middleware = true
+# Name of the HTTP Header to read correlation IDs from. `X-Request-ID` and `X-Correlation-ID` are common choices:
+header_name = "X-Correlation-ID"
+# Flag indicating whether to update the incoming request's header value with the generated correlation ID. This is to
+# support use cases where it's relied on the presence of the request header (like various tracing middlewares):
+update_request_header = true
+
+[[test]]
+args = [
+    "--allow-root",
+]

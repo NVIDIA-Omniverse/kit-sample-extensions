@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <g id="IntField" transform="translate(-78 -65)">
+    <rect id="Bg" width="128" height="128" transform="translate(78 65)" fill="none"/>
+    <g id="RectangleShape" transform="translate(88 81)" stroke="#fff" stroke-width="5">
+      <rect width="109" height="102" rx="9" stroke="none"/>
+      <rect x="2.5" y="2.5" width="104" height="97" rx="6.5" fill="none"/>
+    </g>
+    <text id="_12" data-name="12" transform="translate(105 153)" fill="#fff" font-size="70" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">12</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+<project toolsVersion="5.0">
+  <!-- Use this file to include any dependencies for extensions in "ui" group. -->
+  <dependency name="omni.search_grammar" linkPath="../_build/target-deps/omni.search_grammar">
+    <package name="omni.search_grammar" version="2.2.2+main.gitlab.2466.50cf2bb3" />
+  </dependency>
+  <dependency name="omniverse.deepsearch.helper" linkPath="../_build/target-deps/omniverse.deepsearch.helper">
+    <package name="omniverse.deepsearch.helper" version="2.0.4+main.gitlab.387.7b48abe6" />
+  </dependency>
+  <dependency name="omniverse.discovery.client.py" linkPath="../_build/target-deps/omniverse.discovery.client.py">
+    <package name="omniverse.discovery.client.py" version="1.4.8+main.teamcity.758.dcaaa8b9" />
+  </dependency>
+  <dependency name="omniverse.ngsearch.client.py" linkPath="../_build/target-deps/omniverse.ngsearch.client.py">
+    <package name="omniverse.ngsearch.client.py" version="2.3.0+feature-kit-version-telemetry-context.gitlab.2733.64876b15" />
+  </dependency>
+  <dependency name="omniverse.search.client.py" linkPath="../_build/target-deps/omniverse.search.client.py">
+    <package name="omniverse.search.client.py" version="3.2.1+main.teamcity.483.2d7fe2a6" />
+  </dependency>
+  <dependency name="idl.py.search" linkPath="../_build/target-deps/idl.py">
+    <package name="idl.py" version="0.18+master.teamcity.1803.10b61e69" />
+  </dependency>
+</project>

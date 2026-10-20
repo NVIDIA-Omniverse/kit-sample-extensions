@@ -1,0 +1,14 @@
+<project toolsVersion="6.11" chroniclePath="../_build/chronicles">
+  <import path="../_build/target-deps/omni_physics/deps/schema-deps.packman.xml">
+    <filter include="usd_ext_physics_${config}" />
+  </import>
+  <dependency name="usd_ext_physics_${config}" linkPath="../_build/target-deps/usd_ext_physics/${config}" />
+
+  <import path="../_build/target-deps/omni_physics/deps/target-deps.packman.xml">
+    <filter include="physx" />
+    <filter include="physxdevice" />
+  </import>
+  <!-- Inherit the PhysX SDK matching the selected Physics integration. -->
+  <dependency name="physx" linkPath="../_build/target-deps/physx" />
+  <dependency name="physxdevice" linkPath="../_build/target-deps/physxdevice" />
+</project>

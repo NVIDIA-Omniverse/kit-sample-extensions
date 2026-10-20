@@ -1,0 +1,13 @@
+#usda 1.0
+(
+    defaultPrim = "Cube"
+
+    """
+    This USD presents a gprim without semantics applied.
+    """
+)
+
+def Cube "Cube" (
+)
+{
+}

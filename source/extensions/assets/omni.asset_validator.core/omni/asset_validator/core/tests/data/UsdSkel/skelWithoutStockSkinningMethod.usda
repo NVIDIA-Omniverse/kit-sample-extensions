@@ -1,0 +1,39 @@
+#usda 1.0
+(
+    defaultPrim = "Root"
+
+    """
+    The following content presents a skinning mesh that has skel:skinningMethod authored but without
+    primvars:skel:skinningMethod presented.
+    """
+)
+
+def "Root"
+{
+    def SkelRoot "skelroot"
+    {
+        def Mesh "triangle" (
+            prepend apiSchemas = ["SkelBindingAPI"]
+        )
+        {
+            int[] faceVertexCounts = [3]
+            int[] faceVertexIndices = [0, 1, 2]
+            point3f[] points = [(0, 0, 0), (0.5, 0, 0), (1, 1, 0)]
+            int[] primvars:skel:jointIndices = [0, 0, 0] (
+                elementSize = 1
+            )
+            float[] primvars:skel:jointWeights = [1.0, 1.0, 1.0] (
+                elementSize = 1
+            )
+            uniform token[] skel:joints = ["joint"]
+            rel skel:skeleton = </Root/skelroot/skeleton>
+            uniform token skel:skinningMethod = "DualQuaternion"
+        }
+
+        def Skeleton "skeleton" (
+            prepend apiSchemas = ["SkelBindingAPI"]
+        )
+        {
+        }
+    }
+}

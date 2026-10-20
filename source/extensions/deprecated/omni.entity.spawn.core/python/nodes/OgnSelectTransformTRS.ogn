@@ -1,0 +1,34 @@
+{
+    "SelectTransformTRS": {
+        "exclude" : ["tests"],
+        "description": ["Select translation, rotation, or scale from a transform matrix."],
+        "language": "python",
+        "inputs":{
+            "transform":{
+                "type": "matrixd[4]",
+                "description": "Transform matrix."
+            },
+            "useTranslation":{
+                "type": "bool",
+                "description": "Whether translation is used.",
+                "default":true
+            },
+            "useRotation":{
+                "type": "bool",
+                "description": "Whether rotation is used.",
+                "default":true
+            },
+            "useScale":{
+                "type": "bool",
+                "description": "Whether scale is used.",
+                "default":true
+            }
+        },
+        "outputs": {
+            "transform": {
+                "type": "matrixd[4]",
+                "description": "Transform matrix."
+            }
+        }
+    }
+}

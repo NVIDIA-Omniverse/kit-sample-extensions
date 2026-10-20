@@ -1,0 +1,59 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.0.7"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["NVIDIA"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Viewport bottom menubar"
+description="Provide the viewport menu bar at bottom."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['viewport', 'menubar', 'bottom']
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.rst"
+
+category = "Kit::exts"
+readme = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+
+[dependencies]
+"omni.kit.viewport.menubar.core" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.tool.turntable".
+[[python.module]]
+name = "omni.kit.viewport.menubar.bottom"
+
+[settings]
+exts."omni.kit.viewport.menubar.bottom".barName = "Viewport Bottom Menubar"
+exts."omni.kit.viewport.menubar.bottom".spacing = 10
+
+[[test]]
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.viewport.window",
+    "omni.kit.viewport.utility",
+    "omni.kit.ui_test",
+    "omni.kit.test_suite.helpers",
+]
+
+args = [
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/app/window/width=800",
+    "--/app/window/height=600",
+    "--no-window",
+]
+
+stdoutFailPatterns.exclude = [
+]

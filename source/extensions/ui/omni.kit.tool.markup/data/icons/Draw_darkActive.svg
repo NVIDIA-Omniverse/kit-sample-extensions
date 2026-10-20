@@ -1,0 +1,8 @@
+<svg id="draw_active_dark" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <rect id="iconBase" width="40" height="40" fill="none"/>
+  <path id="Path_4902" data-name="Path 4902" d="M-2526.893,2066.382c-2.046,3.7-8.767,6.725-4.477,4.13s24.817-4.215,17.42,0,5.537-2.054,13.672,2.7" transform="translate(2536.322 -2036.426)" fill="none" stroke="#34c7ff" stroke-linecap="round" stroke-width="0.75"/>
+  <g id="pencilgroup" transform="translate(9.311 2.659)">
+    <path id="Pencil" d="M440.17,42.822l1.591-1.637-4.086-4.154-1.626,1.6v1.9h2.269v2.285Zm9.114-16.53-.035-.192-.078-.114-.113-.039-.152-.035-.187.035-.113.039L439.149,35.7l-.074.114-.039.153.039.188.074.114.113.114h.152l.152-.035.152-.079,9.418-9.675.113-.114Zm-.943-3.432,7.224,7.429L441.117,45.108h-7.263v-7.39Z" transform="translate(-433.855 -18.137)" fill="#34c7ff" fill-rule="evenodd"/>
+    <path id="Erasor" d="M452.555,26.892l-.039.455-.113.42-.187.381-.3.342-2.873,2.972-7.224-7.429L444.65,21.1l.378-.3.343-.228.452-.118h.869l.417.118.378.228.339.3,4.086,4.154.3.381.187.381.113.42Z" transform="translate(-426.195 -20.453)" fill="#34c7ff" fill-rule="evenodd"/>
+  </g>
+</svg>

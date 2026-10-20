@@ -1,0 +1,80 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.0.5"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["William Hurd"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Configurator Samples Browser"
+description="A browser to the Configurator Samples for Omniverse Kit"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['browser', 'configurator', 'samples']
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+category = "Rendering"
+readme  = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+feature = true
+
+[dependencies]
+"omni.kit.browser.core" = {}
+"omni.kit.browser.folder.core" = {}
+"omni.kit.menu.utils" = {}
+"omni.kit.window.file" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.browser.sky".
+[[python.module]]
+name = "omni.kit.browser.configurator_samples"
+
+[settings.exts."omni.kit.browser.configurator_samples"]
+folders = [
+    "Showcases/Ragnarok::https://omniverse-content-production.s3.us-west-2.amazonaws.com/Samples/Showcases/2023_1/Ragnarok",
+    "Showcases/ConceptCar::https://omniverse-content-production.s3.us-west-2.amazonaws.com/Samples/Showcases/2023_2_1/ConceptCar",
+    "Rendering/Astronaut::https://omniverse-content-production.s3.us-west-2.amazonaws.com/Samples/Examples/2024_1/Rendering/Astronaut",
+    "Rendering/Automotive_Material_Library_Pristine::https://omniverse-content-production.s3.us-west-2.amazonaws.com/Samples/Examples/2024_1/Rendering/Automotive_Material_Library_Pristine",
+    "Rendering/EuclidVR::https://omniverse-content-production.s3.us-west-2.amazonaws.com/Samples/Examples/2024_1/Rendering/EuclidVR",
+    "Rendering/Flight::https://omniverse-content-production.s3.us-west-2.amazonaws.com/Samples/Examples/2024_1/Rendering/Flight",
+    "Rendering/Marbles::https://omniverse-content-production.s3.us-west-2.amazonaws.com/Samples/Examples/2024_1/Rendering/Marbles",
+    "Rendering/OldAttic::https://omniverse-content-production.s3.us-west-2.amazonaws.com/Samples/Examples/2024_1/Rendering/OldAttic",
+    "https://omniverse-content-production.s3.us-west-2.amazonaws.com/Samples/Examples/2023_1/Visual%20Scripting",
+    "Configurator/Branded::https://omniverse-content-production.s3.us-west-2.amazonaws.com/Assets/Configurator/2023_1/Examples/RagnarokBranded/",
+]
+
+folders_hide_in_category = ["2024_1"]
+custom_folders = []
+data.timeout = 10
+
+[[trigger]]
+menu.name = "Window/Browsers/Configurator Samples"
+menu.window = "Configurator Samples"
+
+[[test]]
+args = [
+    "--no-window",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/app/menu/legacy_mode=false",
+    "--/exts/omni.kit.browser.configurator_samples/folders/0=''",
+    "--/exts/omni.kit.browser.configurator_samples/folders/1=''",
+    "--/exts/omni.kit.browser.configurator_samples/folders/2=''",
+    "--/exts/omni.kit.browser.configurator_samples/folders/3=''",
+    "--/exts/omni.kit.browser.configurator_samples/folders/4=''",
+    "--/exts/omni.kit.browser.configurator_samples/folders/5=''",
+
+]
+
+stdoutFailPatterns.exclude = [
+    "*unload wait time exceeded limit of*", # ETM test failure with kit 105.0.1 integ-master
+]
+
+[documentation]
+pages = ["docs/Overview.md", "docs/SETTINGS.md", "docs/USAGE_PYTHON.md", "docs/CHANGELOG.md"]

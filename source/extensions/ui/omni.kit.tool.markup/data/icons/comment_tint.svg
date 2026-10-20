@@ -1,0 +1,9 @@
+<svg id="comment_tint" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <rect id="Icon_Base" width="40" height="40" fill="none"/>
+  <g id="post_it" data-name="post it" transform="translate(7.632 5.57)">
+    <path id="file" d="M16,21.5V28H1.5A1.5,1.5,0,0,1,0,26.5V1.5A1.5,1.5,0,0,1,1.5,0h21A1.5,1.5,0,0,1,24,1.5V20H17.5A1.5,1.5,0,0,0,16,21.5Zm8,.881V22H18v6h.381a1.5,1.5,0,0,0,1.063-.437l4.119-4.125A1.5,1.5,0,0,0,24,22.381Z" fill="#fff"/>
+    <line id="Line_873" data-name="Line 873" x2="16" transform="translate(4 4.366)" fill="none" stroke="#515151" stroke-linecap="round" stroke-width="1"/>
+    <line id="Line_874" data-name="Line 874" x2="16" transform="translate(4 11.952)" fill="none" stroke="#515151" stroke-linecap="round" stroke-width="1"/>
+    <line id="Line_875" data-name="Line 875" x2="9.523" transform="translate(4 17.666)" fill="none" stroke="#515151" stroke-linecap="round" stroke-width="1"/>
+  </g>
+</svg>

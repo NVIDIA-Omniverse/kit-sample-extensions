@@ -1,0 +1,66 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "0.3.3"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Artem Rozantsev", "Michael Shelley"]
+
+# The title and description fields are primarily for displaying extension info in UI
+title = "NGSearch API"
+description="The exposed search api of ngsearch"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme  = "docs/README.md"
+
+# URL of the extension source repository.
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ["search", "ngsearch"]
+
+# Location of change log file in target (final) folder of extension, relative to the root. Can also be just a content
+# of it instead of file path. More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+# Preview image and icon. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+# Preview image is shown in "Overview" of Extensions window. Screenshot of an extension might be a good preview image.
+preview_image = "data/preview.png"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "data/icon.png"
+
+category = "Other"
+
+# We only depend on testing framework currently:
+[dependencies]
+"omni.kit.pip_archive" = {}
+# pydantic is used from the following pip archive
+"omni.services.pip_archive" = {}
+"omni.client" = {}
+
+# explicit setting of the IDL module, as not all the modules are now getting automatically imported
+[[python.module]]
+name = "idl"
+
+# # Pip modules
+# [[python.module]]
+# path = "pip_prebundle"
+
+# Main python module this extension provides, it will be publicly available as "import omni.example.hello".
+[[python.module]]
+name = "omni.kit.ngsearch"
+
+[[test]]
+
+stdoutFailPatterns.exclude = [
+    "*[Error] [omni.kit.ngsearch.api] NGSearch availability check exception on 'omniverse://fake-url': test error*",
+    "*[Error] [omni.kit.ngsearch.client] Search Service exception: UNKNOWN_ERROR*",
+    "*[Error] [omni.kit.ngsearch.client] Search Service exception: TOKEN_EXPIRED (ov-test)*"
+]
+
+pyCoverageOmit = [
+    # exclude manual test from coverage, as it can be executed on demand manually
+    "omni/kit/ngsearch/tests/manual_test.py",
+    # remove IDL from coverage reporting
+    "idl/*",
+]

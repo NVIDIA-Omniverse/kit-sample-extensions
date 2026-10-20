@@ -1,0 +1,53 @@
+[package]
+authors = ["Jozef van Eenbergen", "Philippe Sawicki"]
+category = "Services"
+changelog="docs/CHANGELOG.md"
+description="Rendering service. Trigger the render of a USD stage via a service request."
+icon = "data/icon.png"
+keywords = ["kit", "services", "render"]
+preview_image = "data/preview.png"
+readme  = "docs/README.md"
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+title = "Rendering service"
+version = "0.12.0"
+
+[dependencies]
+"omni.kit.pip_archive" = {}
+"omni.usd" = {}
+"omni.resourcemonitor" = {}
+"omni.client" = {}
+"omni.kit.renderer.capture" = {}
+"omni.kit.capture.viewport" = {}
+"omni.services.core" = {}
+"omni.services.pip_archive" = {}
+"omni.services.facilities.monitoring.metrics" = {}
+"omni.services.facilities.monitoring.progress" = {}
+"omni.services.facilities.log" = {}
+"omni.kit.pipapi" = {}
+
+[[python.module]]
+name = "omni.services.render"
+
+[settings]
+exts."omni.services.render".temp_root_directory = "${temp}"
+exts."omni.services.render".stage_load_timeout = 0
+# Append the task_id to the output path if it exists.
+exts."omni.services.render".append_task_id = false
+
+exts."omni.services.render".flush_frame_timeout = 10
+exts."omni.services.render".finalize_frame_sync_timeout = 60
+exts."omni.services.render".capture_setting_settle_delay = 1
+
+[[test]]
+args = [
+    "--no-window"
+]
+stdoutFailPatterns.exclude = [
+    # This is an expected error message during these tests as processes are purposly crashed to check handling of task failures.
+    "*Too many frames detected*",
+    "*Failed to copy file:*",
+    "*i_do_not_exist.usd*",
+    # Kit 111 omni.usd also logs this filename-less line for the same deliberately missing stage
+    # (test_open_stage_sync_invalid opens i_do_not_exist.usd).
+    "*Open USD error: Failed to open the owned root/session layers*",
+]

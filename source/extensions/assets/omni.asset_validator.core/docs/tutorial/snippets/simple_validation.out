@@ -1,0 +1,33 @@
+Results(
+    asset="tutorial.usda",
+    issues=[
+        Issue(
+            message="Stage does not specify an upAxis.",
+            severity=IssueSeverity.FAILURE,
+            rule=StageMetadataChecker,
+            at=None,
+            suggestion=None
+        ),
+        Issue(
+            message="Stage does not specify its linear scale in metersPerUnit.",
+            severity=IssueSeverity.FAILURE,
+            rule=StageMetadataChecker,
+            at=None,
+            suggestion=None
+        ),
+        Issue(
+            message="Stage has missing or invalid defaultPrim.",
+            severity=IssueSeverity.FAILURE,
+            rule=OmniDefaultPrimChecker,
+            at=StageId(root_layer=LayerId(identifier='tutorial.usda')),
+            suggestion=suggestion(callable=update_default_prim, message='updates the default prim', at=none)
+        ),
+        Issue(
+            message="Stage has missing or invalid defaultPrim.",
+            severity=IssueSeverity.FAILURE,
+            rule=StageMetadataChecker,
+            at=None,
+            suggestion=None
+        )
+    ]
+)

@@ -1,0 +1,61 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "0.3.1"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Adam Shaw"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Remove Unused Tool - UI"
+description="A tool to optimize stages by removing excess prims"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme  = "docs/README.md"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# One of categories for UI.
+category = "Tools"
+
+# Keywords for the extension
+keywords = ["kit", "stage", "optimize", "materials", "remove", "unused"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+# Preview image and icon. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+# Preview image is shown in "Overview" of Extensions window. Screenshot of an extension might be a good preview image.
+preview_image = "data/preview.png"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "data/icon.png"
+
+[package.target]
+kit = ["107.3"]
+
+[dependencies]
+"omni.kit.menu.utils" = {}
+"omni.kit.tool.remove_unused.core" = {}
+"omni.kit.window.material" = {optional=true}
+
+# Main python module this extension provides, it will be publicly available as "import omni.example.hello".
+[[python.module]]
+name = "omni.kit.tool.remove_unused.controller"
+
+[[test]]
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--no-window",
+]
+
+dependencies = [
+    "omni.kit.test",
+    "omni.kit.mainwindow",
+    "omni.kit.ui_test",
+    "omni.kit.test_suite.helpers",
+    "omni.kit.uiapp",
+
+]

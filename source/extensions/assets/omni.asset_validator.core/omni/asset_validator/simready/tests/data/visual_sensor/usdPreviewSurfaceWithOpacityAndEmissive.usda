@@ -1,0 +1,53 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    """
+    This USD presents invalid USD Preview Surface shader.
+    - USD Preview Surface has emissiveColor other than black.
+    - USD Preview Surface has opacity less than 1.
+    """
+)
+
+def Xform "World"
+{
+    def Cube "cube_invalid_surface_shader_emissive" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </World/Looks/invalid_shader_emissive>
+    }
+
+    def Cube "cube_invalid_surface_shader_opacity" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </World/Looks/invalid_shader_opacity>
+    }
+
+    def Scope "Looks"
+    {
+        def Material "invalid_shader_emissive"
+        {
+            token outputs:surface.connect = </World/Looks/invalid_shader_emissive/Shader.outputs:surface>
+
+            def Shader "Shader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:emissiveColor = (0.67058825, 0.67058825, 0.67058825)
+                token outputs:surface
+            }
+        }
+
+        def Material "invalid_shader_opacity"
+        {
+            token outputs:surface.connect = </World/Looks/invalid_shader_opacity/Shader.outputs:surface>
+
+            def Shader "Shader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                float inputs:opacity = 0.1
+                token outputs:surface
+            }
+        }
+    }
+}

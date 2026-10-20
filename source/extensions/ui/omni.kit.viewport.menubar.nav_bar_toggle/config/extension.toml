@@ -1,0 +1,80 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.0.4"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["NVIDIA"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Nav Bar Toggle"
+description="Provide the button on viewport menu bottom-bar to toggle the visibility of the navigation bar."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['viewport', 'menubar', 'bottom', "navigation bar"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.rst"
+
+category = "Kit::exts"
+readme = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+
+[dependencies]
+"omni.kit.viewport.menubar.bottom" = {}
+"omni.kit.viewport.utility" = {}
+"omni.kit.actions.core" = {optional=true}
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.viewport.menubar.nav_bar_toggle".
+[[python.module]]
+name = "omni.kit.viewport.menubar.nav_bar_toggle"
+
+[settings]
+# To define if the workspace is focused or not at start.
+# App should overwrite this value if necessary
+app.workspace.initFocused = true
+
+# Define the button to be left most
+exts."omni.kit.viewport.menubar.nav_bar_toggle".buttonOrder = 90
+
+# By default, the button is visible. But this can be ovwritten by app
+exts."omni.kit.viewport.menubar.nav_bar_toggle".buttonVisible = true
+
+# The following line is used to set default visible windows. app should override this list
+exts."omni.kit.viewport.menubar.nav_bar_toggle".initialWindowList = []
+
+# The following window list is what this extension cares. Other windows' visibility changes will be ignored
+exts."omni.kit.viewport.menubar.nav_bar_toggle".managedWindowList = [
+    "Stage",
+    "Preferences",
+]
+
+[[test]]
+dependencies = [
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+    "omni.kit.test_helpers_gfx",
+]
+
+args = [
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/app/window/width=800",
+    "--/app/window/height=600",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    "--reset-user",
+    "--/app/viewport/defaults/guide/grid/visible=false",
+    "--/app/viewport/defaults/guide/axis/visible=false",
+    "--/app/viewport/defaults/hud/visible=false",
+]
+
+stdoutFailPatterns.exclude = [
+    "*PyEval_EvalFrameEx returned a result with an error set*"
+]

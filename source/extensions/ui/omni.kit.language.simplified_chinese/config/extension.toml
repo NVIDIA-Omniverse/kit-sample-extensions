@@ -1,0 +1,81 @@
+[package]
+# Semantic Versioning is used: https://semver.org/
+version = "1.0.6"
+
+category = "Utilities"
+support_level = "Sample"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Dave De Pauw"]
+
+# The title and description fields are primarily for displaying extension info in UI
+title = "Chinese font for Omniverse Kit"
+description="Chinese font for Omniverse Kit"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ["kit", "language", "localization", "font"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog = "docs/CHANGELOG.md"
+
+# Preview image. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+preview_image = "data/preview.png"
+icon = "data/icoCategoryLanguages.svg"
+
+# readme
+readme = "docs/README.md"
+
+# This needs to be loaded early enough to override font settings, so cannot just be enabled
+toggleable = false
+
+[core]
+# This needs to be loaded early enough to override font settings
+order = -990
+reloadable = false
+
+[dependencies]
+"omni.kit.language.core" = {}
+
+[documentation]
+pages = [
+    "docs/CHANGELOG.md",
+]
+
+[[python.module]]
+name = "omni.kit.language.simplified_chinese"
+
+[[test]]
+args = [
+    "--/app/vulkan=1",
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/renderer/multiGpu/enabled=false",
+    "--/renderer/multiGpu/autoEnable=false", # Disable mGPU with PXR due to OM-51026, OM-53611
+    "--/renderer/multiGpu/maxGpuCount=1",
+    "--/app/asyncRendering=false",
+    "--/app/file/ignoreUnsavedStage=true",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/persistent/app/locale_id=zh-CN",
+    "--no-window",
+]
+
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.renderer.capture",
+    "omni.kit.mainwindow",
+    "omni.kit.window.preferences",
+    "omni.kit.ui_test",
+    "omni.kit.test_suite.helpers",
+]
+
+stdoutFailPatterns.exclude = [
+    "*HydraRenderer failed to render this frame*",  # Can drop a frame or two rendering with OpenGL interop
+    "*[gpu.foundation.plugin] Failed*",
+    "*[gpu.foundation.plugin] Cannot load shader file*",
+    "*[gpu.foundation.plugin] buildShaderAsync*",
+]
