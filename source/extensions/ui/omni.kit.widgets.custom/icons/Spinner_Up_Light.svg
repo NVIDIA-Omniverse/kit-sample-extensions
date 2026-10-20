@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 9 9">
+  <g id="Spinner_Up_Light" transform="translate(82.627 10.005) rotate(180)">
+    <rect id="iconBase" width="9" height="9" transform="translate(73.627 1.005)" fill="none"/>
+    <path id="tri" d="M3.276.447a.25.25,0,0,1,.447,0l3.1,6.191A.25.25,0,0,1,6.6,7H.4a.25.25,0,0,1-.224-.362Z" transform="translate(81.627 9.005) rotate(180)" fill="#e0e0e0"/>
+  </g>
+</svg>

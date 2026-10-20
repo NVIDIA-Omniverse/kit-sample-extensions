@@ -1,0 +1,72 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.0.0"
+
+# The title and description fields are primarily for displaying extension info in UI
+title = "USD Storage API Authentication"
+description = "Extension for handling USD Storage API authentication communication between web portal and Client Library using livestream messaging"
+author = "nvidia"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme  = "docs/README.md"
+
+# URL of the extension source repository.
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# One of categories for UI.
+category = "utils"
+changelog = "docs/CHANGELOG.md"
+
+# Keywords for the extension
+keywords = ["kit", "authentication", "storage", "api", "messaging"]
+
+# Icon to show in the extension manager
+icon = "data/icon.png"
+
+# Preview to show in the extension manager
+preview_image = "data/preview.png"
+
+[package.writeTarget]
+kit = false
+
+# Dependencies
+[dependencies]
+"omni.kit.livestream.messaging" = {}
+"omni.client" = {}
+"omni.ui" = { optional = true }
+"omni.kit.window.popup_dialog" = { optional = true }
+"omni.kit.widget.connection_manager" = { optional = true }
+
+# Pre-configured discovery URLs to auto-mount on startup (no manual add required).
+# Users can override this in their .kit file, e.g.:
+#   [settings.exts."omni.storage_api.auth"]
+#   preconfiguredDiscoveryUrls = ["https://discovery.example.com"]
+[settings.exts."omni.storage_api.auth"]
+preconfiguredDiscoveryUrls = []
+# Timeout in seconds for portal authentication per discovery URL.
+# If the portal does not respond within this time, a timeout dialog is shown.
+authCallbackTimeout = 60
+
+# Main python module this extension provides, it will be publicly available as "import omni.storage_api.auth".
+[[python.module]]
+name = "omni.storage_api.auth"
+
+[[test]]
+# Extra dependencies only to be used during test run
+dependencies = []
+
+stdoutFailPatterns.exclude = [
+    "*Invalid token refresh response - missing access_token*",
+    "*Failed to set token for*",
+    "*Failed to refresh token for*",
+    "*Future exception was never retrieved*",
+    "*Discovery timed out for*",
+    "*Portal auth error for*",
+    "*authenticationError missing discovery_url*",
+]
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.md",
+]

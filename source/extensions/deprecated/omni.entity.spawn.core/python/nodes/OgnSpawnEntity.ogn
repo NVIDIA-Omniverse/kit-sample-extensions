@@ -1,0 +1,67 @@
+{
+    "SpawnEntity": {
+        "exclude" : ["tests"],
+        "version": 0,
+        "categories": "sceneGraph",
+        "description": ["Spawn entities from an asset path."],
+        "language": "python",
+        "scheduling": ["usd-write"],
+        "inputs": {
+            "execIn": {
+                "type": "execution",
+                "description": "Input to accept the execution signal"
+            },
+            "transform": {
+                "type": "matrixd[4]",
+                "description": "The Transform Matrix where the actor is to be spawned",
+                "default": [
+                    [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                ]
+            },
+            "sourcePaths": {
+                "type": "token[]",
+                "description": "The USD file path to the entities' base asset or a prim path in current stage as the prototype of entity.",
+                "default":[]
+            }
+        },
+        "outputs": {
+            "entityNames": {
+                "type": "token[]",
+                "description": "The Spawned Actor's names",
+                "default":[]
+            },
+            "allSpawnedEntityNames": {
+                "type": "token[]",
+                "description": "Names of spawned actors of all executions of this node.",
+                "default":[]
+            },
+            "execOut": {
+                "type": "execution",
+                "description": "Execution Output to pass along the execution signal to downstream nodes"
+            }
+        }
+    }
+}

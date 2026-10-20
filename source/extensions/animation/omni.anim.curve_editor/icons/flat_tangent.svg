@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <g id="Flatten_tangent" data-name="Flatten tangent" transform="translate(0.414)">
+    <g id="Group_3923" data-name="Group 3923" transform="translate(2.671 18.439)">
+      <line id="Line_795" data-name="Line 795" x2="29.829" transform="translate(1.5 2)" fill="none" stroke="#9b9b9b" stroke-width="1"/>
+      <g id="Rectangle_1090" data-name="Rectangle 1090" transform="translate(14.915 0.5)" fill="#f9f903" stroke="#f9f903" stroke-width="1">
+        <rect width="4" height="4" stroke="none"/>
+        <rect x="-0.5" y="-0.5" width="5" height="5" fill="none"/>
+      </g>
+      <g id="Ellipse_114" data-name="Ellipse 114" transform="translate(29.829)" fill="#fff" stroke="#00b9ff" stroke-width="1">
+        <circle cx="2" cy="2" r="2" stroke="none"/>
+        <circle cx="2" cy="2" r="2.5" fill="none"/>
+      </g>
+      <g id="Ellipse_115" data-name="Ellipse 115" fill="#fff" stroke="#00b9ff" stroke-width="1">
+        <circle cx="2" cy="2" r="2" stroke="none"/>
+        <circle cx="2" cy="2" r="2.5" fill="none"/>
+      </g>
+    </g>
+    <rect id="Rectangle_2153" data-name="Rectangle 2153" width="40" height="40" transform="translate(-0.414)" fill="none"/>
+  </g>
+</svg>

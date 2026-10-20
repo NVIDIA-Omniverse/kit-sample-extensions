@@ -1,0 +1,37 @@
+{
+    "AnimCurve": {
+        "version": 5,
+        "description": "Evaluates curve animation",
+        "categories": {"animation":"Nodes dealing with Animation"},
+        "scheduling": ["usd-write"],
+        "inputs": {
+            "Time": {
+                "type": "timecode",
+                "description": "Time used to evaluate values. Nan value uses global time."
+            },
+            "UseGlobalTime": {
+                "type": "bool",
+                "description": "Whether use global time or custom time to evaluate curve values.",
+                "default": true
+            },
+            "IndividualOutputs": {
+                "type": "string",
+                "description": "Uses wildcard matching to select curves that are outputed individually."
+            },
+            "Prim": {
+                "type": "target",
+                "description": "Target prim that is directly animated by node.",
+                "optional": true,
+                 "metadata": {
+                    "literalOnly": "1"
+                }
+            }
+        },
+        "outputs": {
+            "AnimFrame": {
+                "type": "bundle",
+                "description": "Evaluated curve value at given time."
+            }
+        }
+    }
+}

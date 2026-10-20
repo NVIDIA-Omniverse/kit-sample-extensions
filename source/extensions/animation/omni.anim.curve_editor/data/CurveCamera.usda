@@ -1,0 +1,142 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary audioSettings = {
+            double dopplerLimit = 2
+            double dopplerScale = 1
+            double nonSpatialTimeScale = 1
+            double spatialTimeScale = 1
+            double speedOfSound = 340
+        }
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (0, 0, 50000)
+                double radius = 500
+            }
+            dictionary Perspective = {
+                double3 position = (220.06333432588283, 220.06333432588318, 220.06333432588195)
+                double3 target = (-1.7053025658242404e-13, 1.4210854715202004e-13, -7.958078640513122e-13)
+            }
+            dictionary Right = {
+                double3 position = (-50000, 0, -1.1102230246251565e-11)
+                double radius = 500
+            }
+            dictionary Top = {
+                double3 position = (-4.329780281177466e-12, 50000, 5.545564019014053e-12)
+                double radius = 987.72099609375
+            }
+            string boundCamera = "/OmniverseKit_Top"
+        }
+        dictionary omni_layer = {
+            dictionary muteness = {
+            }
+        }
+        int refinementOverrideImplVersion = 0
+        dictionary renderSettings = {
+            float "rtx:post:lensDistortion:cameraFocalLength" = 50
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.009999999776482582
+    startTimeCode = 0
+    timeCodesPerSecond = 12
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def DistantLight "defaultLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float angle = 1
+        float intensity = 3000
+        float shaping:cone:angle = 180
+        float shaping:cone:softness
+        float shaping:focus
+        color3f shaping:focusTint
+        asset shaping:ies:file
+        float3 xformOp:rotateZYX = (315, 0, 0)
+        float3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateZYX"]
+    }
+
+    def Camera "MyCamera"
+    {
+        rel animationData:binding = </World/MyCameraCurve>
+        float2 clippingRange = (1, 10)
+        float focalLength = 10
+        float focusDistance = 400
+        float fStop = -0.1
+        float3 xformOp:rotateZYX
+        float3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateZYX"]
+    }
+
+    def AnimationData "MyCameraCurve"
+    {
+        double clippingRange:y.timeSamples = {
+            26: 10,
+            78: 40,
+        }
+        bool clippingRange:y:tangentBroken.timeSamples = {
+            26: 0,
+            78: 0,
+        }
+        timecode[] clippingRange:y:tangentTimes.timeSamples = {
+            26: [26, 27.6033],
+            78: [75.3133, 78],
+        }
+        token[] clippingRange:y:tangentTypes.timeSamples = {
+            26: ["linear", "linear"],
+            78: ["linear", "linear"],
+        }
+        double[] clippingRange:y:tangentValues.timeSamples = {
+            26: [10, 10],
+            78: [40, 40],
+        }
+        bool clippingRange:y:tangentWeighted.timeSamples = {
+            26: 0,
+            78: 0,
+        }
+        double focalLength:x = 12
+        double focalLength:x.timeSamples = {
+            26: 10,
+            34: 20,
+            47: 10,
+            78: 30,
+        }
+        bool focalLength:x:tangentBroken.timeSamples = {
+            26: 1,
+            34: 1,
+            47: 1,
+            78: 1,
+        }
+        timecode[] focalLength:x:tangentTimes.timeSamples = {
+            26: [26, 27.6033],
+            34: [28.54, 41.7133],
+            47: [42.19, 56.4467],
+            78: [75.3133, 78],
+        }
+        token[] focalLength:x:tangentTypes.timeSamples = {
+            26: ["fixed", "fixed"],
+            34: ["fixed", "fixed"],
+            47: ["fixed", "fixed"],
+            78: ["fixed", "fixed"],
+        }
+        double[] focalLength:x:tangentValues.timeSamples = {
+            26: [10, 14.400004272460937],
+            34: [19.53333282470703, 19.333332519531247],
+            47: [10.366665649414063, 10.466668090820312],
+            78: [10.600003662109375, 30],
+        }
+        bool focalLength:x:tangentWeighted.timeSamples = {
+            26: 1,
+            34: 1,
+            47: 1,
+            78: 1,
+        }
+    }
+}
+

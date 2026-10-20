@@ -1,0 +1,37 @@
+{
+  "omni.anim.MatrixMultiply": {
+    "version": 1,
+    "description": [
+      "Multiply transform_a and transform_b"
+    ],
+    "metadata": {
+      "uiName": "Matrix Multiply"
+    },
+    "language": "python",
+    "inputs": {
+      "transform_a": {
+        "description": [
+          "A transform matrix"
+        ],
+        "type": "matrixd[4]",
+        "default": [[1.0,0.0,0.0,0.0], [0.0,1.0,0.0,0.0], [0.0,0.0,1.0,0.0], [0.0,0.0,0.0,1.0]]
+      },
+      "transform_b": {
+        "description": [
+          "B transform matrix"
+        ],
+        "type": "matrixd[4]",
+        "default": [[1.0,0.0,0.0,0.0], [0.0,1.0,0.0,0.0], [0.0,0.0,1.0,0.0], [0.0,0.0,0.0,1.0]]
+      }
+    },
+    "outputs": {
+      "transform": {
+        "description": [
+          "Output transform matrix"
+        ],
+        "type": "matrixd[4]",
+        "default": [[1.0,0.0,0.0,0.0], [0.0,1.0,0.0,0.0], [0.0,0.0,1.0,0.0], [0.0,0.0,0.0,1.0]]
+      }
+    }
+  }
+}

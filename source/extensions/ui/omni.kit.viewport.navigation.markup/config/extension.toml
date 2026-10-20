@@ -1,0 +1,78 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.1.2"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Ning Li"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Viewport bottom menubar"
+description="Provide the home button and functon in navigation bar."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['navigation', 'bar', 'markup']
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.rst"
+
+category = "Kit::exts"
+readme = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+
+[dependencies]
+"omni.kit.async_engine" = {}
+"omni.kit.viewport.navigation.core" = {}
+"omni.kit.playlist.core" = {}
+"omni.kit.markup.core" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.viewport.navigation.home".
+[[python.module]]
+name = "omni.kit.viewport.navigation.markup"
+
+[settings]
+exts."omni.kit.viewport.navigation.markup".order= -865
+exts."omni.kit.viewport.navigation.markup".visible= true
+
+[[test]]
+dependencies = [
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+    "omni.kit.tool.markup",
+    "omni.kit.viewport.menubar.display",
+    # "omni.rtx.shadercache.vulkan",  # legacy RTX shader cache; absent from Kit 111 (OVRTX)
+]
+"filter:platform"."windows-x86_64".dependencies = [
+    # fix [Error][gpu.foundation.plugin] Cannot load shader file
+    # "omni.rtx.shadercache.d3d12",  # legacy RTX shader cache; absent from Kit 111 (OVRTX)
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+    "omni.kit.tool.markup",
+    "omni.kit.viewport.menubar.display",
+    # "omni.rtx.shadercache.vulkan",  # legacy RTX shader cache; absent from Kit 111 (OVRTX)
+]
+args = [
+    "--/app/window/width=800",
+    "--/app/window/height=300",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    "--/persistent/app/viewport/displayOptions=1568",
+    "--no-window",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/app/fastShutdown=1",
+]
+
+stdoutFailPatterns.exclude = [
+    "*[gpu.foundation.plugin]*rtx/utils/BufferTexture.comp.hlsl*",
+    "*[gpu.foundation.plugin] PsoCompute::createPipeline and shader loading failed.*",
+     "*[Error] [asyncio] Task was destroyed but it is pending!*",
+    # EA1 only (Kit 111): the published libraries refuse a custom string attribute's write (OVStage "has a different type"); every test passes. Remove when the libraries ship #2840.
+    "*[omni.runtime.core]*ovstage pump_apply_usd_changes op * failed: failed to enqueue write_attributes for *: write_attributes: existing attribute '*' has a different type*",
+    "*[omni.runtime.core]*ovstage pump_apply_usd_changes failed (12): *",
+    "*[omni.runtime.core]*PUMP apply_usd_changes at ordinal * failed; nothing commits until the stage is repopulated past it*",
+]

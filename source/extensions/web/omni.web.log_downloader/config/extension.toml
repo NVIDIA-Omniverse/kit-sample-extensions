@@ -1,0 +1,47 @@
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# NVIDIA CORPORATION and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA CORPORATION is strictly prohibited.
+
+[package]
+title = "Web Log Downloader"
+version = "2.0.1"  # Semantic Versioning is used: https://semver.org/
+description = "Extension for downloading Kit log files via web messaging interface"
+category = "Web"  # How to categorize this in the Extension Manager
+changelog = "docs/CHANGELOG.md"
+icon = "data/icon.png"  # Icon to show in the Extension Manager
+keywords = ["kit", "log", "download", "web", "messaging"]  # Search keywords for the Extension Manager
+preview_image = "data/preview.png"  # Preview to show in the Extension Manager
+readme  = "docs/Overview.md"  # Path (relative to the root) or content of readme markdown file for UI
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"  # URL of the extension source repository
+
+
+[dependencies]
+"omni.ui" = {}
+"omni.kit.livestream.messaging" = {}
+
+[[python.module]]
+name = "omni.web.log_downloader"
+
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.md",
+]
+
+[[test]]
+name = "omni.web.log_downloader.tests"
+
+stdoutFailPatterns.exclude = [
+    "*Warning:*",
+    "*[LogDownload]*No log file path specified*",
+    "*[LogDownload]*Log file not found:*",
+    "*[LogDownload]*Log file too large*",
+    "*[omni.web.log_downloader]*Log download failed*",
+    "*[omni.web.log_downloader]*Log file too large*",
+    "*[omni.web.log_downloader]*DEPRECATED*",
+]

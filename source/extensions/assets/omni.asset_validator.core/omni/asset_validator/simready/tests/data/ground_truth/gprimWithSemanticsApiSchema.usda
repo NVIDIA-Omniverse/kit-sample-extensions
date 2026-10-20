@@ -1,0 +1,34 @@
+#usda 1.0
+(
+    defaultPrim = "Cube"
+
+    """
+    This invalid USD presents a gprim with only legacy semantics schema authored.
+    """
+)
+
+def Cube "Cube" (
+    prepend apiSchemas = ["SemanticsAPI:wikidata_qcode"]
+)
+{
+    string semantic:wikidata_qcode:params:semanticType = "wikidata_qcode"
+    string semantic:wikidata_qcode:params:semanticData = "Q12345"
+
+    def Cube "ChildCube1" (
+        prepend apiSchemas = ["SemanticsAPI:instance1", "SemanticsAPI:instance2", "SemanticsLabelsAPI:wikidata_qcode"]
+    )
+    {
+        string semantic:instance1:params:semanticType = "wikidata_qcode"
+        string semantic:instance1:params:semanticData = "Q9999"
+        string semantic:instance2:params:semanticType = "wikidata_qcode"
+        string semantic:instance2:params:semanticData = "Q0001"
+        token[] semantics:labels:wikidata_qcode = ["Q9999", "Q10000"]
+    }
+    def Cube "ChildCube2" (
+        prepend apiSchemas = ["SemanticsAPI:instance_name"]
+    )
+    {
+        string semantic:instance_name:params:semanticType = "instance_name"
+        string semantic:instance_name:params:semanticData = "Q0000"
+    }
+}

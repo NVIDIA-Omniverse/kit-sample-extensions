@@ -1,0 +1,39 @@
+{
+    "OrderPointsByDistance": {
+        "categories": "spatial",
+        "categoryDefinitions": "../../config/CurveCategories.json",
+        "description": ["Order points based on their distance to a reference point."],
+        "uiName": "Order Points by Distance",
+        "inputs": {
+            "point": {
+                "type": "float[3]",
+                "default": [0, 0, 0],
+                "description": "Reference point from which distances to matrices are measured.",
+                "uiName": "Reference Point"
+            },
+            "points": {
+                "type": "float[3][]",
+                "description": "Points to be sorted according to their distance from the reference point",
+                "uiName": "Points"
+            }
+        },
+        "outputs": {
+            "points": {
+                "type": "float[3][]",
+                "description": "Sorted points",
+                "uiName": "Ordered Points"
+            }
+        },
+        "state": {
+            "prevPoint": {
+                "description": ["Previous point value for recompute test"],
+                "type": "float[3]"
+            },
+            "prevPoints": {
+                "description": ["Previous points value for recompute test"],
+                "type": "float[3][]"
+            }
+        },
+        "version": 1
+    }
+}

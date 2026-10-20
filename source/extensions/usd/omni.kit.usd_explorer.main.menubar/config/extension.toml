@@ -1,0 +1,74 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+
+version = "1.1.0"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["John Han", "Jeff Hanna"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "USD Explorer based menubar frame"
+description="USD Explorer based menubar frame"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.rst"
+
+category = "USD Explorer"
+readme = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+
+[package.target]
+kit = ["107.3"]
+
+[dependencies]
+"omni.appwindow" = { public = true }
+"omni.client" = {}
+"omni.kit.widgets.custom" = {}
+"omni.ui" = {}
+"omni.kit.usd.layers" = {}
+"omni.kit.viewport.window" = {}
+"omni.kit.usd_explorer.render" = {}
+"omni.kit.mainwindow" = {}
+
+[[python.module]]
+name = "omni.kit.usd_explorer.main.menubar"
+
+[settings]
+exts."omni.kit.usd_explorer.main.menubar".include_render_modes = true
+exts."omni.kit.usd_explorer.main.menubar".include_application_modes = true
+exts."omni.kit.usd_explorer.main.menubar".include_present_mode = true
+exts."omni.kit.usd_explorer.main.menubar".include_modify_mode = true
+exts."omni.kit.usd_explorer.main.menubar".include_approve_mode = true
+exts."omni.kit.usd_explorer.main.menubar".switch_to_present_on_open = true
+
+[[test]]
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.ui_test",
+    "omni.kit.viewport.bundle",
+]
+
+args = [
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/app/window/width=1280",
+    "--/app/window/height=720",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/app/asyncRendering=false",
+    "--/app/viewport/defaults/guide/axis/visible=false",
+    "--/app/viewport/defaults/guide/grid/visible=false",
+    "--/app/viewport/defaults/hud/visible=false",
+    "--/renderer/multiGpu/enabled=false",
+    "--/renderer/multiGpu/autoEnable=false",
+    "--/renderer/multiGpu/maxGpuCount=1",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    "--reset-user",
+    "--no-window",
+]

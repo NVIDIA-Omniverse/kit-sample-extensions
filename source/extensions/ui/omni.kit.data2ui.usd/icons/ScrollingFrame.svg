@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <g id="ScrollingFrame" transform="translate(-78 -65)">
+    <g id="Bg" transform="translate(78 65)" fill="none" stroke="#83caff" stroke-linejoin="round" stroke-width="6" stroke-dasharray="10 10">
+      <rect width="128" height="128" rx="13" stroke="none"/>
+      <rect x="3" y="3" width="122" height="122" rx="10" fill="none"/>
+    </g>
+    <rect id="RectangleShape" width="78" height="102" transform="translate(90 79)" fill="#83caff"/>
+    <rect id="RectangleShape-2" data-name="RectangleShape" width="22" height="102" transform="translate(173 79)" fill="#2c5676"/>
+    <rect id="RectangleShape-3" data-name="RectangleShape" width="16" height="46" rx="6" transform="translate(176 92)" fill="#6db7ee"/>
+  </g>
+</svg>

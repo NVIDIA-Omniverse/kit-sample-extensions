@@ -1,0 +1,89 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.2.2"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Jeffrey Qiu"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Thumbnail generator for MDL"
+description="Generate thumbail for MDL files if required."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['kit', 'thumbnails', "mdl"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+category = "Internal"
+readme  = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+
+writeTarget.kit = true
+target.kit = ["109.0"]
+
+[dependencies]
+"omni.kit.viewport.utility" = {}
+"omni.kit.widget.viewport" = {}
+"omni.kit.window.preferences" = {}
+"omni.usd" = {}
+# Capture currently will always capture with RTX renderer
+"omni.kit.hydra_texture-ovrtx" = {}
+# Write to file via omni.client so it can be saved to remote/nucleus path
+"omni.client" = {}
+
+[[python.module]]
+name = "omni.kit.thumbnails.mdl"
+
+[settings]
+exts."omni.kit.thumbnails.mdl".mdl.template_path = ""
+exts."omni.kit.thumbnails.mdl".mdl.stdin = "/Root/Material_Standin"
+exts."omni.kit.thumbnails.mdl".mdl.render_mode = "PathTracing"
+exts."omni.kit.thumbnails.mdl".mdl.render_samples = 8
+
+exts."omni.kit.thumbnails.mdl".usd.template_path = ""
+exts."omni.kit.thumbnails.mdl".usd.stdin = "/Root/Material_Standin"
+exts."omni.kit.thumbnails.mdl".usd.render_mode = "PathTracing"
+exts."omni.kit.thumbnails.mdl".usd.render_samples = 8
+
+exts."omni.kit.thumbnails.mdl".clearSelection = true
+# Timeout in seconds for generating a single thumbnail. Set to a generous value
+# to accommodate first-time MDL material compilation. Users can override via
+# the ``/exts/omni.kit.thumbnails.mdl/timeout`` setting. A value of ``0``
+# disables the timeout entirely (generation runs until completion).
+exts."omni.kit.thumbnails.mdl".timeout = 120
+
+[[test]]
+args = [
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/omni.kit.plugin/syncUsdLoads=true",
+    "--/rtx/hydra/materialSyncLoads=true",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--no-window",
+    "--/app/hydraEngine/waitIdle=true",
+    "--/app/asyncRendering=false",
+]
+
+stdoutFailPatterns.exclude = [
+    "*Failed to read texture file*",
+    "*Failed to load texture*",
+    "*Failed to upload DomeLight texture*",
+
+    # TODO: Below messages come from ETM Kit-App-Template-Latest - master (Kit: 110.2.0)
+    # Can not reproduce locally and horde windows instance, tests are passed.
+    "*[Error] [omni.rtx] Failed to request UJITSO build result*",
+    "*[Error] [rtx.materialdb.plugin] Texture upload failed*",
+    "*[Error] [rtx.materialdb.plugin] Failed texture loads reported for material*",
+    "*[Error] [omni.rtx.materials] Failed wait for MDL material*",
+]
+
+[documentation]
+pages = ["docs/Overview.md", "docs/SETTINGS.md", "docs/USAGE_PYTHON.md", "docs/CHANGELOG.md"]

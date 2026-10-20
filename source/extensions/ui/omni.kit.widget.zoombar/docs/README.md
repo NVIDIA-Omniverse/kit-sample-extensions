@@ -1,0 +1,1 @@
+# Zoombar widget.

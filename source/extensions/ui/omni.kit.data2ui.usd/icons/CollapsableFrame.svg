@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="128"
+   height="128"
+   viewBox="0 0 128 128"
+   version="1.1"
+   id="svg11"
+   sodipodi:docname="CollapsableFrame.svg"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs15" />
+  <sodipodi:namedview
+     id="namedview13"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="1.84375"
+     inkscape:cx="58.576271"
+     inkscape:cy="64.271186"
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="ScrollingFrame" />
+  <g
+     id="ScrollingFrame"
+     transform="translate(-78 -65)">
+    <rect
+       id="RectangleShape"
+       width="104.0339"
+       height="51.016945"
+       fill="#83caff"
+       x="90"
+       y="102.86441"
+       style="stroke-width:0.816765" />
+    <rect
+       style="fill:#6ba4cc;stroke:#6ba4cc;fill-opacity:1"
+       id="rect402"
+       width="5.4237289"
+       height="46.101696"
+       x="92.101692"
+       y="105.13559" />
+    <rect
+       style="fill:#6ba4cc;stroke:#6ba4cc;opacity:1;fill-opacity:1"
+       id="rect404"
+       width="5.4237289"
+       height="46.64407"
+       x="186.47458"
+       y="105.13559" />
+  </g>
+</svg>

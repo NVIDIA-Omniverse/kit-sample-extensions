@@ -1,0 +1,10 @@
+<svg id="navTree_dark" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+  <rect id="BaseIcon" width="18" height="18" fill="none"/>
+  <g id="Tree" transform="translate(-867 -572)">
+    <rect id="Rectangle_1179" data-name="Rectangle 1179" width="12" height="4" rx="1" transform="translate(870 574)" fill="#a8a8a8"/>
+    <rect id="Rectangle_1180" data-name="Rectangle 1180" width="4" height="4" rx="1" transform="translate(878 579)" fill="#a8a8a8"/>
+    <rect id="Rectangle_1181" data-name="Rectangle 1181" width="4" height="4" rx="1" transform="translate(878 584)" fill="#a8a8a8"/>
+    <path id="Path_4916" data-name="Path 4916" d="M1482.514,1663.153v3.116h4.428" transform="translate(-609 -1085)" fill="none" stroke="#a8a8a8" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="Path_4917" data-name="Path 4917" d="M1482.514,1663.154v4.173h4.428" transform="translate(-606.942 -1081.326)" fill="none" stroke="#a8a8a8" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+  </g>
+</svg>

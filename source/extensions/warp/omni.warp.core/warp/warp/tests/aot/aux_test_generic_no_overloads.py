@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+from typing import Any
+
+import warp as wp
+
+
+@wp.kernel
+def scale(x: wp.array[Any], s: Any):
+    i = wp.tid()
+    x[i] = s * x[i]

@@ -1,0 +1,99 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "107.2.1"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Jeffrey Qiu", "Gang Zeng", "Greg Amato"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Section Tool"
+description="A section tool window"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme  = "docs/README.md"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+category = "Other"
+
+# Preview image and icon. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+# Preview image is shown in "Overview" of Extensions window. Screenshot of an extension might be a good preview image.
+preview_image = "data/icons/preview.png"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "data/icons/SectionTool.svg"
+
+# Keywords for the extension
+keywords = ["section", "tool"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+[package.target]
+kit = ["109.0.0"]  # Required for Event 2.0
+
+[package.writeTarget]
+kit = true
+
+# We only depend on testing framework currently:
+[dependencies]
+"omni.ui" = {}
+"omni.ui.scene" = {}
+"omni.usd" = {}
+"omni.kit.widget.settings" = {}
+"omni.kit.widgets.custom" = {}
+"omni.kit.viewport.utility" = {}
+"omni.kit.window.cursor" = {}
+"omni.kit.viewport.window" = {}
+"omni.kit.menu.utils" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.window.section".
+[[python.module]]
+name = "omni.kit.window.section"
+
+[settings]
+# Setting for "Always Display Section"
+# On - section is always displayed
+# Off(default)  - the sections is only displayed when the panel is open.
+exts."omni.kit.window.section".alwaysDisplay = false
+exts."omni.kit.window.section".useSessionLayer = true
+
+exts."omni.kit.window.section".menuPath = "Tools/Section"
+
+[documentation.pages]
+"Overview" = "docs/overview.md"
+"Settings" = "docs/SETTINGS.md"
+"Changelog" = "docs/CHANGELOG.md"
+
+[[test]]
+args = [
+    "--/app/asyncRendering=false",
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    # "--/persistent/app/viewport/displayOptions=0",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/persistent/app/hydra/material/renderContext=mdl",  # get rid of render context has changed notification
+    "--/ngx/enabled=false",
+    "--/rtx/post/aa/op=0",
+    "--/rtx-defaults/post/aa/op=0",
+    "--/rtx/directLighting/sampledLighting/denoisingTechnique=0",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    "--/app/viewport/defaults/guide/grid/visible=false",
+    "--/app/viewport/defaults/guide/axis/visible=false",
+    "--/app/viewport/defaults/hud/visible=false",
+    "--/app/viewport/forceHideFps=true",
+    "--/app/viewport/grid/enabled=false",
+    "--/app/viewport/show/lights=false",
+    "--no-window",
+    "--/app/fastShutdown=1",
+    "--reset-user",
+]
+dependencies = [
+    "omni.kit.uiapp",
+    "omni.kit.ui_test",
+    "omni.kit.hydra_texture-ovrtx",
+]

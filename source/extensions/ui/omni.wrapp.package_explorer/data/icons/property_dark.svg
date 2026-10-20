@@ -1,0 +1,16 @@
+<svg id="property_dark" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <rect id="BaseIcon" width="40" height="40" fill="none"/>
+  <g id="Shapes" transform="translate(8 6.667)">
+    <g id="Rectangle_956" data-name="Rectangle 956" transform="translate(0)" fill="none" stroke="#77878a" stroke-width="1">
+      <rect width="24" height="28" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="23" height="27" rx="0.5" fill="none"/>
+    </g>
+    <rect id="Rectangle_958" data-name="Rectangle 958" width="13.333" height="2.667" rx="0.5" transform="translate(8 8)" fill="#77878a"/>
+    <rect id="Rectangle_959" data-name="Rectangle 959" width="13.333" height="2.667" rx="0.5" transform="translate(8 13.333)" fill="#77878a"/>
+    <rect id="Rectangle_960" data-name="Rectangle 960" width="13.333" height="2.667" rx="0.5" transform="translate(8 18.667)" fill="#77878a"/>
+    <rect id="Rectangle_961" data-name="Rectangle 961" width="2.667" height="2.667" rx="0.5" transform="translate(2.667 18.667)" fill="#77878a"/>
+    <rect id="Rectangle_962" data-name="Rectangle 962" width="2.667" height="2.667" rx="0.5" transform="translate(2.667 13.333)" fill="#77878a"/>
+    <rect id="Rectangle_963" data-name="Rectangle 963" width="2.667" height="2.667" rx="0.5" transform="translate(2.667 8)" fill="#77878a"/>
+    <rect id="Rectangle_964" data-name="Rectangle 964" width="24" height="4" rx="1" transform="translate(0)" fill="#77878a"/>
+  </g>
+</svg>

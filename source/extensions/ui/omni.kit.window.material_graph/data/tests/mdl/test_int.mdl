@@ -1,0 +1,10 @@
+mdl 1.8;
+
+export int test_int
+(
+    int a = 8888,
+    int b = 456
+)
+{
+    return a + b;
+}

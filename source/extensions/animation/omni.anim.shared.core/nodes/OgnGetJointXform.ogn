@@ -1,0 +1,51 @@
+{
+    "omni.anim.GetJointXform" :
+    {
+        "exclude" : ["tests"],
+        "version" : 1,
+        "description" : ["Get Joint Xform"],
+        "metadata" : {
+            "uiName": "Get Joint Xform"
+        },
+        "scheduling": ["usd-write"],
+        "inputs" :
+        {
+            "skel":
+            {
+                "type": "bundle",
+                "description": ["Skeletal pose bundle"],
+                "metadata": {
+                    "uiName": "Skel"
+                }
+            },
+            "jointName":
+            {
+                "type": "token",
+                "description": ["Joint name to extract its world transform from inputs:skel bundle"],
+                "metadata": {
+                    "uiName": "jointName"
+                }
+            },
+            "prim": {
+                "type": "bundle",
+                "description": ["Xformable prim bundle to set the found transform (optional)"],
+                "metadata": {
+                "uiName": "Prim"
+                }
+            }
+        },
+        "outputs": {
+            "transform": {
+                "description": [
+                "World transform of the given joint name from inputs:skel bundle"
+                ],
+                "type": "matrixd[4]",
+                "default": [[1.0,0.0,0.0,0.0], [0.0,1.0,0.0,0.0], [0.0,0.0,1.0,0.0], [0.0,0.0,0.0,1.0]]
+            }
+        },
+        "$comment": [
+            "This node reads the world transform of a joint in the skeletal pose bundle and set the output matrix."
+        ],
+        "tokens": ["worldMatrix", "joints", "jointWorldTransforms", "prim"]
+    }
+}

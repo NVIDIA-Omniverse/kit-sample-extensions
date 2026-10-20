@@ -1,0 +1,35 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+
+    """
+    This USD presents two gprims with invlaid qcode for both SemanticsLabelsAPI and SemanticsAPI semantics schema.
+    For prim "/World/InvalidTypeName", the typename of attribute "wikidata_qcode"
+    for SemanticsLabelsAPI schema is not token[]
+    For prim "/World/InvalidValue", the values of attributes "wikidata_qcode" is an invalid QCode format.
+    """
+)
+
+def Xform "World" {
+    def Cube "InvalidTypeName" (
+        prepend apiSchemas = ["SemanticsLabelsAPI:wikidata_qcode"]
+    )
+    {
+        string[] semantics:labels:wikidata_qcode = ["Q12345"]
+    }
+
+    def Cube "InvalidValue" (
+        prepend apiSchemas = ["SemanticsLabelsAPI:wikidata_qcode"]
+    )
+    {
+        token[] semantics:labels:wikidata_qcode = ["Q12345abc", "Q9999"]
+    }
+
+    def Cube "MissingValue" (
+        prepend apiSchemas = ["SemanticsLabelsAPI:wikidata_qcode"]
+    )
+    {
+        token[] semantics:labels:wikidata_qcode
+    }
+
+}

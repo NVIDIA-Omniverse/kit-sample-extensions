@@ -1,0 +1,111 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (0, 0, 50000)
+                double radius = 500
+            }
+            dictionary Perspective = {
+                double3 position = (-124.08058900560577, 87.65839568754416, 295.0948628132933)
+                double3 target = (-138.86947716913778, -202.29620887640084, -520.81421060056)
+            }
+            dictionary Right = {
+                double3 position = (-50000, 0, 0)
+                double radius = 500
+            }
+            dictionary Top = {
+                double3 position = (0, 50000, 0)
+                double radius = 500
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./only_waypoints.usd"
+            dictionary locked = {
+            }
+            dictionary muteness = {
+            }
+        }
+        dictionary renderSettings = {
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.01
+    startTimeCode = 0
+    timeCodesPerSecond = 60
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+}
+
+def Xform "Environment"
+{
+    double3 xformOp:rotateXYZ = (0, 0, 0)
+    double3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+
+    def DistantLight "defaultLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float inputs:angle = 1
+        float inputs:intensity = 3000
+        float inputs:shaping:cone:angle = 180
+        float inputs:shaping:cone:softness
+        float inputs:shaping:focus
+        color3f inputs:shaping:focusTint
+        asset inputs:shaping:ies:file
+        double3 xformOp:rotateXYZ = (315, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+}
+
+def "Viewport_Waypoints"
+{
+    def "Waypoint_00"
+    {
+        custom string camera:path = "/OmniverseKit_Persp"
+        custom string comment = ""
+        custom string created = "2023-10-17 15:30:58"
+        custom string created_by = "brong"
+        custom float frame = 0
+        custom float3 icon_position = (500, 500, 500)
+        custom string omni:baked_preview = "zTE\"rl=o\\O&Gb!;ibKFHe&c_:rrV@QkPIOX*'Lc;pL`/*@LuK\\;S!ZX+5R?@I<!!]W_u\\7c((u4GrtuX+W'hHA/.DLkD-,UnpXZIM+'&9L1G5+i^3dGk]DC.Pl8j>G/hTi4f/$KdKt4X/f^G:;pm_6NE&]te_-gYsp,Vo-rnd+8LYq$Xd.@#o4:hIHs,KPn1RUq\\F?4ORqU+Jg%efG_^uqEMDtJ<9O3mJX<Z_k0S7=ZX*cqlH*hb<BGf62O4Q(M_NQqS(+6<s;LGb`?&m@6O\\oJ5SSu9?t#=C:O?eKU:/p^%C_!fX9G\"b\\J2J-TAM\"@EPTfeDqb^n&l5>0T<Ssdi8AmsrMkArF#O/%,BrST]oOa<ViU#Y^g+i]/<Z%PV^>X4MDi4/999?REdfC6T=@4bk]?u;_*LuY6,jOWqYhdGmDe^gh)m[;15Z%'LR6Zih2>?eZtbGCV25/)I-l[p%OH\\:TB/jnNFoBeE\\\"9+VOj81FZLQ5Tfa/9`Mr,__1jr'=`XA@-1`HWBtTY?u@b\\V?;`q,J):C-,nqqKA1AaW]L34%YT+L\\&r?:+R*p,L2(AL,Z):(EhTe+>qsFm_GuFn,,*=`Cu%eQjX&W3KJ1gY]@4Z++\"Dh)3CC[2G\"EdIk/+@Btq@pA_r^gt=FSYtm=YcsEFCOo#c]Qd</$o*aqqmMBU8Q5D93cPGLTo-Hc:W8<^6d373=liuVfnr:1#jm*c3O8D)kos;t=Q<UE]Y0<QVh-SsID(!riZ+[BMq\"r!IB<Kj%1U4S_Frs8'KlQjgKFcU5W!amL-njqRl@\\[uRGo'[H3AM-oX9Jj`JB`phr@ZWWUXC]\\n7]0mH1e0?CB'_P@hC.M>6l>M,./NK\"%<$_0;u!3:k?AUu+N/A4Xc\"\\3g$=edkud+!2lt(W/;#?\"q('hVrk3f.VmOO=Xo?\\;lI27r3hJe1A$eAnGP3@>@@U++=+_\\@?GLfaPpIrp@kfnClk5m.5pD^+\"?%*uhO(Z$mU-,&Kn9hu8l6j\"fP7Er/E_(@jm\\CX1NtZX:NR\"2>?4/EB`UrS)cRc&lDZ#P!Uli&C-YdC2g'So-(j5L1oELefWH?R)d><52)d%A,hMqXl6=g/$__dsfeqV.;r9LrM>_UNmtV5E&#f4p743`]o&fB'Z\"G0.,/Y?2G*F4^!4>YQgHs^:m]1LAf#=,@at^3d5DA]Ri*\\qd&uFC!)M%qcKBJdf]6OOC%GDBrZ5aEK8B6Qc'#sY\"qjhF@<3;82l65i0.G[/mL;`T#YK`Z_a)YDTle&+S7eknDK\\[hm^?3UKgTlp&t:'^>W?:T.I'Mm%_<>fMCuul5JsR8G4b1Q_gqo>m'9u9fc(-);8/ea*D%6=F!S[N&tT5H!_H8iu18@G^4ST9Wa@'l-'%:=Ph'\\Mkb)6CZ5,?*+>AG+69Th=e6RrJ1n'`7'>=;O6MLgHt`D,lHA3/krtrLQLk>D!rh#'F)>F6M6jV-Tq!cA;]jnacG4kRm=JES1VPZg'5[6jgA,'LY7Fi8]+XDpZfrVPl0B:opQE8)EGPE*Ch9QK`(uNh4nA$/a^ScB2Qh`iN75KA%!_[icBi#`KjUHhPh7p2O>hhKjc-[m::C,8<u0Z+fD,K4\\!/P,\"/Ii<l\\h:I.!prEo_$bQ4a`<!IuUNA(UN4L+'U;I@_P&+5W\\>c4AbaVI2(F;]hY/c(4T_Y-Y+fV2OX=&H<W1KDP+=#>0(;HkK`s?HqQYHNBaK_4.uuD'jtZeX.Aj[p9n!\\GP\\u%^Q=u)nG,ZPo=e`3GJG?^%V`Ysf0>M'%,!%Hj*6'6/$3ZSp.pZ2VgiH14?k=C-R\\li7iuY']R<iHb8Kk*L@djs9EP*,pD;8rpeBJ7lFM9()a_1Gr[l.4;Z8NPeG/O<rYhCQ2u`JY.AoC9bM<(!LP``,ZWQS(O-`&:Up7&Af)\"`kU`\\J!RM_Ia7a/DjNQ'k(I,&cdS*V'rh#l@cE;XBsPnO#R(jLPTrddPj?=P4b!T!g#J3Uj.TRXTI1eE><[Q.ij5!he8WV?g3)<..6r@i0^%EAJh`U^k[%j;pilt\\)jj>:oD0--r$mo\"WaA7nhdmR)Krn^b=91Gc!@7*\"S^6S'SHfZ!NXoH\\_V(m]S,Jnn!X%Hkf_6!*67ko9-\"OlF6eL.EPS4,IC)e'O,+5+gP=0cKIu[Qii5Tb_`(RZQ^]H\\JZ(FpslFQR2V?c\\FBl:lL.+^MB.Tb4^=*]63q<?3Ul29hWLBC#n=eC=%L9(XoU:+J5sR^1SeaA^\\=bNC3$4TI`Ddpcd0ZE$!V-)H*-FpBgh9A&mj!]Z</7WNjD6:(8,qq;gg;P[Q!MnF>YqCR7P7\\u/d$SG=/sB^^,(Q3JjE7^9M%0IQB&V\"k\"or9W>2]tBI46di5Y>8.uKY4'B^--(e*N7CG9H`f(C*U9BWS[6gn;E5udI\"L[_ciICCQl\")jF.bY#:F\\jNC=DTE):%fWSfr;/P]nZk(2>tPWm/fckYTsn`q'#<\\:L]/L\\P=<Sr.7WejZ&In`c97S>$mbj;l5S*GY>V2!B7fX\\T5:+e7fYdK(4oX^&tmJ.B<6UYX\\3To:idNP7;RXIP=V^0[,o9u^*E#N31'?(k6L`8]XD4<^Ogf1`Lm\\:)>9JfY&C3#2:E^3Ga\"8\"6gldE.MJLlPG(T]_i+\\(mLdDl`QWW(l72acV_3fCR6=QCIKf/,\"=h?g,C\"L^s34i\"o_)3j6moLrh<(6`I2R`$uB].iJ*\\/qH[YkCLBL,0O/=Sg5,rFd#;8,(5oDb1X+KO(bc7)kQ.W]ZfoA)3YS@21.f!r\\!rH$NCTY.K6oWoU,DY9)Lf/7?.f`SK'ipqG;Yfa$65<Y=34/F^EWX>X?&3JcAXnDqBRV`#$nJa.!G%U13m`+1T8PjKqPW:'i#\"H0r=[:!;(4fmgW?4DU-.)6j@+D0'f+$X*Z,T%UN>6=&)K+7&(AS--I@i7>CZ#?mh/%EV<X?`37+ap3c3R.GNGLY2C_P1=isA/M&;[D=RZ)mZBXGsYf$`LNue@WtpfcPBG7f(qTc?S=?F-d<#la,qUA=H'>H&_,?]Dn)Cqc@r7&ON9)Qo$\\N$6\\BcDHd?Lh(ZR!R%[q[?`g3ZL;Y7>A@4k?If@@h>+\\_',pk4rMGa=-ZH1_P]+jYS/p])1P46k#WI2mHCG-eB#ccFj]=lndrEGRgb\\\\=5FT:k(DC9N1X9g9?PS5LFHgM\"+3cO8S?SI\"hAYuWCTN,:PGR+::=G@/iBOAEt=?d88j]Mk!1,*\"6VIQe^JNPf8u:qu)V.[8\\DN:0U+\"gusMA#u[0YV(h0G^Fb)2+/8>HFhnAJ?N[H3.opS*,c<V@fD*]IM0Cj]>c9;q<i'\\X?gM.WS`+5mUQH)4!o.XK]K5j)nC!L@G1BZ%MjKj;]*^rHRc4nc,iTKle7^-cLLsj[*G`8i@2`Gq\"`sbpLe(s-YI$?3D.UOUgoY-oU<F['Hb^Y*JVBK\\f:O=Me8!oK\"N81o?,Hn.3/'K^Jf8POu;BBe*+ja%aRR\"[6EdjC3<g>-GP2=PU;tRPb+FB>rT1_\"^Q@arBmPK,,#OS(7Rspo*/]m]pGg?l$M97NIYX+XqiT``).uoU3d:I4/ri:o\"C,jQ_,+1NVF/s1<@^*I2Cs[QK.JJ`VXZI>`1`IpI&FR\"`iQZEXgCZghZ0]mCcG]`p]JWkKc=u-#mbF(Z;_X=6=U0R^3YLmX0&+fGO('SPi\\\\`c7K/q\\uq#<mO';Pe/T+d`n^XnB$uV2()G`c.=n`-7\"<hNW5ikTS@?eYFLcX-:X<tN:9T@YKgoA)jrX6q7M\"M2tu.C%s.(%U?7TLW#QdLcS2`;99Q?sn_#5@WBhnUO(`\"Ua+<Z+gsp\\pVrg(eJ'L1Te0iN,Y<?BEqNGidY<Mn6oBgIE`lo2KG7X6mUFrQICjReG.2h=&c4E/,kEag6Cj]$Fl?mDQ(RE(^^!=rNiO`GNn%SB<o>]+K2]r%Z/_;&VH/JPah,hi!msSn7LRrt-5'^ngD'aG#lVujK`T6:$9!)-7?UP5O/a23jjkPu<HQDij\\pJ@*Ie`jpS,`EPD=c^NIqq7Gi.:_!UPJ!PYC+SWq8DFVfb1sYg^>=FMtYF/%G_qBCIff!,^5JgYt)jkMKYu3&,<b>R[7B-b5D3V^GG>ns3Q/_QT*/ZIsk^2HhA=iGI]-A+-)iYa'/%!h:.<?hH*f(*\\Yb_k0P_DlfGXOnh!$qmVM.r07Ln<n_MgA++F6Qq6/=q+9253H1.;jc(Em?e_GZBo*8T)4?WUFXW/\"P?/loTe!=B38uq\"m7=r-Tk<:?MKq?]7HdpjtYe.V-5Bu.Fk*`E&gALeKpW^Ub?8TtlqcWNbrS*n1C1$.ha;b!:+rtm1>\\]j_`ite^Vd-l,0hBWb1hXj,SE-9j9?%%@:ijsNfk<3!^\\HK'/e/b[NdmsN2MCMinuY\\_>t#3-LThs?:J'@LdP&#[Z+erfB\\0-22T7A!W/H8r2j,u']c@\"HB1`DLf)._8&o;7E?K,looS!Kr[;h>G@'/3X8<1+(h)MP,I-L'2o[QC$at\\>D#'F6r=e/Ws%j8i\"8^0&XNV@7f!.15b.1M/#qONCFFK(d7`,-2]PM,lp^8P5BJJQg^/M%B)h@GUfVfls3e#-tXRsp31EGVIqR\"V`lD`W+3l_\\W5[_6_==QsDXO-@i2Bk$0+he]q4guh\\k./mu2,Oe1S\\7V<jVhKMORee[\\-;[.FJ;GS$A**KG>YX+/apJ+1^<P-_k>eR+WodG[#^`7dWcR/r_RC53'*#5d%YJ[)B=6[``Geb!AeOjU<h40='YXY\\P'+hmeA>X14`bW_XY<V0_&OM\"HOP*?]=Os&<of%t`!Vsc(@/VNn6=%m\\S1Of\\N#hV@gei#jkh9NR>X.6hc)i<NZQ]bqnB<Z_379i\\Zr'5oBL_@d!]4\\j!hf8bB&3&j-5M!2X]YldEB*S.Q/)]^9Br+$8fE%!T'4TI5A7[kE;obbqm,!+2qgD8r)tWeb3:Zbi%mrpO;.3<K2bEB/T:+f\\k$dQ`hQFH)3AsTt0[cY+=S[XZ,gI2?0df)<B7-AcdHsCh$U-1P>S!kVlOW2O%:DI&,fM5CT)7$?\\jur-O==>4:[npg>]`o4hAddt/t<76W<g_[_&Feu%9tbU1do>FTB;T3A?5[Crp7?2:&\\5-NaBj*a6c\"0D#tEJp>5h,cS.>%]e,iEZM[l1)u6fDllRZG.fg&WtTfEh?DB9VAJ7lW/(%+a_T\\kN\\gD'8*:]U0?WqA+<'iI.)X4`W!#AIV2#\"ltP$*(DjWsQf>.p0?H.R,e27G97l2%>q![3lJ\"E>lq,g/'Sif0OZU9>?@A/%hUb3<m80s7b/*L+H+?!U1@OhWSQ?:2218pl3]*F5]7Vpc@iNa[mS6URD[ET_[@=mr;a[%T?SqM&Bk/:%LB`MoYsk`imB`+C4Rg(`l*=&iPdDLFVU(HPQ_B.pg;c7XaL?FeZ0.<L/7+Y-ZB/<>h,\\09+h:.XYu3&55/1.o4J.)'*OB,]I@I,]p*;UKp$jI8>N(TP&F7uB#.2C<=c+<HYGTT<nH3+\"YX$qO^Wk6XH1`->of*Fsj>_YoHp=GRmV%7Nh>UX#p!1cZR\"5!lQ1(f>1uJO\"cW)oZht14he9PaH@&<LBP>pG)fPiR[dHQ'VqsUVp`B;[rXn(JaEW+L8?hZXq#P-*@o?+lZi^W7[K^<NURVqkZQ$)h\\'iGjuEd^9'?:u4WRSV+JGMde@c:dbGSfF=F\\]/S:naC59$1\"<phcQk;_%ammi;QUE%/ire]P?t1q0Y@GC23ug?kDXu-Go68eQ<c-Cg/D\"f$mCDdY/TH@aikQC%#jDa]C:4*1L+Ef788Q3t(a_>8L:k_-FTUJqr,d:8okinRH:(QfQGHd/%G;<&-t'>j5Mq&81(n`&VSP>U,kbcL\\LY9OqPG1kqa^jr#TB[YbN/n8reM]@4?iP'3uhJ6Y4E3'5O3[t]i!F^F7PNPr%44>Xmd.,d*c[!Yg@\"1C>0a;J%g^*-Y2Y00<qi`TTdcDt!+\\J,E!B4d%4W7!Q^CYeh-!]Rm8\\R\"O-+WnF6ei.p,2c/]13+*9;1$J2-;nPag;&<6\\W\"76IpVa99s#nC_)P8ggq`/NNPharB3ULn43RoJJV-.0]F5L.]2fEqR!PY]--tEAAB]hLe_rf7bm@7Cp9+u&:kOlc:ld#.Jc'u3@2cfW9T$p,@_uR2jX_j/Dm[_(/iHqC>ni]Lf`%ANDnikQK4TZQBWf&pYGp^\\+bPb[*nG.Cn_u]Tg>/jdUet(oH6?QVZ=tb;j5g+:@ags>6ch[Q;8@GM.\\!F_r\\!&kV7WX@_h>Y-eG[4:L\\4A+,<cork)rJdSOC5\\s/sOH6G@s:JgdgD-/kUS)<YGQq14@[MC[31H?@A(9kuh=aSX6C8>4(*.(4\\\\fru-3V7#j,Y=CP3Eq1Q<VC[&^kFW>U<Gr^\"RP.E(+fH6sV8haB5SuE?pY_GAF\\q`r15]`68EgOR14l*6.HYqN\"<=`!\\LWcAm1R?/9cSbZGG@s:=c3nYRm`Z+1.@#<_brf2*c5I,\"MI@T^0kg+[/RiG8d9Lm.H'g,]*s0t2bl"
+        custom string render = "{}"
+        custom string sunstudy = '{"date": null, "time": null, "location": [null, null, null]}'
+
+        def "OmniverseKit_Persp"
+        {
+            custom float4[] clippingPlanes = []
+            custom float2 clippingRange = (1, 10000000)
+            custom float exposure = 0
+            custom float focalLength = 18.147562
+            custom float focusDistance = 400
+            custom float fStop = 0
+            custom float horizontalAperture = 20.955
+            custom float horizontalApertureOffset = 0
+            custom bool omni:ignorePrim = 1
+            custom vector3d omni:kit:centerOfInterest = (0, 0, -866.0254037844387)
+            custom token projection = "perspective"
+            custom token purpose = "default"
+            custom double shutter:close = 0
+            custom double shutter:open = 0
+            custom token stereoRole = "mono"
+            custom float verticalAperture = 15.2908
+            custom float verticalApertureOffset = 0
+            custom token visibility = "inherited"
+            custom float3 xformOp:rotateXYZ = (-35.26439, 45, 4.4979834e-15)
+            custom float3 xformOp:scale = (1, 1, 1)
+            custom double3 xformOp:translate = (500, 500, 500)
+            custom token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+    }
+}
+

@@ -1,0 +1,116 @@
+[package]
+authors = ["NVIDIA"]
+category = "Rendering"
+changelog = "docs/CHANGELOG.md"
+description = "Omniverse Kit UsdShade Editor"
+feature = true
+icon = "icons/icon.svg"
+keywords = ["editor", "graph", "material", "materialx", "mdl", "shader", "usdshade"]
+preview_image = "docs/images/material_graph.png"
+readme = "docs/README.md"
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+title = "Material Graph"
+version = "2.3.4"
+
+[package.target]
+# GraphCanvas subclasses omni::ui::Widget and requires the Kit 110 C++ ABI.
+kit = ["110.0"]
+
+[package.writeTarget]
+# Include the Kit compatibility target in the native package identity.
+kit = true
+
+[dependencies]
+"omni.kit.commands" = {}
+"omni.kit.context_menu" = {}
+"omni.kit.hotkeys.core" = { optional = true }
+"omni.kit.graph.delegate.modern" = {}
+"omni.kit.graph.editor.core" = {}
+"omni.kit.graph.usd.commands" = {}
+"omni.kit.menu.utils" = {}
+"omni.kit.usd.mdl" = {}
+"omni.kit.widget.graph" = {}
+"omni.kit.widget.stage" = {}
+"omni.kit.window.quicksearch" = { optional = true }
+"omni.kit.window.preferences" = {}
+"omni.materialx.libs" = {}
+"omni.ui" = {}
+"omni.usd" = {}
+
+[documentation]
+pages = [
+    "docs/README.md",
+    "docs/developer_api_cookbook.md",
+    "docs/developer_reference.md",
+    "docs/CHANGELOG.md",
+]
+
+[settings]
+persistent.app.properties.materialGraph.backdropDefaultColor = [0.84, 0.71, 0.29]
+persistent.app.properties.materialGraph.catalogTextureIconSize = 128
+persistent.app.properties.materialGraph.confineBackdrops = true
+persistent.app.properties.materialGraph.confineNodeGraphs = true
+persistent.app.properties.materialGraph.colorNoodles = false
+persistent.app.properties.materialGraph.droppableTextureFormats = [
+    "bmp",
+    "dds",
+    "exr",
+    "gif",
+    "hdr",
+    "jpeg",
+    "jpg",
+    "png",
+    "psd",
+    "tga",
+    "tif",
+]
+persistent.app.properties.materialGraph.plugins.mdl.catalogExcludedAnnotations = [
+    "deprecated",
+    "hidden",
+    "unused",
+]
+persistent.app.properties.materialGraph.forceConnect = false
+persistent.app.properties.materialGraph.plugins.mdl.enablePolymorphic = true
+persistent.app.properties.materialGraph.plugins.mdl.modules = [
+    "nvidia/aux_definitions.mdl",
+    "nvidia/core_definitions.mdl",
+    "nvidia/support_definitions.mdl",
+    "OmniPBRBase.mdl",
+    "OmniSurface/OmniHairBase.mdl",
+    "OmniSurface/OmniSurfaceBase.mdl",
+    "OmniSurface/OmniSurfaceBlendBase.mdl",
+    "OmniSurface/OmniSurfaceLiteBase.mdl",
+]
+persistent.app.properties.materialGraph.previewTextureInput = false
+persistent.app.properties.materialGraph.showCatalog = true
+
+[settings.exts."omni.kit.window.material_graph"]
+useFastDelegate = true
+useNativeIndex = true
+useNativeLayout = true
+useGraphCanvas = true
+
+[[native.plugin]]
+path = "bin/*.plugin"
+
+[[python.module]]
+name = "omni.kit.window.material_graph"
+
+[[test]]
+dependencies = [
+    "omni.kit.test",
+    "omni.kit.test_suite.helpers"
+]
+
+cppTests.libraries = [
+    "bin/${lib_prefix}omni.kit.window.material_graph.graphCanvas.tests${lib_ext}"
+]
+
+pyCoverageFilter = ["omni.kit.window.material_graph"]
+timeout = 300
+
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--no-window"
+]

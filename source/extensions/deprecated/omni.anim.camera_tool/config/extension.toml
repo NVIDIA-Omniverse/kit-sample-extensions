@@ -1,0 +1,64 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "110.0.1"
+
+# Which category this extension belongs to
+category="Animation"
+
+feature = true
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Tae-Yong Kim", "Jiayuan Zhu", "Bo Rong", "Ryan Elam"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Camera Animation"
+description="Collection of camera-related animation tools"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ["animation", "camera", "tool", "authoring"]
+
+# Preview image. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+readme = "docs/README.md"
+
+[[python.module]]
+name = "omni.anim.camera_tool"
+
+[dependencies]
+"omni.ui" = {}
+"omni.physx" = {}
+"omni.kit.selection" = {}
+"omni.kit.viewport.utility" = {}
+"omni.kit.context_menu" = {}
+"omni.kit.menu.utils" = {}
+
+[[test]]
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/app/profilerBackend=\"\""
+]
+stdoutFailPatterns.exclude = [
+    "*[Error] [carb.audio.riff] failed to parse the list chunk*",  # Known audio defect OM-32527
+    "*[Error] [omni.usd] failed to set the new output with 0 streamers*", # Ignore failure when TC agent has no audio device
+    "*Client omni.ui Failed to acquire interface [omni::kit::renderer::IGpuFoundation v0.2] while unloading all plugins*",
+]
+dependencies = [
+    "omni.kit.ui_test",
+    "omni.kit.viewport.window",
+]
+
+[package.writeTarget]
+kit = true
+usd = true
+
+[deprecation]
+warning = "omni.anim.camera_tool is deprecated as of Kit 110.4.1."

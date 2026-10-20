@@ -1,0 +1,54 @@
+# SPDX-FileCopyrightText: Copyright (c) 2024 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: LicenseRef-NvidiaProprietary
+#
+# NVIDIA CORPORATION, its affiliates and licensors retain all intellectual
+# property and proprietary rights in and to this material, related
+# documentation and any modifications thereto. Any use, reproduction,
+# disclosure or distribution of this material and related documentation
+# without an express license agreement from NVIDIA CORPORATION or
+# its affiliates is strictly prohibited.
+
+[package]
+title = "Omni.UI Scene Sample Slider"
+version = "2.0.1"  # Semantic Versioning is used: https://semver.org/
+description="The interactive sample of the slider manipulator with omni.ui.scene"
+category = "Example"  # How to categorize this in the Extension Manager
+changelog = "docs/CHANGELOG.md"
+icon = "data/icon.png"  # Icon to show in the Extension Manager
+keywords = ["ui", "example", "scene", "docs", "documentation", "slider"]  # Search keywords for the Extension Manager
+preview_image = "data/preview.png"  # Preview to show in the Extension Manager
+readme  = "docs/README.md"  # Path (relative to the root) or content of readme markdown file for UI
+repository = "https://github.com/NVIDIA-Omniverse/kit-app-template"  # URL of the extension source repository
+
+
+[dependencies]
+"omni.kit.manipulator.viewport" = {}
+"omni.kit.viewport.registry" = {}
+"omni.ui.scene" = {}
+"omni.usd" = {}
+
+
+[[python.module]]  # Main python module this extension provides, it will be publicly available as "import omni.sample.ui_scene.slider_manipulator"
+name = "omni.sample.ui_scene.slider_manipulator"
+
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.md",
+]
+
+
+[[test]]
+dependencies = [
+    "omni.kit.ui_test",
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.viewport.window",
+]
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--no-window"
+]

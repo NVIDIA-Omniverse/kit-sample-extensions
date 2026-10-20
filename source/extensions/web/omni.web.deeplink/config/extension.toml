@@ -1,0 +1,92 @@
+[package]
+# Semantic Versioning is used: https://semver.org/
+
+version = "0.9.10"
+
+category = "Sample"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["NVIDIA"]
+
+# The title and description fields are primarily for displaying extension info in UI
+title = "Omniverse Deeplink"
+description="Create a DeepLink into a 3D scene where the stage, camera, time, and other information are captured. Creating a URL that one is able to open and be teleported directly into the same location in the same stage."
+readme = "docs/Overview.md"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ["kit", "ui", "sample"]
+support_level = "Sample"
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog = "docs/CHANGELOG.md"
+
+# Preview image. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+preview_image = "data/preview.png"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "data/icon.png"
+
+[dependencies]
+"omni.ui" = {}
+"omni.kit.widget.context_menu" = {}
+"omni.kit.menu.utils" = {}
+"omni.kit.clipboard" = {}
+"omni.usd" = {}
+"omni.kit.commands" = {}
+"omni.kit.notification_manager" = {optional = true}
+"omni.timeline" = {optional = true}
+"omni.activity.ui" = {optional = true}
+"omni.kit.widget.prompt" = {optional = true}
+"omni.kit.livestream.messaging" = {}
+"omni.kit.viewport.utility" = {}
+
+[settings]
+exts."omni.web.deeplink".portal_base_url = "https://portal-id/deeplink/?application=<app-id>&link_data=<link-data>"
+exts."omni.web.deeplink".default_include_camera = true
+exts."omni.web.deeplink".default_include_time = true
+exts."omni.web.deeplink".clipboard_auto_copy = true
+exts."omni.web.deeplink".show_generate_window = true
+exts."omni.web.deeplink".show_apply_window = false
+exts."omni.web.deeplink".add_file_menus = true
+exts."omni.web.deeplink".add_context_menus = true
+exts."omni.web.deeplink".ignore_dirty_state = true
+exts."omni.web.deeplink".camera_properties_to_capture = ["xformOp:translate", "xformOp:rotate", "xformOp:scale", "xformOp:pivot", "xformOp:rotate", "xformOp:transform"]
+exts."omni.web.deeplink".application_id = "usd-composer-109.0.1"
+exts."omni.web.deeplink".wait_for_stage_event_timeout = 60.0
+
+[[python.module]]
+name = "omni.web.deeplink"
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/SETTINGS.md",
+    "docs/CHANGELOG.md",
+]
+
+[[test]]
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/exts/omni.web.deeplink/default_include_camera = true",
+    "--/exts/omni.web.deeplink/default_include_time = true",
+    "--/exts/omni.web.deeplink/clipboard_auto_copy = true",
+    "--/exts/omni.web.deeplink/show_generate_window = false",
+    "--/exts/omni.web.deeplink/show_apply_window = false",
+    "--/exts/omni.web.deeplink/add_file_menus = true",
+    "--/exts/omni.web.deeplink/add_context_menus = true",
+]
+
+dependencies = [
+    "omni.kit.collaboration.viewport.camera", # needed for camera to be created
+    "omni.kit.test_suite.helpers",
+    "omni.activity.ui",
+    "omni.kit.widget.prompt",
+]
+
+stdoutFailPatterns.exclude = [
+]

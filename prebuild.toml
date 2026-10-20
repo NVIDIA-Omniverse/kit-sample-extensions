@@ -1,0 +1,5 @@
+# The Kit autopull template stages repo-deps.packman.xml explicitly. Stage its
+# required shared import beside it so the packaged dev bootstrap can resolve it.
+copy = [
+    ["${root}/deps/repo-deps-public.packman.xml", "${root}/_build/${platform}/${config}/dev/deps"],
+]

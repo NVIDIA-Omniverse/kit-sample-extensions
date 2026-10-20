@@ -1,0 +1,70 @@
+[package]
+title = "USD Collection Widget (Preview)"
+description = "USD Collection Widget"
+version = "0.3.4"
+category = "Internal"
+authors = ["Eoin Murphy"]
+keywords = ["collection", "outliner", "usd"]
+changelog = "docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+readme = "docs/README.md"
+target.kit = ["106.5.0"]
+
+[dependencies]
+"omni.kit.context_menu" = {}
+"omni.ui" = {}
+"omni.usd" = {}
+"omni.kit.core.collection" = {}
+"omni.kit.widget.stage" = {}
+"omni.kit.widget.stage_icons" = {}
+"omni.kit.property.usd" = {}  # PrimSelectionPayload only
+"omni.kit.async_engine" = {}
+"usdrt.scenegraph" = {}
+
+[[python.module]]
+name = "omni.kit.widget.collection"
+
+[[test]]
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--no-window",
+]
+
+dependencies = [
+    # The tests attach the open stage through usdrt.Usd, which answers only with a running Runtime Core.
+    # Kit 111: usdrt.scenegraph no longer brings it, and since Kit PR 2404 a lookup without it is an error.
+    "omni.runtime.core",
+    "omni.kit.ui_test",
+    "omni.kit.test_suite.helpers",
+    "omni.kit.window.collection",
+    "omni.kit.window.stage",
+    "omni.kit.mainwindow",
+]
+
+[[test]]
+name = "usdrt"
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/app/useFabricSceneDelegate=1",
+    "--no-window",
+]
+
+dependencies = [
+    # The tests attach the open stage through usdrt.Usd, which answers only with a running Runtime Core.
+    # Kit 111: usdrt.scenegraph no longer brings it, and since Kit PR 2404 a lookup without it is an error.
+    "omni.runtime.core",
+    "omni.kit.ui_test",
+    "omni.kit.test_suite.helpers",
+    "omni.kit.window.collection",
+    "omni.kit.window.stage",
+    "omni.kit.mainwindow",
+]
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.md",
+]

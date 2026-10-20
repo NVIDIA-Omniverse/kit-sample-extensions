@@ -1,0 +1,388 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (0, 0, 50000)
+                double radius = 500
+            }
+            dictionary Perspective = {
+                double3 position = (500, 500, 500)
+                double3 target = (-0.00000397803842133726, 0.000007956076785831101, -0.00000397803842133726)
+            }
+            dictionary Right = {
+                double3 position = (-50000, 0, 0)
+                double radius = 500
+            }
+            dictionary Top = {
+                double3 position = (0, 50000, 0)
+                double radius = 500
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./timeline_node_test.usda"
+            dictionary muteness = {
+            }
+        }
+        dictionary renderSettings = {
+            double "rtx:directLighting:sampledLighting:maxRayUnexposedIntensity" = 6399.9990234375
+            double "rtx:indirectDiffuse:maxRayUnexposedIntensity" = 6399.9990234375
+            double "rtx:pathtracing:fireflyFilter:maxPerEmissiveUnexposedIntensity" = 3199.99951171875
+            double "rtx:pathtracing:fireflyFilter:maxUnexposedIntensityPerSample" = 3199.99951171875
+            double "rtx:pathtracing:fireflyFilter:maxUnexposedIntensityPerSampleDiffuse" = 3199.99951171875
+            double "rtx:raytracing:inscattering:maxRTSampleUnexposedIntensity" = 204799.96875
+            double "rtx:translucency:maxRayUnexposedIntensity" = 19199.998046875
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.01
+    startTimeCode = 0
+    timeCodesPerSecond = 24
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def DistantLight "defaultLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float angle = 1
+        float intensity = 3000
+        float shaping:cone:angle = 180
+        float shaping:cone:softness
+        float shaping:focus
+        color3f shaping:focusTint
+        asset shaping:ies:file
+        double3 xformOp:rotateXYZ = (315, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def OmniGraph "ActionGraph"
+    {
+        token evaluationMode = "Automatic"
+        token evaluator:type = "execution"
+        token fabricCacheBacking = "Shared"
+        int2 fileFormatVersion = (1, 9)
+        token pipelineStage = "pipelineStageSimulation"
+
+        def OmniGraphNode "timeline" (
+            prepend apiSchemas = ["NodeGraphNodeAPI"]
+        )
+        {
+            custom double inputs:framerate = 120
+            custom double inputs:length = 2
+            custom bool inputs:loop = 0
+            custom double inputs:newTime = 1
+            custom uint inputs:play
+            prepend uint inputs:play.connect = </World/ActionGraph/on_keyboard_input_03.outputs:released>
+            custom uint inputs:playFromStart
+            delete uint inputs:playFromStart.connect = </World/ActionGraph/on_keyboard_input_06.outputs:released>
+            prepend uint inputs:playFromStart.connect = [
+                </World/ActionGraph/on_keyboard_input.outputs:released>,
+                </World/ActionGraph/delay.outputs:finished>,
+            ]
+            custom uint inputs:reverse
+            prepend uint inputs:reverse.connect = </World/ActionGraph/on_keyboard_input_04.outputs:released>
+            custom uint inputs:reverseFromEnd
+            prepend uint inputs:reverseFromEnd.connect = </World/ActionGraph/on_keyboard_input_01.outputs:released>
+            custom uint inputs:setNewTime
+            prepend uint inputs:setNewTime.connect = </World/ActionGraph/on_keyboard_input_02.outputs:released>
+            custom uint inputs:stop
+            prepend uint inputs:stop.connect = </World/ActionGraph/on_keyboard_input_05.outputs:released>
+            token node:type = "omni.anim.Timeline"
+            int node:typeVersion = 2
+            custom uint outputs:finished (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            custom double outputs:nodeTime
+            custom double outputs:output
+            uniform int64[] outputs:output:x:inTangentTimes = [0, -94079999]
+            uniform token[] outputs:output:x:inTangentTypes = ["auto", "auto"]
+            uniform double[] outputs:output:x:inTangentValues = [0, 0]
+            uniform int64[] outputs:output:x:outTangentTimes = [94080000, 0]
+            uniform token[] outputs:output:x:outTangentTypes = ["auto", "auto"]
+            uniform double[] outputs:output:x:outTangentValues = [0, 0]
+            uniform bool[] outputs:output:x:tangentBrokens = [0, 0]
+            uniform bool[] outputs:output:x:tangentWeighteds = [0, 0]
+            uniform int64[] outputs:output:x:times = [0, 282240000]
+            uniform double[] outputs:output:x:values = [7.586658057334716e-8, 200.0000017438949]
+            custom uint outputs:updated (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            uniform token ui:nodegraph:node:expansionState = "open"
+
+            def AnimationData "animationData"
+            {
+            }
+        }
+
+        def OmniGraphNode "on_keyboard_input" (
+            prepend apiSchemas = ["NodeGraphNodeAPI"]
+        )
+        {
+            custom bool inputs:altIn = 0
+            custom bool inputs:ctrlIn = 0
+            custom token inputs:keyIn = "J" (
+                allowedTokens = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Apostrophe", "Backslash", "Backspace", "CapsLock", "Comma", "Del", "Down", "End", "Enter", "Equal", "Escape", "F1", "F10", "F11", "F12", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "GraveAccent", "Home", "Insert", "Key0", "Key1", "Key2", "Key3", "Key4", "Key5", "Key6", "Key7", "Key8", "Key9", "Left", "LeftAlt", "LeftBracket", "LeftControl", "LeftShift", "LeftSuper", "Menu", "Minus", "NumLock", "Numpad0", "Numpad1", "Numpad2", "Numpad3", "Numpad4", "Numpad5", "Numpad6", "Numpad7", "Numpad8", "Numpad9", "NumpadAdd", "NumpadDel", "NumpadDivide", "NumpadEnter", "NumpadEqual", "NumpadMultiply", "NumpadSubtract", "PageDown", "PageUp", "Pause", "Period", "PrintScreen", "Right", "RightAlt", "RightBracket", "RightControl", "RightShift", "RightSuper", "ScrollLock", "Semicolon", "Slash", "Space", "Tab", "Up"]
+            )
+            custom bool inputs:onlyPlayback = 0
+            custom bool inputs:shiftIn = 0
+            token node:type = "omni.graph.action.OnKeyboardInput"
+            int node:typeVersion = 4
+            custom bool outputs:isPressed
+            custom token outputs:keyOut
+            custom uint outputs:pressed (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            custom uint outputs:released (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            uniform token ui:nodegraph:node:expansionState = "open"
+        }
+
+        def OmniGraphNode "on_keyboard_input_01" (
+            prepend apiSchemas = ["NodeGraphNodeAPI"]
+        )
+        {
+            custom bool inputs:altIn = 0
+            custom bool inputs:ctrlIn = 0
+            custom token inputs:keyIn = "K" (
+                allowedTokens = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Apostrophe", "Backslash", "Backspace", "CapsLock", "Comma", "Del", "Down", "End", "Enter", "Equal", "Escape", "F1", "F10", "F11", "F12", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "GraveAccent", "Home", "Insert", "Key0", "Key1", "Key2", "Key3", "Key4", "Key5", "Key6", "Key7", "Key8", "Key9", "Left", "LeftAlt", "LeftBracket", "LeftControl", "LeftShift", "LeftSuper", "Menu", "Minus", "NumLock", "Numpad0", "Numpad1", "Numpad2", "Numpad3", "Numpad4", "Numpad5", "Numpad6", "Numpad7", "Numpad8", "Numpad9", "NumpadAdd", "NumpadDel", "NumpadDivide", "NumpadEnter", "NumpadEqual", "NumpadMultiply", "NumpadSubtract", "PageDown", "PageUp", "Pause", "Period", "PrintScreen", "Right", "RightAlt", "RightBracket", "RightControl", "RightShift", "RightSuper", "ScrollLock", "Semicolon", "Slash", "Space", "Tab", "Up"]
+            )
+            custom bool inputs:onlyPlayback = 0
+            custom bool inputs:shiftIn = 0
+            token node:type = "omni.graph.action.OnKeyboardInput"
+            int node:typeVersion = 4
+            custom bool outputs:isPressed
+            custom token outputs:keyOut
+            custom uint outputs:pressed (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            custom uint outputs:released (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            uniform token ui:nodegraph:node:expansionState = "open"
+        }
+
+        def OmniGraphNode "on_keyboard_input_02" (
+            prepend apiSchemas = ["NodeGraphNodeAPI"]
+        )
+        {
+            custom bool inputs:altIn = 0
+            custom bool inputs:ctrlIn = 0
+            custom token inputs:keyIn = "L" (
+                allowedTokens = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Apostrophe", "Backslash", "Backspace", "CapsLock", "Comma", "Del", "Down", "End", "Enter", "Equal", "Escape", "F1", "F10", "F11", "F12", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "GraveAccent", "Home", "Insert", "Key0", "Key1", "Key2", "Key3", "Key4", "Key5", "Key6", "Key7", "Key8", "Key9", "Left", "LeftAlt", "LeftBracket", "LeftControl", "LeftShift", "LeftSuper", "Menu", "Minus", "NumLock", "Numpad0", "Numpad1", "Numpad2", "Numpad3", "Numpad4", "Numpad5", "Numpad6", "Numpad7", "Numpad8", "Numpad9", "NumpadAdd", "NumpadDel", "NumpadDivide", "NumpadEnter", "NumpadEqual", "NumpadMultiply", "NumpadSubtract", "PageDown", "PageUp", "Pause", "Period", "PrintScreen", "Right", "RightAlt", "RightBracket", "RightControl", "RightShift", "RightSuper", "ScrollLock", "Semicolon", "Slash", "Space", "Tab", "Up"]
+            )
+            custom bool inputs:onlyPlayback = 0
+            custom bool inputs:shiftIn = 0
+            token node:type = "omni.graph.action.OnKeyboardInput"
+            int node:typeVersion = 4
+            custom bool outputs:isPressed
+            custom token outputs:keyOut
+            custom uint outputs:pressed (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            custom uint outputs:released (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            uniform token ui:nodegraph:node:expansionState = "open"
+        }
+
+        def OmniGraphNode "on_keyboard_input_03" (
+            prepend apiSchemas = ["NodeGraphNodeAPI"]
+        )
+        {
+            custom bool inputs:altIn = 0
+            custom bool inputs:ctrlIn = 0
+            custom token inputs:keyIn = "M" (
+                allowedTokens = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Apostrophe", "Backslash", "Backspace", "CapsLock", "Comma", "Del", "Down", "End", "Enter", "Equal", "Escape", "F1", "F10", "F11", "F12", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "GraveAccent", "Home", "Insert", "Key0", "Key1", "Key2", "Key3", "Key4", "Key5", "Key6", "Key7", "Key8", "Key9", "Left", "LeftAlt", "LeftBracket", "LeftControl", "LeftShift", "LeftSuper", "Menu", "Minus", "NumLock", "Numpad0", "Numpad1", "Numpad2", "Numpad3", "Numpad4", "Numpad5", "Numpad6", "Numpad7", "Numpad8", "Numpad9", "NumpadAdd", "NumpadDel", "NumpadDivide", "NumpadEnter", "NumpadEqual", "NumpadMultiply", "NumpadSubtract", "PageDown", "PageUp", "Pause", "Period", "PrintScreen", "Right", "RightAlt", "RightBracket", "RightControl", "RightShift", "RightSuper", "ScrollLock", "Semicolon", "Slash", "Space", "Tab", "Up"]
+            )
+            custom bool inputs:onlyPlayback = 0
+            custom bool inputs:shiftIn = 0
+            token node:type = "omni.graph.action.OnKeyboardInput"
+            int node:typeVersion = 4
+            custom bool outputs:isPressed
+            custom token outputs:keyOut
+            custom uint outputs:pressed (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            custom uint outputs:released (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            uniform token ui:nodegraph:node:expansionState = "open"
+        }
+
+        def OmniGraphNode "on_keyboard_input_04" (
+            prepend apiSchemas = ["NodeGraphNodeAPI"]
+        )
+        {
+            custom bool inputs:altIn = 0
+            custom bool inputs:ctrlIn = 0
+            custom token inputs:keyIn = "N" (
+                allowedTokens = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Apostrophe", "Backslash", "Backspace", "CapsLock", "Comma", "Del", "Down", "End", "Enter", "Equal", "Escape", "F1", "F10", "F11", "F12", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "GraveAccent", "Home", "Insert", "Key0", "Key1", "Key2", "Key3", "Key4", "Key5", "Key6", "Key7", "Key8", "Key9", "Left", "LeftAlt", "LeftBracket", "LeftControl", "LeftShift", "LeftSuper", "Menu", "Minus", "NumLock", "Numpad0", "Numpad1", "Numpad2", "Numpad3", "Numpad4", "Numpad5", "Numpad6", "Numpad7", "Numpad8", "Numpad9", "NumpadAdd", "NumpadDel", "NumpadDivide", "NumpadEnter", "NumpadEqual", "NumpadMultiply", "NumpadSubtract", "PageDown", "PageUp", "Pause", "Period", "PrintScreen", "Right", "RightAlt", "RightBracket", "RightControl", "RightShift", "RightSuper", "ScrollLock", "Semicolon", "Slash", "Space", "Tab", "Up"]
+            )
+            custom bool inputs:onlyPlayback = 0
+            custom bool inputs:shiftIn = 0
+            token node:type = "omni.graph.action.OnKeyboardInput"
+            int node:typeVersion = 4
+            custom bool outputs:isPressed
+            custom token outputs:keyOut
+            custom uint outputs:pressed (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            custom uint outputs:released (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            uniform token ui:nodegraph:node:expansionState = "open"
+        }
+
+        def OmniGraphNode "on_keyboard_input_05" (
+            prepend apiSchemas = ["NodeGraphNodeAPI"]
+        )
+        {
+            custom bool inputs:altIn = 0
+            custom bool inputs:ctrlIn = 0
+            custom token inputs:keyIn = "O" (
+                allowedTokens = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Apostrophe", "Backslash", "Backspace", "CapsLock", "Comma", "Del", "Down", "End", "Enter", "Equal", "Escape", "F1", "F10", "F11", "F12", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "GraveAccent", "Home", "Insert", "Key0", "Key1", "Key2", "Key3", "Key4", "Key5", "Key6", "Key7", "Key8", "Key9", "Left", "LeftAlt", "LeftBracket", "LeftControl", "LeftShift", "LeftSuper", "Menu", "Minus", "NumLock", "Numpad0", "Numpad1", "Numpad2", "Numpad3", "Numpad4", "Numpad5", "Numpad6", "Numpad7", "Numpad8", "Numpad9", "NumpadAdd", "NumpadDel", "NumpadDivide", "NumpadEnter", "NumpadEqual", "NumpadMultiply", "NumpadSubtract", "PageDown", "PageUp", "Pause", "Period", "PrintScreen", "Right", "RightAlt", "RightBracket", "RightControl", "RightShift", "RightSuper", "ScrollLock", "Semicolon", "Slash", "Space", "Tab", "Up"]
+            )
+            custom bool inputs:onlyPlayback = 0
+            custom bool inputs:shiftIn = 0
+            token node:type = "omni.graph.action.OnKeyboardInput"
+            int node:typeVersion = 4
+            custom bool outputs:isPressed
+            custom token outputs:keyOut
+            custom uint outputs:pressed (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            custom uint outputs:released (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            uniform token ui:nodegraph:node:expansionState = "open"
+        }
+
+        def OmniGraphNode "on_keyboard_input_06" (
+            prepend apiSchemas = ["NodeGraphNodeAPI"]
+        )
+        {
+            custom bool inputs:altIn = 0
+            custom bool inputs:ctrlIn = 0
+            custom token inputs:keyIn = "Y" (
+                allowedTokens = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Apostrophe", "Backslash", "Backspace", "CapsLock", "Comma", "Del", "Down", "End", "Enter", "Equal", "Escape", "F1", "F10", "F11", "F12", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "GraveAccent", "Home", "Insert", "Key0", "Key1", "Key2", "Key3", "Key4", "Key5", "Key6", "Key7", "Key8", "Key9", "Left", "LeftAlt", "LeftBracket", "LeftControl", "LeftShift", "LeftSuper", "Menu", "Minus", "NumLock", "Numpad0", "Numpad1", "Numpad2", "Numpad3", "Numpad4", "Numpad5", "Numpad6", "Numpad7", "Numpad8", "Numpad9", "NumpadAdd", "NumpadDel", "NumpadDivide", "NumpadEnter", "NumpadEqual", "NumpadMultiply", "NumpadSubtract", "PageDown", "PageUp", "Pause", "Period", "PrintScreen", "Right", "RightAlt", "RightBracket", "RightControl", "RightShift", "RightSuper", "ScrollLock", "Semicolon", "Slash", "Space", "Tab", "Up"]
+            )
+            custom bool inputs:onlyPlayback = 0
+            custom bool inputs:shiftIn = 0
+            token node:type = "omni.graph.action.OnKeyboardInput"
+            int node:typeVersion = 4
+            custom bool outputs:isPressed
+            custom token outputs:keyOut
+            custom uint outputs:pressed (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            custom uint outputs:released (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            uniform token ui:nodegraph:node:expansionState = "open"
+        }
+
+        def OmniGraphNode "delay" (
+            prepend apiSchemas = ["NodeGraphNodeAPI"]
+        )
+        {
+            custom double inputs:duration = 1
+            custom uint inputs:execIn
+            prepend uint inputs:execIn.connect = </World/ActionGraph/on_keyboard_input_06.outputs:released>
+            token node:type = "omni.graph.action.Delay"
+            int node:typeVersion = 2
+            custom uint outputs:finished (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            uniform token ui:nodegraph:node:expansionState = "open"
+        }
+
+        def OmniGraphNode "counter" (
+            prepend apiSchemas = ["NodeGraphNodeAPI"]
+        )
+        {
+            custom uint inputs:execIn (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            prepend uint inputs:execIn.connect = [
+                </World/ActionGraph/on_keyboard_input_04.outputs:released>,
+                </World/ActionGraph/on_keyboard_input_03.outputs:released>,
+                </World/ActionGraph/on_keyboard_input_02.outputs:released>,
+                </World/ActionGraph/on_keyboard_input.outputs:released>,
+                </World/ActionGraph/on_keyboard_input_01.outputs:released>,
+                </World/ActionGraph/on_keyboard_input_06.outputs:released>,
+                </World/ActionGraph/on_keyboard_input_05.outputs:released>,
+            ]
+            custom uint inputs:reset (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            token node:type = "omni.graph.action.Counter"
+            int node:typeVersion = 2
+            custom int outputs:count
+            custom uint outputs:execOut (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            custom int state:count
+            uniform token ui:nodegraph:node:expansionState = "open"
+            uniform float2 ui:nodegraph:node:pos = (175.84119, 139.85878)
+        }
+    }
+
+    def Cube "Cube"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 199.99998162978278, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+}
+

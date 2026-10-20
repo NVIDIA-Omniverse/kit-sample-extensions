@@ -1,0 +1,58 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    metersPerUnit = 0.01
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def Scope "Looks"
+    {
+        def Material "Material_MDL"
+        {
+            def Shader "normalize" (
+                apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "normalize(float2)"
+                float2 inputs:a
+                float2 outputs:out
+            }
+
+            def Shader "dot" (
+                apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "dot(float2,float2)"
+                float2 inputs:a.connect = </World/Looks/Material_MDL/normalize.outputs:out>
+                float2 inputs:b
+                float outputs:out
+            }
+
+            def Shader "normal" (
+                apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "normal"
+                float3 outputs:out
+            }
+
+            def Shader "data_lookup_float3" (
+                apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "data_lookup_float3"
+                float3 outputs:out
+            }
+        }
+    }
+}

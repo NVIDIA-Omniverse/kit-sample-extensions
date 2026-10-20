@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" role="img" aria-label="Upgrade warning">
+  <path d="M8 1.45 15.05 14.2H0.95L8 1.45Z" fill="#D9A441"/>
+  <path d="M8 3.55 13.25 13.05H2.75L8 3.55Z" fill="#2F2F2F" fill-opacity="0.16"/>
+  <path d="M7.25 5.25h1.5v4.85h-1.5V5.25Z" fill="#1F1F1F"/>
+  <circle cx="8" cy="12" r="0.85" fill="#1F1F1F"/>
+</svg>

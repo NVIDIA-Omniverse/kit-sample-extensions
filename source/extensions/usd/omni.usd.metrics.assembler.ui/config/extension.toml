@@ -1,0 +1,64 @@
+[package]
+version = "110.1.3"
+title = "Metrics Assembler UI"
+description = "UI for Metrics Assembler."
+authors = ["Ales Borovicka"]
+category = "USD"
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+readme = "docs/README.md"
+keywords = ["usd"]
+changelog = "docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+support_level = "Core"
+
+[package.writeTarget]
+kit = true
+python = true
+usd = true
+
+[dependencies]
+"omni.ui" = { optional = true }
+"omni.usd.metrics.assembler" = {}
+"omni.usd" = {}
+"omni.kit.viewport.registry" = { optional = true }
+"omni.kit.viewport.window" = { optional = true }
+"omni.kit.viewport.utility" = { optional = true }
+"omni.kit.viewport.menubar.core" = { optional = true }
+"omni.kit.viewport.menubar.display" = { optional = true }
+"omni.kit.notification_manager" = { optional = true }
+"omni.kit.usd.layers" = {}
+"omni.kit.window.preferences" = { optional = true }
+
+[[python.module]]
+name = "omni.metrics.assembler.ui"
+
+[[test]]
+dependencies = [
+    "omni.kit.stage_templates",
+    "omni.kit.ui_test",
+    "omni.ui",
+    "omni.kit.viewport.registry",
+    "omni.kit.viewport.window",
+    "omni.kit.viewport.utility",
+    "omni.kit.viewport.menubar.core",
+    "omni.kit.viewport.menubar.display",
+    "omni.kit.notification_manager",
+    "omni.kit.window.preferences",
+]
+
+args = [
+    "--/rtx-transient/post/aa/limitedOps=false",
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/rtx/materialDb/syncLoads=true",
+    "--/rtx/hydra/materialSyncLoads=true",
+    "--/renderer/multiGpu/autoEnable=false",
+    "--/renderer/multiGpu/enabled=false",
+    "--/renderer/debug/validation/enabled=false",
+    "--/omni.kit.plugin/syncUsdLoads=true",
+    "--/app/asyncRendering=false",
+    "--no-window",
+    "--/app/font/file='${fonts}/OpenSans-SemiBold.ttf'",
+    "--/app/font/size=16",
+]

@@ -1,0 +1,24 @@
+# SPDX-FileCopyrightText: Copyright (c) 2022-2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: LicenseRef-NvidiaProprietary
+#
+# NVIDIA CORPORATION, its affiliates and licensors retain all intellectual
+# property and proprietary rights in and to this material, related
+# documentation and any modifications thereto. Any use, reproduction,
+# disclosure or distribution of this material and related documentation
+# without an express license agreement from NVIDIA CORPORATION or
+# its affiliates is strictly prohibited.
+
+from .bindings._metricsAssembler import MetricsAssembler, acquire_metrics_assembler_interface
+
+
+def _get_interface(func, acq):
+    if not hasattr(func, "iface"):
+        func.iface = acq()
+    return func.iface
+
+
+def get_metrics_assembler_interface() -> MetricsAssembler:
+    return _get_interface(get_metrics_assembler_interface, acquire_metrics_assembler_interface)
+
+
+from .scripts.extension import *

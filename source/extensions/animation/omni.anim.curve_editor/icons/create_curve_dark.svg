@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27">
+  <g id="create_curve_dark" transform="translate(-143 -496.292)">
+    <g id="bezier_curve_dark" transform="translate(143.789 500.538)">
+      <rect id="Icon_Base" width="5.759" height="5.759" transform="translate(17.655 3.415)" fill="none"/>
+      <g id="Group_3585" data-name="Group 3585">
+        <path id="Path_3462" data-name="Path 3462" d="M-112.13-17.566s8.557,3.028,12.475-3.437,7.822-5.674,7.822-5.674" transform="translate(114.427 28.704)" fill="none" stroke="#549fbb" stroke-linecap="round" stroke-width="2"/>
+        <rect id="Rectangle_1089" data-name="Rectangle 1089" width="4.031" height="4.031" transform="translate(0 9.051)" fill="#f9f903"/>
+        <rect id="Rectangle_1091" data-name="Rectangle 1091" width="4.053" height="4.053" transform="translate(20.708)" fill="#f9f903"/>
+      </g>
+    </g>
+    <rect id="Rectangle_2132" data-name="Rectangle 2132" width="27" height="27" transform="translate(143 496.292)" fill="none"/>
+    <path id="Path_5409" data-name="Path 5409" d="M47.79,24.19v1.259l-.013.142-.044.114-.055.112-.071.085-.1.086-.112.055-.114.044-.127.013h-2.7v2.746l-.015.128-.028.112-.071.114-.085.085-.085.085-.114.071-.1.028-.142.015H42.568l-.127-.015-.112-.028-.1-.071-.114-.085-.071-.085-.055-.114-.029-.112-.013-.128V26.1H39.228l-.114-.013-.127-.044-.1-.055-.1-.086-.085-.085-.042-.112-.042-.114-.015-.142V24.19l.015-.128.042-.112.042-.114.085-.1.1-.07.1-.071.127-.028.114-.015h2.718v-2.76l.013-.127.029-.114.055-.112.071-.1.114-.071.1-.055.112-.044.127-.013h1.246l.142.013.1.044.114.055.085.071.085.1.071.112.028.114.015.127v2.76h2.7l.127.015.114.028.112.071.1.07.071.1.055.114.044.112.013.128Z" transform="translate(120.76 489.999)" fill="#6ba871" fill-rule="evenodd"/>
+  </g>
+</svg>

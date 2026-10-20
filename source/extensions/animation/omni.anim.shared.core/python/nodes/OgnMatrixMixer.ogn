@@ -1,0 +1,65 @@
+{
+  "omni.anim.MatrixMixer": {
+    "version": 1,
+    "description": [
+      "Mix two matrices."
+    ],
+    "metadata": {
+      "uiName": "Matrix Mixer"
+    },
+    "language": "python",
+    "inputs": {
+      "alpha": {
+        "description": [
+          "Alpha blend value between transform_a and transform_b"
+        ],
+        "type": "double",
+        "default": 1.0
+      },
+      "interpolate_scale": {
+        "description": [
+          "Interpolate the scale of transform_b"
+        ],
+        "type": "bool",
+        "default": true
+      },
+      "interpolate_rotation": {
+        "description": [
+          "Interpolate the rotation of transform_b"
+        ],
+        "type": "bool",
+        "default": true
+      },
+      "interpolate_translation": {
+        "description": [
+          "Interpolate the translation of transform_b"
+        ],
+        "type": "bool",
+        "default": true
+      },
+      "transform_a": {
+        "description": [
+          "A transform matrix"
+        ],
+        "type": "matrixd[4]",
+        "default": [[1.0,0.0,0.0,0.0], [0.0,1.0,0.0,0.0], [0.0,0.0,1.0,0.0], [0.0,0.0,0.0,1.0]]
+      },
+      "transform_b": {
+        "description": [
+          "B transform matrix"
+        ],
+        "type": "matrixd[4]",
+        "default": [[1.0,0.0,0.0,0.0], [0.0,1.0,0.0,0.0], [0.0,0.0,1.0,0.0], [0.0,0.0,0.0,1.0]]
+      }
+    },
+    "outputs": {
+      "transform": {
+        "description": [
+          "Output transform matrix"
+        ],
+        "type": "matrixd[4]",
+        "default": [[1.0,0.0,0.0,0.0], [0.0,1.0,0.0,0.0], [0.0,0.0,1.0,0.0], [0.0,0.0,0.0,1.0]]
+      }
+    }
+  }
+}

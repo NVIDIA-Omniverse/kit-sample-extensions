@@ -1,0 +1,76 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.0.23"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Ning Li", "Jeff Hanna"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Viewport navigation capture tool. Does not use Ansel"
+description="Provide the capture button and functon in navigation bar."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['navigation', 'bar', 'capture', 'no_ansel']
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.rst"
+
+category = "Kit::exts"
+readme = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+
+[dependencies]
+"omni.kit.viewport.navigation.core" = {}
+"omni.kit.widgets.custom" = {}
+"omni.kit.viewport.utility" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.viewport.navigation.home".
+[[python.module]]
+name = "omni.kit.viewport.navigation.capture_no_ansel"
+
+[settings]
+exts."omni.kit.viewport.navigation.capture".order= -840
+exts."omni.kit.viewport.navigation.capture".visible= true
+exts."omni.kit.viewport.navigation.capture".enable= true
+
+[[test]]
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+    "omni.kit.viewport.menubar.display",
+    # "omni.rtx.shadercache.vulkan",  # legacy RTX shader cache; absent from Kit 111 (OVRTX)
+    # "omni.kit.markup.core",  # one test uses "TakeMarkupScreenshotCommand"
+]
+"filter:platform"."windows-x86_64".dependencies = [
+    # fix [Error][gpu.foundation.plugin] Cannot load shader file
+    # "omni.rtx.shadercache.d3d12",  # legacy RTX shader cache; absent from Kit 111 (OVRTX)
+]
+
+args = [
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/app/window/width=800",
+    "--/app/window/height=800",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    "--/persistent/app/viewport/displayOptions=1568",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--no-window",
+    "--/app/fastShutdown=1",
+]
+stdoutFailPatterns.exclude = [
+    "*[gpu.foundation.plugin]*rtx/utils/BufferTexture.comp.hlsl*",
+    "*[gpu.foundation.plugin] PsoCompute::createPipeline and shader loading failed.*",
+    "*[omni.kit.window.preferences.scripts.pages.screenshot_page] Failed to create directory*",
+    "*[omni.kit.widgets.custom.preferences_helper] Preferences page Capture Screenshot not found*",
+    "*[omni.renderercapture.plugin] Saving image failed.*",
+    "*[Error] [carb] [Plugin: libomni.grpc.lib.so] Could not load the dynamic library*",
+    "*[Error] [omni.ext.plugin] [ext: omni.grpc.lib-1.0.0] failed to load*",
+]

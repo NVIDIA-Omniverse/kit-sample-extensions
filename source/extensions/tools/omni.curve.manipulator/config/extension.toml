@@ -1,0 +1,133 @@
+[package]
+# Semantic Versioning is used: https://semver.org/
+version = "110.0.2"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Jihui Shentu"]
+
+# The title and description fields are primarily for displaying extension info in UI
+description = "Extension that provides CV visualization and manipulation on curves."
+title = "Curve Manipulator"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme = "docs/README.md"
+
+# URL of the extension source repository.
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# One of categories for UI.
+category = "UI"
+
+# Keywords for the extension
+keywords = ["curve", "cv", "manipulation"]
+
+# Location of change log file in target (final) folder of extension, relative to the root. Can also be just a content
+# of it instead of file path. More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog = "docs/CHANGELOG.md"
+
+# Preview image and icon. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+# Preview image is shown in "Overview" of Extensions window. Screenshot of an extension might be a good preview image.
+preview_image = "data/preview.png"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "data/icon.png"
+
+# Main module for the Python interface
+[[python.module]]
+name = "omni.curve.manipulator"
+
+[dependencies]
+"omni.curve.creator" = {}
+"omni.debugdraw" = {}
+"omni.kit.actions.core" = {}
+"omni.kit.context_menu" = {}
+"omni.kit.manipulator.selector" = {}
+"omni.kit.manipulator.tool.snap" = {}
+"omni.kit.manipulator.transform" = {}
+"omni.kit.manipulator.viewport" = {}
+"omni.kit.menu.utils" = {}
+"omni.kit.notification_manager" = { optional = true }
+"omni.kit.viewport.registry" = {}
+"omni.kit.viewport.utility" = {}
+"omni.kit.widget.settings" = {}
+"omni.kit.window.stage" = { optional = true }         # add context menu
+"omni.kit.window.viewport" = { optional = true }
+"omni.scene.visualization.core" = { optional = true }
+"omni.ui" = {}
+"omni.usd" = {}
+
+[[native.plugin]]
+path = "bin/*.plugin"
+recursive = false
+
+# Collection of tests that do not require viewport and renderer
+# We split these tests out to save time and avoid running viewport and viewport_next twice
+[[test]]
+name = "non_viewport_tests"
+
+# excludes the tests in "viewport_tests" section
+pythonTests.exclude = [
+  "omni.curve.manipulator.tests.test_curve_manipulator.*",
+]
+
+# don't really need it, but __init__.py imports both tests and test_curve_manipulator import this file
+dependencies = [
+  "omni.kit.ui_test",
+]
+
+args = [
+  "--no-window",
+  "--/exts/omni.curve.manipulator/showPrompt=false",
+  "--/exts/omni.curve.manipulator/tools/enabled=false",
+]
+
+# Collection of tests that require viewport and renderer
+# They have to be added explicitly to the include list
+[[test]]
+name = "viewport_tests"
+timeout = 900
+
+pythonTests.include = ["omni.curve.manipulator.tests.test_curve_manipulator.*"]
+
+# Viewport tests are not supported on linux-aarch64
+"filter:platform"."linux-aarch64".enabled = false
+
+dependencies = [
+  "omni.kit.hydra_texture-ovrtx",
+  "omni.kit.viewport.window",
+  "omni.kit.ui_test",
+  "omni.kit.primitive.mesh",
+  # "omni.scene.visualization.core"  # for viz only
+]
+
+args = [
+  "--/renderer/enabled=ovrtx",
+  "--/renderer/active=ovrtx",
+  "--/app/window/width=400",
+  "--/app/window/height=400",
+  "--/app/renderer/resolution/width=400",
+  "--/app/renderer/resolution/height=400",
+  "--/app/window/dpiScaleOverride=1.0",
+  "--/app/window/scaleToMonitor=false",
+  "--/app/window/hideUi=true",
+  "--/app/asyncRendering=false",
+  "--/app/hydra/aperture/conform=1",                                                   # CameraUtilMatchHorizontally
+  "--/ngx/enabled=false",
+  "--/rtx/post/aa/op=0",
+  "--/persistent/app/viewport/displayOptions=0",
+  "--/persistent/exts/omni.kit.manipulator.transform/manipulator/scaleMultiplier=1.4",
+  "--no-window",
+  "--/exts/omni.curve.manipulator/showPrompt=false",
+  "--/exts/omni.curve.manipulator/tools/enabled=false",
+]
+
+[package.writeTarget]
+kit = true
+usd = true
+
+[settings]
+exts."omni.curve.manipulator".showPrompt = true
+exts."omni.curve.manipulator".tools.enabled = true
+persistent.exts."omni.curve.manipulator".creation.purpose = "guide"
+persistent.exts."omni.curve.manipulator".defaultWidthMeters = 0.25
+persistent.exts."omni.kit.manipulator.selector".orders."omni.curve.manipulator.stub" = -1

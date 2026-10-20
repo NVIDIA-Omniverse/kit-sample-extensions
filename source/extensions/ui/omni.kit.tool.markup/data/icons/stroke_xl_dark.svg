@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="18"
+   height="18"
+   viewBox="0 0 18 18"
+   version="1.1"
+   id="svg1840"
+   sodipodi:docname="stroke_xl_dark.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1844" />
+  <sodipodi:namedview
+     id="namedview1842"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="48.5"
+     inkscape:cx="9"
+     inkscape:cy="9"
+     inkscape:window-width="3440"
+     inkscape:window-height="1369"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1840" />
+  <g
+     id="g2015">
+    <rect
+       id="iconBase"
+       width="18"
+       height="18"
+       fill="none"
+       x="0"
+       y="0" />
+    <path
+       id="Intersection_16"
+       data-name="Intersection 16"
+       d="m 1.548,17.502 4.555,-17 h 10.354 l -4.556,17 z"
+       fill="#ffffff"
+       style="fill:#a8a8a8;fill-opacity:1" />
+  </g>
+</svg>

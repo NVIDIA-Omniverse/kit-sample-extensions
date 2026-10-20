@@ -1,0 +1,47 @@
+
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.0.7"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Jeffrey Qiu"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Zoom bar"
+description="A widget to switch icon/detail mode and change icon size."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['kit', 'widget', "zoombar"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+category = "Internal"
+readme  = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+
+[dependencies]
+"omni.ui" = {}
+
+[[python.module]]
+name = "omni.kit.widget.zoombar"
+
+[settings]
+
+[[test]]
+dependencies = [
+    "omni.kit.ui_test",
+]
+
+args = [
+    "--no-window",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+]
+[documentation]
+pages = ["docs/Overview.md", "docs/SETTINGS.md", "docs/USAGE_PYTHON.md", "docs/CHANGELOG.md"]

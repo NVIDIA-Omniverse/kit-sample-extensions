@@ -1,0 +1,51 @@
+[package]
+title = "Kit Stage Menu Options"
+description = "Menu options related to USD Stage"
+version = "1.2.7"
+category = "Internal"
+authors = ["Ed Quigley"]
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+keywords = ["stage", "menu"]
+changelog = "docs/CHANGELOG.md"
+readme  = "docs/README.md"
+icon = "data/icon.png"
+preview_image = "data/preview.png"
+
+[dependencies]
+"omni.kit.context_menu" = {}
+"omni.kit.window.stage" = {}
+"omni.kit.window.content_browser" = {optional=true}
+"omni.kit.viewport.window" = {optional=true}
+"omni.kit.window.viewport" = {optional=true}
+"omni.usd" = {}
+
+[[python.module]]
+name = "omni.kit.menu.stage"
+
+[[test]]
+args = [
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/renderer/multiGpu/enabled=false",
+    "--/renderer/multiGpu/autoEnable=false", # Disable mGPU with PXR due to OM-51026, OM-53611
+    "--/renderer/multiGpu/maxGpuCount=1",
+    "--/omni.kit.plugin/syncUsdLoads=true",
+    "--/app/asyncRendering=false",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/persistent/app/omniverse/filepicker/options_menu/show_details=false",
+    "--no-window"
+]
+
+dependencies = [
+    "omni.kit.mainwindow",
+    "omni.kit.ui_test",
+    "omni.kit.window.content_browser",
+    "omni.kit.viewport.window",
+]
+stdoutFailPatterns.include = []
+stdoutFailPatterns.exclude = []
+
+[documentation]
+pages = ["docs/CHANGELOG.md", "docs/Overview.md", "docs/USAGE_PYTHON.md"]

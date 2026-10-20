@@ -1,0 +1,29 @@
+[[dependency]]
+python = "../_build/target-deps/python"
+extra_args = ["--index-url", "https://pypi.org/simple"]
+packages = [
+    "urllib3>=2.8.0",
+    "aioshutil==1.6",
+    "boto3==1.42.9",
+    "botocore==1.42.9",
+    "requests==2.32.5",
+    "certifi==2026.6.17",
+]
+target = "../_build/target-deps/pip_prebundle_configurator_publisher"
+platforms = ["*"]
+download_only = false
+append_to_install_folder = true
+gather_licenses_path = "../_build/PACKAGE-LICENSES/PIP-prebundled-LICENSES.txt"
+
+[[dependency]]
+python = "../_build/target-deps/python"
+packages = [
+    "simready_search==2026.4.2",
+    "urllib3>=2.8.0,<3",
+]
+extra_args = ["--index-url", "https://pypi.org/simple", "--index-strategy", "unsafe-first-match"]
+target = "../_build/target-deps/pip_prebundle_simready_content_browser"
+platforms = ["*"]
+download_only = false
+append_to_install_folder = true
+gather_licenses_path = "../_build/PACKAGE-LICENSES/PIP-prebundled-LICENSES.txt"

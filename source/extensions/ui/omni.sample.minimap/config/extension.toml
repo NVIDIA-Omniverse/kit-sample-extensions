@@ -1,0 +1,75 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.1.0"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Jihui Shentu", "Dimitri Loginowski"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Minimap"
+description = "A minimap provider that generates the image automatically from stage"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme = "docs/Overview.md"
+
+# URL of the extension source repository.
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# One of categories for UI.
+category = "UI"
+
+# Keywords for the extension
+keywords = ["kit", "minimap", "provider"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog = "docs/CHANGELOG.md"
+
+# Preview image and icon. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+# Preview image is shown in "Overview" of Extensions window. Screenshot of an extension might be a good preview image.
+preview_image = "data/preview.png"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "data/icon.png"
+
+[dependencies]
+"omni.kit.menu.utils" = {}
+"omni.kit.prim.icon" = {}
+"omni.kit.widget.settings" = {}
+"omni.usd" = {}
+"omni.kit.uiapp" = {}
+"omni.ui" = {}
+"omni.kit.window.cursor" = {}
+"omni.warp.core" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.example.hello".
+[[python.module]]
+name = "omni.sample.minimap"
+
+[documentation]
+pages = ["docs/Overview.md", "docs/CHANGELOG.md"]
+
+[settings]
+# Only openOnStartup is persistent (saved between sessions)
+persistent.exts."omni.sample.minimap".openOnStartup = false
+
+# All other settings are session-only (reset on restart)
+exts."omni.sample.minimap".captureOnStageOpen = false
+exts."omni.sample.minimap".jobLimit = 2  # Reduced from 3 to reduce memory pressure on large scenes
+exts."omni.sample.minimap".defaultFloor = 0
+exts."omni.sample.minimap".defaultCeiling = 8
+exts."omni.sample.minimap".pollingThrottle = 0.1  # Camera position polling interval in seconds (10 Hz)
+exts."omni.sample.minimap".waypointThrottle = 0.2  # Waypoint/markup visibility check interval in seconds (5 Hz)
+exts."omni.sample.minimap".maxTiles = 128  # Maximum number of tiles allowed for generation
+exts."omni.sample.minimap".maxTileSize = 256  # Maximum tile size in meters allowed for generation
+exts."omni.sample.minimap".defaultTileSize = 256  # Default tile size in meters for new minimaps
+exts."omni.sample.minimap".buildDelay = 0.15  # Delay in seconds before starting tile generation
+# Resolution determines minimap quality (pixels per stage unit)
+# Higher = sharper but uses more VRAM and takes longer to generate
+# Recommended: 500-1000 (low quality/fast), 1024-1500 (balanced), 2000+ (high quality/slow)
+# With default tile size of 256m and resolution 1024, each tile is 1024x1024 pixels (4 pixels/meter)
+exts."omni.sample.minimap".resolution = 1024
+exts."omni.sample.minimap".camZoom = 700  # Camera zoom level for minimap view
+exts."omni.sample.minimap".camSize = 0.5  # Camera FOV indicator size multiplier (0.0=10% viewport, 1.0=50% viewport)
+exts."omni.sample.minimap".showSettings = true  # Whether settings panel is visible by default
+exts."omni.sample.minimap".devMode = false  # Developer mode for performance monitoring

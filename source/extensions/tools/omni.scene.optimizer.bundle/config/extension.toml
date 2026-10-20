@@ -1,0 +1,26 @@
+
+[package]
+title = "Scene Optimizer"
+category = "content"
+version = "110.4.1"
+readme = "docs/README.md"
+changelog ="docs/CHANGELOG.md"
+description = "Bundle of Commands and UI for scene optimization"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+authors = ["NVIDIA Corporation"]
+keywords = ["scene.optimizer"]
+
+[dependencies]
+"omni.scene.optimizer.core" = {version = "110.4.1", exact = true}
+"omni.scene.optimizer.ui" = {version = "110.4.1", exact = true}
+"omni.scene.optimizer.analysis" = {version = "110.4.1", exact = true}
+# Validator checker implementations come from the external usd_optimize package; this extension is
+# the Kit registration layer for them.
+"omni.scene.optimizer.validators" = {version = "110.4.1", exact = true}
+
+[[test]]
+waiver = "Bundle extension without any code"
+
+[package.writeTarget]
+kit = true

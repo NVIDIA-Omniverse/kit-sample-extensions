@@ -1,0 +1,61 @@
+[package]
+title = "USD Collection Window (Preview)"
+description = "USD Collection Window"
+version = "0.3.7"
+category = "Internal"
+authors = ["Eoin Murphy"]
+keywords = ["usd", "collections"]
+changelog = "docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+readme = "docs/README.md"
+target.kit = ["106.5.0"]
+
+[documentation.pages]
+"Overview" = "docs/overview.md"
+"Changelog" = "docs/CHANGELOG.md"
+
+[dependencies]
+"omni.ui" = {}
+"omni.usd" = {}
+"omni.kit.widget.collection" = {version="~0.3"}
+"omni.kit.widget.stage_icons" = {}
+"omni.kit.editor" = { optional=true }
+"omni.kit.renderer.core" = {}
+"usdrt.scenegraph" = {}
+
+[[python.module]]
+name = "omni.kit.window.collection"
+
+
+[[test]]
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--no-window",
+]
+
+dependencies = [
+    # The tests read the stage's collections through usdrt, which answers only with a running Runtime Core.
+    # Kit 111: usdrt.scenegraph no longer brings it (kit#2333).
+    "omni.runtime.core",
+    "omni.kit.mainwindow",
+    "omni.kit.ui_test",
+    "omni.kit.material.library",
+    "omni.kit.window.stage",
+    "omni.kit.test_suite.helpers"
+]
+
+#TODO: This is being caused by menu creation callbacks being set, don't seem to be
+#able to get access to them to unregister before teardown. Investigate
+stdoutFailPatterns.exclude = [
+    "*extension object is still alive*",
+    "*Failed to attach usdrt stage*"
+]
+
+stdoutFailPatterns.include = [
+    "*Get collection from usdrt stage failed*",
+]
+
+pythonTests.unreliable = [
+]

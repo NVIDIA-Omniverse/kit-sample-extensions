@@ -1,0 +1,23 @@
+mdl 1.8;
+
+import ::df::*;
+import ::state::*;
+
+export material simple_material(
+    color diffuse_color = color(.8),
+    float roughness = 0.0,
+    float3 normal = state::normal()
+) =
+material(
+    thin_walled: true,
+    surface: material_surface(
+        scattering: df::weighted_layer(
+            weight: 1.,
+            normal: normal,
+            layer: df::diffuse_reflection_bsdf(
+                    roughness: roughness,
+                    tint: diffuse_color
+            )
+        )
+    )
+);

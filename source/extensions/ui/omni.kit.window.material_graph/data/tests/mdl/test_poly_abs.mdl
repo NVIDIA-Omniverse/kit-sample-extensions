@@ -1,0 +1,19 @@
+mdl 1.8;
+
+import ::math::*;
+
+export int test_poly_abs(int a = 0)
+{
+    return math::abs(a);
+}
+
+export float test_poly_abs(float a = 0.0)
+{
+    return math::abs(a);
+}
+
+export color test_poly_abs(color a = color(0.0))
+{
+    float3 c = float3(a);
+    return color(math::abs(c.x), math::abs(c.y), math::abs(c.z));
+}

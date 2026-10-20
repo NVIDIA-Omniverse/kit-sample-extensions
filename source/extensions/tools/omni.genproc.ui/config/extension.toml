@@ -1,0 +1,74 @@
+[package]
+# Semantic Versioning is used: https://semver.org/
+version = "110.0.0"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Ed Quigley, Joe Mancewicz"]
+
+# The title and description fields are primarily for displaying extension info in UI
+title = "Gen Proc UI"
+description="Menu options for genproc nodes."
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme = "docs/index.rst"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# One of categories for UI.
+category = "Compute"
+
+# Keywords for the extension
+keywords = ["genproc"]
+
+# Location of change log file in target (final) folder of extension, relative to the root. Can also be just a content
+# of it instead of file path. More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+# Preview image and icon. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+# Preview image is shown in "Overview" of Extensions window. Screenshot of an extension might be a good preview image.
+preview_image = "data/preview.png"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "data/icon.png"
+
+# Main module for the Python interface
+[[python.module]]
+name = "omni.genproc.ui"
+
+# Extensions required to load before this one
+[dependencies]
+"omni.genproc.core" = {}
+"omni.graph" = {}
+"omni.graph.nodes" = {}
+"omni.graph.ui" = {}
+"omni.kit.actions.core" = {}
+"omni.kit.commands" = {}
+"omni.scene.visualization.core" = {}
+"omni.usd" = {}
+"omni.curve.manipulator" = {}
+
+[[test]]
+args = [
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--no-window"
+]
+
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.mainwindow",
+    "omni.kit.test_suite.helpers",
+    "omni.kit.uiapp",
+    "omni.kit.ui_test",
+    "omni.kit.window.stage",
+    "omni.kit.viewport.window"
+]
+
+pyCoverageOmit = ["*/tests/*"]
+
+[package.writeTarget]
+kit = true

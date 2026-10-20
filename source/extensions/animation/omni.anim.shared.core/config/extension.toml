@@ -1,0 +1,89 @@
+[package]
+# Semantic Versioning is used: https://semver.org/
+version = "110.0.1"
+
+# Which category this extension belongs to
+category="Animation"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = [
+    "Xu Nie",
+    "Joe Mancewicz",
+    "Edy Susanto Lim",
+    "Charles Zhou",
+    "Ehsan Hassani Moghaddam"
+]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Animation Shared Core"
+description="Contains codes shared by other animation extensions"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Preview image. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+readme = "docs/README.md"
+
+# Keywords for the extension
+keywords = ["animation"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+icon = "data/icon.png"
+preview_image = "data/preview.png"
+
+[dependencies]
+"omni.runtime.core" = {}
+"omni.usd" = {}
+"omni.graph" = {}
+"omni.graph.tools" = {}
+"omni.graph.nodes" = {}
+"omni.graph.core" = {}
+"omni.kit.commands" = {}
+"omni.timeline" = {}
+"omni.kit.usd_undo" = {}
+"omni.kit.viewport.utility" = {optional = true}
+
+[[test]]
+stdoutFailPatterns.exclude = [
+    "*[Error] [omni.graph.core.plugin] *: inputs:name is empty*",
+    "*Failed opening shader cache version file*",
+]
+
+dependencies = []
+
+args = [
+    "--/app/fastShutdown=true",
+    "--no-window"
+]
+
+[[native.plugin]]
+path = "bin/*.plugin"
+recursive = false
+
+[[python.module]]
+name = "omni.anim.shared.core"
+
+# Additional module used to make test files auto-discoverable
+# [[python.module]]
+# name = "omni.anim.shared.core.python.tests"
+
+# Additional module used to make .ogn test files auto-discoverable
+# [[python.module]]
+# name = "omni.anim.shared.core.python.ogn.tests"
+
+# Watch the .ogn files for hot reloading (only works for Python files)
+[fswatcher.patterns]
+include = ["*.ogn", "*.py"]
+exclude = ["Ogn*Database.py"]
+
+# Python array data uses numpy as its format
+[python.pipapi]
+requirements = ["numpy"]
+use_online_index = true
+
+[package.writeTarget]
+kit = true
+python = true
+usd = true

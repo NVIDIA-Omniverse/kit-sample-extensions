@@ -1,0 +1,28 @@
+[package]
+title = "General Proceduralism"
+category = "Compute"
+version = "105.1.0"
+feature = true
+
+icon = "data/icon.png"
+preview_image = "data/preview.png"
+changelog="docs/CHANGELOG.md"
+readme  = "docs/index.rst"
+
+authors = ["Neil Dickson, Terry Caton, Viatcheslav Telegin, Ian Bullard, Fred Hooper, Peter Shipkov, Ed Quigley, Jihui Shentu, Joe Mancewicz"]
+
+description="Procedural nodes and UI elements"
+
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+keywords = ["genproc"]
+
+[dependencies]
+"omni.genproc.core" = {}
+"omni.genproc.ui" = {}
+
+[[test]]
+waiver = "Bundle extension without any code"
+
+[package.writeTarget]
+kit = true

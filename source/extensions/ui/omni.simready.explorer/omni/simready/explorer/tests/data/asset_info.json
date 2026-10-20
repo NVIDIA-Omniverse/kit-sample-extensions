@@ -1,0 +1,228 @@
+[
+  {
+    "Relative Path": "/assets/props/box_a01/box_a01.usd",
+    "Thumbnail Path": "/.thumbs/256x256/box_a01.usd.png",
+    "Behaviors": [
+      {
+        "PhysicsVariant": {
+          "Prim Path": "/RootNode",
+          "Values": [
+            "RigidBody"
+          ]
+        }
+      }
+    ],
+    "Extent": [
+      0.6,
+      0.4,
+      0.33
+    ],
+    "Tags": [
+      "warehouse",
+      "box",
+      "Q188075",
+      "SimReady",
+      "prop",
+      "container",
+      "product packaging"
+    ],
+    "Labels": {
+      "QCode": "Q188075",
+      "Class": "box",
+      "Hierarchy": "container/product packaging/box"
+    },
+    "Asset Type": "Prop",
+    "Simple Name": "box_a01",
+    "Date Modified": "N/A",
+    "Size": "0.0 MB"
+  },
+  {
+    "Relative Path": "/assets/props/prop1/prop1.usd",
+    "Thumbnail Path": "/.thumbs/256x256/prop1.usd.png",
+    "Behaviors": [
+      {
+        "PhysicsVariant": {
+          "Prim Path": "/RootNode",
+          "Values": [
+            "RigidBody"
+          ]
+        }
+      }
+    ],
+    "Extent": [
+      1.22,
+      1.02,
+      0.14
+    ],
+    "Tags": [
+      "prop",
+      "obstacle",
+      "props",
+      " SimReady ",
+      "transport unit",
+      "product packaging",
+      "pallet"
+    ],
+    "Labels": {
+      "QCode": "Q505996",
+      "Class": "pallet",
+      "Hierarchy": "transport unit/product packaging/pallet"
+    },
+    "Asset Type": "PROP",
+    "Simple Name": "prop1",
+    "Date Modified": "N/A",
+    "Size": "0.0 MB"
+  },
+  {
+    "Relative Path": "/assets/props/prop2/prop2.usd",
+    "Thumbnail Path": "/.thumbs/256x256/prop2.usd.png",
+    "Behaviors": [
+      {
+        "PhysicsVariant": {
+          "Prim Path": "/RootNode",
+          "Values": [
+            "RigidBody"
+          ]
+        }
+      }
+    ],
+    "Extent": [
+      123,
+      321,
+      514
+    ],
+    "Tags": [
+      "prop",
+      "obstacle",
+      "props",
+      " SimReady ",
+      "equipment",
+      "tool",
+      "container"
+    ],
+    "Labels": {
+      "QCode": "Q987767",
+      "Class": "container",
+      "Hierarchy": "equipment/tool/container"
+    },
+    "Asset Type": "PROP",
+    "Simple Name": "prop2",
+    "Date Modified": "N/A",
+    "Size": "0.0 MB"
+  },
+  {
+    "Relative Path": "/assets/vehicles/vehicle1/vehicle1.usd",
+    "Thumbnail Path": "/.thumbs/256x256/vehicle1.usd.png",
+    "Behaviors": [
+      {
+        "DoorVariant": {
+          "Prim Path": "/RootNode",
+          "Values": [
+            "Open",
+            "Closed"
+          ]
+        }
+      }
+    ],
+    "Extent": [
+      3.32,
+      2.56,
+      1.65
+    ],
+    "Tags": [
+      " SimReady ",
+      "vehicle",
+      "motor vehicle",
+      " truck"
+    ],
+    "Labels": {
+      "QCode": "Q43193",
+      "Class": "truck",
+      "Hierarchy": "vehicle/motor vehicle/truck"
+    },
+    "Asset Type": "VEHICLE",
+    "Simple Name": "vehicle1",
+    "Date Modified": "N/A",
+    "Size": "0.0 MB"
+  },
+  {
+    "Relative Path": "/assets/vehicles/vehicle2/vehicle2.usd",
+    "Thumbnail Path": "/.thumbs/256x256/vehicle2.usd.png",
+    "Behaviors": [
+      {
+        "DoorVariant": {
+          "Prim Path": "/RootNode",
+          "Values": [
+            "Open",
+            "Closed"
+          ]
+        }
+      }
+    ],
+    "Extent": [
+      3.32,
+      2.56,
+      1.65
+    ],
+    "Tags": [
+      " SimReady ",
+      "vehicle",
+      "motor vehicle",
+      "truck "
+    ],
+    "Labels": {
+      "QCode": "Q43193",
+      "Class": "truck",
+      "Hierarchy": "vehicle/motor vehicle/truck"
+    },
+    "Asset Type": "VEHICLE",
+    "Simple Name": "vehicle2",
+    "Date Modified": "N/A",
+    "Size": "0.0 MB"
+  },
+  {
+    "Relative Path": "/assets/generic/multitool1/multitool1.usd",
+    "Thumbnail Path": "/.thumbs/256x256/multitool1.usd.png",
+    "Behaviors": [
+      {
+        "Features": {
+          "Prim Path": "/RootNode",
+          "Values": [
+            "Five",
+            "Seven",
+            "Nine"
+          ]
+        },
+        "Colors": {
+          "Prim Path": "/RootNode",
+          "Values": [
+            "Black",
+            "Red",
+            "Blue"
+          ]
+        }
+      }
+    ],
+    "Extent": [
+      0.28,
+      0.09,
+      0.01
+    ],
+    "Tags": [
+      "generic",
+      " SimReady ",
+      "equipment",
+      "tool",
+      "multi-tool"
+    ],
+    "Labels": {
+      "QCode": "Q1419325",
+      "Class": "multi-tool",
+      "Hierarchy": "equipment/tool/multi-tool"
+    },
+    "Asset Type": "GENERIC",
+    "Simple Name": "multitool1",
+    "Date Modified": "N/A",
+    "Size": "0.0 MB"
+  }
+]

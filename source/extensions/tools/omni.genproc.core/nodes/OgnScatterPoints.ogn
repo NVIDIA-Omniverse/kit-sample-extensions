@@ -1,0 +1,441 @@
+{
+    "ScatterPoints": {
+        "description": ["Scatters points on the input geometry with optional curve regions"],
+        "metadata": {
+            "uiName": "scatter points"
+        },
+        "inputs": {
+            "active": {
+                "description": "Is the Scatter Points node currently active?",
+                "type": "bool",
+                "default": true,
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "exclusive": {
+                "description": [
+                    "If this is true, it outputs the point cloud prim and the input bundles,",
+                    "otherwise only the point cloud prim"
+                ],
+                "type": "bool",
+                "default": true,
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "rotations": {
+                "description": [
+                    "If this is true, it output the rotations."
+                ],
+                "type": "bool",
+                "default": true,
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "rotation": {
+                "default": [
+                    0,
+                    0,
+                    0
+                ],
+                "description": [
+                    "Rotate the point in x,y,z. "
+                ],
+                "type": "float[3]",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "rotationRandom": {
+                "default": [
+                    0,
+                    0,
+                    0
+                ],
+                "description": [
+                    "Randomly rotate the particle in x,y,z along a range. "
+                ],
+                "type": "float[3]",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "scales": {
+                "description": [
+                    "If this is true, it output the scales."
+                ],
+                "type": "bool",
+                "default": true,
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "scale": {
+                "default": [
+                    5,
+                    5,
+                    5
+                ],
+                "description": [ "Change the size of the point in x,y,z. " ],
+                "type": "float[3]",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "scaleRandom": {
+                "default": 0.0,
+                "description": [ "Randomly change the size of the point in x,y,z." ],
+                "type": "float",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "objectIndices": {
+                "description": [
+                    "If this is true, it output the object indices."
+                ],
+                "type": "bool",
+                "default": true,
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "objectIndex": {
+                "default": 0,
+                "description": [
+                    "Object index is valid if you have multiple sources to output.",
+                    "this number corresponds with the order you imported your sources."
+                ],
+                "minimum": 0,
+                "type": "int",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "objectIndexRandom": {
+                "default": 0,
+                "description": [ "Randomly pick an 'Object Index' source in a range." ],
+                "minimum": 0,
+                "type": "int",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "normals": {
+                "description": [
+                    "If this is true, it output the object indices."
+                ],
+                "type": "bool",
+                "default": true,
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "tangents": {
+                "description": [
+                    "If this is true, it output the object indices."
+                ],
+                "type": "bool",
+                "default": true,
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "binormals": {
+                "description": [
+                    "If this is true, it output the object indices."
+                ],
+                "type": "bool",
+                "default": true,
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "debugDraw": {
+                "default": false,
+                "description": [],
+                "type": "bool",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "debugDrawCurveTriangulation": {
+                "default": false,
+                "description": [],
+                "type": "bool",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "playbackEvaluation": {
+                "default": false,
+                "description": [ "If this is true, time for the simulation is from the timeline, not real time." ],
+                "type": "bool",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "filterUsingCamera": {
+                "default": false,
+                "description": [ "If true, scattered points will be discarded if they are occluded by scattering geometry or are outside the viewing frustum of the provided camera prim." ],
+                "type": "bool",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "useScatterGeometryAsOcclusionGeometry": {
+                "default": true,
+                "description": [
+                    "If true, prims connected to the 'prim' input of this node will also be used to occlude points when ",
+                    "filtering using a camera. Otherwise, prims connected to the 'occlusionPrim' input will be used."
+                ],
+                "type": "bool",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "playbackStartFrame": {
+                "default": 0,
+                "description": [ "If 'playbackEvaluation' is true, this is the frame after which the simulation will start." ],
+                "type": "int",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "usdTimecode": {
+                "default": 0,
+                "description": [ "The USD timecode at the current playback point (timeline time * timecodes/sec)" ],
+                "type": "double",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "time": {
+                "default": 0,
+                "description": [ "Either the running clock or the timeline time or timeline time, depending on playbackEvaluation" ],
+                "type": "double",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "randomSeed": {
+                "default": 0,
+                "description": [],
+                "type": "uint64",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "scatterOnSurface": {
+                "description": "If this is true, points will be generated on the surface of the input mesh(es).",
+                "type": "bool",
+                "default": true,
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "scatterInsideVolume": {
+                "description": "If this is true, points will be generated inside the input mesh(es).",
+                "type": "bool",
+                "default": true,
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "scatterAcrossPoints": {
+                "description": "If this is true, points will be generated at the vertices of the input mesh(es).",
+                "type": "bool",
+                "default": true,
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "numDesiredPoints": {
+                "description": "The number of generated points desired.",
+                "type": "int",
+                "default": 100,
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "curveTessellation": {
+                "type": "int",
+                "default": 10,
+                "minimum": 1,
+                "maximum": 200,
+                "description": "curve tessellation factor",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "prim": {
+                "description": "Mesh geometry to use for point scattering",
+                "type": "bundle"
+            },
+            "occlusionPrim": {
+                "description": "Geometry to use for occlusion test",
+                "type": "bundle",
+                "optional": true
+            },
+            "cameraPrim": {
+                "description": "Camera prim",
+                "type": "bundle",
+                "optional": true
+            },
+            "curvesBundle": {
+                "description": "Input curve data",
+                "type": "bundle",
+                "optional": true
+            }
+        },
+        "outputs": {
+            "projectedPoints": {
+                "description": [ "If a camera prim is provided, this collection will be populated with points projected into the camera's screen space in the range [-1, 1]. ",
+                                 "If no camera prim is provided, this will be empty." ],
+                "type": "float[2][]",
+                "default": []
+            },
+            "bundle": {
+                "description": [ "output bundle of points data" ],
+                "type": "bundle"
+            }
+        },
+        "state": {
+            "prevActive": {
+                "description": "Previous active value for recompute test",
+                "type": "bool"
+            },
+            "prevExclusive": {
+                "description": "Previous exclusive value for recompute test",
+                "type": "bool"
+            },
+            "prevRotations": {
+                "description": "Previous rotations value for recompute test",
+                "type": "bool"
+            },
+            "prevRotation": {
+                "description": "Previous rotation value for recompute test",
+                "type": "float[3]"
+            },
+            "prevRotationRandom": {
+                "description": "Previous rotation random value for recompute test",
+                "type": "float[3]"
+            },
+            "prevScales": {
+                "description": "Previous scales value for recompute test",
+                "type": "bool"
+            },
+            "prevScale": {
+                "description": "Previous scale value for recompute test",
+                "type": "float[3]"
+            },
+            "prevScaleRandom": {
+                "description": "Previous scale random value for recompute test",
+                "type": "float"
+            },
+            "prevObjectIndices": {
+                "description": "Previous objectIndices value for recompute test",
+                "type": "bool"
+            },
+            "prevObjectIndex": {
+                "description": "Previous objectIndex value for recompute test",
+                "type": "int"
+            },
+            "prevObjectIndexRandom": {
+                "description": "Previous objectIndexRandom value for recompute test",
+                "type": "int"
+            },
+            "prevNormals": {
+                "description": "Previous normals value for recompute test",
+                "type": "bool"
+            },
+            "prevTangents": {
+                "description": "Previous tangents value for recompute test",
+                "type": "bool"
+            },
+            "prevBinormals": {
+                "description": "Previous normals value for recompute test",
+                "type": "bool"
+            },
+            "prevPlaybackEvaluation": {
+                "description": "Previous playbackEvaluation value for recompute test",
+                "type": "bool"
+            },
+            "prevFilterUsingCamera": {
+                "description": "Previous filterUsingCamera value for recompute test",
+                "type": "bool"
+            },
+            "prevUseScatterGeometryAsOcclusionGeometry": {
+                "description": "Previous UseScatterGeometryAsOcclusionGeometry value for recompute test",
+                "type": "bool"
+            },
+            "prevPlaybackStartFrame": {
+                "description": "Previous playbackStartFrame value for recompute test",
+                "type": "int"
+            },
+            "prevUsdTimecode": {
+                "description": "Previous usdTimecode value for recompute test",
+                "type": "double"
+            },
+            "prevTime": {
+                "description": "Previous time value for recompute test",
+                "type": "double"
+            },
+            "prevRandomSeed": {
+                "description": "Previous randomSeed value for recompute test",
+                "type": "uint64"
+            },
+            "prevScatterOnSurface": {
+                "description": "Previous scatterOnSurface value for recompute test",
+                "type": "bool"
+            },
+            "prevScatterInsideVolume": {
+                "description": "Previous scatterInsideVolume value for recompute test",
+                "type": "bool"
+            },
+            "prevScatterAcrossPoints": {
+                "description": "Previous scatterAcrossPoints value for recompute test",
+                "type": "bool"
+            },
+            "prevNumDesiredPoints": {
+                "description": "Previous numDesiredPoints value for recompute test",
+                "type": "int"
+            },
+            "prevCurveTessellation": {
+                "description": "Previous curveTessellation value for recompute test",
+                "type": "int"
+            },
+            "cachedBundle": {
+                "description": "cached curve triangulation",
+                "type": "bundle"
+            }
+        },
+        "tokens": {
+            "points": "points",
+            "curveVertexCounts": "curveVertexCounts",
+            "basis": "basis",
+            "bezier": "bezier",
+            "bspline": "bspline",
+            "catmullRom": "catmullRom",
+            "wrap": "wrap",
+            "pinned": "pinned",
+            "periodic": "periodic",
+            "nonperiodic": "nonperiodic",
+            "transform": "transform",
+            "curveTessellation": "curveTessellation",
+            "curveTriangulation": "curveTriangulation",
+            "trigDebugIndices": "trigDebugIndices",
+            "zoneSign": "zoneSign",
+            "additive": "additive",
+            "subtractive": "subtractive",
+            "rotations": "rotations",
+            "scales": "scales",
+            "objectIndices": "objectIndices",
+            "normals": "normals",
+            "tangents": "tangents",
+            "binormals": "binormals"
+        }
+    }
+}

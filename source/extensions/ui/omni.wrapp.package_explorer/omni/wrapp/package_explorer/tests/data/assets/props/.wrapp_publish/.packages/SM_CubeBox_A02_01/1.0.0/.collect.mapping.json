@@ -1,0 +1,65 @@
+{
+    "version": "1.0",
+    "file_records": [
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_warehousecomposition_m31_01/SM_CubeBox_A02_01.usd",
+            "source_hash": "sha-256-flat;1048576;b7195083268c94f562cacc62e2e7ede312635173e21f98380c60c4d4158a91dd",
+            "target_url": "./SM_CubeBox_A02_01.usd",
+            "target_hash": "sha-256-flat;1048576;b7195083268c94f562cacc62e2e7ede312635173e21f98380c60c4d4158a91dd"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_warehousecomposition_m31_01/SubUSDs/materials/M_CubeBox_Cardboard_01.mdl",
+            "source_hash": "sha-256-flat;1048576;6c37ca4b88b5c06d935244d60eb86a3a643070af9aa0726097e4295fb65386d7",
+            "target_url": "./SubUSDs/materials/M_CubeBox_Cardboard_01.mdl",
+            "target_hash": "sha-256-flat;1048576;6c37ca4b88b5c06d935244d60eb86a3a643070af9aa0726097e4295fb65386d7"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_warehousecomposition_m31_01/SubUSDs/materials/M_CubeBox_Decal_01.mdl",
+            "source_hash": "sha-256-flat;1048576;41a98e0a0f7e14b28928ad442ddb3b244d25a6e9eac12a3552b63cea2a290ff7",
+            "target_url": "./SubUSDs/materials/M_CubeBox_Decal_01.mdl",
+            "target_hash": "sha-256-flat;1048576;41a98e0a0f7e14b28928ad442ddb3b244d25a6e9eac12a3552b63cea2a290ff7"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_warehousecomposition_m31_01/SubUSDs/textures/T_CubeBox_A01_Tile_Albedo.png",
+            "source_hash": "sha-256-flat;1048576;41528423f75a7dedcce88d18e9c9d0cbe49314c2e9df4a577077e408a3fcdc9a",
+            "target_url": "./SubUSDs/textures/T_CubeBox_A01_Tile_Albedo.png",
+            "target_hash": "sha-256-flat;1048576;41528423f75a7dedcce88d18e9c9d0cbe49314c2e9df4a577077e408a3fcdc9a"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_warehousecomposition_m31_01/SubUSDs/textures/T_CubeBox_A01_Trim_Albedo.png",
+            "source_hash": "sha-256-flat;1048576;70aead2e4fe4c35a4bb132732349bc9657ba1224cf8307f5a73547ed0e60ee59",
+            "target_url": "./SubUSDs/textures/T_CubeBox_A01_Trim_Albedo.png",
+            "target_hash": "sha-256-flat;1048576;70aead2e4fe4c35a4bb132732349bc9657ba1224cf8307f5a73547ed0e60ee59"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_warehousecomposition_m31_01/SubUSDs/textures/T_CubeBox_A01_Tile_ORM.png",
+            "source_hash": "sha-256-flat;1048576;e798ad936c42e252b269c1caf924a436e7b5079c16aca75bde9489b372e41905",
+            "target_url": "./SubUSDs/textures/T_CubeBox_A01_Tile_ORM.png",
+            "target_hash": "sha-256-flat;1048576;e798ad936c42e252b269c1caf924a436e7b5079c16aca75bde9489b372e41905"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_warehousecomposition_m31_01/SubUSDs/textures/T_CubeBox_A01_Trim_ORM.png",
+            "source_hash": "sha-256-flat;1048576;d9ed157af5ad714e3457ef8483d9116f21c59298533d9871e1abd60e2df83aa7",
+            "target_url": "./SubUSDs/textures/T_CubeBox_A01_Trim_ORM.png",
+            "target_hash": "sha-256-flat;1048576;d9ed157af5ad714e3457ef8483d9116f21c59298533d9871e1abd60e2df83aa7"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_warehousecomposition_m31_01/SubUSDs/textures/T_CubeBox_A01_Tile_Normal.png",
+            "source_hash": "sha-256-flat;1048576;6fde8ffa7ffccee25f24aa82a4d0ce7fb81f1b73dd1efe33d211475f1194170e",
+            "target_url": "./SubUSDs/textures/T_CubeBox_A01_Tile_Normal.png",
+            "target_hash": "sha-256-flat;1048576;6fde8ffa7ffccee25f24aa82a4d0ce7fb81f1b73dd1efe33d211475f1194170e"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_warehousecomposition_m31_01/SubUSDs/textures/T_CubeBox_A01_Trim_Opacity.png",
+            "source_hash": "sha-256-flat;1048576;6639b48969c123438923e0f8cb92ca45daf6070db51c3333a99402af05159a23",
+            "target_url": "./SubUSDs/textures/T_CubeBox_A01_Trim_Opacity.png",
+            "target_hash": "sha-256-flat;1048576;6639b48969c123438923e0f8cb92ca45daf6070db51c3333a99402af05159a23"
+        },
+        {
+            "source_url": "omniverse://simready.ov.nvidia.com/Projects/Mega/assets/assemblies/kion_warehouse/sm_warehousecomposition_m31_01/SubUSDs/textures/T_CubeBox_A01_Trim_Normal.png",
+            "source_hash": "sha-256-flat;1048576;3c5300f02b33a87aa48a7ffbb57379ddd747bbeb3b5d7dea6a507e35df4c0820",
+            "target_url": "./SubUSDs/textures/T_CubeBox_A01_Trim_Normal.png",
+            "target_hash": "sha-256-flat;1048576;3c5300f02b33a87aa48a7ffbb57379ddd747bbeb3b5d7dea6a507e35df4c0820"
+        }
+    ]
+}

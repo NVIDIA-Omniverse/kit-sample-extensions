@@ -1,0 +1,110 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (0, 0, 50000)
+                double radius = 500
+            }
+            dictionary Perspective = {
+                double3 position = (500, 500, 500)
+                double3 target = (-0.00000397803842133726, 0.000007956076785831101, -0.000003978038307650422)
+            }
+            dictionary Right = {
+                double3 position = (-50000, 0, 0)
+                double radius = 500
+            }
+            dictionary Top = {
+                double3 position = (0, 50000, 0)
+                double radius = 500
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            dictionary muteness = {
+            }
+        }
+        dictionary renderSettings = {}
+    }
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.01
+    startTimeCode = 0
+    timeCodesPerSecond = 24
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def DistantLight "defaultLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float angle = 1
+        float intensity = 3000
+        float shaping:cone:angle = 180
+        float shaping:cone:softness
+        float shaping:focus
+        color3f shaping:focusTint
+        asset shaping:ies:file
+        double3 xformOp:rotateXYZ = (315, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Mesh "Cube"
+    {
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 0, 4, 5, 1, 1, 5, 6, 3, 2, 3, 6, 7, 0, 2, 7, 4, 4, 7, 6, 5]
+        normal3f[] normals = [(0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0)] (
+            interpolation = "faceVarying"
+        )
+        point3f[] points = [(-50, -50, -50), (50, -50, -50), (-50, -50, 50), (50, -50, 50), (-50, 50, -50), (50, 50, -50), (50, 50, 50), (-50, 50, 50)]
+        float2[] primvars:st = [(1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (209.65723282270187, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+
+        def AnimationData "animationData"
+        {
+            uniform int64[] xformOp:translate:x:inTangentTimes = [0, -19600000, -8151641, -43807486, -23710047, -21078898, -19599999, -19599999, -19599999]
+            uniform token[] xformOp:translate:x:inTangentTypes = ["fixed", "fixed", "fixed", "fixed", "fixed", "step", "fixed", "auto", "auto"]
+            uniform double[] xformOp:translate:x:inTangentValues = [0, -115.51547007963596, 74.95357107974553, -211.31400698571665, 15.013858638694728, 15.620842458989358, -283.14861046079955, 0, 0]
+            uniform int64[] xformOp:translate:x:outTangentTimes = [19600000, 19600000, 6974094, 58270771, 19124736, 88158393, 19599999, 19599999, 0]
+            uniform token[] xformOp:translate:x:outTangentTypes = ["fixed", "fixed", "fixed", "fixed", "fixed", "step", "fixed", "auto", "auto"]
+            uniform double[] xformOp:translate:x:outTangentValues = [-15.684711676165207, 115.51566014108735, -64.1263277845461, 975.7038945414148, -12.110308021328137, -65.33115835106148, 283.148818465355, 0, 0]
+            uniform bool[] xformOp:translate:x:tangentBrokens = [0, 0, 0, 1, 0, 0, 0, 0, 0]
+            uniform bool[] xformOp:translate:x:tangentWeighteds = [0, 0, 1, 1, 1, 1, 0, 0, 0]
+            uniform int64[] xformOp:translate:x:times = [0, 58800000, 117600000, 176400000, 235200000, 294000000, 352800000, 411600000, 470400000]
+            uniform double[] xformOp:translate:x:values = [0, 100.289153806077, 370.6647721830309, 206.06440936015574, 358.8886546027529, 209.65723282270187, 209.65723282270187, 209.65723282270187, -5.359057611216393]
+        }
+    }
+
+    def OmniGraph "PushGraph"
+    {
+        token evaluationMode = "Automatic"
+        token evaluator:type = "push"
+        token fabricCacheBacking = "Shared"
+        int2 fileFormatVersion = (1, 4)
+        token pipelineStage = "pipelineStageSimulation"
+
+        def OmniGraphNode "CubeCurveNode"
+        {
+            custom rel inputs:AnimData = </World/Cube/animationData>
+            custom string inputs:IndividualOutputs = ""
+            custom rel inputs:Prim = </World/Cube>
+            custom timecode inputs:Time = 1.79769e+308
+            token node:type = "omni.anim.curve.AnimCurve"
+            int node:typeVersion = 1
+
+            def Output "outputs_AnimFrame"
+            {
+            }
+        }
+    }
+}

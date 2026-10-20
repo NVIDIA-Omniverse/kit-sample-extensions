@@ -1,0 +1,138 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.4.6"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Jeffrey Qiu", "Ning Li"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Environment Core"
+description="Environment APIs, widgets, player and pereference."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['core', 'environment', 'API', 'pereference']
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+category = "Rendering"
+readme  = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+feature = true
+
+[package.target]
+kit = ["107.3"]  # Required for Event 2.0
+
+[package.writeTarget]
+kit = true
+
+[dependencies]
+"omni.kit.window.preferences" = {}
+"omni.kit.widget.sliderbar" = {}
+"omni.kit.viewport.utility" = {}
+"omni.kit.usd.layers" = {}
+"omni.kit.actions.core" = {optional=true}
+"omni.rtx.window.settings" = {optional=true}  # reqruied for command RestoreDefaultRenderSettingSectionCommand
+"omni.kit.notification_manager" = {}
+"omni.kit.window.filepicker" = {optional=true}
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.window.material".
+[[python.module]]
+name = "omni.kit.environment.core"
+
+[settings]
+exts."omni.kit.environment.core".rtx.env.auto = false
+exts."omni.kit.environment.core".rtx.env.defaultUrl = "http://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Skies/Dynamic/ClearSky.usd"
+exts."omni.kit.environment.core".rtx.ground.enable = false
+exts."omni.kit.environment.core".rtx.ground.material = "${omni.kit.environment.core}/data/Ground.mdl"
+exts."omni.kit.environment.core".rtx.ground.subId = ""
+exts."omni.kit.environment.core".extraMdlParam = false
+exts."omni.kit.environment.core".ground.path = ""
+exts."omni.kit.environment.core".rtx.light.warning = true
+
+app.sunstudy.playing = false
+app.sunstudy.enable = true
+app.sunstudy.rate = 1
+app.sunstudy.loop = false
+app.sunstudy.currentSkyPath = ""
+app.sunstudy.currentSkyType = ""
+
+[[test]]
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+    "omni.kit.material.library",
+    "omni.kit.window.filepicker",
+]
+args = [
+    "--/renderer/enabled=ovrtx",               # required for scene template with render settings
+    "--/renderer/active=ovrtx",                # required for scene template with render settings
+    "--/app/asyncRendering=false",
+    "--/renderer/multiGpu/enabled=false",
+    "--/renderer/multiGpu/maxGpuCount=1",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--no-window",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/app/fastShutdown=true",
+    "--reset-user",
+    "--/persistent/app/viewport/displayOptions=0",
+    # Kit 111: test_dynamic_sky deletes the stage's only light, then captures the sky's cone. Its -111.0 golden was
+    # recorded with Runtime Core's fallback light, which Kit #2337 turned off by default (Kit 110.4 adds no light, and
+    # the cone renders black). Render the test with the fallback light, as Kit #2358 does for manipulator.selector.
+    "--/exts/omni.runtime.core/fallbackLight=true",
+]
+
+stdoutFailPatterns.exclude = [
+    "*Failed to acquire interface [omni::kit::renderer::IGpuFoundation v0.2]*", # Leak
+    "*Leak detected when releasing memory allocator Foundation Resource Allocator*", # OM-77580: Linux test failure
+    "*Error when releasing memory pool Foundation Resource Allocator memory pool*", # OM-77580: Linux test failure
+    "*[Error] [gpu.foundation.plugin] Failed to read*", # OMPE-55809: Linux test failure with new driver
+    "*[Error] [rtx.scenedb.plugin] Failed to upload*", # OMPE-55809: Linux test failure with new driver
+    # EA1 only (Kit 111): the published libraries refuse a custom string attribute's write (OVStage "has a different type"); every test passes. Remove when the libraries ship #2840.
+    "*[omni.runtime.core]*ovstage pump_apply_usd_changes op * failed: failed to enqueue write_attributes for *: write_attributes: existing attribute '*' has a different type*",
+    "*[omni.runtime.core]*ovstage pump_apply_usd_changes failed (12): *",
+    "*[omni.runtime.core]*PUMP apply_usd_changes at ordinal * failed; nothing commits until the stage is repopulated past it*",
+]
+
+[[test]]
+name = "rtx"
+pythonTests.include = [
+    "omni.kit.environment.core.tests.test_scene_template.TestSceneTemplate.test_apply_with_render_settings",
+]
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+    "omni.kit.material.library",
+    "omni.kit.window.filepicker",
+]
+args = [
+    "--/renderer/enabled=ovrtx",               # required for scene template with render settings
+    "--/renderer/active=ovrtx",                # required for scene template with render settings
+    "--/app/asyncRendering=false",
+    "--/renderer/multiGpu/enabled=false",
+    "--/renderer/multiGpu/maxGpuCount=1",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--no-window",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/app/fastShutdown=true",
+    "--reset-user",
+]
+
+stdoutFailPatterns.exclude = [
+    # EA1 only (Kit 111): the published libraries refuse a custom string attribute's write (OVStage "has a different type"); every test passes. Remove when the libraries ship #2840.
+    "*[omni.runtime.core]*ovstage pump_apply_usd_changes op * failed: failed to enqueue write_attributes for *: write_attributes: existing attribute '*' has a different type*",
+    "*[omni.runtime.core]*ovstage pump_apply_usd_changes failed (12): *",
+    "*[omni.runtime.core]*PUMP apply_usd_changes at ordinal * failed; nothing commits until the stage is repopulated past it*",
+]
+
+[documentation]
+pages = ["docs/Overview.md", "docs/SETTINGS.md", "docs/USAGE_PYTHON.md", "docs/CHANGELOG.md"]

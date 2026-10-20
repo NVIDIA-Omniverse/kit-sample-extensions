@@ -1,0 +1,12 @@
+Results(
+    asset="tutorial.usda",
+    issues=[
+        Issue(
+            message="Stage has missing or invalid defaultPrim.",
+            severity=IssueSeverity.FAILURE,
+            rule=OmniDefaultPrimChecker,
+            at=StageId(root_layer=LayerId(identifier='tutorial.usda')),
+            suggestion=suggestion(callable=update_default_prim, message='updates the default prim', at=none)
+        )
+    ]
+)

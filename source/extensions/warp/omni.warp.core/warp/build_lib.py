@@ -1,0 +1,720 @@
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#     "numpy",
+# ]
+# ///
+
+# SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# This script is an 'offline' build of the core warp runtime libraries
+# designed to be executed as part of CI / developer workflows, not
+# as part of the user runtime (since it requires CUDA toolkit, etc)
+
+from __future__ import annotations
+
+import argparse
+import copy
+import datetime
+import glob
+import os
+import platform
+import shutil
+import subprocess
+import sys
+import time
+
+import build_llvm
+import warp._src.build_dll as build_dll
+import warp.config as config
+from warp._src.build_architecture import machine_architecture
+from warp._src.generated_files import generate_exports_header_file, generate_version_header
+
+
+def handle_ci_nightly_build(base_path: str) -> str | None:
+    """Update version for nightly builds in scheduled CI pipeline.
+
+    Returns:
+        Updated version string if nightly build was triggered, None otherwise.
+    """
+    ci_pipeline_source = os.environ.get("CI_PIPELINE_SOURCE")
+    if ci_pipeline_source != "schedule":
+        return None
+
+    print("Detected scheduled CI pipeline - updating version for nightly build")
+
+    # Import CI publishing tools
+    sys.path.insert(0, os.path.join(base_path, "tools", "ci", "publishing"))
+    from set_nightly_version import (  # noqa: PLC0415
+        increment_minor,
+        write_new_version_to_config,
+        write_new_version_to_version_file,
+    )
+    from update_git_hash import get_git_hash, update_git_hash_in_config  # noqa: PLC0415
+
+    # Paths
+    version_file = os.path.join(base_path, "VERSION.md")
+    config_file = os.path.join(base_path, "warp", "config.py")
+
+    # Read base version
+    with open(version_file) as f:
+        base_version = f.readline().strip()
+
+    # Generate nightly version
+    if "dev" in base_version:
+        dev_index = base_version.find("dev")
+        base_version_incremented = base_version[:dev_index].rstrip(".")
+    else:
+        base_version_incremented = increment_minor(base_version)
+
+    dateint = datetime.date.today().strftime("%Y%m%d")
+    dev_version_string = f"{base_version_incremented}.dev{dateint}"
+
+    # Update files
+    write_new_version_to_version_file(version_file, dev_version_string, dry_run=False)
+    write_new_version_to_config(config_file, dev_version_string, dry_run=False)
+
+    # Update git hash
+    git_hash = get_git_hash()
+    if git_hash:
+        update_git_hash_in_config(config_file, git_hash, dry_run=False)
+
+    return dev_version_string
+
+
+def find_cuda_sdk() -> str | None:
+    # check environment variables
+    for env in ["WARP_CUDA_PATH", "CUDA_HOME", "CUDA_PATH"]:
+        cuda_sdk = os.environ.get(env)
+        if cuda_sdk is not None:
+            print(f"Using CUDA Toolkit path '{cuda_sdk}' provided through the '{env}' environment variable")
+            return cuda_sdk
+
+    # use which/where to locate the nvcc compiler program
+    nvcc = shutil.which("nvcc")
+    if nvcc is not None:
+        cuda_sdk = os.path.dirname(os.path.dirname(nvcc))  # strip the executable name and bin folder
+        print(f"Using CUDA Toolkit path '{cuda_sdk}' found through 'which nvcc'")
+        return cuda_sdk
+
+    # check default paths
+    if platform.system() == "Windows":
+        cuda_paths = glob.glob(r"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v*.*")
+        if cuda_paths:
+            # Choose the newest installed toolkit
+            def version_key(p: str) -> tuple[int, int]:
+                base = os.path.basename(p)  # e.g., "v12.5"
+                ver = base[1:].split(".")  # drop leading 'v'
+                return (int(ver[0]), int(ver[1]) if len(ver) > 1 else 0)
+
+            cuda_sdk = max(cuda_paths, key=version_key)
+            print(f"Using CUDA Toolkit path '{cuda_sdk}' found at default path")
+            return cuda_sdk
+    else:
+        usr_local_cuda = "/usr/local/cuda"
+        if os.path.exists(usr_local_cuda):
+            cuda_sdk = usr_local_cuda
+            print(f"Using CUDA Toolkit path '{cuda_sdk}' found at default path")
+            return cuda_sdk
+
+    return None
+
+
+def resolve_libmathdx_path(libmathdx_path: str) -> str:
+    """Return the directory that holds libmathdx's ``include`` and ``lib`` subdirectories.
+
+    libmathdx 0.4.0 and newer ship archives that wrap the payload in a single top-level
+    directory (e.g. ``libmathdx-linux-x86_64``), one level above the layout Warp compiles
+    and links against. Descend into that wrapper when the given path does not already
+    hold the expected layout.
+
+    Args:
+        libmathdx_path: Path to a libmathdx installation.
+
+    Returns:
+        The resolved path, or ``libmathdx_path`` unchanged when no nested directory
+        matches, leaving :func:`validate_libmathdx_path` to report the problem.
+    """
+    if os.path.isdir(os.path.join(libmathdx_path, "include")):
+        return libmathdx_path
+
+    for nested in sorted(glob.glob(os.path.join(libmathdx_path, "libmathdx-*"))):
+        if os.path.isdir(os.path.join(nested, "include")):
+            print(f"Using nested libmathdx directory '{nested}'")
+            return nested
+
+    return libmathdx_path
+
+
+def validate_libmathdx_path(libmathdx_path: str) -> bool:
+    """Validate that libmathdx path exists and has required directory structure.
+
+    Args:
+        libmathdx_path: Path to libmathdx installation to validate.
+
+    Returns:
+        True if valid, False otherwise (with error message printed).
+    """
+    if not os.path.isdir(libmathdx_path):
+        print(f"Error: libmathdx path does not exist or is not a directory: {libmathdx_path}")
+        return False
+
+    # Check for required subdirectories
+    libmathdx_lib_subdir = "lib/x64" if platform.system() == "Windows" else "lib"
+    required_dirs = {
+        "include": os.path.join(libmathdx_path, "include"),
+        libmathdx_lib_subdir: os.path.join(libmathdx_path, libmathdx_lib_subdir),
+    }
+
+    for name, path in required_dirs.items():
+        if not os.path.isdir(path):
+            print(f"Error: libmathdx installation is missing '{name}' directory: {path}")
+            return False
+
+    return True
+
+
+def find_libmathdx(cuda_toolkit_major_version: int, base_path: str) -> str | None:
+    libmathdx_path = os.environ.get("LIBMATHDX_HOME")
+
+    if libmathdx_path:
+        print(f"Using libmathdx path '{libmathdx_path}' provided through the 'LIBMATHDX_HOME' environment variable")
+        return libmathdx_path
+
+    # Fetch libmathdx from https://developer.nvidia.com/cublasdx-downloads using Packman
+    if platform.system() == "Windows":
+        packman = os.path.join(base_path, "tools", "packman", "packman.cmd")
+    elif platform.system() == "Linux":
+        packman = os.path.join(base_path, "tools", "packman", "packman")
+    else:
+        raise RuntimeError(f"Unsupported platform for libmathdx: {platform.system()}")
+
+    packman_cmd = [
+        packman,
+        "pull",
+        "--verbose",
+        "--platform",
+        f"{platform.system()}-{machine_architecture()}".lower(),
+        "--include-tag",
+        f"cu{cuda_toolkit_major_version}",
+        os.path.join(base_path, "deps", "libmathdx-deps.packman.xml"),
+    ]
+
+    # Reuse the current interpreter so packman skips downloading its bundled Python,
+    # whose manylinux_2_35 build can't run on older-glibc CI images. Use it only as a
+    # default: a pre-set PM_PYTHON_EXT wins, since cross-compilation (e.g. aarch64) needs
+    # the build-platform Python instead of sys.executable's crossenv wrapper.
+    packman_env = {"PM_PYTHON_EXT": sys.executable, **os.environ}
+
+    retry_delays = [10, 30, 60]
+    max_attempts = 1 + len(retry_delays)
+
+    for attempt in range(1, max_attempts + 1):
+        try:
+            output = subprocess.check_output(
+                packman_cmd,
+                stderr=subprocess.STDOUT,
+                text=True,
+                env=packman_env,
+            )
+            # Only print on verbose; caller controls this flag via build_dll.verbose_cmd
+            if build_dll.verbose_cmd:
+                print(output, end="")
+            break
+        except subprocess.CalledProcessError as e:
+            if attempt < max_attempts:
+                delay = retry_delays[attempt - 1]
+                print(f"Failed to fetch libmathdx (attempt {attempt}/{max_attempts}). Retrying in {delay}s...")
+                time.sleep(delay)
+            else:
+                print(e.output)
+
+                # Check if the libmathdx target directory exists and is not a symbolic link
+                libmathdx_target_dir = os.path.join(base_path, "_build", "target-deps", "libmathdx")
+                if os.path.exists(libmathdx_target_dir) and not os.path.islink(libmathdx_target_dir):
+                    print(f"\nError: {libmathdx_target_dir} exists and is not a symbolic link.")
+                    print("Please try deleting this folder and running the script again.")
+                raise
+
+    # Success
+    return os.path.join(base_path, "_build", "target-deps", "libmathdx")
+
+
+def lib_name(name: str) -> str:
+    """Return platform-specific shared library name."""
+    if platform.system() == "Windows":
+        return f"{name}.dll"
+    elif platform.system() == "Darwin":
+        return f"lib{name}.dylib"
+    else:
+        return f"{name}.so"
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(
+        description="Build Warp native libraries with optional CUDA, LLVM, and MathDx support",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        allow_abbrev=False,
+    )
+
+    # General options
+    parser.add_argument(
+        "--mode",
+        type=str,
+        choices=["release", "debug"],
+        default="release",
+        help="Build configuration mode",
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_const",
+        const="debug",
+        dest="mode",
+        default=argparse.SUPPRESS,
+        help="Shortcut for --mode debug",
+    )
+    try:
+        available_cpus = len(os.sched_getaffinity(0))
+    except AttributeError:
+        available_cpus = os.cpu_count() or 4
+    parser.add_argument(
+        "-j",
+        "--jobs",
+        type=int,
+        default=min(available_cpus, 8),
+        help="Number of concurrent build tasks",
+    )
+    parser.add_argument(
+        "--verbose",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Enable verbose build output",
+    )
+    parser.add_argument(
+        "--compile-time-trace",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Generate compilation profiling trace file 'build_warp_time_trace.json' (does not affect output binary)",
+    )
+
+    # Toolchain paths
+    group_toolchain = parser.add_argument_group("Toolchain Paths")
+    group_toolchain.add_argument(
+        "--msvc-path",
+        type=str,
+        help="Path to MSVC compiler (Windows only, optional if on PATH)",
+    )
+    group_toolchain.add_argument(
+        "--sdk-path",
+        type=str,
+        help="Path to Windows SDK (Windows only, optional if on PATH)",
+    )
+    group_toolchain.add_argument(
+        "--cuda-path",
+        type=str,
+        help="Path to CUDA Toolkit installation (auto-detected via WARP_CUDA_PATH, CUDA_HOME, CUDA_PATH, or nvcc)",
+    )
+    group_toolchain.add_argument(
+        "--libmathdx-path",
+        type=str,
+        help="Path to NVIDIA libmathdx installation (optional if LIBMATHDX_HOME is set)",
+    )
+
+    # Build options
+    group_build = parser.add_argument_group("Build Options")
+    group_build.add_argument(
+        "--cuda",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Build with CUDA support (auto-detects CUDA Toolkit). Use --no-cuda for a CPU-only build",
+    )
+    group_build.add_argument(
+        "--clang-build-toolchain",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Use Clang for both CPU and GPU compilation (Linux only, experimental)",
+    )
+    group_build.add_argument(
+        "--use-libmathdx",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Build with NVIDIA libmathdx (includes cuBLASDx/cuFFTDx/cuSOLVERDx) for tile operations: matrix multiplication, FFT, and linear solvers",
+    )
+    group_build.add_argument(
+        "--verify-fp",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Verify floating-point values are finite after each kernel launch",
+    )
+    group_build.add_argument(
+        "--fast-math",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Enable fast math optimizations (may reduce numerical accuracy)",
+    )
+    group_build.add_argument(
+        "--sanitize",
+        type=str,
+        default=None,
+        metavar="SANITIZER",
+        help="Enable a compiler sanitizer when building native libraries "
+        "(e.g. --sanitize=address). Only 'address' is currently supported; "
+        "'undefined', 'thread', and 'memory' are accepted by the parser for "
+        "future use but are not validated or guaranteed to build.",
+    )
+    group_build.add_argument(
+        "--quick",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Fast build mode: compile for minimal GPU architectures (PTX-only for sm_75), disable CUDA forward compatibility",
+    )
+    group_build.add_argument(
+        "--use-dynamic-cuda",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Link against shared CUDA libraries instead of embedding them statically; the corresponding shared libraries must be present at runtime",
+    )
+
+    # Clang/LLVM options
+    group_clang_llvm = parser.add_argument_group(
+        "Clang/LLVM Options",
+        "Options for building LLVM compiler support (used for CPU kernels, optionally for GPU via runtime config)",
+    )
+    group_clang_llvm.add_argument(
+        "--standalone",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Build warp-clang library for CPU kernel compilation (disabling makes only CUDA devices available)",
+    )
+    group_clang_llvm.add_argument(
+        "--llvm-path",
+        type=str,
+        help="Path to existing LLVM installation (used for warp-clang library and adds bin to PATH for --clang-build-toolchain)",
+    )
+    group_clang_llvm.add_argument(
+        "--build-llvm",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Build Clang/LLVM from source (takes ~60 minutes)",
+    )
+    group_clang_llvm.add_argument(
+        "--llvm-source-path",
+        type=str,
+        help="Path to LLVM source code for building (only used with --build-llvm; defaults to external/llvm-project submodule)",
+    )
+    group_clang_llvm.add_argument(
+        "--debug-llvm",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Build LLVM with debug symbols and assertions enabled",
+    )
+
+    args = parser.parse_args(argv)
+
+    # Validate mutually exclusive LLVM options
+    if args.llvm_path and args.build_llvm:
+        print("Error: --llvm-path and --build-llvm are mutually exclusive.")
+        print("  Use --llvm-path to use an existing LLVM installation")
+        print("  Use --build-llvm to build LLVM from source")
+        return 1
+
+    # Validate --no-cuda conflicts
+    if not args.cuda:
+        if args.cuda_path:
+            print("Error: --no-cuda and --cuda-path are mutually exclusive.")
+            return 1
+        if args.clang_build_toolchain:
+            print("Error: --clang-build-toolchain requires CUDA (incompatible with --no-cuda).")
+            return 1
+        if args.use_dynamic_cuda:
+            print("Error: --use-dynamic-cuda requires CUDA (incompatible with --no-cuda).")
+            return 1
+
+    # Warn if building on Intel Mac (cross-compiling for ARM64)
+    if platform.system() == "Darwin" and machine_architecture() == "x86_64":
+        print("=" * 80)
+        print("WARNING: Building Warp on Intel-based macOS")
+        print("=" * 80)
+        print("You are building Warp for ARM64 (Apple Silicon) on an Intel Mac.")
+        print("The resulting binaries will NOT run on this machine.")
+        print()
+        print("Intel-based macOS is no longer supported for running Warp.")
+        print("Use Warp 1.9.x or earlier if you need to run Warp on Intel Mac.")
+        print("=" * 80)
+        print()
+
+    # resolve base paths
+    base_path = os.path.dirname(os.path.realpath(__file__))
+    build_path = os.path.join(base_path, "warp")
+
+    if args.verbose:
+        print(args)
+
+    # propagate verbosity to build subsystem
+    build_dll.verbose_cmd = args.verbose
+
+    # check LLVM build dependencies early if --build-llvm is set
+    if args.build_llvm:
+        try:
+            build_llvm.check_build_dependencies(verbose=args.verbose)
+        except RuntimeError as e:
+            print(f"Warp build error: {e}")
+            return 1
+
+    # setup CUDA Toolkit path
+    if platform.system() == "Darwin" or not args.cuda:
+        if not args.cuda:
+            print("CUDA support disabled (--no-cuda)")
+        args.cuda_path = None
+        args.libmathdx_path = None
+    else:
+        if not args.cuda_path:
+            args.cuda_path = find_cuda_sdk()
+
+        # libmathdx needs to be used with a build of Warp that supports CUDA
+        if args.use_libmathdx:
+            if not args.libmathdx_path and args.cuda_path:
+                major, _ = build_dll.get_cuda_toolkit_version(args.cuda_path)
+                args.libmathdx_path = find_libmathdx(major, base_path)
+        else:
+            args.libmathdx_path = None
+
+    # Validate libmathdx path (from any source: CLI, environment, or Packman)
+    if args.libmathdx_path:
+        args.libmathdx_path = resolve_libmathdx_path(args.libmathdx_path)
+        if not validate_libmathdx_path(args.libmathdx_path):
+            return 1
+
+    # setup MSVC and WinSDK paths
+    if platform.system() == "Windows":
+        if args.msvc_path or args.sdk_path:
+            # user provided MSVC and Windows SDK
+            if not (args.msvc_path and args.sdk_path):
+                print("Error: --msvc-path and --sdk-path must be used together")
+                return 1
+            args.host_compiler = build_dll.set_msvc_env(msvc_path=args.msvc_path, sdk_path=args.sdk_path)
+        else:
+            # attempt to find MSVC in environment (will set vcvars)
+            args.host_compiler = build_dll.find_host_compiler()
+            if not args.host_compiler:
+                print("Warp build error: Could not find MSVC compiler")
+                return 1
+    else:
+        args.host_compiler = build_dll.find_host_compiler()
+        if not args.host_compiler:
+            print("Warp build error: Could not find C++ compiler")
+            return 1
+
+    try:
+        # Handle CI nightly builds (returns updated version string if triggered, else None)
+        nightly_version = handle_ci_nightly_build(base_path)
+
+        if nightly_version is not None:
+            build_version = nightly_version
+        else:
+            build_version = config.version
+
+        if args.verbose:
+            print(f"Building Warp version {build_version}")
+
+        # Generate warp/native/export.h
+        generate_exports_header_file(base_path)
+
+        # Generate warp/native/version.h
+        generate_version_header(base_path, build_version)
+
+        # build warp.dll
+        cpp_sources = [
+            "native/warp.cpp",
+            "native/bvh.cpp",
+            "native/bvh_cubql.cpp",
+            "native/scan.cpp",
+            "native/apic.cpp",
+            "native/alloc_tracker.cpp",
+            "native/crt.cpp",
+            "native/error.cpp",
+            "native/cuda_util.cpp",
+            "native/mesh.cpp",
+            "native/hashgrid.cpp",
+            "native/reduce.cpp",
+            "native/runlength_encode.cpp",
+            "native/sort.cpp",
+            "native/sparse.cpp",
+            "native/volume.cpp",
+            "native/volume_builder.cpp",
+            "native/texture.cpp",
+            "native/mathdx.cpp",
+            "native/coloring.cpp",
+            "native/deterministic.cpp",
+        ]
+        warp_cpp_paths = [os.path.join(build_path, cpp) for cpp in cpp_sources]
+
+        if args.cuda_path is None:
+            if args.cuda:
+                print("Warning: CUDA toolchain not found, building without CUDA support")
+            warp_cu_paths = None
+        else:
+            cuda_sources = [
+                "native/bvh.cu",
+                "native/deterministic.cu",
+                "native/bvh_cubql.cu",
+                "native/mesh.cu",
+                "native/sort.cu",
+                "native/hashgrid.cu",
+                "native/reduce.cu",
+                "native/runlength_encode.cu",
+                "native/scan.cu",
+                "native/sparse.cu",
+                "native/volume.cu",
+                "native/volume_builder.cu",
+                "native/warp.cu",
+            ]
+            warp_cu_paths = [os.path.join(build_path, cu) for cu in cuda_sources]
+
+            # libmathdx is only needed when building with CUDA
+            if args.use_libmathdx and args.libmathdx_path is None:
+                print("Error: libmathdx not found. MathDx support is enabled but libmathdx could not be located.")
+                print("  Either:")
+                print("    - Install libmathdx and set LIBMATHDX_HOME environment variable")
+                print("    - Use --libmathdx-path to specify the installation path")
+                print("    - Use --no-use-libmathdx to build without MathDx support")
+                return 1
+
+        warp_dll_path = os.path.join(build_path, f"bin/{lib_name('warp')}")
+
+        # Build warp.dll and warp-clang.dll in parallel (only when not building LLVM from source)
+        # Object files use unique names per target (derived from dll_path) to avoid conflicts
+        if args.standalone and not args.build_llvm:
+            import concurrent.futures  # noqa: PLC0415
+
+            # Set up PATH before spawning threads to avoid concurrent os.environ mutation
+            build_dll.add_llvm_bin_to_path(args)
+
+            # Halve jobs per sub-build to avoid oversubscribing CPUs
+            parallel_args = copy.copy(args)
+            parallel_args.jobs = max(1, args.jobs // 2)
+
+            with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+                warp_future = executor.submit(
+                    build_dll.build_dll,
+                    parallel_args,
+                    dll_path=warp_dll_path,
+                    cpp_paths=warp_cpp_paths,
+                    cu_paths=warp_cu_paths,
+                )
+                clang_future = executor.submit(build_llvm.build_warp_clang, parallel_args, lib_name("warp-clang"))
+
+                # Wait for both and report all errors
+                errors = []
+                for future in concurrent.futures.as_completed([warp_future, clang_future]):
+                    try:
+                        future.result()
+                    except Exception as e:
+                        errors.append(e)
+                if errors:
+                    for e in errors:
+                        print(f"Build error: {e}")
+                    raise errors[0]
+        else:
+            build_dll.build_dll(args, dll_path=warp_dll_path, cpp_paths=warp_cpp_paths, cu_paths=warp_cu_paths)
+
+            if args.standalone:
+                build_llvm.build_llvm_clang_from_source(args)
+                build_llvm.build_warp_clang(args, lib_name("warp-clang"))
+
+    except Exception as e:
+        print(f"Warp build error: {e}")
+        return 1
+
+    try:
+        is_gitlab_ci_windows = os.getenv("GITLAB_CI") is not None and platform.system() == "Windows"
+        is_intel_mac = platform.system() == "Darwin" and machine_architecture() == "x86_64"
+
+        if is_gitlab_ci_windows or is_intel_mac:
+            if is_gitlab_ci_windows:
+                print("Skipping kernel cache clearing in GitLab CI on Windows")
+            if is_intel_mac:
+                print("Skipping kernel cache clearing on Intel Mac (binaries built for ARM64)")
+        else:
+            # On Linux, an ASan-instrumented warp.so aborts at load time unless the ASan
+            # runtime comes first in the initial library list. The post-build helper
+            # subprocesses below import Warp, so on a --sanitize=address build they must
+            # LD_PRELOAD the runtime or they abort with "ASan runtime does not come first".
+            subprocess_env = os.environ.copy()
+            if args.sanitize == "address" and platform.system() == "Linux":
+                compiler = "clang++" if args.clang_build_toolchain else args.host_compiler
+                # GCC ships libasan.so; Clang ships libclang_rt.asan-<arch>.so.
+                runtime_name = (
+                    f"libclang_rt.asan-{machine_architecture()}.so"
+                    if "clang" in os.path.basename(compiler)
+                    else "libasan.so"
+                )
+                try:
+                    asan_lib = subprocess.run(
+                        [compiler, f"-print-file-name={runtime_name}"],
+                        capture_output=True,
+                        text=True,
+                        check=True,
+                    ).stdout.strip()
+                except (OSError, subprocess.CalledProcessError) as e:
+                    print(f"Warning: could not query {compiler} for the ASan runtime path: {e}")
+                    asan_lib = ""
+                if asan_lib and asan_lib != runtime_name and os.path.exists(asan_lib):
+                    existing = subprocess_env.get("LD_PRELOAD", "")
+                    subprocess_env["LD_PRELOAD"] = f"{asan_lib}:{existing}" if existing else asan_lib
+                else:
+                    print(
+                        f"Warning: could not locate {runtime_name} via {compiler}; the kernel cache "
+                        "clear and diagnostics may fail to load warp.so"
+                    )
+                # Python/NumPy retain allocations across interpreter shutdown that ASan would
+                # report as leaks, making these utility subprocesses exit non-zero. Disable leak
+                # detection for them only. (verify_asan_link_order is not needed: the preload above
+                # makes the runtime first.)
+                existing_opts = subprocess_env.get("ASAN_OPTIONS", "")
+                subprocess_env["ASAN_OPTIONS"] = (
+                    f"{existing_opts}:detect_leaks=0" if existing_opts else "detect_leaks=0"
+                )
+
+            # Clear kernel cache in subprocess (ensures fresh import of updated config.py)
+            print("Clearing kernel cache...")
+            sys.stdout.flush()
+            sys.stderr.flush()
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "-c",
+                    "from warp._src.build import clear_kernel_cache, clear_lto_cache; clear_kernel_cache(); clear_lto_cache()",
+                ],
+                cwd=base_path,
+                check=False,
+                env=subprocess_env,
+            )
+            if result.returncode != 0:
+                print(f"Warning: Failed to clear kernel cache (exit code {result.returncode})")
+
+            # Flush build output before printing diagnostics so log ordering is correct
+            sys.stdout.flush()
+            sys.stderr.flush()
+
+            # Print build diagnostics (subprocess ensures fresh import of rebuilt libraries)
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "-c",
+                    "import warp; warp.print_diagnostics()",
+                ],
+                cwd=base_path,
+                check=False,
+                env=subprocess_env,
+            )
+    except Exception as e:
+        print(f"Unable to clear kernel cache: {e}")
+
+    print("Warp build succeeded")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

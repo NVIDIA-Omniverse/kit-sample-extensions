@@ -1,0 +1,2 @@
+# Don't put our .usda files in LFS as they are small text files.
+*.usda      !filter !diff !merge text

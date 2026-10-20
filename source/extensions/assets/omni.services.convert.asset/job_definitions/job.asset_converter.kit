@@ -1,0 +1,18 @@
+
+[settings.app.exts.folders]
+'++' = ["${job}/exts-job.asset_converter"]
+
+[job."asset-converter"]
+job_type = "kit-service"
+name = "asset-converter"
+command = "${kit}/kit${exe_ext}"
+args = [
+    "--enable omni.services.convert.asset",
+]
+
+# task_function maps to a path defined by a service api router.
+task_function = "convert.asset.process"
+headless = true
+env = {}
+log_to_stdout = true
+job_spec_path = "omni.services.convert.asset"

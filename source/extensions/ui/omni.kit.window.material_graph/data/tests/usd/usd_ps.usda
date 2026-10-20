@@ -1,0 +1,85 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.01
+    startTimeCode = 0
+    timeCodesPerSecond = 60
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def Scope "Looks"
+    {
+        def Material "PreviewSurfaceTexture"
+        {
+            token outputs:displacement.connect = </World/Looks/PreviewSurfaceTexture/UsdPreviewSurface.outputs:displacement>
+            token outputs:surface.connect = </World/Looks/PreviewSurfaceTexture/UsdPreviewSurface.outputs:surface>
+
+            def Shader "UsdPreviewSurface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor.connect = </World/Looks/PreviewSurfaceTexture/diffuseColorTex.outputs:rgb>
+                float inputs:metallic.connect = </World/Looks/PreviewSurfaceTexture/metallicTex.outputs:r>
+                normal3f inputs:normal.connect = </World/Looks/PreviewSurfaceTexture/normalTex.outputs:rgb>
+                float inputs:roughness.connect = </World/Looks/PreviewSurfaceTexture/roughnessTex.outputs:r>
+                token outputs:displacement
+                token outputs:surface
+            }
+
+            def Shader "st"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                string inputs:varname = "st"
+                float2 outputs:result
+            }
+
+            def Shader "diffuseColorTex"
+            {
+                uniform token info:id = "UsdUVTexture"
+                float2 inputs:st.connect = </World/Looks/PreviewSurfaceTexture/st.outputs:result>
+                float outputs:a
+                float outputs:b
+                float outputs:g
+                float outputs:r
+                float3 outputs:rgb
+            }
+
+            def Shader "metallicTex"
+            {
+                uniform token info:id = "UsdUVTexture"
+                float2 inputs:st.connect = </World/Looks/PreviewSurfaceTexture/st.outputs:result>
+                float outputs:a
+                float outputs:b
+                float outputs:g
+                float outputs:r
+                float3 outputs:rgb
+            }
+
+            def Shader "roughnessTex"
+            {
+                uniform token info:id = "UsdUVTexture"
+                float2 inputs:st.connect = </World/Looks/PreviewSurfaceTexture/st.outputs:result>
+                float outputs:a
+                float outputs:b
+                float outputs:g
+                float outputs:r
+                float3 outputs:rgb
+            }
+
+            def Shader "normalTex"
+            {
+                uniform token info:id = "UsdUVTexture"
+                float4 inputs:fallback = (0, 0, 1, 1)
+                token inputs:sourceColorSpace = "raw"
+                float2 inputs:st.connect = </World/Looks/PreviewSurfaceTexture/st.outputs:result>
+                float outputs:a
+                float outputs:b
+                float outputs:g
+                float outputs:r
+                float3 outputs:rgb
+            }
+        }
+    }
+}

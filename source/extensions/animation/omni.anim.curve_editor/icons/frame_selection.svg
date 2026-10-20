@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33">
+  <g id="frame_selection" transform="translate(-15165.44 7301.5)">
+    <g id="Group_2422" data-name="Group 2422" transform="translate(15190.1 -7299.7)">
+      <line id="Line_501" data-name="Line 501" x2="6.555" fill="none" stroke="#ccc" stroke-linecap="round" stroke-width="2"/>
+      <line id="Line_502" data-name="Line 502" y1="6.555" transform="translate(6.555)" fill="none" stroke="#ccc" stroke-linecap="round" stroke-width="2"/>
+    </g>
+    <g id="Group_2421" data-name="Group 2421" transform="translate(15173.854 -7270.345) rotate(180)">
+      <line id="Line_501-2" data-name="Line 501" x2="6.555" fill="none" stroke="#ccc" stroke-linecap="round" stroke-width="2"/>
+      <line id="Line_502-2" data-name="Line 502" y1="6.555" transform="translate(6.555)" fill="none" stroke="#ccc" stroke-linecap="round" stroke-width="2"/>
+    </g>
+    <g id="Group_2423" data-name="Group 2423" transform="translate(15196.654 -7276.9) rotate(90)">
+      <line id="Line_501-3" data-name="Line 501" x2="6.555" fill="none" stroke="#ccc" stroke-linecap="round" stroke-width="2"/>
+      <line id="Line_502-3" data-name="Line 502" y1="6.555" transform="translate(6.555)" fill="none" stroke="#ccc" stroke-linecap="round" stroke-width="2"/>
+    </g>
+    <g id="Group_2419" data-name="Group 2419" transform="translate(15167.3 -7293.146) rotate(-90)">
+      <line id="Line_501-4" data-name="Line 501" x2="6.555" fill="none" stroke="#ccc" stroke-linecap="round" stroke-width="2"/>
+      <line id="Line_502-4" data-name="Line 502" y1="6.555" transform="translate(6.555)" fill="none" stroke="#ccc" stroke-linecap="round" stroke-width="2"/>
+    </g>
+    <rect id="Rectangle_1076" data-name="Rectangle 1076" width="33" height="33" transform="translate(15165.44 -7301.5)" fill="none"/>
+    <g id="Group_3604" data-name="Group 3604" transform="translate(15165.922 -7289.019)">
+      <g id="Component_7_61" data-name="Component 7 – 61" transform="translate(12)">
+        <rect id="Rectangle_1089" data-name="Rectangle 1089" width="8.037" height="8.037" fill="#f9f903"/>
+      </g>
+    </g>
+  </g>
+</svg>

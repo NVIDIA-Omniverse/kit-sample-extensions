@@ -1,0 +1,75 @@
+# The title and description fields are primarly for displaying extension info in UI
+[package]
+title = "Omniverse animation curve UI"
+description = "UI code of animation curve"
+
+# Semantic Versioning is used: https://semver.org/
+version = "111.0.0"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Xu Nie", "Jiayuan Zhu", "Gang Zeng"]
+
+# Which category this extension belongs to
+category = "Animation"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ["animation", "curve"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog = "docs/CHANGELOG.md"
+readme = "docs/README.md"
+
+# Preview image. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+icon = "data/icon.svg"
+preview_image = "data/preview.png"
+
+# Additional python module used to make .ogn test files auto-discoverable
+[[python.module]]
+name = "omni.anim.curve.ui"
+
+[dependencies]
+"omni.usd" = {}
+"omni.ui" = {}
+"omni.kit.property.usd" = {}
+"omni.kit.window.property" = {}
+"omni.kit.menu.utils" = {}
+"omni.kit.usd_undo" = {}
+"omni.anim.curve.core" = {version = "111.0.0"}
+"omni.usd.schema.anim" = {}
+
+[[test]]
+dependencies = [
+    # "omni.kit.window.viewport",
+    "omni.kit.viewport.window",  # to only test against the new viewport
+    "omni.kit.property.transform",
+    "omni.kit.ui_test",
+    "omni.kit.test_suite.helpers",
+    "omni.kit.window.content_browser",
+    "omni.kit.property.geometry",  # for context menu unit tests
+    "omni.kit.context_menu",
+]
+args = ["--/app/asyncRendering=false",
+        "--/app/hydraEngine/waitIdle=true",
+        "--/app/renderer/waitIdle=true",
+        "--/app/file/ignoreUnsavedOnExit=true",
+        "--/renderer/multiGpu/autoEnable=false",
+        "--/rtx/materialDb/syncLoads=true",
+        "--/omni.kit.plugin/syncUsdLoads=true",
+        "--/rtx/hydra/materialSyncLoads=true",
+        "--/exts/omni.usd/updatePriority=1",
+        # Copy/paste code in context menu test (test_anim_curve_property_remove_animation) needs a window to be available, or it crashes.
+        "--no-window",
+        "--/app/window/dpiScaleOverride=1.0",
+        "--/app/window/scaleToMonitor=false",
+        "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",  # to only test against the new viewport
+        ]
+timeout = 600
+
+
+[package.writeTarget]
+usd = true
+kit = true

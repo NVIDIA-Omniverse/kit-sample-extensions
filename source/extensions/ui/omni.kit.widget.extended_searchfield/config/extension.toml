@@ -1,0 +1,79 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.0.31"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Michael", "Artem Rozantsev"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Extended Search Field"
+description="A widget to input search words."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ["kit", "ui", "widget", "searchfield"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme = "docs/README.md"
+
+# Preview image and icon. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+# Preview image is shown in "Overview" of Extensions window. Screenshot of an extension might be a good preview image.
+preview_image = "data/preview.png"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "data/icon.png"
+
+category = "Internal"
+
+# We only depend on testing framework currently:
+[dependencies]
+"omni.ui" = {}
+"omni.kit.widget.examples" = { optional = true }
+"omni.kit.widget.calendar" = { version = "1.0.4" }
+"omni.kit.window.content_browser" = { optional = true }
+"omni.kit.search_core" = { optional = true }
+"omni.kit.window.filepicker" = {}
+"omni.kit.widget.search_delegate" = {}
+"omni.client" = {}
+
+[[python.module]]
+name = "omni.search_grammar"
+
+[[python.module]]
+name = "omni.deepsearch"
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.widget.searchfield".
+[[python.module]]
+name = "omni.kit.widget.extended_searchfield"
+
+
+[documentation]
+pages = [
+    "docs/CHANGELOG.md",
+]
+
+[settings]
+
+# Do not print all info logging of this extension to std out
+exts."omni.kit.ui_test".printInfoLog = false
+
+[[test]]
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--no-window",
+]
+
+dependencies = [
+    "omni.kit.ui_test",
+]
+
+stdoutFailPatterns.exclude = [
+    "*[WARNING] [omni.search_grammar] Warning: more than 1 value for query*",
+]

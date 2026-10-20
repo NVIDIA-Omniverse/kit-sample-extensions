@@ -1,0 +1,43 @@
+# SPDX-FileCopyrightText: Copyright (c) 2022-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: LicenseRef-NvidiaProprietary
+#
+# NVIDIA CORPORATION, its affiliates and licensors retain all intellectual
+# property and proprietary rights in and to this material, related
+# documentation and any modifications thereto. Any use, reproduction,
+# disclosure or distribution of this material and related documentation
+# without an express license agreement from NVIDIA CORPORATION or
+# its affiliates is strictly prohibited.
+
+[core]
+reloadable = false
+# Load at the start, load all schemas with order -100 (with order -1000 the USD libs are loaded)
+order = -100
+
+[package]
+readme = "docs/README.md"
+changelog = "docs/CHANGELOG.md"
+icon = "data/icon.png"
+# Use the Extension Manager category fallback as the preview for this nonvisual schema.
+preview_image = "data/icon.png"
+version = "110.4.0"
+category = "Animation"
+title = "USD Animation Graph schema"
+description="USD Animation Graph schema"
+authors = ["NVIDIA"]
+keywords = ["animation", "animgraph", "anim", "graph", "skeleton", "skeletal", "usd", "schema"]
+
+[dependencies]
+"omni.usd.libs" = {}
+
+[deprecation]
+warning = "Extension deprecated since Kit 110.1."
+
+[[python.module]]
+name = "omni.anim.graph.schema"
+
+[package.writeTarget]
+kit = true
+usd = true
+
+[[test]]
+waiver = "USD Schema, tested externally"

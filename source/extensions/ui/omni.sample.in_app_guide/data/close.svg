@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
+  <g id="close" transform="translate(-628 -801)">
+    <rect id="bgr" width="19" height="19" rx="1" transform="translate(628 801)" fill="#ccc" opacity="0"/>
+    <path id="Union_1" data-name="Union 1" d="M12.02,13.435,7.071,8.485l-4.95,4.95A1,1,0,1,1,.707,12.02L5.657,7.071.707,2.121A1,1,0,0,1,2.121.707l4.95,4.949L12.02.707a1,1,0,1,1,1.415,1.414l-4.95,4.95,4.95,4.949a1,1,0,0,1-1.415,1.415Z" transform="translate(630.586 803.586)" fill="#ccc"/>
+  </g>
+</svg>

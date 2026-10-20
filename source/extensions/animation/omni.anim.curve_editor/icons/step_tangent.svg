@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <g id="step_curve_dark" transform="translate(-1678 -222)">
+    <rect id="Icon_Base" width="40" height="40" transform="translate(1678 222)" fill="none"/>
+    <g id="Group_3589" data-name="Group 3589" transform="translate(1684.306 227.313)">
+      <line id="Line_787" data-name="Line 787" y2="12.369" transform="translate(3.092 15.46)" fill="none" stroke="#44a4c8" stroke-linecap="square" stroke-width="1.5"/>
+      <line id="Line_789" data-name="Line 789" y2="12.369" transform="translate(15.461 3.092)" fill="none" stroke="#44a4c8" stroke-linecap="square" stroke-width="1.5"/>
+      <line id="Line_788" data-name="Line 788" x1="10.823" transform="translate(4.197 15.46)" fill="none" stroke="#44a4c8" stroke-linecap="square" stroke-width="1.5"/>
+      <line id="Line_790" data-name="Line 790" x1="10.823" transform="translate(16.566 3.092)" fill="none" stroke="#44a4c8" stroke-linecap="round" stroke-width="1.5"/>
+      <g id="Component_7_16" data-name="Component 7 – 16" transform="translate(0 23.191)">
+        <rect id="Rectangle_1089" data-name="Rectangle 1089" width="6.184" height="6.184" fill="#f9f903"/>
+      </g>
+      <g id="Component_7_17" data-name="Component 7 – 17" transform="translate(12.369 0)">
+        <rect id="Rectangle_1089-2" data-name="Rectangle 1089" width="6.184" height="6.184" fill="#f9f903"/>
+      </g>
+    </g>
+  </g>
+</svg>

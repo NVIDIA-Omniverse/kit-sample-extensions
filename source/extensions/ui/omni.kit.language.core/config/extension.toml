@@ -1,0 +1,112 @@
+[package]
+# Semantic Versioning is used: https://semver.org/
+version = "1.1.4"
+
+category = "Utilities"
+support_level = "Sample"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Dave De Pauw"]
+
+# The title and description fields are primarily for displaying extension info in UI
+title = "Kit Language API"
+description="Kit Language API. Adds support for alternative fonts."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ["kit", "language", "localization", "font"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog = "docs/CHANGELOG.md"
+
+# Preview image. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+preview_image = "data/preview.png"
+icon = "data/icoCategoryLanguages.svg"
+
+# readme
+readme = "docs/README.md"
+
+[[python.module]]
+name = "omni.kit.language.core"
+
+[documentation]
+pages = [
+    "docs/OVERVIEW.md",
+    "docs/CHANGELOG.md",
+]
+
+[core]
+# This needs to be loaded early enough to override font settings
+order = -990
+reloadable = false
+
+[[test]]
+name = "full menu tests"
+pythonTests.exclude = ["omni.kit.language.core.tests.kitfile_tests*"]
+args = [
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/renderer/multiGpu/enabled=false",
+    "--/renderer/multiGpu/autoEnable=false", # Disable mGPU with PXR due to OM-51026, OM-53611
+    "--/renderer/multiGpu/maxGpuCount=1",
+    "--/app/asyncRendering=false",
+    "--/app/file/ignoreUnsavedStage=true",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/persistent/app/locale_id=te_ST",
+    "--no-window",
+]
+
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.renderer.capture",
+    "omni.kit.mainwindow",
+    "omni.kit.window.preferences",
+    "omni.kit.ui_test",
+]
+
+stdoutFailPatterns.exclude = [
+    "*register_language: locale_info is not valid*",
+    "*register_language: locale te_ST already in use*",
+    "*HydraRenderer failed to render this frame*",  # Can drop a frame or two rendering with OpenGL interop
+]
+
+[[test]]
+name = "kit file tests"
+pythonTests.exclude = ["omni.kit.language.core.tests.language_tests*"]
+args = [
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/renderer/multiGpu/enabled=false",
+    "--/renderer/multiGpu/autoEnable=false", # Disable mGPU with PXR due to OM-51026, OM-53611
+    "--/renderer/multiGpu/maxGpuCount=1",
+    "--/app/asyncRendering=false",
+    "--/app/file/ignoreUnsavedStage=true",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/persistent/app/locale_id=te_ST",
+    "--/exts/omni.kit.language.core/language/name='TEST'",
+    "--/exts/omni.kit.language.core/language/locale_info=['te_ST', 'Test1', 'Test2']",
+    "--/exts/omni.kit.language.core/language/font_path='TestFont.ttf'",
+    "--/exts/omni.kit.language.core/language/font_scale=1.0",
+    "--/exts/omni.kit.language.core/language/regions=['regions_test.txt']",
+    "--/exts/omni.kit.language.core/language/pangram='My hovercraft is full of eels'",
+    "--/exts/omni.kit.language.core/language/font_overresolution_size=66",
+    "--no-window",
+]
+
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.renderer.capture",
+    "omni.kit.mainwindow",
+    "omni.kit.window.preferences",
+    "omni.kit.ui_test",
+]
+
+stdoutFailPatterns.exclude = [
+    "*[omni.ui.glyphmanager.plugin]*Failed to open custom font region file regions_test.txt*",
+    "*HydraRenderer failed to render this frame*",  # Can drop a frame or two rendering with OpenGL interop
+]

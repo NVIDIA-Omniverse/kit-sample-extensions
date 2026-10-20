@@ -1,0 +1,31 @@
+[package]
+title = "Sample omni.ui Scatter Window"
+description = "The full end to end example of the window"
+version = "1.2.0"
+category = "Scatter"
+authors = ["Khariton Kantiev"]
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+keywords = ["example", "window", "ui"]
+changelog = "docs/CHANGELOG.md"
+readme = "docs/README.md"
+icon = "data/icon.png"
+preview_image = "data/preview.png"
+
+[dependencies]
+"omni.ui" = {}
+"omni.usd" = {}
+"omni.kit.menu.utils" = {}
+
+[[python.module]]
+name = "omni.sample.ui_scatter_tool"
+
+[[test]]
+dependencies = [
+    "omni.kit.ui_test",
+]
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--no-window"
+]
+timeout = 180

@@ -1,0 +1,583 @@
+#usda 1.0
+(
+    """ This file contains a schema for supporting the defintion of an animation graph.
+    """
+    subLayers = [
+        @usdSkel/schema.usda@,
+    ]
+)
+
+over "GLOBAL" (
+	customData = {
+	string libraryName = "animGraphSchema"
+	string libraryPath = "./"
+	string libraryPrefix = "AnimGraphSchema"
+    bool useLiteralIdentifier = 0
+    bool skipCodeGeneration = true
+	}
+)
+{
+}
+
+class "AnimationGraphAPI"
+(
+    doc = """Constructs an AnimationGraphAPI used to apply on an AnimationGraph onto a UsdSkelRoot prim for evaluating an output pose for its UsdSkelSkeleton."""
+    inherits =</APISchemaBase>
+)
+{
+    rel animationGraph (
+        doc = """Relationship to an animation graph that will be evaluated and its result will be applied to the UsdSkelSkeleton pose each simulation frame."""
+        displayName = "Animation Graph"
+    )
+}
+
+class AnimationGraph "AnimationGraph"
+(
+    doc = """The AnimationGraph root."""
+	inherits = </Typed>
+)
+{
+    rel skel:skeleton (
+        doc = """Relationship to a UsdSkeleton prim to apply this animation graph."""
+        displayName = "Skeleton"
+    )
+    rel inputs:pose (
+        doc = """Relationship to the input prim with evaluated pose."""
+        displayName = "Pose"
+    )
+}
+
+class "AnimationGraphNode"
+(
+    doc = """Base Class of AnimationGraph node"""
+	inherits = </Typed>
+)
+{
+}
+
+class ReadVariable "ReadVariable"
+(
+    doc = """ReadVariable node represents an evaluator used to read a value using the variable in the AnimationGraph."""
+    inherits = </AnimationGraphNode>
+)
+{
+    token inputs:variableName (
+        doc = """Name of the variable that is defined on the AnimationGraph."""
+        displayName = "Variable Name"
+    )
+}
+
+class AnimationClip "AnimationClip"
+(
+    doc = """AnimationClip node allows a time sampled animation clip from a source UsdSkelAnimation producing an ouput pose."""
+    inherits = </AnimationGraphNode>
+)
+{
+    rel inputs:animationSource (
+        doc = """Relationship to a source UsdSkelAnimation that will be time sampled during node evaluation."""
+        displayName = "Animation Source"
+    )
+    float inputs:startTime = 0.0 (
+        doc = """Start time offset in the source for playing this animation (in seconds)."""
+        displayName = "Start Time"
+    )
+    float inputs:endTime = 0.0 (
+        doc = """End time offset in the animation source for playing this animation (in seconds)."""
+        displayName = "End Time"
+    )
+    bool inputs:loop = true (
+        doc = """If the clip is playing in a loop."""
+        displayName = "Loop"
+    )
+    bool inputs:backwards = false (
+        doc = """Is the clip is playing backwards."""
+        displayName = "Backwards"
+    )
+}
+
+class Blend "Blend"
+(
+    doc = """Blend node allows to blend incoming poses with a blend weight to produce an computed output pose."""
+    inherits = </AnimationGraphNode>
+)
+{
+    rel inputs:pose0 (
+        doc = """Relationship to the first input pose towards the blending result."""
+        displayName = "Pose 0"
+    )
+    rel inputs:pose1 (
+        doc = """Relationship to the second input pose towards the blending result."""
+        displayName = "Pose 1"
+    )
+    rel inputs:blendWeight (
+        doc = """The blending weight between 0.0 - 1.0 for how much to blend the second pose with the first pose."""
+        displayName = "Blend Weight"
+    )
+    token inputs:jointPositionBlendMode = "Interpolate" (
+        allowedTokens = ["Interpolate", "Add"]
+        doc = """Joint Position Blend Mode"""
+        displayName = "Joint Position Blend Mode"
+    )
+    token inputs:jointRotationBlendMode = "Interpolate" (
+        allowedTokens = ["Interpolate", "Add"]
+        doc = """Joint Rotation Blend Mode"""
+        displayName = "Joint Rotation Blend Mode"
+    )
+    token inputs:blendshapeBlendMode = "Interpolate" (
+        allowedTokens = ["Interpolate", "Add"]
+        doc = """Blendshape Blend Mode"""
+        displayName = "Blendshape Blend Mode"
+    )
+    token inputs:passThroughMode = "Zero" (
+        allowedTokens = ["Zero", "One", "None"]
+        doc = """Pass through mode determines which animation provides data for joints or channels in the event the other does not, regardless of weight"""
+        displayName = "Pass Through Mode"
+    )
+}
+
+class MotionMatching "MotionMatching" (
+    doc = """MotionMatching node allows for controlling the motion with the applied set of animation clip defintions."""
+    inherits = </AnimationGraphNode>
+)
+{
+    rel inputs:forwardDirection (
+        doc = """The desired forward/facing direction."""
+        displayName = "Forward Direction"
+    )
+    rel inputs:movementDirection (
+        doc = """The desired movement direction."""
+        displayName = "Movement Direction"
+    )
+    rel inputs:pathPoints (
+        doc = """The path positions (points) that that will direct the motion. """
+        displayName = "Path Points"
+    )
+    rel inputs:clips (
+        doc = """Relationship to the UsdSkelAnimations."""
+        displayName = "Clips"
+    )
+    bool[] inputs:clipsEnabled (
+        doc = """For each animation source clip, should it be enabled."""
+        displayName = "Clips Enabled"
+    )
+    float[] inputs:clipsStartTimes (
+        doc = """For each animation source clip, the start time to consider in the search."""
+        displayName = "Clips Start Times"
+    )
+    float[] inputs:clipsEndTimes (
+        doc = """For each animation source clip, the end time to consider in the search."""
+        displayName = "Clips End Times"
+    )
+    token[] inputs:joints (
+        doc = """Joints to compute pose features from."""
+        displayName = "Joints"
+    )
+    float[] inputs:jointsPositionWeights (
+        doc = """The position weight for each joint."""
+        displayName = "Joint Position Weights"
+    )
+    float[] inputs:jointsVelocityWeights (
+        doc = """The velocity weight for each joint."""
+        displayName = "Joint Velocity Weights"
+    )
+    float inputs:matchingDelayTime = 0.3 (
+        doc = """Delay in seconds between pose/trajectory matches."""
+        displayName = "Matching Delay Time"
+    )
+    float inputs:transitionDurationTime = 0.3 (
+        doc = """Transition blend time (in seconds)."""
+        displayName = "Transition Duration Time"
+    )
+    float inputs:sampleRate = 60.0 (
+        doc = """sample rate per second applied to animation library as well internal trajectory model."""
+        displayName = "Sample Rate"
+    )
+    float inputs:timeHorizon = 1.0 (
+        doc = """Time horizon (in seconds), used for trajectory model. The time horizon extents into the future and past by the specified value."""
+        displayName = "Time Horizon"
+    )
+    uint inputs:trajectorySamples = 3 (
+        doc = """Number of sub-samples for trajectory taken across the time horizon."""
+        displayName = "Trajectory Samples"
+    )
+    float inputs:trajectoryPositionWeight = 1.0 (
+        doc = """Weight used for trajectory positions."""
+        displayName = "Trajectory Position Weight"
+    )
+    float inputs:trajectoryDirectionWeight = 1.5 (
+        doc = """Weight used for trajectory directions."""
+        displayName = "Trajectory Direction Weight"
+    )
+    float inputs:movementAverageForwardSpeed = 0.0 (
+        doc = """Average forward speed across the clip database. Value will be automatically calculated if 0."""
+        displayName = "Movement Average Forward Speed"
+    )
+    float inputs:movementAverageSidewardSpeed = 0.0 (
+        doc = """Average sideward speed across the clip database. Value will be automatically calculated if 0."""
+        displayName = "Movement Average Sideward Speed"
+    )
+    float inputs:movementAverageBackwardSpeed = 0.0 (
+        doc = """Average backward speed across the clip database. Value will be automatically calculated if 0."""
+        displayName = "Movement Average Backward Speed"
+    )
+}
+
+class Filter "Filter"
+(
+    doc = """Filter node allows a way to filter down the evaluation of which skeleton joints will be evaluated for an ouput pose."""
+    inherits = </AnimationGraphNode>
+)
+{
+    rel inputs:pose (
+        doc = """Relationship to the input prim with evaluated pose."""
+        displayName = "Pose"
+    )
+    token[] inputs:joints (
+        doc = """The array of joints that will be evaluated for the output pose."""
+        displayName = "Joints"
+    )
+    bool inputs:includeChildren = true (
+        doc = """If true the children of the joints specified are also include, otherwise only the joints specified are included."""
+        displayName = "Include Joint Children"
+    )
+    bool inputs:inclusive = true (
+        doc = """If true only the joints specifed will be animated, otherwise the joints specifed are not animated."""
+        displayName = "Joint Inclusive"
+    )
+    token[] inputs:blendShapes (
+        doc = """The array of blend shapes that will be evaluated for the output pose."""
+        displayName = "Blend Shapes"
+    )
+    bool inputs:blendShapesInclusive = true (
+        doc = """If true only the blend shapes specifed will be animated, otherwise the blend shapes specifed are not animated."""
+        displayName = "Blend Shapes Inclusive"
+    )
+}
+
+class LookAtIK "LookAtIK"
+(
+    doc = """LookAtIK node allows inverse kinematics to look at a target position."""
+    inherits = </AnimationGraphNode>
+)
+{
+    rel inputs:pose (
+        doc = """Relationship to the input prim with evaluated pose."""
+        displayName = "Pose"
+    )
+    rel inputs:targetPosition (
+        doc = """The target position to look at."""
+        displayName = "Target Position"
+    )
+    rel inputs:blendWeight (
+        doc = """The blending weight value between 0.0 and 1.0."""
+        displayName = "Blend Weight"
+    )
+	float3 inputs:forwardAxis (
+        doc = """The forward axis."""
+        displayName = "Forward Axis"
+    )
+    token inputs:startJoint (
+        doc = """The starting joint of this IK."""
+        displayName = "Start Joint"
+    )
+    token inputs:endJoint (
+        doc = """The ending joint of this IK."""
+        displayName = "End Joint"
+    )
+}
+
+class TwoBoneIK "TwoBoneIK"
+(
+    doc = """TwoBoneIK node allows inverse kinematics with two bones."""
+    inherits = </AnimationGraphNode>
+)
+{
+    rel inputs:pose (
+        doc = """Relationship to the input prim with evaluated pose."""
+        displayName = "Pose"
+    )
+    rel inputs:targetPosition (
+        doc = """The target position."""
+        displayName = "Target Position"
+    )
+    rel inputs:blendWeight (
+        doc = """The blending weight value between 0.0 and 1.0."""
+        displayName = "Blend Weight"
+    )
+    token inputs:startJoint (
+        doc = """The starting joint of this IK."""
+        displayName = "Start Joint"
+    )
+    token inputs:hingeJoint (
+        doc = """The hinge joint of this IK."""
+        displayName = "Hinge Joint"
+    )
+    token inputs:endJoint (
+        doc = """The ending joint of this IK - will try to reach the target position."""
+        displayName = "End Joint"
+    )
+    bool inputs:worldSpaceTarget = true (
+        doc = """Whether the target position is specified in world space."""
+        displayName = "World Space Target"
+    )
+}
+
+class FullBodyIK "FullBodyIK"
+(
+    doc = """FullBodyIK node allows inverse kinematic to multiple effectors"""
+    inherits = </AnimationGraphNode>
+)
+{
+    rel inputs:pose (
+        doc = """Relationship to the input prim with evaluated pose."""
+        displayName = "Pose"
+    )
+    uint inputs:maxIteration = 30 (
+        doc = """Max number of iteration to solve. More iterations will be slower in performance but better in quality."""
+        displayName = "Max Iteration")
+    float inputs:tolerance = 1.0 (
+        doc = """How close you want the target to reach. This tolerance will be used to determine if it reaches to the target."""
+        displayName = "Tolerance")
+    float inputs:damping = 30.0 (
+        doc = """This helps to reduce singularity for solver. Increasing will slow to converge but it will be more stable to solve."""
+        displayName = "Damping")
+    float inputs:minLinearStrength = 0.1 (
+        doc = """Strength is used to scale the motion vector. Increasing will help to converge quicker, but it can create oscillation. This is min value for the chain."""
+        displayName = "Min Linear Strength")
+    float inputs:maxLinearStrength = 2.0 (
+        doc = """Strength is used to scale the motion vector. Increasing will help to converge quicker, but it can create oscillation. This is max value for the chain."""
+        displayName = "Max Linear Strength")
+    float inputs:minAngularStrength = 0.1 (
+        doc = """Angular strength is used to scale the  rotational target vector. Tweak this value if you want rotational target to affect more to the chain of joints."""
+        displayName = "Min Angular Strength")
+    float inputs:maxAngularStrength = 2.0 (
+        doc = """This is used to scale the angular strength of the motion when rotational target is set. Tweak this value if you want rotational target to affect more to the chain of joints."""
+        displayName = "Max Angular Strength")
+    float inputs:jacobianStrength = 1.0 (
+        doc = """This is used for the effectors's strength to reach. If it's too high, it could generate unnatural behavior."""
+        displayName = "Effector Strength")
+    float inputs:constraintStrength = 0.0 (
+        doc = """This is used for the input pose strength. This will increase chance to preserve input pose. If it's too high, it could generate unnatural behavior"""
+        displayName = "Input Strength")        
+    bool inputs:allowPelvisToTranslate = true (
+        doc = """This enables pelvis motion."""
+        displayName = "Allow Pelvis To Move")
+}
+
+class SetEffector "SetEffector"
+(
+    doc = """Set Effector allows to set effector(joint) poses with a blend weight to produce an computed output pose."""
+    inherits = </AnimationGraphNode>
+)
+{
+    rel inputs:pose (
+        doc = """Relationship to the input pose to output pose."""
+        displayName = "Pose"
+    )
+    token inputs:effector (
+        doc = """Name of effector that corresponds to the joint name."""
+        displayName = "Effector (Joint Name)"
+    )
+    rel inputs:position (
+        doc = """The translation of the target effector in skeleton space."""
+        displayName = "Position"
+    )
+    rel inputs:rotation (
+        doc = """The rotation (quaternion) of the target effector in in skeleton space."""
+        displayName = "Rotation"
+    )
+    rel inputs:position_alpha (
+        doc = """The alpha to apply position between [0.0 - 1.0]."""
+        displayName = "Position Alpha"
+    )
+
+     rel inputs:rotation_alpha (
+        doc = """The alpha to apply rotation between [0.0 - 1.0]."""
+        displayName = "Rotation Alpha"
+    )
+
+    bool inputs:worldTransform = true (
+        doc = """This changes how it interpolates input position/rotation. If worldTransform is false, it will interpolate to character space."""
+        displayName = "World Transform")
+}
+
+class PoseProvider "PoseProvider"
+(
+    doc = """PoseProvider node allows a way to supply the hierarchial joint transforms and skeleton delta transform."""
+    inherits = </AnimationGraphNode>
+)
+{
+    rel inputs:jointsPositions (
+        doc = """The array of hierachial joint translations in local space."""
+        displayName = "Joint Translations (Local Space)"
+    )
+    rel inputs:jointsRotations (
+        doc = """The array of hierachial joint rotations in local space."""
+        displayName = "Joint Rotations (Local Space)"
+    )
+    rel inputs:rootPositionDisplacement (
+        doc = """The skeleton delta translation in skeleton space."""
+        displayName = "Skeleton Delta Translation (Skeleton Space)"
+    )
+    rel inputs:rootRotationDisplacement (
+        doc = """The skeleton delta rotation in skeleton space."""
+        displayName = "Skeleton Delta Rotation (Skeleton Space)"
+    )
+    rel inputs:blendShapes (
+        doc = """Blend shape weights for the pose."""
+        displayName = "Blend Shape Weights"
+    )
+
+    token[] inputs:joints (
+        doc = """The array of joints that will be evaluated for the output pose."""
+        displayName = "Joints"
+    )
+    bool inputs:includeChildren = true (
+        doc = """If true the children of the joints specified are also include, otherwise only the joints specified are included."""
+        displayName = "Include Joint Children"
+    )
+    bool inputs:inclusive = true (
+        doc = """If true only the joints specifed will be animated, otherwise the joints specifed are not animated."""
+        displayName = "Joint Inclusive"
+    )
+    token[] inputs:blendShapesMapping (
+        doc = """The array of blend shapes that will be evaluated for the output pose."""
+        displayName = "Blend Shapes"
+    )
+    bool inputs:blendShapesInclusive = true (
+        doc = """If true only the blend shapes specifed will be animated, otherwise the blend shapes specifed are not animated."""
+        displayName = "Blend Shapes Inclusive"
+    )
+}
+
+class StateMachine "StateMachine"
+(
+    doc = """StateMachine node allow state control for producing the output pose."""
+    inherits = </AnimationGraphNode>
+)
+{
+    rel inputs:startState (
+        doc = """Relationship to starting state for the state machine."""
+        displayName = "Start State"
+    )
+}
+
+class State "State"
+(
+    doc = """State node in state machine"""
+    inherits = </AnimationGraphNode>
+)
+{
+    rel inputs:pose (
+        doc = """Relationship to the input prim with evaluated pose."""
+        displayName = "Pose"
+    )
+}
+
+class Transition "Transition"
+(
+    doc = """Transition node offers state transition with conditions between two state inside a state machine."""
+    inherits = </AnimationGraphNode>
+)
+{
+    rel inputs:condition (
+        doc = """Relationship to the condition result in which to initiate the transition from input to output states."""
+        displayName = "Condition"
+    )
+    rel inputs:state (
+        doc = """Relationship to the source input state."""
+        displayName = "State"
+    )
+    float inputs:durationTime = 0.2 (
+        doc = """Transition duration time (in seconds)."""
+        displayName = "Duration Time"
+    )
+    rel outputs:state (
+        doc = """Relationship to the source output state."""
+        displayName = "State"
+    )
+}
+
+class ConditionTimeFractionCrossed "ConditionTimeFractionCrossed" (
+    doc = """ConditionTimeFractionCrossed node allows to compare if the animation time has cross the fraction of time specified."""
+    inherits = </AnimationGraphNode>
+)
+{
+    float inputs:fraction = 0.2 (
+        doc = """The fraction of time that must be cross for the condition to be true."""
+        displayName = "Fraction"
+    )
+}
+
+class ConditionSpeed "ConditionSpeed" (
+    doc = """ConditionSpeed node allows to compare if the characters speed goes less than or greater than the speed threshold(meters/second)."""
+    inherits = </AnimationGraphNode>
+)
+{
+    float inputs:speed (
+        doc = """The speed to compare."""
+        displayName = "Speed Threshold (Meters/Second)"
+    )
+    token inputs:operator (
+        doc = """The compare operator to use against the speed threshold(meters/second)."""
+        displayName = "Operator"
+    )
+}
+
+class ConditionCompareVariable "ConditionCompareVariable" (
+    doc = """ConditionCompareVariable node allows to compare the value from a value with the supplied operator."""
+    inherits = </AnimationGraphNode>
+)
+{
+    token inputs:variableName (
+        doc = """Name of the variable to compare."""
+        displayName = "Variable Name"
+    )
+    token inputs:operator (
+        doc = """The compare operator to use against the resolved variable value."""
+        displayName = "Operator"
+    )
+}
+
+class ConditionAND "ConditionAND" (
+    doc = """ConditionAND node allows to compare to incoming conditions with an AND operation."""
+    inherits = </AnimationGraphNode>
+)
+{
+    rel inputs:condition0 (
+        doc = """Relationship to the first condition result to operate on."""
+        displayName = "Condition 0"
+    )
+    rel inputs:condition1 (
+        doc = """Relationship to the second condition result to operate on."""
+        displayName = "Condition 1"
+    )
+}
+
+class ConditionOR "ConditionOR" (
+    doc = """ConditionOR node allows to compare to incoming conditions with an OR operation."""
+    inherits = </AnimationGraphNode>
+)
+{
+    rel inputs:condition0 (
+        doc = """Relationship to the first condition result to operate on."""
+        displayName = "Condition 0"
+    )
+    rel inputs:condition1 (
+        doc = """Relationship to the second condition result to operate on."""
+        displayName = "Condition 1"
+    )
+}
+
+class BehaviorScript "BehaviorScript"(
+    doc = """Behavior python script to apply on a character (Deprecated). """
+    inherits = </Typed>
+)
+{
+    uniform asset scriptPath (
+        doc = """script path"""
+    )
+    rel target (
+        doc = """Relationship to the character to apply on"""
+    )
+}

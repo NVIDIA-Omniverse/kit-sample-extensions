@@ -1,0 +1,34 @@
+[package]
+version = "1.17.0"
+authors = ["NVIDIA"]
+title = "Warp Core"
+description = "NVIDIA's Warp library"
+readme  = "docs/README.md"
+repository = "https://github.com/nvidia/warp"
+category = "Runtime"
+keywords = ["computing", "cuda", "simulation", "warp"]
+changelog = "docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+support_level = "Core"
+
+# Publish platform-specific packages to reduce binary size for each platform.
+writeTarget.platform = true
+
+[dependencies]
+"omni.kit.pip_archive" = {} #< NumPy.
+
+[[python.module]]
+name = "omni.warp.core"
+
+[[python.module]]
+name = "warp"
+path = "."
+public = true
+
+[documentation.pages]
+"Overview" = "docs/overview.md"
+"Changelog" = "docs/CHANGELOG.md"
+
+[[test]]
+waiver = "Tested by the Warp library"

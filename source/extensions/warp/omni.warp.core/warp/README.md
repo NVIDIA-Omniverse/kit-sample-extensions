@@ -1,0 +1,305 @@
+[![PyPI version](https://badge.fury.io/py/warp-lang.svg)](https://badge.fury.io/py/warp-lang)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/NVIDIA/warp?link=https%3A%2F%2Fgithub.com%2FNVIDIA%2Fwarp%2Fcommits%2Fmain)
+[![Downloads](https://static.pepy.tech/badge/warp-lang/month)](https://pepy.tech/project/warp-lang)
+[![codecov](https://codecov.io/github/NVIDIA/warp/graph/badge.svg?token=7O1KSM79FG)](https://codecov.io/github/NVIDIA/warp)
+![GitHub - CI](https://github.com/NVIDIA/warp/actions/workflows/ci.yml/badge.svg)
+
+# NVIDIA Warp
+
+**[Documentation](https://nvidia.github.io/warp/stable/)** | [Changelog](https://github.com/NVIDIA/warp/blob/main/CHANGELOG.md)
+
+Warp is a Python framework for GPU-accelerated simulation, robotics, and machine learning. Warp takes
+regular Python functions and JIT compiles them to efficient kernel code that can run on the CPU or GPU.
+
+Warp comes with a rich set of primitives for physics simulation, robotics, geometry processing,
+and more. Warp kernels are differentiable and can be used as part of machine-learning pipelines
+with frameworks such as PyTorch, JAX and Paddle.
+
+<div align="center">
+    <img src="https://github.com/NVIDIA/warp/raw/main/docs/img/header.jpg">
+    <p><i>A selection of physical simulations computed with Warp</i></p>
+</div>
+
+## Quick Start
+
+Simulate one million particles under gravitational attraction, in 20 lines:
+
+```python
+import warp as wp
+import numpy as np
+
+num_particles = 1_000_000
+dt = 0.01
+
+@wp.kernel
+def gravity_step(pos: wp.array[wp.vec3], vel: wp.array[wp.vec3]):
+    i = wp.tid()
+    position = pos[i]
+    dist_sq = wp.length_sq(position) + 0.01  # softened distance
+    acc = -1000.0 / dist_sq * wp.normalize(position)  # gravitational pull toward origin
+    vel[i] = vel[i] + acc * dt
+    pos[i] = pos[i] + vel[i] * dt
+
+rng = np.random.default_rng(42)
+positions = wp.array(rng.normal(size=(num_particles, 3)), dtype=wp.vec3)
+velocities = wp.array(rng.normal(size=(num_particles, 3)), dtype=wp.vec3)
+
+for _ in range(100):
+    wp.launch(gravity_step, dim=num_particles, inputs=[positions, velocities])
+
+print(positions.numpy())
+```
+
+## Installing
+
+Warp requires Python 3.10 or newer. We publish `warp-lang` wheels on PyPI for Windows (x86-64), Linux (x86-64 and AArch64), and macOS (Apple Silicon). The Windows x86-64 and Linux wheels support CPU execution and CUDA acceleration. CUDA acceleration requires a supported NVIDIA GPU and driver. The macOS wheels support CPU execution but not Metal acceleration.
+
+The easiest way to install Warp is from [PyPI](https://pypi.org/project/warp-lang/):
+
+```text
+pip install warp-lang
+```
+
+You can also use `pip install warp-lang[examples]` to install additional dependencies for running examples and USD-related features.
+
+For nightly builds, conda, CUDA 13 builds, building from source, and CUDA driver requirements, see the
+[Installation Guide](https://nvidia.github.io/warp/stable/user_guide/installation.html).
+
+## Tutorial Notebooks
+
+The [NVIDIA Accelerated Computing Hub](https://github.com/NVIDIA/accelerated-computing-hub/blob/main/tutorials/warp/README.md) also hosts Warp
+tutorial notebooks that can be opened in Colab:
+
+| Notebook | Colab Link |
+|----------|------------|
+| [01. Introduction to NVIDIA Warp](https://github.com/NVIDIA/accelerated-computing-hub/blob/main/tutorials/warp/notebooks/01__intro_to_warp.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NVIDIA/accelerated-computing-hub/blob/main/tutorials/warp/notebooks/01__intro_to_warp.ipynb) |
+| [02. Ising Model](https://github.com/NVIDIA/accelerated-computing-hub/blob/main/tutorials/warp/notebooks/02__ising_model.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NVIDIA/accelerated-computing-hub/blob/main/tutorials/warp/notebooks/02__ising_model.ipynb) |
+| [03. 2D Navier-Stokes Solver](https://github.com/NVIDIA/accelerated-computing-hub/blob/main/tutorials/warp/notebooks/03__navier_stokes_solver.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NVIDIA/accelerated-computing-hub/blob/main/tutorials/warp/notebooks/03__navier_stokes_solver.ipynb) |
+| [04. Differentiable Simulations in Warp](https://github.com/NVIDIA/accelerated-computing-hub/blob/main/tutorials/warp/notebooks/04__differentiable_navier_stokes_solver.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NVIDIA/accelerated-computing-hub/blob/main/tutorials/warp/notebooks/04__differentiable_navier_stokes_solver.ipynb) |
+
+## Running Examples
+
+The [warp/examples](https://github.com/NVIDIA/warp/tree/main/warp/examples) directory contains examples
+covering physics simulation, geometry processing, optimization, and tile-based GPU programming.
+Before running examples, install the optional example dependencies using:
+
+```text
+pip install warp-lang[examples]
+```
+
+On Linux aarch64 systems (e.g., NVIDIA DGX Spark), the `[examples]` extra automatically installs
+[`usd-exchange`](https://pypi.org/project/usd-exchange/) instead of `usd-core` as a drop-in replacement,
+since `usd-core` wheels are not available for that platform.
+
+Examples can be run from the command-line as follows:
+
+```text
+python -m warp.examples.<example_subdir>.<example>
+```
+
+Most examples can be run on either the CPU or a CUDA-capable device, but a handful require a CUDA-capable device. These are marked at the top of the example script. Some examples generate USD files containing time-sampled animations in the current working directory. These can be viewed in Pixar's UsdView, Blender, or any USD-compatible viewer.
+
+To browse the example source code, you can open the directory where the files are located like this:
+
+```text
+python -m warp.examples.browse
+```
+
+### warp/examples/core
+
+<table>
+    <tbody>
+        <tr>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/core/example_dem.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/core_dem.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/core/example_fluid.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/core_fluid.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/core/example_graph_capture.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/core_graph_capture.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/core/example_marching_cubes.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/core_marching_cubes.png"></a></td>
+        </tr>
+        <tr>
+            <td align="center">dem</td>
+            <td align="center">fluid</td>
+            <td align="center">graph capture</td>
+            <td align="center">marching cubes</td>
+        </tr>
+        <tr>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/core/example_mesh.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/core_mesh.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/core/example_nvdb.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/core_nvdb.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/core/example_raycast.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/core_raycast.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/core/example_raymarch.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/core_raymarch.png"></a></td>
+        </tr>
+        <tr>
+            <td align="center">mesh</td>
+            <td align="center">nvdb</td>
+            <td align="center">raycast</td>
+            <td align="center">raymarch</td>
+        </tr>
+        <tr>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/core/example_sample_mesh.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/core_sample_mesh.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/core/example_sph.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/core_sph.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/core/example_torch.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/core_torch.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/core/example_wave.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/core_wave.png"></a></td>
+        </tr>
+        <tr>
+            <td align="center">sample mesh</td>
+            <td align="center">sph</td>
+            <td align="center">torch</td>
+            <td align="center">wave</td>
+        </tr>
+        <tr>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/core/example_fft_poisson_navier_stokes_2d.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/core_fft_poisson_navier_stokes_2d.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/core/example_fdtd_3d.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/core_fdtd_3d.png"></a></td>
+        </tr>
+        <tr>
+            <td align="center">2-D incompressible turbulence in a periodic box</td>
+            <td align="center">3-D FDTD Luneburg lens</td>
+        </tr>
+    </tbody>
+</table>
+
+### warp/examples/fem
+
+<table>
+    <tbody>
+        <tr>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/fem/example_diffusion_3d.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/fem_diffusion_3d.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/fem/example_mixed_elasticity.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/fem_mixed_elasticity.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/fem/example_apic_fluid.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/fem_apic_fluid.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/fem/example_streamlines.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/fem_streamlines.png"></a></td>
+        </tr>
+        <tr>
+            <td align="center">diffusion 3d</td>
+            <td align="center">mixed elasticity</td>
+            <td align="center">apic fluid</td>
+            <td align="center">streamlines</td>
+        </tr>
+        <tr>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/fem/example_distortion_energy.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/fem_distortion_energy.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/fem/example_taylor_green.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/fem_taylor_green.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/fem/example_kelvin_helmholtz.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/fem_kelvin_helmholtz.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/fem/example_magnetostatics.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/fem_magnetostatics.png"></a></td>
+        </tr>
+        <tr>
+            <td align="center">distortion energy</td>
+            <td align="center">taylor green</td>
+            <td align="center">kelvin helmholtz</td>
+            <td align="center">magnetostatics</td>
+        </tr>
+        <tr>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/fem/example_adaptive_grid.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/fem_adaptive_grid.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/fem/example_nonconforming_contact.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/fem_nonconforming_contact.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/fem/example_darcy_ls_optimization.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/fem_darcy_ls_optimization.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/fem/example_elastic_shape_optimization.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/fem_elastic_shape_optimization.png"></a></td>
+        </tr>
+        <tr>
+            <td align="center">adaptive grid</td>
+            <td align="center">nonconforming contact</td>
+            <td align="center">darcy level-set optimization</td>
+            <td align="center">elastic shape optimization</td>
+        </tr>
+    </tbody>
+</table>
+
+### warp/examples/optim
+
+<table>
+    <tbody>
+        <tr>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/optim/example_diffray.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/optim_diffray.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/optim/example_fluid_checkpoint.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/optim_fluid_checkpoint.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/optim/example_particle_repulsion.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/optim_particle_repulsion.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/optim/example_navier_stokes_perturbation.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/optim_navier_stokes_perturbation.png"></a></td>
+        </tr>
+        <tr>
+            <td align="center">diffray</td>
+            <td align="center">fluid checkpoint</td>
+            <td align="center">particle repulsion</td>
+            <td align="center">navier-stokes perturbation</td>
+        </tr>
+    </tbody>
+</table>
+
+### warp/examples/tile
+
+<table>
+    <tbody>
+        <tr>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/tile/example_tile_mlp.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/tile_mlp.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/tile/example_tile_nbody.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/tile_nbody.png"></a></td>
+            <td width="25%"><a href="https://github.com/NVIDIA/warp/blob/main/warp/examples/tile/example_tile_mcgp.py"><img src="https://media.githubusercontent.com/media/NVIDIA/warp/refs/heads/main/docs/img/examples/tile_mcgp.png"></a></td>
+            <td width="25%"></td>
+        </tr>
+        <tr>
+            <td align="center">mlp</td>
+            <td align="center">nbody</td>
+            <td align="center">mcgp</td>
+            <td align="center"></td>
+        </tr>
+    </tbody>
+</table>
+
+## Learn More
+
+Please see the following resources for additional background on Warp:
+
+* [Product Page](https://developer.nvidia.com/warp-python)
+* [How to Use NVIDIA Warp to Build GPU-Accelerated Computational Physics Simulations](https://www.nvidia.com/en-us/on-demand/session/gtc26-dlit81837/) (GTC 2026 tutorial)
+* [SIGGRAPH 2024 Course Slides](https://dl.acm.org/doi/10.1145/3664475.3664543)
+* [GTC 2024 Presentation](https://www.nvidia.com/en-us/on-demand/session/gtc24-s63345/)
+* [GTC 2022 Presentation](https://www.nvidia.com/en-us/on-demand/session/gtcspring22-s41599)
+* [GTC 2021 Presentation](https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s31838)
+* [SIGGRAPH Asia 2021 Differentiable Simulation Course](https://dl.acm.org/doi/abs/10.1145/3476117.3483433)
+
+## Support
+
+See the [FAQ](https://nvidia.github.io/warp/stable/user_guide/faq.html) for common questions.
+
+Problems, questions, and feature requests can be opened on [GitHub Issues](https://github.com/NVIDIA/warp/issues).
+
+For inquiries not suited for GitHub Issues, please email <warp-python@nvidia.com>.
+
+## Contributing
+
+Contributions and pull requests from the community are welcome.
+Please see the [Contribution Guide](https://github.com/NVIDIA/warp/blob/main/CONTRIBUTING.md) for more
+information on contributing to the development of Warp.
+
+## License
+
+Warp is provided under the Apache License, Version 2.0.
+Please see [LICENSE.md](https://github.com/NVIDIA/warp/blob/main/LICENSE.md) for full license text.
+
+This project will download and install additional third-party open source software projects.
+Review the license terms of these open source projects before use.
+
+### Building from Source
+
+When building Warp from source using the `build_lib.py` script, the build process automatically
+downloads [NVIDIA libmathdx](https://developer.nvidia.com/cublasdx-downloads). Pre-built Warp
+packages (e.g., from PyPI) already include libmathdx statically linked into the library binaries.
+In both cases, libmathdx is governed by the
+[NVIDIA Software License Agreement](https://github.com/NVIDIA/warp/blob/main/licenses/libmathdx-LICENSE.txt).
+
+NOTICE AND DISCLAIMER: This software automatically retrieves, accesses or interacts with external
+materials. Those retrieved materials are not distributed with this software and are governed solely
+by separate terms, conditions and licenses. You are solely responsible for finding, reviewing and
+complying with all applicable terms, conditions, and licenses, and for verifying the security,
+integrity and suitability of any retrieved materials for your specific use case. This software is
+provided "AS IS", without warranty of any kind. The author makes no representations or warranties
+regarding any retrieved materials, and assumes no liability for any losses, damages, liabilities or
+legal consequences from your use or inability to use this software or any retrieved materials. Use
+this software and the retrieved materials at your own risk.
+
+## Publications & Citation
+
+### Research Using Warp
+
+Our [PUBLICATIONS.md](https://github.com/NVIDIA/warp/blob/main/PUBLICATIONS.md) file lists academic and research
+publications that leverage the capabilities of Warp.
+We encourage you to add your own published work using Warp to this list.
+
+### Citing Warp
+
+If you use Warp in your research, please use the "Cite this repository" button on the
+[GitHub repository](https://github.com/NVIDIA/warp) page or refer to the
+[CITATION.cff](https://github.com/NVIDIA/warp/blob/main/CITATION.cff) file for citation information.

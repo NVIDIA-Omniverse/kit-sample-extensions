@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <g id="Unlocked_tangent_dark" transform="translate(0.414)">
+    <g id="Group_3923" data-name="Group 3923" transform="translate(2.671 29.047)">
+      <line id="Line_795" data-name="Line 795" x2="29.829" transform="translate(1.5 2)" fill="none" stroke="#9b9b9b" stroke-width="1"/>
+      <g id="Rectangle_1090" data-name="Rectangle 1090" transform="translate(14.915 0.5)" fill="#f9f903" stroke="#f9f903" stroke-width="1">
+        <rect width="4" height="4" stroke="none"/>
+        <rect x="-0.5" y="-0.5" width="5" height="5" fill="none"/>
+      </g>
+      <g id="Ellipse_114" data-name="Ellipse 114" transform="translate(29.829)" fill="#fff" stroke="#00b9ff" stroke-width="1">
+        <circle cx="2" cy="2" r="2" stroke="none"/>
+        <circle cx="2" cy="2" r="2.5" fill="none"/>
+      </g>
+      <g id="Ellipse_115" data-name="Ellipse 115" fill="#fff" stroke="#00b9ff" stroke-width="1">
+        <circle cx="2" cy="2" r="2" stroke="none"/>
+        <circle cx="2" cy="2" r="2.5" fill="none"/>
+      </g>
+    </g>
+    <rect id="Rectangle_2153" data-name="Rectangle 2153" width="40" height="40" transform="translate(-0.414)" fill="none"/>
+    <path id="Unlock" d="M160.694,91.988l.222.023.225.051.2.1.148.123.151.2.1.174.026.223.026.2v6.7l-.026.223-.026.225-.1.171-.151.174-.148.151-.2.074-.225.074-.222.023H149.752l-.248-.023-.174-.074-.225-.074-.148-.151-.148-.174-.1-.171L148.66,100l-.026-.223v-6.7l.026-.2.049-.223.1-.174.148-.2.148-.123.225-.1.174-.051.248-.023h.345V88.264l.026-.519.074-.522.1-.5.174-.448.223-.445.248-.422.3-.422.348-.4.4-.373.422-.3.422-.248.422-.225.445-.148.5-.148.5-.074.547-.026.519.026.473.074.5.148.445.148.448.225.422.248.4.3.4.373.373.4.3.422.248.422.225.445.148.448.123.5.074.522.026.519-.026.151-.023.123-.074.125-.1.123-.1.074-.125.074-.148.051-.123.023h-.744l-.125-.023-.148-.051-.125-.074-.123-.074-.074-.123-.074-.125-.051-.123-.023-.151v-.3l-.051-.3-.074-.274-.1-.274-.1-.248-.151-.248-.174-.248-.2-.2-.223-.225-.248-.174-.225-.148-.274-.123-.248-.077-.271-.074-.3-.049-.271-.026-.3.026-.3.049-.274.074-.274.077-.248.123-.223.148-.248.174-.223.225-.2.2-.174.248-.148.248-.125.248-.1.274-.051.274-.049.3v4.021h8.387Z" transform="translate(-135.624 -76.601)" fill="#6e6e6e" fill-rule="evenodd"/>
+  </g>
+</svg>

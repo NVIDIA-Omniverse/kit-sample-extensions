@@ -1,0 +1,37 @@
+[package]
+version = "1.0.0"
+authors = ["Jeff Hanna"]
+title = "Renderer Ready Log"
+description = "Lightweight extension that logs 'RTX ready' when the first rendered frame is delivered. No UI dependencies."
+keywords = ["kit", "renderer", "ready", "rtx"]
+changelog = "docs/CHANGELOG.md"
+readme = "docs/Overview.md"
+category = "Rendering"
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+icon = "data/icon.png"
+preview_image = "data/preview.png"
+
+[dependencies]
+"omni.usd" = {}
+
+[[python.module]]
+name = "omni.kit.renderer.ready"
+
+[settings]
+exts."omni.kit.renderer.ready".autostart = true
+exts."omni.kit.renderer.ready".message = "RTX ready"
+exts."omni.kit.renderer.ready".stdout = true
+exts."omni.kit.renderer.ready".usd_context_name = ""
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.md",
+]
+
+[[test]]
+dependencies = []
+args = [
+    "--/app/window/width=480",
+    "--/app/window/height=480",
+]

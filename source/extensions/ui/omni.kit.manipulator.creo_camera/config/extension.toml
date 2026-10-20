@@ -1,0 +1,44 @@
+[package]
+version = "0.8.4"
+authors = ["NVIDIA Omniverse Team"]
+title = "Creo Camera Manipulator"
+description = "Creo-style pan-only camera manipulator using Kit's gesture system and RegisterScene API."
+readme = "docs/README.md"
+repository = ""
+category = "Viewport"
+keywords = ["kit", "camera", "manipulator", "creo", "viewport", "pan"]
+changelog = "docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+
+[package.writeTarget]
+kit = true
+python = true
+
+[dependencies]
+"omni.kit.viewport.registry" = {}
+"omni.kit.manipulator.camera" = {}
+"omni.kit.viewport.utility" = {}
+"omni.kit.viewport.window" = {}
+"omni.ui.scene" = {}
+
+[[python.module]]
+name = "omni.kit.manipulator.creo_camera"
+
+[documentation]
+pages = [
+    "docs/README.md",
+    "docs/CHANGELOG.md",
+]
+
+[[test]]
+dependencies = [
+    "omni.kit.test",
+]
+args = [
+    "--no-window",
+]
+stdoutFailPatterns.exclude = [
+    "*Warning:*",
+]
+timeout = 300

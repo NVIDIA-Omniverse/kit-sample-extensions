@@ -1,0 +1,54 @@
+{
+    "DrawLabel": {
+        "version": 1,
+        "categories": "debug",
+        "description": ["Draw text at a prescribed position in the viewport"],
+        "language": "Python",
+        "uiName": "Draw Label",
+        "inputs": {
+            "execIn": {
+                "type": "execution",
+                "description": "Execution input",
+                "uiName": "In"
+            },
+            "text": {
+                "type": "string",
+                "description": "Label text",
+                "default": "",
+                "uiName": "Text"
+            },
+            "color": {
+                "type": "colorf[4]",
+                "description": "Text color",
+                "default": [1.0, 1.0, 1.0, 1.0],
+                "uiName": "Color"
+            },
+            "size": {
+                "type": "float",
+                "description": "Text size",
+                "default": 12.0,
+                "uiName": "Size"
+            },
+            "transform": {
+                "type": "matrixd[4]",
+                "description": "Transform used to position the label",
+                "uiName": "Transform"
+            },
+            "offset": {
+                "type": "double[3]",
+                "description": "Offset to be applied to label, in addition to transform input",
+                "default": [0.0, 0.0, 0.0],
+                "uiName": "Offset"
+            }
+        },
+        "outputs": {
+            "execOut": {
+                "type": "execution",
+                "description": "Execution output",
+                "uiName": "Out"
+            }
+        },
+        "state": {
+        }
+    }
+}

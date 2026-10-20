@@ -1,0 +1,58 @@
+{
+    "omni.anim.DecomposeMatrix": {
+        "version": 1,
+        "description": ["xform matrix decomposition"],
+        "language": "python",
+        "metadata": {
+            "uiName": "Decompose Matrix"
+        },
+
+        "inputs": {
+            "matrix":
+            {
+                "description": ["Input matrix."],
+                "type": "matrixd[4]",
+                "default": [[1.0,0.0,0.0,0.0], [0.0,1.0,0.0,0.0], [0.0,0.0,1.0,0.0], [0.0,0.0,0.0,1.0]]
+            },
+
+            "rotateOrder":
+            {
+                "description": ["controls the order in which rx, ry, rz are applied in the transformation matrix."],
+                "type": "int",
+                "default": 0,
+                "minimum": 0,
+                "maximum": 5
+            }
+        },
+
+        "outputs": {
+            "translate":
+            {
+                "description": ["Translation part of the matrix."],
+                "type": "double[3]",
+                "default": [0.0, 0.0, 0.0]
+            },
+
+            "rotate":
+            {
+                "description": ["Rotation part of the matrix expressed as euler angles."],
+                "type": "double[3]",
+                "default": [0.0, 0.0, 0.0]
+            },
+
+            "quaternion":
+            {
+                "description": ["Rotation part of the matrix expressed as quaternion."],
+                "type": "double[4]",
+                "default": [0.0, 0.0, 0.0, 1.0]
+            },
+
+            "scale":
+            {
+                "description": ["Scale part of the matrix."],
+                "type": "double[3]",
+                "default": [1.0, 1.0, 1.0]
+            }
+        }
+    }
+}

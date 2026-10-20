@@ -1,0 +1,37 @@
+[package]
+title = "Search Service Extension"
+version = "0.1.13"
+category = "Other"
+authors = ["Artem Rozantsev", "Michael Shelley"]
+description="A plugin to connect kit to the search service for file and tag search."
+keywords = ["search", "search.service"]
+changelog = "docs/CHANGELOG.md"
+readme = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+[dependencies]
+"omni.client" = {}
+"omni.kit.search_core" = {}
+"omni.kit.ngsearch" = {}
+
+[[python.module]]
+name = "omni.kit.search.service"
+
+[[python.module]]
+name = "omni.kit.search.service.tests"
+
+[[test]]
+
+args = [
+    "--no-window",
+    "--/app/menu/legacy_mode=false",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/app/python/logSysStdOutput=0",
+]
+
+stdoutFailPatterns.exclude = [
+    "*[Error] [carb.glinterop.plugin] GLInteropContext::init: carb::windowing is not available*",
+]

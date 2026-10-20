@@ -1,0 +1,1 @@
+"""MaterialX plugin implementation package."""

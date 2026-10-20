@@ -1,0 +1,114 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (0, 0, 50000)
+                double radius = 500
+            }
+            dictionary Perspective = {
+                double3 position = (500.0000000000001, 500.0000000000001, 499.9999999999998)
+                double3 target = (0, 0, 0)
+            }
+            dictionary Right = {
+                double3 position = (-50000, 0, -1.1102230246251565e-11)
+                double radius = 500
+            }
+            dictionary Top = {
+                double3 position = (-4.329780281177466e-12, 50000, 1.1102230246251565e-11)
+                double radius = 500
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            dictionary muteness = {
+            }
+        }
+        dictionary renderSettings = {
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.01
+    startTimeCode = 0
+    timeCodesPerSecond = 30
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def DistantLight "defaultLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float angle = 1
+        float intensity = 3000
+        float shaping:cone:angle = 180
+        float shaping:cone:softness
+        float shaping:focus
+        color3f shaping:focusTint
+        asset shaping:ies:file
+        double3 xformOp:rotateXYZ = (315, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Cube "Cube"
+	{
+		token visibility.timeSamples = {
+			10: "inherited",
+			11: "inherited",
+			12: "invisible",
+			13: "inherited",
+			14: "invisible",
+			15: "invisible",
+			16: "invisible",
+			17: "inherited",
+			18: "inherited",
+			19: "inherited",
+			20: "inherited",
+		}
+		float3 xformOp:rotateXYZ.timeSamples = {
+			10: (7.136664, -8.296526, -0.2170769),
+			11: (7.8595524, -9.123268, -0.2965203),
+			12: (8.585358, -9.948952, -0.38673946),
+			13: (9.314399, -10.773438, -0.4878357),
+			14: (10.047, -11.59659, -0.59992045),
+			15: (10.783488, -12.418264, -0.7231152),
+			16: (11.524196, -13.2383175, -0.85755193),
+			17: (12.269461, -14.056602, -1.0033729),
+			18: (13.019626, -14.872967, -1.160731),
+			19: (13.775039, -15.687261, -1.3297898),
+			20: (14.536054, -16.499325, -1.5107238),
+		}
+		float3 xformOp:scale.timeSamples = {
+			10: (1, 1, 1.1),
+			11: (1.05, 1, 1),
+			12: (1.07, 1, 1),
+			13: (1.15, 1, 1),
+			14: (1.3, 1, 1),
+			15: (1.2, 1, 1),
+			16: (1.25, 1, 1),
+			17: (1.23, 1, 1),
+			18: (1.22, 1, 1),
+			19: (1.21, 1, 1),
+			20: (1.2, 1, 1.2),
+		}
+		double3 xformOp:translate.timeSamples = {
+			10: (1.4002360272614458, 1.3519514162350323, 0.700358582723578),
+			11: (1.549011877570895, 1.4955969999876604, 0.7747720684771235),
+			12: (1.698644591280108, 1.6400698997529297, 0.8496141331449113),
+			13: (1.848950554803422, 1.7851928335281322, 0.9247929383881754),
+			14: (1.999746154555172, 1.9307885193105578, 1.000216645868149),
+			15: (2.1508477769496945, 2.0766796750974987, 1.0757934172460661),
+			16: (2.3020718084013274, 2.2226890188862454, 1.151431414183161),
+			17: (2.4532346353244048, 2.3686392686740887, 1.2270387983406668),
+			18: (2.604152644133264, 2.5143531424583205, 1.302523731379818),
+			19: (2.7546422212422415, 2.659653358236232, 1.377794374961848),
+			20: (2.9045197530656726, 2.8043626340051127, 1.4527588907479905),
+		}
+		
+		uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+	}
+}

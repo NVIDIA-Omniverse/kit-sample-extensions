@@ -1,0 +1,114 @@
+#usda 1.0
+(
+    defaultPrim = "Environment"
+    upAxis = "Y"
+)
+
+def Xform "Environment"
+{
+    def Scope "Looks"
+    {
+        def Material "Ground_Material"
+        {
+            token outputs:mdl:displacement.connect = </Environment/Looks/Ground_Material/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </Environment/Looks/Ground_Material/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </Environment/Looks/Ground_Material/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @OmniPBR.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "OmniPBR"
+                float inputs:albedo_add = 0 (
+                    customData = {
+                        float default = 0
+                        dictionary soft_range = {
+                            float max = 1
+                            float min = -1
+                        }
+                    }
+                    displayGroup = "Albedo"
+                    displayName = "Albedo Add"
+                    doc = "Adds a constant value to the diffuse color "
+                    hidden = false
+                )
+                float inputs:albedo_brightness = 1 (
+                    customData = {
+                        float default = 1
+                        dictionary soft_range = {
+                            float max = 1
+                            float min = 0
+                        }
+                    }
+                    displayGroup = "Albedo"
+                    displayName = "Albedo Brightness"
+                    doc = "Multiplier for the diffuse color "
+                    hidden = false
+                )
+                color3f inputs:diffuse_color_constant = (0.05405408, 0.05405354, 0.05405354) (
+                    customData = {
+                        float3 default = (0.2, 0.2, 0.2)
+                    }
+                    displayGroup = "Albedo"
+                    displayName = "Base Color"
+                    doc = "This is the base color"
+                    hidden = false
+                )
+                token outputs:out
+            }
+        }
+    }
+
+    def Mesh "Plane" (
+        apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        int[] faceVertexCounts = [4]
+        int[] faceVertexIndices = [0, 2, 3, 1]
+        rel material:binding = </Environment/Looks/Ground_Material> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        normal3f[] normals = [(0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0)] (
+            interpolation = "faceVarying"
+        )
+        point3f[] points = [(-50, 0, -50), (50, 0, -50), (-50, 0, 50), (50, 0, 50)]
+        bool primvars:invisibleToSecondaryRays = 0
+        float2[] primvars:st = [(1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        token visibility = "invisible"
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (286.92724609375, 286.92724609375, 286.92724609375)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def DistantLight "DistantLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float inputs:angle = 34.3
+        float inputs:intensity = 3000
+        float inputs:shaping:cone:angle = 180
+        double3 xformOp:rotateXYZ = (255.70177427072963, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def DomeLight "DomeLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float inputs:exposure = 0.4
+        float inputs:intensity = 1003.3
+        float inputs:shaping:cone:angle = 180
+        token inputs:texture:format = "latlong"
+        bool visibleInPrimaryRay = 1
+        double3 xformOp:rotateXYZ = (270, -128.27698468300977, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+}

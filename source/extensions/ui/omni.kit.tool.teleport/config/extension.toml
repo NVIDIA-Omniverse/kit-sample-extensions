@@ -1,0 +1,99 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+
+version = "107.4.2"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Ning Li", "Jeff Hanna"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Teleport tool"
+description = "Teleport tool."
+
+# URL of the extension source repository.
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['omni', 'tool', 'teleport']
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog = "docs/CHANGELOG.md"
+
+category = "Create"
+readme = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+
+[package.target]
+kit = ["107.3.0"]
+
+[package.writeTarget]
+kit = true
+
+[dependencies]
+"omni.ui" = {}
+"omni.ui.scene" = {}
+"omni.usd" = {}
+"omni.kit.renderer.core" = {}
+"omni.kit.window.cursor" = {}
+"omni.kit.window.preferences" = {}
+"omni.kit.manipulator.camera" = {}
+"usdrt.scenegraph" = {}
+"omni.kit.viewport.utility" = {}
+"omni.kit.viewport.registry" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.tool.teleport".
+[[python.module]]
+name = "omni.kit.tool.teleport"
+
+[settings]
+exts."omni.kit.tool.teleport".showPosition = false
+exts."omni.kit.tool.teleport".useWorldUp = false
+exts."omni.kit.tool.teleport".eyeHeight = 250
+exts."omni.kit.tool.teleport".widgetScale = 1.0
+exts."omni.kit.tool.teleport".keyWord = ""
+exts."omni.kit.tool.teleport".ringManipulatorVisible = true
+exts."omni.kit.tool.teleport".ringManipulatorFixedSize = false
+exts."omni.kit.tool.teleport".ringManipulatorScale = 0.85
+exts."omni.kit.tool.teleport".ringManipulatorMinSize = 25
+exts."omni.kit.tool.teleport".ringManipulatorMaxSize = 100
+
+[documentation]
+pages = ["docs/Overview.md", "docs/SETTINGS.md", "docs/USAGE_PYTHON.md", "docs/CHANGELOG.md"]
+
+[[test]]
+args = [
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/app/asyncRendering=false",
+    "--/app/docks/disabled=true",
+    "--/app/viewport/forceHideFps=true",
+    "--/app/window/hideUi=true",             # Hide all Viewport UI
+    "--/app/window/width=512",               # Be explicit about the Window size
+    "--/app/window/height=512",              # Be explicit about the Window size
+    "--/app/renderer/resolution/width=512",  # Be explicit about the Viewport resolution
+    "--/app/renderer/resolution/height=512", # Be explicit about the Viewport resolution
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/app/useFabricSceneDelegate=0",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/app/fastShutdown=true",
+    "--/exts/omni.kit.tool.teleport/basicGizmo=true",
+    "--no-window",
+]
+
+dependencies = [
+    "omni.kit.ui_test",
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.viewport.window",
+]
+
+stdoutFailPatterns.exclude = [
+    "*<class 'omni.kit.menu.utils.scripts.utils.MenuUtilsExtension'>: extension object is still alive*", # Leak
+    "*<class 'omni.kit.window.tests.Extension'>: extension object is still alive*",                      # Leak
+    "*createDLSSContext error: unable to initialize context. Optional DLSS feature is disabled.*",
+    "*[carb.graphics-vulkan.plugin] pipelineLayouts*",
+    "*extension object is still alive, something holds a reference on it. References:*",
+
+]

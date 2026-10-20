@@ -1,0 +1,17 @@
+#usda 1.0
+()
+
+def Scope "ramp"
+{
+    custom float[] positions3 = [0, 0.5, 1]
+    custom float3[] values3 = [(1, 0, 0), (0, 1, 0), (0, 0, 1)]
+    custom int[] interpolations3 = [1, 1, 1]
+    custom float[] positions = [0, 1]
+    custom float[] values = [0, 1]
+    custom int[] interpolations = [1, 1]
+    custom float[] positions_empty = []
+    custom float3[] values3_empty = []
+    custom float[] values_empty = []
+    custom int[] interpolations_empty = []
+}
+

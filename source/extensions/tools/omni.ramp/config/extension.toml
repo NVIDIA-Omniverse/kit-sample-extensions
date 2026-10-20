@@ -1,0 +1,59 @@
+
+[package]
+title = "Ramp evaluator and widget"
+category = "UI"
+version = "110.0.2"
+
+icon = "data/icon.png"
+preview_image = "data/icon.png"
+changelog = "docs/CHANGELOG.md"
+readme = "docs/index.rst"
+description="Ramp evaluation and UI widget."
+authors = ["Neil Dickson, Terry Caton, Viatcheslav Telegin, Ian Bullard, Fred Hooper, Peter Shipkov"]
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Main module for the Python interface
+[[python.module]]
+name = "omni.ramp"
+
+# Watch the .ogn files for hot reloading (only works for Python files)
+[fswatcher.patterns]
+include = ["*.py"]
+
+# Keywords for the extension
+keywords = ["ramp"]
+
+# Extensions required to load before this one
+[dependencies]
+"omni.ui" = {}
+"omni.usd" = {}
+"omni.kit.commands" = {}
+
+[[native.plugin]]
+path = "bin/*.plugin"
+recursive = false
+
+# Avoid test failure due to error message in ImageProvider when renderer
+# interface cannot be acquired
+[[test]]
+args = [
+    "--no-window",
+    "--/app/useFabricSceneDelegate=1"
+]
+
+dependencies = [
+    "omni.kit.test",
+    # "omni.particle.system.core"   # deprecated
+]
+
+stdoutFailPatterns.exclude = [
+        "*[omni.usd] failed to get rt interface*",
+        "*[omni.fabric.plugin] Could not load any plugins to populate Fabric*",
+        "*[omni.usd] '/app/useFabricSceneDelegate' is enabled, but usdrt::population::IUtils could not be created. Is UsdRt enabled?*"
+]
+
+[package.writeTarget]
+kit = true
+usd = true

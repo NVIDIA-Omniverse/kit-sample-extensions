@@ -1,0 +1,32 @@
+[package]
+title = "Graph Variables Widget"
+description = "Panel for editing variables on Kit Graphs"
+version = "2.1.1"
+authors = ["Keenan Patterson"]
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+keywords = ["graph", "editor", "variables"]
+changelog = "docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+readme = "docs/README.md"
+category = "Graph"
+icon = "icons/icon.svg"
+
+[dependencies]
+"omni.kit.graph.editor.core" = {}
+"omni.kit.widget.searchfield" = {}
+"omni.kit.widget.searchable_combobox" = {}
+"omni.ui" = {}
+
+[[python.module]]
+name = "omni.kit.graph.widget.variables"
+
+[[test]]
+dependencies = [
+    "omni.kit.mainwindow",
+]
+
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--no-window"
+]

@@ -1,0 +1,12 @@
+<project toolsVersion="5.0">
+  <import path="../_build/${platform_target}/${config}/kit/dev/all-deps.packman.xml">
+    <filter include="realm4kit_release" linkPath="../_build/target-deps/realm4kit/release" />
+    <filter include="realm4kit_debug" linkPath="../_build/target-deps/realm4kit/debug" />
+    <filter include="slang" linkPath="../_build/target-deps/slang" />
+    <filter include="iray" linkPath="../_build/target-deps/iray" />
+    <filter include="usdrt" linkPath="../_build/target-deps/usdrt" />
+  </import>
+  <dependency name="cuda_nvjitlink" linkPath="../_build/target-deps/cuda_nvjitlink">
+    <package name="cuda-windows-x86_64" version="12.8.61" platforms="windows-x86_64" />
+  </dependency>
+</project>

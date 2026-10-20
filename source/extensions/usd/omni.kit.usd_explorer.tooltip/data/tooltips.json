@@ -1,0 +1,249 @@
+{
+    "tooltips": [
+        {
+            "name": "template",
+            "shortcut": "Control+K",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html",
+            "text_desc": "Description.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Waypoints",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html",
+            "text_desc": "Left click to toggle a waypoint for current viewport. Right click to show all created waypoints",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Workspaces Controls",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html",
+            "text_desc": "Changes the panel layout of the applicaiton.  Review mode reduces the application to a minimal ui for reviewing scenes.  Edit mode shows more ui that allows users to modify the scene.  Edit mode also restors previously open panels.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Workspace Review",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html",
+            "text_desc": "Changes the panel layout of the applicaiton to Review mode.  Review mode reduces the application to a minimal ui for reviewing scenes. ",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Workspace Edit",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html",
+            "text_desc": "Changes the panel layout of the applicaiton Edit mode. Edit mode shows more ui that allows users to modify the scene.  Edit mode also restors previously open panels.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Render Quality Controls",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html",
+            "text_desc": "Toggles the entire scene's render quality or style.  Draft mode uses the RTX renderer with stream-lined settings. Lights are turned off automatically for fast rendering and interactivity. Preview mode uses the RTX renderer and utilizes more advanced settings and also uses active lights. This will take slightly longer to render as a result.  Photo mode uses the Path Trace renderer with advanced options for photo realistic results. Photo mode looks the best with the trade off that it takes the longest to render.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Render Quality Draft",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html",
+            "text_desc": "Toggles the entire scene's render quality or style.  Draft mode uses the RTX renderer with stream-lined settings. Lights are turned off automatically for fast rendering and interactivity.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Render Quality Preview",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html",
+            "text_desc": "Toggles the entire scene's render quality or style.  Preview mode uses the RTX renderer and utilizes more advanced settings and also uses active lights. This will take slightly longer to render as a result.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Render Quality Photo",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html",
+            "text_desc": "Toggles the entire scene's render quality or style.  Photo mode uses the Path Trace renderer with advanced options for photo realistic results. Photo mode looks the best with the trade off that it takes the longest to render.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Render Style Controls",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html",
+            "text_desc": "Render style allows the user to change the style of the renderer based on the current render quality.  Current styles are Shaded mode (default) and White Mode. White Mode replaces all materials with a uniform white material with the exception of certain materials.  The exception list is defaulted to Sky and Glass materials however this list can be edited in the main preferences.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Render Style Shaded",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html",
+            "text_desc": "Render style allows the user to change the style of the renderer based on the current render quality. Shaded Mode is the default mode.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Render Style White",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html",
+            "text_desc": "Render style allows the user to change the style of the renderer based on the current render quality. White Mode replaces all materials with a uniform white material with the exception of certain materials. The exception list is defaulted to Sky and Glass materials however this list can be edited in the main preferences.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Live Mode",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html",
+            "text_desc": "Live mode allows the user to sync changes between different applications and users via Omnvierse. User(s) must be signed into an Omnvierse Server to use Live mode.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "User Sign in",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html",
+            "text_desc": "Display the state of the user's sign-in status. When red, no user is signed in.  When green and sign in name is displayed, user is successfully signed-in.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Display Options",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#viewport-toolbar",
+            "text_desc": "Display options allow the user to toggle which Viewport Visualizers are currently active.",
+            "image_desc": "Display_Options.png"
+        },
+        {
+            "name": "Camera",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#viewport-toolbar",
+            "text_desc": "The most common camera controls are always available in the Viewport Dahboard. Users can select between Cameras and Views.  Users can also adjust the camera navigation speed from the camera menu.  Settings can be locked so that they cannot be changed with out, first unlocking the camera.  Additional camera controls are revealed through an expandable UI including lens, focal distance, and view ratio.",
+            "image_desc": "Camera_Settings.png"
+        },
+        {
+            "name": "Screenshots",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#viewport-toolbar",
+            "text_desc": "Screen-shot controls are ancored to the right of the Viewport Dashboard. Click on this button to takes a screen shot in the current mode.  Click on the right bottom arrow to popup the screenshot settings.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Select Model",
+            "shortcut": "Q",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "text_desc": "Select Model mode selects a defined object group, referred to as a model.  Pressing Q toggles the selection mode.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Select Part",
+            "shortcut": "Q",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "text_desc": "Select Part mode selects individual parts of a defined model, referred to as a part.  Select Part mode is visualized in the viewport by a bounding box that is placed around the encompassing model. Pressing Q toggles the selection mode.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Move",
+            "shortcut": "W",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "text_desc": "Provides users a gizmo in the viewport to move the selected object in global or local space.  Pressing W toggles the active space between global and local. Transform space is indicated on the icon by a blue tint for global and a yellow tint for local.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Rotate",
+            "shortcut": "E",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "text_desc": "Provides users a gizmo in the viewport to rotate the selected object in global or local space.   Pressing E toggles the active space between global and local. Transform space is indicated on the icon by a blue tint for global and a yellow tint for local.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Scale",
+            "shortcut": "R",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "text_desc": "Provides users a gizmo in the viewport to rotate the selected object in global space.  Scale is always in global space",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Snap",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "text_desc": "Click to enable/disable snapping, Right-click to show snap-settings",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Transform Space Toggle",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "text_desc": "Manually toggles the transform space of the move and rotate tools",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Transform Space Toggle",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "text_desc": "manually toiggles the transform space of the move and rotate tools",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Light Toggle",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "text_desc": "Toggles all lights in the scene on and off with the exception of lights associated with the sky.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Material Browser",
+            "shortcut": "Control+M",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "text_desc": "The Material Browser displays materials grouped in categories, Right Click a material to apply them to selected objects.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Movie Capture",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "shortcut": "",
+            "text_desc": "Renders a movie clip of the sun study.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Set Date and Time",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "text_desc": "Set's the scene date and time. Required to set the sun position correctly.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Set Location",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "text_desc": "Set's the scenes location.  Required to set the sun position/arc correctly.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Sun Study",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "text_desc": "Allows user to scrub the time of day and preview the sun's course throughout a day. Note: A Sun Study can only be used with Dynamic Skies.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Stage Hierarchy",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "text_desc": "Displays the hiearchical object relationship for the entire scene. Selection is mirrored between this panel and the Viewport",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Render Settings",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "text_desc": "Advanced render settings that allow a user to fine-tune the look of a scene through render settings for all renderers.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Preferences",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "text_desc": "All preferences and applications are set here.",
+            "image_desc": "Placeholder_Tooltip.png"
+        },
+        {
+            "name": "Asset Browser",
+            "shortcut": "",
+            "docs": "https://omniverse.gitlab-master-pages.nvidia.com/brick-docs/manual/AEC_View_UserManual.html#tool-bar",
+            "text_desc": "Browses files and allows users to add assets to the world.",
+            "image_desc": "Placeholder_Tooltip.png"
+        }
+    ]
+}

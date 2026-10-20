@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="18"
+   height="18"
+   viewBox="0 0 18 18"
+   fill="none"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg">
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M2 1.5V15.5C2 15.7761 2.22386 16 2.5 16H5V10H14V16H16.5C16.7761 16 17 15.7761 17 15.5V5.47338C17 5.35226 16.956 5.23526 16.8763 5.14412L13.3994 1.17074C13.3045 1.06224 13.1673 1 13.0231 1H2.5C2.22386 1 2 1.22386 2 1.5ZM4 2V6.5C4 6.77614 4.22386 7 4.5 7H11.5C11.7761 7 12 6.77614 12 6.5V2H10V5.5C10 5.77614 9.77614 6 9.5 6H8.5C8.22386 6 8 5.77614 8 5.5V2H4Z"
+     fill="#7F7F7F"
+     id="path1"
+     style="fill:#ffffff" />
+</svg>

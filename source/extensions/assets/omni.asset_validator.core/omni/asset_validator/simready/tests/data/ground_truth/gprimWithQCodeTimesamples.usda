@@ -1,0 +1,18 @@
+#usda 1.0
+(
+    defaultPrim = "Cube"
+
+    """
+    This USD presents a gprim with a valid qcode and timesamples.
+    """
+)
+
+def Cube "Cube" (
+    prepend apiSchemas = ["SemanticsLabelsAPI:wikidata_qcode"]
+)
+{
+    token[] semantics:labels:wikidata_qcode = ["Q12345"]
+    token[] semantics:labels:wikidata_qcode.timeSamples = {
+        1.0: ["Q23456"]
+    }
+}

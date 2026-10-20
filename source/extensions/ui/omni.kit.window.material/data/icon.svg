@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <g id="Material_Browser" transform="translate(-384 -132)">
+    <rect id="BaseIcon" width="30" height="30" transform="translate(384 132)" fill="none"/>
+    <g id="Bucket" transform="translate(36.138 302.2) rotate(-45)">
+      <path id="Subtraction_5" data-name="Subtraction 5" d="M13.114,16.285H1a1,1,0,0,1-1-1V0H9.733L7.225,2.179A1.629,1.629,0,1,0,8.686,3.8V3.791L13.043,0h1.072V15.286A1,1,0,0,1,13.114,16.285Z" transform="translate(360 141.214)" fill="#A8A8A8"/>
+      <line id="handle" y1="6.51" x2="7.528" transform="translate(367.057 138.504)" fill="none" stroke="#A8A8A8" stroke-linecap="round" stroke-width="1"/>
+    </g>
+    <path id="Drip" d="M2.284-5.477c.2,0,.369,1.428.762,2.192C3.485-2.435,4.622-1.6,4.572-.4A2.289,2.289,0,0,1,2.284,1.885,2.289,2.289,0,0,1,0-.4C-.09-1.546.965-2.9,1.2-3.367,1.635-4.029,2.069-5.477,2.284-5.477Z" transform="translate(388 156.114)" fill="#A8A8A8"/>
+  </g>
+</svg>

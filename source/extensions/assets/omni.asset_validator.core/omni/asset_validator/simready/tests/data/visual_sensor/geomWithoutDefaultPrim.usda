@@ -1,0 +1,11 @@
+#usda 1.0
+(
+    """
+    This USD presents a stage without default prim.
+    """
+)
+
+def "Cube" (
+)
+{
+}

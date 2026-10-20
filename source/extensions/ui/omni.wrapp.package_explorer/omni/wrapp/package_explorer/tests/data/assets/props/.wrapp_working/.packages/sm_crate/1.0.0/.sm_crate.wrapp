@@ -1,0 +1,17 @@
+{
+  "format_version": {
+    "version_string": "5.0"
+  },
+  "name": "crate",
+  "version": "1.0.0",
+  "catalog": {
+    "format_version": {
+      "version_string": "4.0"
+    },
+    "root": "./_build/windows-x86_64/release/exts/omni.wrapp.package_explorer/omni/wrapp/package_explorer/tests/data/assets/props/.wrapp_working/.packages/sm_crate/1.1.1",
+    "items": [],
+    "storage_map": null
+  },
+  "repository": "./_build/windows-x86_64/release/exts/omni.wrapp.package_explorer/omni/wrapp/package_explorer/tests/data/assets/props/.wrapp_working/",
+  "dependencies": null
+}

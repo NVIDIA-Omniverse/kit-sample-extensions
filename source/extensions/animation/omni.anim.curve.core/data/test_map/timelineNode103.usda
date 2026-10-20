@@ -1,0 +1,155 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (0, 0, 50000)
+                double radius = 500
+            }
+            dictionary Perspective = {
+                double3 position = (500.0000000000001, 500.0000000000001, 499.9999999999998)
+                double3 target = (-0.0000039780381939635845, 0.000007956076956361358, -0.000003978038478180679)
+            }
+            dictionary Right = {
+                double3 position = (-50000, 0, -1.1102230246251565e-11)
+                double radius = 500
+            }
+            dictionary Top = {
+                double3 position = (-4.329780281177466e-12, 50000, 1.1102230246251565e-11)
+                double radius = 500
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            dictionary muteness = {
+            }
+        }
+        dictionary renderSettings = {
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.01
+    startTimeCode = 0
+    timeCodesPerSecond = 24
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def OmniGraph "PushGraph"
+    {
+        token evaluator:type = "push"
+        token fabricCacheBacking = "Shared"
+        int2 fileFormatVersion = (1, 5)
+        token pipelineStage = "pipelineStageSimulation"
+
+        def OmniGraphNode "timeline" (
+            delete apiSchemas = ["AnimationDataAPI"]
+            prepend apiSchemas = ["NodeGraphNodeAPI"]
+        )
+        {
+            custom double inputs:framerate = 24
+            custom double inputs:length = 10
+            custom bool inputs:loop = 0
+            custom double inputs:newTime = 0
+            custom uint inputs:play
+            custom uint inputs:playFromStart
+            custom uint inputs:reverse
+            custom uint inputs:reverseFromEnd
+            custom uint inputs:setNewTime
+            custom uint inputs:stop
+            token node:type = "omni.anim.Timeline"
+            int node:typeVersion = 1
+            custom uint outputs:finished = 0 (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            custom uint outputs:updated = 0 (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            uniform token ui:nodegraph:node:expansionState = "open"
+            uniform float2 ui:nodegraph:node:pos = (190, 114)
+
+            def AnimationData "animationData"
+            {
+                double xformOp:translate:x.timeSamples = {
+                    0: 0,
+                    54: 0,
+                }
+                bool xformOp:translate:x:tangentBroken.timeSamples = {
+                    0: 0,
+                    54: 0,
+                }
+                timecode[] xformOp:translate:x:tangentTimes.timeSamples = {
+                    0: [-10, 18],
+                    54: [36, 64],
+                }
+                token[] xformOp:translate:x:tangentTypes.timeSamples = {
+                    0: ["auto", "auto"],
+                    54: ["auto", "auto"],
+                }
+                double[] xformOp:translate:x:tangentValues.timeSamples = {
+                    0: [0, 0],
+                    54: [0, 0],
+                }
+                bool xformOp:translate:x:tangentWeighted.timeSamples = {
+                    0: 0,
+                    54: 0,
+                }
+                double xformOp:translate:y.timeSamples = {
+                    0: 0,
+                    54: 0,
+                }
+                bool xformOp:translate:y:tangentBroken.timeSamples = {
+                    0: 0,
+                    54: 0,
+                }
+                timecode[] xformOp:translate:y:tangentTimes.timeSamples = {
+                    0: [-10, 18],
+                    54: [36, 64],
+                }
+                token[] xformOp:translate:y:tangentTypes.timeSamples = {
+                    0: ["auto", "auto"],
+                    54: ["auto", "auto"],
+                }
+                double[] xformOp:translate:y:tangentValues.timeSamples = {
+                    0: [0, 0],
+                    54: [0, 0],
+                }
+                bool xformOp:translate:y:tangentWeighted.timeSamples = {
+                    0: 0,
+                    54: 0,
+                }
+                double xformOp:translate:z.timeSamples = {
+                    0: 0,
+                    54: 0,
+                }
+                bool xformOp:translate:z:tangentBroken.timeSamples = {
+                    0: 0,
+                    54: 0,
+                }
+                timecode[] xformOp:translate:z:tangentTimes.timeSamples = {
+                    0: [-10, 18],
+                    54: [36, 64],
+                }
+                token[] xformOp:translate:z:tangentTypes.timeSamples = {
+                    0: ["auto", "auto"],
+                    54: ["auto", "auto"],
+                }
+                double[] xformOp:translate:z:tangentValues.timeSamples = {
+                    0: [0, 0],
+                    54: [0, 0],
+                }
+                bool xformOp:translate:z:tangentWeighted.timeSamples = {
+                    0: 0,
+                    54: 0,
+                }
+            }
+        }
+    }
+}
+

@@ -1,0 +1,45 @@
+[package]
+version = "${version}"
+authors = ["Chuan Hung", "Mithul Panchal"]
+title = "3D Gaussian Splat Converter"
+description = "Converts 3D Gaussian Splat (.ply/.spz) data to USD using ParticleField3DGaussianSplat schema."
+readme = "docs/README.md"
+
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+category = "converter"
+keywords = ["kit", "converter", "ply", "spz", "gaussian", "splat", "3dgs", "usd"]
+changelog = "docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+
+# Explicitly set the write target
+writeTarget.config = true
+writeTarget.python = true
+writeTarget.kit = true
+writeTarget.usd = true
+writeTarget.platform = true
+
+[dependencies]
+"omni.usd" = {}
+"omni.ui" = {}
+"omni.usd.schema.usd_particle_field" = {}
+"omni.kit.pip_archive" = {}
+"omni.kit.tool.asset_importer" = {}
+
+[[python.module]]
+name = "omni.kit.converter.gsplat"
+
+# Add pip packages installed at build time to sys.path
+[[python.module]]
+path = "pip_prebundle"
+
+[[test]]
+dependencies = [
+    "omni.asset_validator.core",
+]
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.md",
+]

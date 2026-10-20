@@ -1,0 +1,60 @@
+[package]
+authors = ["Jozef van Eenbergen", "Philippe Sawicki"]
+category = "Services"
+changelog = "docs/CHANGELOG.md"
+description = "The Omniverse Agent Runner is responsible for communicating with the Agent Controller to update on status.\n It is also what will launch the task within the process launched by the Controller."
+icon = "data/icon.png"
+keywords = ["kit", "services", "farm"]
+preview_image = "data/preview.png"
+readme = "docs/README.md"
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+title = "Omniverse Agent Runner"
+toggleable = false
+version = "0.7.4"
+
+# Start as one of the last extensions to make sure all transports etc. are loaded.
+[core]
+order = 1000
+
+[dependencies]
+"omni.services.core" = {}
+"omni.services.client" = {}
+"omni.services.transport.client.http_async" = {}
+"omni.services.facilities.log" = {}
+
+[[python.module]]
+name = "omni.services.farm.agent.runner"
+
+[settings]
+# When changing the checkin_interval make sure to do this in lockstep with the timeout in the agent controller.
+# If this interval gets larger than the timeout in the agent controller tasks might get interrupted.
+exts."omni.services.farm.agent.runner".checkin_interval = 1
+#exts."omni.services.farm.agent.runner".controller = "http://localhost:8012/agent"
+#exts."omni.services.farm.agent.runner".assigned_task = "1234-4567-8901-1234"
+
+[[test]]
+
+dependencies = [
+    "omni.services.render",
+]
+
+args = [
+    "--no-window",
+]
+
+stdoutFailPatterns.exclude = [
+# This is an expected error message during these tests as processes are purposly crashed to check handling of task
+# failures.
+    "*Failed to open : *abcd.usd*",
+    # Kit 111 omni.usd wording for the same deliberately missing stage.
+    "*Failed to open owned stage *abcd.usd*",
+    "*Failed to retrieve abcd*",
+    "*Open USD error*",
+    "*Unable to open abcd.usd*",
+    "*Failed to run task: abcd*",
+    "*Failed to execute task*",
+    "*Error: libomni.usd.so: cannot open shared object file*",
+    "*failed to load native plugin*libomni.hydra.usdrt_delegate.plugin.so*",
+    ".*Error was.*cannot be found.*",
+    "*[carb.crashreporter-breakpad.plugin] Failed to initialize the symbol handler: Invalid pointer*",
+]

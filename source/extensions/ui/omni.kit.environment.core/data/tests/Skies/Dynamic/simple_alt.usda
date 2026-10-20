@@ -1,0 +1,19 @@
+#usda 1.0
+(
+    doc = """Dynamic sky that provides a Cone, the prim simple.usd provides too, but as an Xform
+    instead of a Mesh, and a skyMode and skyTarget of its own. Used by test_readonly_root to tell
+    it apart from the sky it replaces, which brings the same in through its own reference."""
+    defaultPrim = "World"
+    metersPerUnit = 0.01
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    custom string skyMode = "alt"
+    custom rel skyTarget = </World/Cone>
+
+    def Xform "Cone"
+    {
+    }
+}

@@ -1,0 +1,45 @@
+{
+    "OrderPrimsByDistance": {
+        "categories": "spatial",
+        "categoryDefinitions": "../../config/CurveCategories.json",
+        "description": ["Order mesh prims based on their distance to a reference point."],
+        "uiName": "Order Prims by Distance",
+        "inputs": {
+            "point": {
+                "type": "float[3]",
+                "default": [0, 0, 0],
+                "description": "Point from which to measure distances to prims",
+                "uiName": "Reference Point"
+            },
+            "bundle": {
+                "type": "bundle",
+                "description": "Bundle Prims",
+                "uiName": "Bundle Prims"
+            },
+            "verbose": {
+                "type": "bool",
+                "default": false,
+                "description": "Log verbose information",
+                "uiName": "Verbose"
+            }
+        },
+        "outputs": {
+            "bundle": {
+                "type": "bundle",
+                "description": "Bundle Prims",
+                "uiName": "Ordered Bundle Prims"
+            }
+        },
+        "state": {
+            "prevPoint": {
+                "description": "Previous point value for recompute test",
+                "type": "float[3]"
+            },
+            "prevVerbose": {
+                "description": "Previous verbose value for recompute test",
+                "type": "bool"
+            }
+        },
+        "version": 1
+    }
+}

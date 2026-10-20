@@ -1,0 +1,110 @@
+
+[package]
+title = "Measure Tool"
+description = "In-viewport measure tools."
+category = "Undefined"
+keywords = ["measure", "system", "tool"]
+version = "200.1.9"
+
+icon = "data/icon.png"
+preview_image = "data/preview.png"
+changelog = "docs/CHANGELOG.md"
+readme = "docs/index.rst"
+authors = ["Greg Amato", "Ege Sekkin", "Peter Shipkov"]
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+[documentation.pages]
+Overview = "docs/overview.md"
+Actions = "docs/actions_api.md"
+Changelog = "docs/CHANGELOG.md"
+
+[package.target]
+kit = ["109.0"]
+
+[package.writeTarget]
+kit = false
+# platform = true  # only required if we have C++ compilation or 3rd party python (c based)
+
+# Main module for the Python interface
+[[python.module]]
+name = "omni.kit.tool.measure"
+
+# [[python.module]]
+# path = "pip_prebundle"
+
+# Watch the .ogn files for hot reloading (only works for Python files)
+[fswatcher.patterns]
+include = ["*.py"]
+exclude = []
+
+# Extensions required to load before this one
+[dependencies]
+"omni.kit.async_engine" = {}
+"omni.kit.manipulator.viewport" = {}
+"omni.kit.notification_manager" = {}
+"omni.kit.pip_archive" = {}
+"omni.kit.property.bundle" = {}
+"omni.kit.viewport.menubar.display" = {}
+"omni.kit.viewport.utility" = {}
+"omni.kit.viewport.window" = {}
+"omni.kit.window.cursor" = {}
+"omni.ui" = {}
+"omni.ui.scene" = {}
+"omni.usd" = {}
+"omni.warp.core" = {}
+"omni.kit.actions.core" = {optional=true}
+"omni.kit.hotkeys.core" = {optional=true}
+
+
+[settings]
+exts."omni.kit.tool.measure".startup_tool = "NONE"
+exts."omni.kit.tool.measure".startup_snap_type = "SURFACE"
+exts."omni.kit.tool.measure".startup_ui_collapsed = []
+exts."omni.kit.tool.measure".enable_hotkeys = false
+exts."omni.kit.tool.measure".enable_highlighting = true
+
+[settings.rtx-transient.scenedb]
+useUniformsReindexing = true
+
+# Avoid test failure due to error message in ImageProvider when renderer
+# interface cannot be acquired
+[[test]]
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.uiapp",
+    "omni.kit.ui_test",
+    "omni.kit.collaboration.channel_manager",
+    "omni.kit.collaboration.presence_layer",
+    # "omni.pointcloud.streaming.potree",  # Uncomment when testing Potree functionality locally
+    # "omni.rtx.tests",  # Only the disabled Potree test uses it (wait_for_streaming); absent from Kit 111
+]
+
+args = [
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/app/asyncRendering=false",
+    "--/app/useFabricSceneDelegate=1",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/persistent/app/viewport/displayOptions=0",
+    "--/app/viewport/defaults/hud/visible=false",
+    "--/app/viewport/forceHideFps=true",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    # omni.rtx.tests pulls in omni.rtx.window.settings, whose Render Settings window has no Stage
+    # window to dock into in the test app and floats over the Property panel, intercepting clicks.
+    "--/exts/omni.rtx.window.settings/startup/autoCreateWindow=false",
+    "--/app/fastShutdown=true",
+    "--no-window",
+]
+
+stdoutFailPatterns.exclude = [
+    "*[Error] [gpu.foundation.plugin]*",
+    "*[Error] [carb.graphics-vulkan.plugin]*",
+    "*[Error] [carb.graphics-direct3d.plugin]*",
+    "*Runtime Error: *GL error*",
+    # EA1 only (Kit 111): the published libraries refuse a custom string attribute's write (OVStage "has a different type"); every test passes. Remove when the libraries ship #2840.
+    "*[omni.runtime.core]*ovstage pump_apply_usd_changes op * failed: failed to enqueue write_attributes for *: write_attributes: existing attribute '*' has a different type*",
+    "*[omni.runtime.core]*ovstage pump_apply_usd_changes failed (12): *",
+    "*[omni.runtime.core]*PUMP apply_usd_changes at ordinal * failed; nothing commits until the stage is repopulated past it*",
+]

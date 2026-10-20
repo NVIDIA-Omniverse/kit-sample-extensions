@@ -1,0 +1,9 @@
+<project toolsVersion="5.0">
+  <!-- Use this file to include any dependencies for extensions in "ui" group. -->
+  <dependency name="nlohmann_json" linkPath="../_build/target-deps/nlohmann_json">
+    <package name="nlohmann_json" version="3.10.5.1-b440a32a-windows-x86_64"/>
+  </dependency>
+  <dependency name="usd-convert-asset" linkPath="../_build/target-deps/usd-convert-asset_${config}">
+    <package name="usd_convert_asset_${usd_flavor}_${usd_ver}_py_${python_ver}" version="9.2.0.${platform_target_abi}.${config}"/>
+  </dependency>
+</project>

@@ -1,0 +1,13 @@
+# Dependencies necessary for building Warp.
+
+[[dependency]]
+python = "../_build/target-deps/python"
+packages = [
+    "numpy==2.5.1",  # pinned for reproducibility: this block resolves live from pypi-remote, so pin to avoid drift on cache rebuilds. 2.5.1 == what the build currently resolves; cp312 wheels exist for lx64/la64/wx64.
+]
+extra_args = ["--index-url", "https://pypi.org/simple"]
+target = "../_build/target-deps/pip_prebundle_warp_build"
+platforms = ["*"]
+download_only = false
+install_dependencies = true
+append_to_install_folder = true

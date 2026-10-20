@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="18"
+   height="18"
+   viewBox="0 0 18 18"
+   version="1.1"
+   id="svg1501"
+   sodipodi:docname="arrow_start_dark.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1505" />
+  <sodipodi:namedview
+     id="namedview1503"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="48.5"
+     inkscape:cx="9"
+     inkscape:cy="9"
+     inkscape:window-width="3440"
+     inkscape:window-height="1369"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1501" />
+  <g
+     id="g1712">
+    <rect
+       id="iconBase"
+       width="18"
+       height="18"
+       fill="none"
+       x="0"
+       y="0" />
+    <path
+       id="Arrow"
+       d="M 14.682542,15.499753 6.4185458,8.3676466 4.8451831,10.165399 2.2291127,3.4379153 9.3041597,5.0725156 7.7280741,6.8718764 15.99207,14.003983 Z"
+       fill="#ffffff"
+       style="fill:#a8a8a8;fill-opacity:1" />
+  </g>
+</svg>

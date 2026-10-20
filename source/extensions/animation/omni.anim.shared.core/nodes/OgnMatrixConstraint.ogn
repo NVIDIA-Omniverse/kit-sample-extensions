@@ -1,0 +1,36 @@
+{
+  "omni.anim.MatrixConstraint": {
+    "version": 1,
+    "description": [
+      "Set the world transform of a prim."
+    ],
+    "metadata": {
+      "uiName": "Matrix Constraint"
+    },
+    "scheduling": ["usd-write"],
+    "inputs": {
+      "prim": {
+        "type": "bundle",
+        "description": ["Xformable bundle"],
+        "metadata": {
+          "uiName": "Prim"
+        }
+      },
+      "usdTimecode": {
+        "default": 0,
+        "description": ["The time at which to evaluate the transform of the USD prim."],
+        "type": "double",
+        "metadata": {
+          "displayGroup": "parameters"
+        }
+      },
+      "transform": {
+        "description": [
+          "World transform for inputs:prim"
+        ],
+        "type": "matrixd[4]",
+        "default": [[1.0, 0.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 0.0], [0.0, 0.0, 0.0, 1.0]]
+      }
+    }
+  }
+}

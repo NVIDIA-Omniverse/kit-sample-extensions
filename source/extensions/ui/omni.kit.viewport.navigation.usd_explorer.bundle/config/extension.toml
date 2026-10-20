@@ -1,0 +1,77 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.0.15"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Jeff Hanna"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "USD Explorer Nav Bar Layout"
+description="Bundles the necessary Nav Bar buttons for USD Presenter"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['viewport', 'navigation', 'usd', 'explorer', 'bundle']
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.rst"
+
+category = "Kit::exts"
+readme = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+
+[dependencies]
+"omni.kit.markup.core" = {}
+"omni.kit.waypoint.core" = {}
+"omni.kit.viewport.navigation.core" = {}
+"omni.kit.viewport.navigation.camera_manipulator" = {}
+"omni.kit.viewport.navigation.teleport" = {}
+"omni.kit.viewport.navigation.markup" = {}
+"omni.kit.viewport.navigation.measure" = {}
+"omni.kit.viewport.navigation.section" = {}
+"omni.kit.viewport.navigation.waypoint" = {}
+"omni.kit.viewport.navigation.capture_no_ansel" = {}
+
+[[python.module]]
+name = "omni.kit.viewport.navigation.usd_explorer.bundle"
+
+[settings]
+exts."omni.kit.viewport.navigation.core".isVisible = true
+exts."omni.kit.viewport.navigation.usd_explorer.bundle".separator_button_names = ["teleport"]
+exts."omni.kit.viewport.navigation.usd_explorer.bundle".separator_teleport = -885
+exts."omni.kit.viewport.navigation.usd_explorer.bundle".tail_blank_order = -100
+exts."omni.kit.viewport.navigation.teleport".spvisible = true
+exts."omni.kit.viewport.navigation.camera_manipulator".dolly_visible= false
+exts."omni.kit.viewport.navigation.camera_manipulator".pan_visible= false
+exts."omni.kit.viewport.navigation.camera_manipulator".orbit_visible = true
+exts."omni.kit.viewport.navigation.camera_manipulator".look_visible = false
+exts."omni.kit.viewport.navigation.camera_manipulator".frame_visible = false
+exts."omni.kit.viewport.navigation.camera_manipulator".defaultOperation = "none"
+exts."omni.kit.viewport.navigation.camera_manipulator".quitWhenKeyPressed = false
+exts."omni.kit.viewport.navigation.camera_manipulator".alwaysOn = false
+exts."omni.kit.viewport.navigation.camera_manipulator".orbitAutoCenter = false
+exts."omni.kit.viewport.navigation.camera_manipulator".orbitAutoFrameSelected = true
+exts."omni.kit.viewport.navigation.camera_manipulator".orbitDelayRaycastscene = true
+
+[[test]]
+dependencies = [
+    "omni.kit.ui_test",
+]
+args = [
+    "--/app/window/width=800",
+    "--/app/window/height=300",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    "--/persistent/app/viewport/displayOptions=1568",
+    "--no-window",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/app/fastShutdown=1",
+]
+
+stdoutFailPatterns.exclude = [
+]

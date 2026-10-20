@@ -1,0 +1,29 @@
+{
+    "FindEntity": {
+        "exclude" : ["tests"],
+        "version": 0,
+        "categories": "sceneGraph",
+        "description": ["Find entities from an asset path."],
+        "language": "python",
+        "inputs": {
+            "execIn": {
+                "type": "execution",
+                "description": "Execution in."
+            },
+            "sourcePath": {
+                "type": "path",
+                "description": "Source path of entity asset."
+            }
+        },
+        "outputs": {
+            "entityNames": {
+                "type": "token[]",
+                "description": "The found entities' names."
+            },
+            "execOut": {
+                "type": "execution",
+                "description": "Execution out."
+            }
+        }
+    }
+}

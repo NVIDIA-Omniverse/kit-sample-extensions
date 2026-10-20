@@ -1,0 +1,49 @@
+{
+    "DrawLine": {
+        "version": 1,
+        "categories": "debug",
+        "description": ["Draw a line between two points"],
+        "language": "Python",
+        "uiName": "Draw Line",
+        "inputs": {
+            "execIn": {
+                "type": "execution",
+                "description": "Execution input",
+                "uiName": "In"
+            },
+            "start": {
+                "type": "float[3]",
+                "description": "Line start point",
+                "default": [0.0, 0.0, 0.0],
+                "uiName": "Start"
+            },
+            "end": {
+                "type": "float[3]",
+                "description": "Line end point",
+                "default": [0.0, 0.0, 1.0],
+                "uiName": "End"
+            },
+            "color": {
+                "type": "colorf[4]",
+                "description": "Line color",
+                "default": [1.0, 1.0, 1.0, 1.0],
+                "uiName": "Color"
+            },
+            "thickness": {
+                "type": "float",
+                "description": "Line thickness",
+                "default": 1.0,
+                "uiName": "Thickness"
+            }
+        },
+        "outputs": {
+            "execOut": {
+                "type": "execution",
+                "description": "Execution output",
+                "uiName": "Out"
+            }
+        },
+        "state": {
+        }
+    }
+}

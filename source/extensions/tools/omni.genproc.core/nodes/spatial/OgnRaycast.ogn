@@ -1,0 +1,156 @@
+{
+    "Raycast": {
+        "categories": "spatial",
+        "categoryDefinitions": "../../config/CurveCategories.json",
+        "description": ["Perform intersection tests against a bundle of obstacle prims. The intersection test can be a raycast or a sweep operation, ",
+                        "and the source of the test can be a prim from a bundle or a point and direction.",
+                        "If 'Source Type' is 'Point and Direction' and 'Query Type' is 'Raycast', then a ray is created from the input point and direction ",
+                        "and cast against the meshes in the obstacles bundle. ",
+                        "If 'Source Type' is 'Point and Direction' and 'Query Type' is 'Sweep', then a sphere with 'radius' is swept out from the input point and direction ",
+                        "If 'Source Type' is 'Bundle Prim' and 'Query Type' is 'Raycast', then for each prim in the input bundle a ray is generated from the origin and z-axis ",
+                        "of the prim transformed into world space. ",
+                        "If 'Source Type' is 'Bundle Prim' and 'Query Type' is 'Sweep', then for each mesh prim in the input bundle a bounding sphere is fit to the prim's ",
+                        "points and that sphere is used for the sweep. "],
+        "uiName": "Raycast",
+        "inputs": {
+            "primBundle": {
+                "type": "bundle",
+                "description": "Bundle containing prim data for use in raycast / sweep (when 'Bundle Prim' is specified as the source type)",
+                "optional": true,
+                "uiName": "Prim in Bundle"
+            },
+            "point": {
+                "type": "float[3]",
+                "default": [0, 0, 0],
+                "description": "Origin of raycast (when 'Point and Direction' is specified as the source type)",
+                "uiName": "Point"
+            },
+            "direction": {
+                "type": "float[3]",
+                "default": [0, 0, 1],
+                "description": ["Direction of raycast. ",
+                                "When 'Point and Direction' is specified as the source type, this direction is used in world space. ",
+                                "When 'Bundle Prim' is the source type, this direction is considered to be in the prim's local space ",
+                                "(in other words, the prim's transform is applied to this direction before the raycast)."],
+                "uiName": "Direction"
+            },
+            "sourceType": {
+                "default": 0,
+                "description": ["0 = bundle prim, 1 = point and direction"],
+                "minimum": 0,
+                "maximum": 1,
+                "type": "int",
+                "uiName": "Source Type"
+            },
+            "queryType": {
+                "default": 0,
+                "description": ["0 = raycast, 1 = sweep"],
+                "maximum": 1,
+                "minimum": 0,
+                "type": "int",
+                "uiName": "Query Type"
+            },
+            "range": {
+                "type": "float",
+                "default": 0.0,
+                "description": ["If positive, this value specifies the maximum distance considered for intersection tests. ",
+                               "otherwise 'infinite' distance is used for intersection tests."],
+                "uiName": "Range"
+            },
+            "closestHitOnly": {
+                "type": "bool",
+                "default": true,
+                "description": ["If true, only the closest hit will be reported. Otherwise multiple ray intersections may be returned. ",
+                                "(Note that this value only matters for raycast queries. Sweep queries will never return more than one hit.)"],
+                "uiName": "Closest Hit Only"
+            },
+            "radius": {
+                "type": "float",
+                "default": 1.0,
+                "description": "Radius of sphere used in sweep query (when 'Point and Direction' is specified as the source type)",
+                "uiName": "Radius"
+            },
+            "verbose": {
+                "type": "bool",
+                "default": false,
+                "description": "Print intersection information.",
+                "uiName": "Verbose"
+            },
+            "obstacleBundle": {
+                "type": "bundle",
+                "description": "Bundle containing intersection geometry for raycasting / sweeping",
+                "$optional": true,
+                "metadata": {
+                    "uiName": "Obstacles Bundle"
+                }
+            }
+        },
+        "outputs": {
+            "points": {
+                "type": "float[3][]",
+                "description": "One or more (in the case of raycasting from multiple source prims or with closestHitOnly enabled) intersection points.",
+                "uiName": "Points"
+            },
+            "normals": {
+                "type": "float[3][]",
+                "description": "Surface normals of intersection points",
+                "uiName": "Normals"
+            },
+            "faceIndices": {
+                "type": "int[]",
+                "description": "Face indices of intersection points",
+                "uiName": "Face Indices"
+            },
+            "distances": {
+                "type": "float[]",
+                "description": "Distances to intersection points",
+                "uiName": "Distances"
+            },
+            "paths": {
+                "type": "token[]",
+                "description": "Paths to prims hit by raycast / sweep",
+                "uiName": "Paths"
+            }
+        },
+        "tokens": {
+            "bboxMinCorner": "bboxMinCorner",
+            "bboxMaxCorner": "bboxMaxCorner",
+            "bboxTransform": "bboxTransform"
+        },
+        "state": {
+            "prevPoint": {
+                "description": ["Previous point value for recompute test"],
+                "type": "float[3]"
+            },
+            "prevDirection": {
+                "description": ["Previous direction value for recompute test"],
+                "type": "float[3]"
+            },
+            "prevSourceType": {
+                "description": ["Previous sourceType value for recompute test"],
+                "type": "int"
+            },
+            "prevQueryType": {
+                "description": ["Previous queryType value for recompute test"],
+                "type": "int"
+            },
+            "prevRange": {
+                "description": ["Previous range value for recompute test"],
+                "type": "float"
+            },
+            "prevClosestHitOnly": {
+                "description": ["Previous closestHitOnly value for recompute test"],
+                "type": "bool"
+            },
+            "prevRadius": {
+                "description": ["Previous radius value for recompute test"],
+                "type": "float"
+            },
+            "prevVerbose": {
+                "description": ["Previous verbose value for recompute test"],
+                "type": "bool"
+            }
+        },
+        "version": 1
+    }
+}

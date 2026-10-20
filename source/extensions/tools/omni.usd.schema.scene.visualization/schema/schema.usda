@@ -1,0 +1,67 @@
+#usda 1.0
+(
+    subLayers = [
+        @usd/schema.usda@
+    ]
+)
+
+over "GLOBAL" (
+    customData = {
+        string libraryName = "omniSceneVisualizationSchema"
+        string libraryPath = "./"
+        string libraryPrefix = "OmniSceneVisualizationSchema"
+        bool skipCodeGeneration = true
+    }
+) {
+}
+
+class "OmniSceneVisualizationAPI"
+(
+    inherits = </APISchemaBase>
+    customData = {
+        token apiSchemaType = "singleApply"
+    }
+
+    doc = """Flags for Scene Visualization"""
+)
+{
+    bool omni:scene:visualization:drawWireframe = false (
+        displayName = "Draw Wireframe"
+        doc = """Draw wireframe overlay for prim"""
+    )
+
+    bool omni:scene:visualization:drawPoints = false (
+        displayName = "Draw Points"
+        doc = """Draw vertex overlay for prim"""
+    )
+
+    bool omni:scene:visualization:drawNormals = false (
+        displayName = "Draw Normals"
+        doc = """Draw normals for prim"""
+    )
+
+    bool omni:scene:visualization:drawTangents = false (
+        displayName = "Draw Tangents"
+        doc = """Draw tangents for prim (if supported)"""
+    )
+
+    bool omni:scene:visualization:useVertexColor = false (
+        displayName = "Use Vertex Color"
+        doc = """Draw overlays using color primvars"""
+    )
+}
+
+class OmniSceneVisualizationMetadata "OmniSceneVisualizationMetadata"
+(
+    inherits = </Typed>
+    customData = {
+        string className = "SceneVisualizationMetadata"
+    }
+    doc = """Prim type for tracking prims with visualization schemas for lookups without a full stage traversal"""
+)
+{
+    rel visualizedPrims (
+        displayName = "Visualized Prims"
+        doc = """Prims with an applied visualization schema."""
+    )
+}

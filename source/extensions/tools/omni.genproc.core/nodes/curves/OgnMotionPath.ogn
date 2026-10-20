@@ -1,0 +1,85 @@
+{
+    "MotionPath": {
+        "description": ["Constraint an xformable prim to the given curve ",
+                        "User offer the u value to specify the point on the curve ",
+                        "The output is the transform matrix."],
+        "inputs": {
+            "curveBundle": {
+                "type": "bundle",
+                "description": "Bundle containing curves data",
+                "uiName": "Curves Bundle"
+            },
+            "uValue": {
+                "type": "float",
+                "default": 0.0,
+                "description": [ "Value from zero to one along curve at which we want to get a point" ],
+                "uiName": "U Value",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "cycle": {
+                "type": "bool",
+                "default": true,
+                "description": ["If true, the input U value would be cycled between 0.0 and 1.0",
+                                "If false, the input U value would be clamped between 0.0 and 1.0"],
+                "uiName": "Cycle U value"
+            },
+            "forwardAxis": {
+                "type": "int",
+                "description": [ "Object Forward Axis" ],
+                "uiName":   "Forward Axis",
+                "default": 0
+            },
+            "upAxis": {
+                "type": "int",
+                "description": [ "Object Up Axis" ],
+                "uiName": "Up Axis",
+                "default": 1
+            },
+            "worldUpType": {
+                "type": "int",
+                "description": [ "World Up Type" ],
+                "uiName": "World Up Type",
+                "default": 0
+            },
+            "worldUpVector":
+            {
+                "description": ["World Up Vector"],
+                "type": "float[3]",
+                "uiName": "World Up Vector",
+                "default": [0.0, 1.0, 0.0]
+            },
+            "worldUpObject": {
+                "type": "bundle",
+                "description": "Bundle containing the world up object xformable prim",
+                "uiName": "World Up Object Bundle",
+                "optional": true
+            },
+            "aimRotation":
+            {
+                "description": ["Pitch, Roll, Yaw"],
+                "type": "float[3]",
+                "uiName": "Aim offset",
+                "default": [0.0, 0.0, 0.0]
+            }
+        },
+        "outputs": {
+            "transform": {
+                "description": "output World transform",
+                "type": "matrixd[4]",
+                "default": [[1.0, 0.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 0.0], [0.0, 0.0, 0.0, 1.0]]
+            }
+        },
+        "state": {
+            "prevUValue": {
+                "description": ["Previous uValue value for recompute test"],
+                "type": "float"
+            }
+        },
+        "metadata": {
+            "uiName": "Motion Path"
+        },
+        "version": 1
+    }
+}

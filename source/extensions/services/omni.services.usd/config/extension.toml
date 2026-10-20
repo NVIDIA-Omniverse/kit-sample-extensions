@@ -1,0 +1,29 @@
+[package]
+title = "Kit USD service"
+version = "1.1.1"
+category = "services"
+readme = "docs/README.md"
+changelog = "docs/CHANGELOG.md"
+icon = "data/icon.png"
+preview_image = "data/preview.png"
+description = "USD micro service"
+detailedDescription = """ Kit USD micro service.
+
+Allows to open and manipulate a USD stage via a service API.
+
+Currently implements:
+- Open a stage
+- Verify which stage is open
+"""
+authors = ["Jozef van Eenbergen"]
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+slackids = ["@U010NFP76BU"]
+keywords = ["kit", "service", "usd"]
+
+[dependencies]
+"omni.services.core" = {}
+"omni.usd" = {}
+
+# Main python module this extension provides
+[[python.module]]
+name = "omni.services.usd"

@@ -1,0 +1,36 @@
+[package]
+version = "0.0.1"
+authors = ["NVIDIA"]
+title = "Web Messaging Core"
+description = "Core WebRTC messaging utilities for Omniverse Kit extensions using omni.kit.livestream.messaging"
+category = "Internal"
+keywords = ["messaging", "webrtc", "livestream", "core"]
+icon = "data/icon.png"
+preview_image = "data/preview.png"
+changelog = "docs/CHANGELOG.md"
+readme = "docs/README.md"
+repository = ""
+
+# Dependencies
+[dependencies]
+"omni.kit.livestream.messaging" = {}
+
+# Main python module
+[[python.module]]
+name = "omni.web.messaging.core"
+
+[package.writeTarget]
+kit = true
+python = true
+platform = true
+
+[documentation]
+pages = ["docs/README.md", "docs/CHANGELOG.md"]
+
+[[test]]
+dependencies = [
+    "omni.kit.test",
+]
+stdoutFailPatterns.exclude = [
+    "*Warning:*",
+]

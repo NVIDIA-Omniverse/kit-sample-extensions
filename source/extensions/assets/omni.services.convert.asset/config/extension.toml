@@ -1,0 +1,80 @@
+[package]
+# Semantic Versioning is used: https://semver.org/
+version = "510.1.2"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Mithul Panchal", "Chuan Hung", "Tim Murphy"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Asset Converter Service"
+description = "Convert assets as a service"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme = "docs/Overview.md"
+
+# URL of the extension source repository.
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# One of categories for UI.
+category = "services"
+
+# Explicitly set the write target so that code-less extensions are named the same as others
+writeTarget.config = true
+writeTarget.python = true
+writeTarget.kit = true
+writeTarget.usd = true
+writeTarget.platform = true
+
+# Keywords for the extension
+keywords = [
+    "Asset Converter",
+    "asset",
+    "kit",
+    "services"
+    ]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+# Preview image and icon. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+# Preview image is shown in "Overview" of Extensions window. Screenshot of an extension might be a good preview image.
+preview_image = "data/preview.png"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "data/icon.png"
+
+[dependencies]
+"omni.kit.pip_archive" = {}
+"omni.client" = {}
+"omni.services.core" = {}
+"omni.kit.asset_converter" = {}
+"omni.kit.converter.common" = { version = "~512.0"}
+"omni.services.facilities.monitoring.metrics" = {}
+"omni.services.facilities.monitoring.progress" = {}
+"omni.kit.async_engine" = {}
+"omni.services.transport.client.base" = {}
+"omni.services.transport.client.http_async" = {}
+"omni.services.transport.server.http" = {}
+
+[[python.module]]
+name = "omni.services.convert.asset"
+
+[settings]
+exts."omni.services.convert.asset" = {}
+
+[[test]]
+# Ignore errors purposely triggered in test.
+stdoutFailPatterns.exclude = [
+    "*Input file format is not supported! Recieved:*",
+    "*Input file path does not exist! Recieved:*",
+    "*Output file is not supported! Supported formats: `.usd`, `.usda`*",
+    "*Validation error in model*",
+    "*Archive path does not exist! Recieved:*"
+]
+
+pyCoverageFilter = ["omni.services.convert.asset"]
+pyCoverageOmit = ["*/tests/*"]
+
+[documentation]
+pages = ["docs/Overview.md", "docs/CHANGELOG.md"]

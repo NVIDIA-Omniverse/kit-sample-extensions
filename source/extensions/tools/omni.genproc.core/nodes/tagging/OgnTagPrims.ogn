@@ -1,0 +1,45 @@
+{
+    "TagPrims": {
+        "categories": "tagging",
+        "categoryDefinitions": "../../config/CurveCategories.json",
+        "description": ["Add tag attribute to prims in bundle"],
+        "uiName": "Tag Prims",
+        "inputs": {
+            "bundle": {
+                "type": "bundle",
+                "description": "Multiple Prims in Bundle input",
+                "uiName": "Bundle Prims"
+            },
+            "tagName": {
+                "type": "token",
+                "default": "tag",
+                "description": "Name of tag attribute that will be added to prims",
+                "uiName": "Tag Name"
+            },
+            "tagValue": {
+                "type": "token",
+                "$default": 100,
+                "description": "Value to be assigned to tag",
+                "uiName": "Tag Value"
+            }
+        },
+        "outputs": {
+            "bundle": {
+                "type": "bundle",
+                "description": "Multiple Prims in Bundle with tag added",
+                "uiName": "Bundle Prims"
+            }
+        },
+        "state": {
+            "prevTagName": {
+                "description": ["Previous tagName value for recompute test"],
+                "type": "token"
+            },
+            "prevTagValue": {
+                "description": ["Previous tagValue value for recompute test"],
+                "type": "token"
+            }
+        },
+        "version": 1
+    }
+}

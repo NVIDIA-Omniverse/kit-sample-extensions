@@ -1,0 +1,54 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def DistantLight "DistantLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float inputs:angle = 5
+        color3f inputs:color = (0.33692104, 0.76232195, 0.8996139)
+        float inputs:exposure = 0.2
+        float inputs:intensity = 3000
+        float inputs:shaping:cone:angle = 180
+        double3 xformOp:rotateXYZ = (293.12090746423974, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def DistantLight "DistantLight_01" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float inputs:angle = 10
+        color3f inputs:color = (0.8108108, 0.44140664, 0.44140664)
+        float inputs:exposure = 0
+        float inputs:intensity = 3000
+        float inputs:shaping:cone:angle = 180
+        double3 xformOp:rotateXYZ = (315, -179.32902833160193, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def DistantLight "DistantLight_02" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float inputs:angle = 10
+        color3f inputs:color = (0.8918919, 0.5545123, 0.28926224)
+        float inputs:exposure = 0
+        float inputs:intensity = 3000
+        float inputs:shaping:cone:angle = 180
+        double3 xformOp:rotateXYZ = (293.12090746423974, -216.57111056617208, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+}
+

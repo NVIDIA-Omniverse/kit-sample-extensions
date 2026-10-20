@@ -1,0 +1,376 @@
+# SPDX-FileCopyrightText: Copyright (c) 2023 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+"""Test Warp examples with unittest.
+
+This module tests the Warp examples registered in it using the unittest
+framework. When registering tests with add_example_test(), three optional
+dictionaries can be provided: test_options, test_options_cuda, and
+test_options_cpu. These are added to the command line arguments in-order, so
+if a parameter is specified in both test_options and test_options_cuda, the
+one in test_options_cuda will take precedence due to how argparse works.
+
+Generally the test_options[_cpu,_cuda] dictionaries should be used to prevent
+graphical windows from being open by the example {"headless": True} and to
+override example defaults so the example can run in less than ten seconds.
+
+To skip tests if the optional dependencies are not found, use the following keys:
+- {"usd_required": True} (requires usd-core)
+- {"torch_required": True} (requires torch)
+- {"pillow_required": True} (requires pillow)
+
+Use the "num_frames" and "train_iters" keys to control the number of steps.
+
+Use "test_timeout" to override the default test timeout threshold of 600 seconds.
+"""
+
+import os
+import platform
+import subprocess
+import sys
+import tempfile
+import unittest
+from typing import Any
+
+import warp as wp
+import warp.tests.unittest_utils
+from warp.tests.unittest_utils import (
+    USD_AVAILABLE,
+    add_function_test,
+    get_selected_cuda_test_devices,
+    get_selected_cuda_test_devices_with_mempool,
+    get_test_devices,
+    sanitize_identifier,
+)
+
+
+def _build_command_line_options(test_options: dict[str, Any]) -> list:
+    """Helper function to build command-line options from the test options dictionary."""
+    additional_options = []
+
+    for key, value in test_options.items():
+        if key == "headless" and value:
+            additional_options.extend(["--headless"])
+        else:
+            # Just add --key value
+            additional_options.extend(["--" + key.replace("_", "-"), str(value)])
+
+    return additional_options
+
+
+def add_example_test(
+    cls: type,
+    name: str,
+    devices: list | None = None,
+    test_options: dict[str, Any] | None = None,
+    test_options_cpu: dict[str, Any] | None = None,
+    test_options_cuda: dict[str, Any] | None = None,
+):
+    """Registers a Warp example to run on ``devices`` as a TestCase."""
+
+    if test_options is None:
+        test_options = {}
+    if test_options_cpu is None:
+        test_options_cpu = {}
+    if test_options_cuda is None:
+        test_options_cuda = {}
+
+    def run(test, device):
+        if wp.get_device(device).is_cuda:
+            options = test_options | test_options_cuda
+        else:
+            options = test_options | test_options_cpu
+
+        # Mark the test as skipped if Torch is not installed but required
+        torch_required = options.pop("torch_required", False)
+        if torch_required:
+            try:
+                import torch  # noqa: PLC0415
+
+                if wp.get_device(device).is_cuda and not torch.cuda.is_available():
+                    # Ensure torch has CUDA support
+                    test.skipTest("Torch not compiled with CUDA support")
+
+            except Exception as e:
+                test.skipTest(f"{e}")
+
+        # Mark the test as skipped if USD is not installed but required
+        usd_required = options.pop("usd_required", False)
+        if usd_required and not USD_AVAILABLE:
+            test.skipTest("Requires usd-core")
+
+        # Mark the test as skipped if pillow is not installed but required
+        pillow_required = options.pop("pillow_required", False)
+        if pillow_required:
+            try:
+                import PIL  # noqa: PLC0415,F401
+            except ImportError:
+                test.skipTest("Requires pillow")
+
+        env_vars = os.environ.copy()
+
+        # Propagate the kernel cache location to the subprocess.  We pass the
+        # original WARP_CACHE_PATH (if set) rather than the resolved
+        # kernel_cache_dir, because init_kernel_cache() appends a version
+        # subdirectory and we don't want the subprocess to double-append it.
+        # When WARP_CACHE_PATH is not set the subprocess will compute the same
+        # default cache path on its own.
+        if "WARP_CACHE_PATH" in os.environ:
+            env_vars["WARP_CACHE_PATH"] = os.environ["WARP_CACHE_PATH"]
+
+        if warp.tests.unittest_utils.coverage_enabled:
+            # Generate a random coverage data file name - file is deleted along with containing directory
+            with tempfile.NamedTemporaryFile(
+                dir=warp.tests.unittest_utils.coverage_temp_dir, delete=False
+            ) as coverage_file:
+                pass
+
+            command = ["coverage", "run", f"--data-file={coverage_file.name}"]
+
+            if warp.tests.unittest_utils.coverage_branch:
+                command.append("--branch")
+
+            # Only measure warp package to avoid NumPy 2.4+ "cannot load module more than once" error
+            command.extend(["--source", "warp"])
+
+        else:
+            command = [sys.executable]
+
+        # Append Warp commands
+        command.extend(["-m", f"warp.examples.{name}", "--device", str(device)])
+
+        stage_path = (
+            options.pop(
+                "stage_path",
+                os.path.join(os.path.dirname(__file__), f"outputs/{name}_{sanitize_identifier(device)}.usd"),
+            )
+            if USD_AVAILABLE
+            else "None"
+        )
+
+        if stage_path:
+            command.extend(["--stage-path", stage_path])
+            try:
+                os.remove(stage_path)
+            except OSError:
+                pass
+
+        command.extend(_build_command_line_options(options))
+
+        # Set the test timeout in seconds
+        test_timeout = options.pop("test_timeout", 600)
+
+        # with wp.ScopedTimer(f"{name}_{sanitize_identifier(device)}"):
+        # Run the script as a subprocess
+        result = subprocess.run(
+            command, capture_output=True, text=True, env=env_vars, timeout=test_timeout, check=False
+        )
+
+        # Check the return code (0 is standard for success)
+        test.assertEqual(
+            result.returncode,
+            0,
+            msg=f"Failed with return code {result.returncode}, command: {' '.join(command)}\n\nOutput:\n{result.stdout}\n{result.stderr}",
+        )
+
+        # If the test succeeded, try to clean up the output by default
+        if stage_path and result.returncode == 0:
+            try:
+                os.remove(stage_path)
+            except OSError:
+                pass
+
+    add_function_test(cls, f"test_{name}", run, devices=devices, check_output=False)
+
+
+cuda_test_devices = get_selected_cuda_test_devices(mode="basic")  # Don't test on multiple GPUs to save time
+cuda_test_devices_with_mempool = get_selected_cuda_test_devices_with_mempool(mode="basic")
+test_devices = get_test_devices(mode="basic")
+
+# NOTE: To give the parallel test runner more opportunities to parallelize test cases,
+# we break up the tests into multiple TestCase classes
+
+
+class TestCoreExamples(unittest.TestCase):
+    pass
+
+
+# Exclude unless we can run headless somehow
+# add_example_test(TestCoreExamples, name="example_render_opengl")
+
+add_example_test(TestCoreExamples, name="core.example_dem", devices=test_devices, test_options_cpu={"num_frames": 2})
+add_example_test(
+    TestCoreExamples,
+    name="core.example_fluid",
+    devices=test_devices,
+    test_options={"num_frames": 100, "headless": True},
+)
+add_example_test(
+    TestCoreExamples,
+    name="core.example_graph_capture",
+    devices=test_devices,
+    test_options={"headless": True},
+    test_options_cpu={"num_frames": 100},
+)
+add_example_test(TestCoreExamples, name="core.example_marching_cubes", devices=cuda_test_devices)
+add_example_test(TestCoreExamples, name="core.example_mesh", devices=test_devices, test_options={"usd_required": True})
+add_example_test(
+    TestCoreExamples, name="core.example_mesh_intersect", devices=test_devices, test_options={"usd_required": True}
+)
+add_example_test(TestCoreExamples, name="core.example_nvdb", devices=test_devices)
+add_example_test(
+    TestCoreExamples,
+    name="core.example_raycast",
+    devices=test_devices,
+    test_options={"usd_required": True, "headless": True},
+)
+if platform.system() == "Windows":
+    # Skip GPU testing because of obscure NVRTC bug with illegal memory access
+    add_example_test(
+        TestCoreExamples,
+        name="core.example_raymarch",
+        devices=[wp.get_device("cpu")],
+        test_options={"height": 512, "width": 1024, "headless": True},
+    )
+else:
+    add_example_test(
+        TestCoreExamples,
+        name="core.example_raymarch",
+        devices=test_devices,
+        test_options={"height": 512, "width": 1024, "headless": True},
+    )
+add_example_test(
+    TestCoreExamples,
+    name="core.example_sample_mesh",
+    devices=test_devices,
+    test_options_cpu={"num_frames": 1},
+)
+add_example_test(
+    TestCoreExamples,
+    name="core.example_sph",
+    devices=test_devices,
+    test_options_cpu={"num_frames": 1},
+)
+add_example_test(
+    TestCoreExamples,
+    name="core.example_torch",
+    devices=test_devices,
+    test_options={"headless": True, "num_frames": 1000, "torch_required": True},
+)
+add_example_test(TestCoreExamples, name="core.example_custom_allocator", devices=cuda_test_devices)
+add_example_test(TestCoreExamples, name="core.example_wave", devices=test_devices)
+add_example_test(
+    TestCoreExamples,
+    name="core.example_fft_poisson_navier_stokes_2d",
+    devices=cuda_test_devices,
+    test_options={"headless": True, "num_steps": 100, "sim_substeps": 10},
+)
+add_example_test(
+    TestCoreExamples,
+    name="core.example_fdtd_3d",
+    devices=test_devices,
+    test_options={"headless": True, "num_steps": 100, "steps_per_frame": 10},
+    test_options_cpu={"resolution": 64, "num_steps": 30},
+)
+
+
+class TestOptimExamples(unittest.TestCase):
+    pass
+
+
+add_example_test(
+    TestOptimExamples,
+    name="optim.example_diffray",
+    devices=test_devices,
+    test_options={"usd_required": True, "headless": True},
+    test_options_cpu={"train_iters": 2},
+)
+add_example_test(
+    TestOptimExamples,
+    name="optim.example_fluid_checkpoint",
+    devices=cuda_test_devices_with_mempool,
+    test_options={"headless": True, "train_iters": 5, "num_frames": 300, "pillow_required": True},
+)
+add_example_test(
+    TestOptimExamples,
+    name="optim.example_particle_repulsion",
+    devices=cuda_test_devices,
+    test_options={"headless": True, "num_frames": 100},
+)
+add_example_test(
+    TestOptimExamples,
+    name="optim.example_navier_stokes_perturbation",
+    devices=cuda_test_devices_with_mempool,
+    test_options={"headless": True, "train_iters": 5, "lead_steps": 5, "spin_up_steps": 10},
+)
+
+
+class TestTileExamples(unittest.TestCase):
+    pass
+
+
+add_example_test(
+    TestTileExamples,
+    name="tile.example_tile_block_cholesky",
+    devices=test_devices,
+    test_options={"headless": True, "N": 2},
+)
+add_example_test(
+    TestTileExamples,
+    name="tile.example_tile_cholesky",
+    devices=test_devices,
+    test_options={"headless": True},
+)
+add_example_test(
+    TestTileExamples,
+    name="tile.example_tile_convolution",
+    devices=cuda_test_devices,
+    test_options={"headless": True},
+)
+add_example_test(
+    TestTileExamples,
+    name="tile.example_tile_fft",
+    devices=cuda_test_devices,
+    test_options={"headless": True},
+)
+add_example_test(
+    TestTileExamples,
+    name="tile.example_tile_filtering",
+    devices=cuda_test_devices,
+    test_options={"headless": True},
+)
+add_example_test(
+    TestTileExamples,
+    name="tile.example_tile_matmul",
+    devices=test_devices,
+    test_options={"headless": True},
+)
+add_example_test(
+    TestTileExamples,
+    name="tile.example_tile_mcgp",
+    devices=test_devices,
+    test_options={"height": 128, "headless": True},
+    test_options_cpu={"slices": 2},
+    test_options_cuda={"slices": 5},
+)
+add_example_test(
+    TestTileExamples,
+    name="tile.example_tile_mlp",
+    devices=cuda_test_devices,
+    test_options_cuda={"train_iters": 10, "headless": True},
+)
+add_example_test(
+    TestTileExamples,
+    name="tile.example_tile_nbody",
+    devices=test_devices,
+    test_options={"headless": True, "num_frames": 10, "N": 128},
+)
+add_example_test(
+    TestTileExamples,
+    name="tile.example_tile_stream_compaction",
+    devices=cuda_test_devices,
+)
+
+
+if __name__ == "__main__":
+    # force rebuild of all kernels
+    unittest.main(verbosity=2)

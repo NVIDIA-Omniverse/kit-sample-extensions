@@ -1,0 +1,30 @@
+{
+  "omni.anim.MatrixInverse": {
+    "version": 1,
+    "description": [
+      "Compute the inverse of the input transform matrix"
+    ],
+    "metadata": {
+      "uiName": "Matrix Inverse"
+    },
+    "language": "python",
+    "inputs": {
+      "transform": {
+        "description": [
+          "Transform matrix"
+        ],
+        "type": "matrixd[4]",
+        "default": [[1.0,0.0,0.0,0.0], [0.0,1.0,0.0,0.0], [0.0,0.0,1.0,0.0], [0.0,0.0,0.0,1.0]]
+      }
+    },
+    "outputs": {
+      "transform": {
+        "description": [
+          "Output transform matrix"
+        ],
+        "type": "matrixd[4]",
+        "default": [[1.0,0.0,0.0,0.0], [0.0,1.0,0.0,0.0], [0.0,0.0,1.0,0.0], [0.0,0.0,0.0,1.0]]
+      }
+    }
+  }
+}

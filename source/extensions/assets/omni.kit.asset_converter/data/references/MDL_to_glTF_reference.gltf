@@ -1,0 +1,952 @@
+{
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 36,
+      "max": [
+        23
+      ],
+      "min": [
+        0
+      ],
+      "name": "Face Vertex Indices Accessor",
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 24,
+      "max": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "min": [
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "name": "Face Points Accessor",
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 24,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "name": "Face Normals Accessor",
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 24,
+      "max": [
+        1.0,
+        1.0
+      ],
+      "min": [
+        0.0,
+        0.0
+      ],
+      "name": "Face UV0 Accessor",
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5125,
+      "count": 36,
+      "max": [
+        23
+      ],
+      "min": [
+        0
+      ],
+      "name": "Face Vertex Indices Accessor",
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 5,
+      "componentType": 5126,
+      "count": 24,
+      "max": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "min": [
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "name": "Face Points Accessor",
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 6,
+      "componentType": 5126,
+      "count": 24,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "name": "Face Normals Accessor",
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 7,
+      "componentType": 5126,
+      "count": 24,
+      "max": [
+        1.0,
+        1.0
+      ],
+      "min": [
+        0.0,
+        0.0
+      ],
+      "name": "Face UV0 Accessor",
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 8,
+      "componentType": 5125,
+      "count": 36,
+      "max": [
+        23
+      ],
+      "min": [
+        0
+      ],
+      "name": "Face Vertex Indices Accessor",
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 9,
+      "componentType": 5126,
+      "count": 24,
+      "max": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "min": [
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "name": "Face Points Accessor",
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 10,
+      "componentType": 5126,
+      "count": 24,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "name": "Face Normals Accessor",
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 11,
+      "componentType": 5126,
+      "count": 24,
+      "max": [
+        1.0,
+        1.0
+      ],
+      "min": [
+        0.0,
+        0.0
+      ],
+      "name": "Face UV0 Accessor",
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 12,
+      "componentType": 5125,
+      "count": 6,
+      "max": [
+        3
+      ],
+      "min": [
+        0
+      ],
+      "name": "Face Vertex Indices Accessor",
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 13,
+      "componentType": 5126,
+      "count": 4,
+      "max": [
+        7.0,
+        7.0,
+        1.1754943508222875e-38
+      ],
+      "min": [
+        -7.0,
+        -7.0,
+        0.0
+      ],
+      "name": "Face Points Accessor",
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 14,
+      "componentType": 5126,
+      "count": 4,
+      "max": [
+        1.1754943508222875e-38,
+        1.1754943508222875e-38,
+        1.0
+      ],
+      "min": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Face Normals Accessor",
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 15,
+      "componentType": 5126,
+      "count": 4,
+      "max": [
+        14.0,
+        1.0
+      ],
+      "min": [
+        0.0,
+        -13.0
+      ],
+      "name": "Face UV0 Accessor",
+      "type": "VEC2"
+    }
+  ],
+  "asset": {
+    "generator": "Exported from Omniverse GLTF Converter.",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 144,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 288,
+      "byteOffset": 144,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 288,
+      "byteOffset": 432,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 192,
+      "byteOffset": 720,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 144,
+      "byteOffset": 912,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 288,
+      "byteOffset": 1056,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 288,
+      "byteOffset": 1344,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 192,
+      "byteOffset": 1632,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 144,
+      "byteOffset": 1824,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 288,
+      "byteOffset": 1968,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 288,
+      "byteOffset": 2256,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 192,
+      "byteOffset": 2544,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 24,
+      "byteOffset": 2736,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 48,
+      "byteOffset": 2760,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 48,
+      "byteOffset": 2808,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 32,
+      "byteOffset": 2856,
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 2888,
+      "name": "Model Data",
+      "uri": "data:application/octet-stream;base64,AAAAAAEAAAACAAAAAAAAAAIAAAADAAAABAAAAAUAAAAGAAAABAAAAAYAAAAHAAAACAAAAAkAAAAKAAAACAAAAAoAAAALAAAADAAAAA0AAAAOAAAADAAAAA4AAAAPAAAAEAAAABEAAAASAAAAEAAAABIAAAATAAAAFAAAABUAAAAWAAAAFAAAABYAAAAXAAAAAAAAvwAAAL8AAAA/AAAAPwAAAL8AAAA/AAAAPwAAAD8AAAA/AAAAvwAAAD8AAAA/AAAAvwAAAL8AAAC/AAAAvwAAAD8AAAC/AAAAPwAAAD8AAAC/AAAAPwAAAL8AAAC/AAAAvwAAAD8AAAC/AAAAvwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAC/AAAAvwAAAL8AAAC/AAAAPwAAAL8AAAC/AAAAPwAAAL8AAAA/AAAAvwAAAL8AAAA/AAAAvwAAAL8AAAC/AAAAvwAAAL8AAAA/AAAAvwAAAD8AAAA/AAAAvwAAAD8AAAC/AAAAPwAAAL8AAAC/AAAAPwAAAD8AAAC/AAAAPwAAAD8AAAA/AAAAPwAAAL8AAAA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAgD8AAAAAAAAAAAAAAAAAAIA/AACAPwAAgD8AAAAAAAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAgD8AAAAAAAAAAAAAgD8AAIA/AACAPwAAgD8AAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAEAAAACAAAAAAAAAAIAAAADAAAABAAAAAUAAAAGAAAABAAAAAYAAAAHAAAACAAAAAkAAAAKAAAACAAAAAoAAAALAAAADAAAAA0AAAAOAAAADAAAAA4AAAAPAAAAEAAAABEAAAASAAAAEAAAABIAAAATAAAAFAAAABUAAAAWAAAAFAAAABYAAAAXAAAAAAAAvwAAAL8AAAA/AAAAPwAAAL8AAAA/AAAAPwAAAD8AAAA/AAAAvwAAAD8AAAA/AAAAvwAAAL8AAAC/AAAAvwAAAD8AAAC/AAAAPwAAAD8AAAC/AAAAPwAAAL8AAAC/AAAAvwAAAD8AAAC/AAAAvwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAC/AAAAvwAAAL8AAAC/AAAAPwAAAL8AAAC/AAAAPwAAAL8AAAA/AAAAvwAAAL8AAAA/AAAAvwAAAL8AAAC/AAAAvwAAAL8AAAA/AAAAvwAAAD8AAAA/AAAAvwAAAD8AAAC/AAAAPwAAAL8AAAC/AAAAPwAAAD8AAAC/AAAAPwAAAD8AAAA/AAAAPwAAAL8AAAA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAgD8AAAAAAAAAAAAAAAAAAIA/AACAPwAAgD8AAAAAAAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAgD8AAAAAAAAAAAAAgD8AAIA/AACAPwAAgD8AAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAEAAAACAAAAAAAAAAIAAAADAAAABAAAAAUAAAAGAAAABAAAAAYAAAAHAAAACAAAAAkAAAAKAAAACAAAAAoAAAALAAAADAAAAA0AAAAOAAAADAAAAA4AAAAPAAAAEAAAABEAAAASAAAAEAAAABIAAAATAAAAFAAAABUAAAAWAAAAFAAAABYAAAAXAAAAAAAAvwAAAL8AAAA/AAAAPwAAAL8AAAA/AAAAPwAAAD8AAAA/AAAAvwAAAD8AAAA/AAAAvwAAAL8AAAC/AAAAvwAAAD8AAAC/AAAAPwAAAD8AAAC/AAAAPwAAAL8AAAC/AAAAvwAAAD8AAAC/AAAAvwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAC/AAAAvwAAAL8AAAC/AAAAPwAAAL8AAAC/AAAAPwAAAL8AAAA/AAAAvwAAAL8AAAA/AAAAvwAAAL8AAAC/AAAAvwAAAL8AAAA/AAAAvwAAAD8AAAA/AAAAvwAAAD8AAAC/AAAAPwAAAL8AAAC/AAAAPwAAAD8AAAC/AAAAPwAAAD8AAAA/AAAAPwAAAL8AAAA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAgD8AAAAAAAAAAAAAAAAAAIA/AACAPwAAgD8AAAAAAAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAgD8AAAAAAAAAAAAAgD8AAIA/AACAPwAAgD8AAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAEAAAACAAAAAAAAAAIAAAADAAAAAADgwAAA4MAAAAAAAADgQAAA4MAAAAAAAADgQAAA4EAAAAAAAADgwAAA4EAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAgD8AAGBBAACAPwAAYEEAAFDBAAAAAAAAUME="
+    }
+  ],
+  "extensions": {
+    "KHR_lights_punctual": {
+      "lights": [
+        {
+          "color": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "intensity": 0.0003141592653589793,
+          "name": "Sky",
+          "spot": {
+            "innerConeAngle": 0.0,
+            "outerConeAngle": 0.7853981634
+          },
+          "type": "spot"
+        },
+        {
+          "color": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "intensity": 0.005026548245743669,
+          "name": "DistantLight",
+          "type": "directional"
+        }
+      ]
+    },
+    "NV_materials_mdl": {
+      "functionCalls": [
+        {
+          "functionName": "Facade_Brick_Red_Clinker_Mossy_Leaking",
+          "module": 0,
+          "type": {
+            "typeName": "material"
+          }
+        },
+        {
+          "arguments": [
+            {
+              "functionCall": 2,
+              "name": "diffuse_reflection_color"
+            }
+          ],
+          "functionName": "OmniSurfaceLiteBase",
+          "module": 1,
+          "type": {
+            "typeName": "material"
+          }
+        },
+        {
+          "arguments": [
+            {
+              "functionCall": 3,
+              "name": "a"
+            }
+          ],
+          "functionName": "construct_color",
+          "module": 2,
+          "type": {
+            "typeName": "color"
+          }
+        },
+        {
+          "functionName": "perlin_noise_texture",
+          "module": 3,
+          "type": {
+            "module": 4,
+            "typeName": "texture_return"
+          }
+        },
+        {
+          "arguments": [
+            {
+              "functionCall": 5,
+              "name": "diffuse_reflection_color"
+            }
+          ],
+          "functionName": "OmniSurfaceLiteBase",
+          "module": 1,
+          "type": {
+            "typeName": "material"
+          }
+        },
+        {
+          "arguments": [
+            {
+              "functionCall": 6,
+              "name": "a"
+            }
+          ],
+          "functionName": "construct_color",
+          "module": 2,
+          "type": {
+            "typeName": "color"
+          }
+        },
+        {
+          "arguments": [
+            {
+              "functionCall": 7,
+              "name": "texture"
+            }
+          ],
+          "functionName": "file_texture",
+          "module": 3,
+          "type": {
+            "module": 4,
+            "typeName": "texture_return"
+          }
+        },
+        {
+          "arguments": [
+            {
+              "name": "name",
+              "type": {
+                "modifier": "uniform",
+                "typeName": "int"
+              },
+              "value": 0
+            },
+            {
+              "name": "gamma",
+              "type": {
+                "module": 5,
+                "typeName": "gamma_mode"
+              },
+              "value": "gamma_srgb"
+            }
+          ],
+          "functionName": "texture_2d",
+          "type": {
+            "typeName": "texture_2d"
+          }
+        },
+        {
+          "arguments": [
+            {
+              "name": "albedo_add",
+              "type": {
+                "typeName": "float"
+              },
+              "value": 0.0
+            },
+            {
+              "name": "albedo_brightness",
+              "type": {
+                "typeName": "float"
+              },
+              "value": 0.5199999809265137
+            },
+            {
+              "name": "albedo_desaturation",
+              "type": {
+                "typeName": "float"
+              },
+              "value": 1.0
+            },
+            {
+              "functionCall": 9,
+              "name": "diffuse_texture"
+            },
+            {
+              "name": "project_uvw",
+              "type": {
+                "typeName": "bool"
+              },
+              "value": false
+            },
+            {
+              "name": "reflection_roughness_constant",
+              "type": {
+                "typeName": "float"
+              },
+              "value": 0.3330000042915344
+            },
+            {
+              "name": "texture_rotate",
+              "type": {
+                "typeName": "float"
+              },
+              "value": 0.0
+            },
+            {
+              "name": "texture_scale",
+              "type": {
+                "typeName": "float2"
+              },
+              "value": [
+                0.5,
+                0.5
+              ]
+            },
+            {
+              "name": "texture_translate",
+              "type": {
+                "typeName": "float2"
+              },
+              "value": [
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "world_or_object",
+              "type": {
+                "typeName": "bool"
+              },
+              "value": false
+            }
+          ],
+          "functionName": "OmniPBR",
+          "module": 6,
+          "type": {
+            "typeName": "material"
+          }
+        },
+        {
+          "arguments": [
+            {
+              "name": "name",
+              "type": {
+                "modifier": "uniform",
+                "typeName": "int"
+              },
+              "value": 1
+            },
+            {
+              "name": "gamma",
+              "type": {
+                "module": 5,
+                "typeName": "gamma_mode"
+              },
+              "value": "gamma_srgb"
+            }
+          ],
+          "functionName": "texture_2d",
+          "type": {
+            "typeName": "texture_2d"
+          }
+        }
+      ],
+      "modules": [
+        {
+          "uri": "./materials/Facade_Brick_Red_Clinker.mdl"
+        },
+        {
+          "uri": "mdl:///OmniSurface/OmniSurfaceLiteBase.mdl"
+        },
+        {
+          "uri": "mdl:///nvidia/aux_definitions.mdl"
+        },
+        {
+          "uri": "mdl:///nvidia/core_definitions.mdl"
+        },
+        {
+          "uri": "mdl:///base.mdl"
+        },
+        {
+          "uri": "mdl:///tex.mdl"
+        },
+        {
+          "uri": "mdl:///OmniPBR.mdl"
+        }
+      ]
+    }
+  },
+  "extensionsRequired": [
+    "NV_materials_mdl",
+    "KHR_lights_punctual"
+  ],
+  "extensionsUsed": [
+    "NV_materials_mdl",
+    "KHR_lights_punctual"
+  ],
+  "images": [
+    {
+      "name": "mandrill_2k",
+      "uri": "./textures/mandrill_2k.png"
+    },
+    {
+      "name": "ov_uv_grids_basecolor_1024",
+      "uri": "./textures/ov_uv_grids_basecolor_1024.png"
+    }
+  ],
+  "materials": [
+    {
+      "extensions": {
+        "NV_materials_mdl": {
+          "functionCall": 0
+        }
+      },
+      "name": "Facade_Brick_Red_Clinker_Mossy_Leaking"
+    },
+    {
+      "extensions": {
+        "NV_materials_mdl": {
+          "functionCall": 1
+        }
+      },
+      "name": "OmniSurfaceLiteMtl"
+    },
+    {
+      "extensions": {
+        "NV_materials_mdl": {
+          "functionCall": 4
+        }
+      },
+      "name": "OmniSurfaceLiteMtl_01"
+    },
+    {
+      "extensions": {
+        "NV_materials_mdl": {
+          "functionCall": 8
+        }
+      },
+      "name": "Grid"
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Cube",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 2,
+            "POSITION": 1,
+            "TEXCOORD_0": 3
+          },
+          "indices": 0,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Cube_01",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 6,
+            "POSITION": 5,
+            "TEXCOORD_0": 7
+          },
+          "indices": 4,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Cube_02",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 10,
+            "POSITION": 9,
+            "TEXCOORD_0": 11
+          },
+          "indices": 8,
+          "material": 2,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "ground",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 14,
+            "POSITION": 13,
+            "TEXCOORD_0": 15
+          },
+          "indices": 12,
+          "material": 3,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1,
+        5
+      ],
+      "name": "World",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "children": [
+        2,
+        3,
+        4
+      ],
+      "name": "World",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "mesh": 0,
+      "name": "Cube",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "translation": [
+        -1.543731571569315,
+        0.5,
+        0.0
+      ]
+    },
+    {
+      "mesh": 1,
+      "name": "Cube_01",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "translation": [
+        0.03146528350265186,
+        0.5,
+        0.0
+      ]
+    },
+    {
+      "mesh": 2,
+      "name": "Cube_02",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "translation": [
+        1.6538810738385095,
+        0.5,
+        0.0
+      ]
+    },
+    {
+      "children": [
+        6,
+        7,
+        8
+      ],
+      "name": "Environment",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "extensions": {
+        "KHR_lights_punctual": {
+          "light": 0
+        }
+      },
+      "name": "Sky",
+      "rotation": [
+        -0.4999999999999999,
+        -0.5000000000000001,
+        -0.5000000000000001,
+        0.5000000000000002
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "translation": [
+        0.0,
+        3.0500000000000003,
+        0.0
+      ]
+    },
+    {
+      "extensions": {
+        "KHR_lights_punctual": {
+          "light": 1
+        }
+      },
+      "name": "DistantLight",
+      "rotation": [
+        -0.7933533402912352,
+        -0.0,
+        0.0,
+        0.6087614290087207
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "translation": [
+        0.0,
+        3.0500000000000003,
+        0.0
+      ]
+    },
+    {
+      "mesh": 3,
+      "name": "ground",
+      "rotation": [
+        -0.4999999999999999,
+        -0.5000000000000001,
+        -0.5000000000000001,
+        0.5000000000000002
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "DefaultScene",
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}

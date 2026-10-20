@@ -1,0 +1,164 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary audioSettings = {
+            double dopplerLimit = 2
+            double dopplerScale = 1
+            token enableDistanceDelay = "off"
+            token enableDoppler = "off"
+            double nonSpatialTimeScale = 1
+            double spatialTimeScale = 1
+            double speedOfSound = 340
+        }
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double radius = 500
+                double3 target = (0, 0, 0)
+            }
+            dictionary Perspective = {
+                double3 position = (500.0000000000001, 500.0000000000003, 499.99999999999966)
+                double3 target = (5.684341886080802e-14, 5.684341886080802e-14, 0)
+            }
+            dictionary Right = {
+                double radius = 500
+                double3 target = (0, 0, 0)
+            }
+            dictionary Top = {
+                double radius = 500
+                double3 target = (0, 0, 0)
+            }
+            string boundCamera = "/World/Camera"
+        }
+        dictionary renderSettings = {
+            float "rtx:post:lensDistortion:cameraFocalLength" = 24
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.009999999776482582
+    startTimeCode = 0
+    timeCodesPerSecond = 24
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def DistantLight "defaultLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float angle = 1
+        float intensity = 3000
+        float shaping:cone:angle = 180
+        float shaping:cone:softness
+        float shaping:focus
+        color3f shaping:focusTint
+        asset shaping:ies:file
+        float3 xformOp:rotateXYZ = (315, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Camera "Camera"
+    {
+        rel animationData:transformTarget = </World/Camera/animationData>
+        float focalLength = 24
+        float focusDistance = 400
+        float3 xformOp:rotateXYZ = (0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (304.16507, 58.39701, 1353.9476)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+
+        def AnimationData "animationData"
+        {
+            token interpolationType.timeSamples = {
+                0: "bezier",
+                31: "easeInEaseOut",
+                61: "bezier",
+            }
+			bool rotateX:editable = 1
+            double rotateX.timeSamples = {
+                0: 0,
+                31: 0,
+                61: 0,
+            }
+            double4 rotateX:tangent.timeSamples = {
+                0: (-10, 0, 10, 0),
+                31: (21, 0, 41, 0),
+                50: (40, -9.650626182556152, 60, -9.650626182556152),
+                61: (51, 0, 71, 0),
+            }
+			bool rotateY:editable = 1
+            double rotateY.timeSamples = {
+                0: -0,
+                31: 0,
+                61: 0,
+            }
+            double4 rotateY:tangent.timeSamples = {
+                0: (-10, -0, 10, -0),
+                31: (21, 0, 41, 0),
+                50: (40, 33.20061111450195, 60, 33.20061111450195),
+                61: (51, 0, 71, 0),
+            }
+			bool rotateZ:editable = 1
+            double rotateZ.timeSamples = {
+                0: 0,
+                31: 0,
+                61: 0,
+            }
+            double4 rotateZ:tangent.timeSamples = {
+                0: (-10, 0, 10, 0),
+                31: (21, 0, 41, 0),
+                50: (40, 0.0000042629221752576996, 60, 0.0000042629221752576996),
+                61: (51, 0, 71, 0),
+            }
+			bool translateX:editable = 1
+            double translateX.timeSamples = {
+                0: 174.23004150390625,
+                31: 457.1422119140625,
+                61: -281.27447509765625,
+            }
+            double4 translateX:tangent.timeSamples = {
+                0: (-10, 174.23004150390625, 10, 174.23004150390625),
+                31: (21, 457.1422119140625, 41, 457.1422119140625),
+                50: (40, 299.0927734375, 60, 299.0927734375),
+                61: (51, -281.27447509765625, 71, -281.27447509765625),
+            }
+			bool translateY:editable = 1
+            double translateY.timeSamples = {
+                0: 5.6396708488464355,
+                31: 113.2360610961914,
+                61: 113.68310546875,
+            }
+            double4 translateY:tangent.timeSamples = {
+                0: (-10, 5.6396708488464355, 10, 5.6396708488464355),
+                31: (21, 113.2360610961914, 41, 113.2360610961914),
+                50: (40, 84.88471221923828, 60, 84.88471221923828),
+                61: (51, 113.68310546875, 71, 113.68310546875),
+            }
+			bool translateZ:editable = 1
+            double translateZ.timeSamples = {
+                0: 909.2686157226562,
+                31: 1912.4559326171875,
+                61: 1085.007080078125,
+            }
+            double4 translateZ:tangent.timeSamples = {
+                0: (-10, 909.2686157226562, 10, 909.2686157226562),
+                31: (21, 1912.4559326171875, 41, 1912.4559326171875),
+                50: (40, 240.41842651367188, 60, 240.41842651367188),
+                61: (51, 1085.007080078125, 71, 1085.007080078125),
+            }
+        }
+    }
+
+    def Cube "Cube"
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+}

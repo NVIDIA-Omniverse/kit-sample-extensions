@@ -1,0 +1,19 @@
+<svg id="spacer" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+  <rect id="Icon_Base" width="18" height="18" fill="none"/>
+  <g id="Model" transform="translate(1.231 1.145)">
+    <g id="Frame" transform="translate(0 15.407) rotate(-90)">
+      <line id="Line_501" data-name="Line 501" x2="3.44" transform="translate(15.406 11.967) rotate(90)" fill="none" stroke="#69a2cc" stroke-linecap="round" stroke-width="1.5"/>
+      <line id="Line_501-2" data-name="Line 501" x2="3.44" transform="translate(15.406 5.967) rotate(90)" fill="none" stroke="#69a2cc" stroke-linecap="round" stroke-width="1.5"/>
+      <line id="Line_501-3" data-name="Line 501" x2="3.44" transform="translate(5.983 -0.017)" fill="none" stroke="#69a2cc" stroke-linecap="round" stroke-width="1.5"/>
+      <line id="Line_502" data-name="Line 502" y1="3.44" transform="translate(15.406 15.407) rotate(90)" fill="none" stroke="#69a2cc" stroke-linecap="round" stroke-width="1.5"/>
+      <line id="Line_501-4" data-name="Line 501" x2="3.44" transform="translate(0 3.44) rotate(-90)" fill="none" stroke="#69a2cc" stroke-linecap="round" stroke-width="1.5"/>
+      <line id="Line_502-2" data-name="Line 502" y1="3.44" transform="translate(0) rotate(-90)" fill="none" stroke="#69a2cc" stroke-linecap="round" stroke-width="1.5"/>
+      <line id="Line_501-5" data-name="Line 501" x2="3.44" transform="translate(3.44 15.407) rotate(180)" fill="none" stroke="#69a2cc" stroke-linecap="round" stroke-width="1.5"/>
+      <path id="Line_502-3" data-name="Line 502" d="M0,3.44V0" transform="translate(0 15.407) rotate(180)" fill="none" stroke="#69a2cc" stroke-linecap="round" stroke-width="1.5"/>
+      <path id="Line_502-4" data-name="Line 502" d="M0,3.44V0" transform="translate(0 9.407) rotate(180)" fill="none" stroke="#69a2cc" stroke-linecap="round" stroke-width="1.5"/>
+      <path id="Line_502-5" data-name="Line 502" d="M0,3.44V0" transform="translate(9.423 15.39) rotate(90)" fill="none" stroke="#69a2cc" stroke-linecap="round" stroke-width="1.5"/>
+      <line id="Line_501-6" data-name="Line 501" x2="3.44" transform="translate(11.967 0.001)" fill="none" stroke="#69a2cc" stroke-linecap="round" stroke-width="1.5"/>
+      <line id="Line_502-6" data-name="Line 502" y1="3.44" transform="translate(15.407 0.001)" fill="none" stroke="#69a2cc" stroke-linecap="round" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

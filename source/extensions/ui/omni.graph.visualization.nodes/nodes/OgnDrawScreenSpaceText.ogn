@@ -1,0 +1,61 @@
+{
+    "DrawScreenSpaceText": {
+        "version": 1,
+        "categories": "debug",
+        "description": ["Draw text at a prescribed position in the viewport"],
+        "language": "Python",
+        "uiName": "Draw Screen Space Text (Beta)",
+        "inputs": {
+            "execIn": {
+                "type": "execution",
+                "description": "Execution input",
+                "uiName": "In"
+            },
+            "text": {
+                "type": "string",
+                "description": "Label text",
+                "default": "",
+                "uiName": "Text"
+            },
+            "textColor": {
+                "type": "colorf[4]",
+                "description": "Text color",
+                "default": [0.95, 0.95, 0.95, 1.0],
+                "uiName": "Text Color"
+            },
+            "backgroundColor": {
+                "type": "colorf[4]",
+                "description": "Background color",
+                "default": [0.165, 0.157, 0.145, 0.8],
+                "uiName": "Background Color"
+            },
+            "size": {
+                "type": "float",
+                "description": "Text size",
+                "default": 14.0,
+                "uiName": "Size"
+            },
+            "boxWidth": {
+                "type": "int",
+                "description": "Text box maximum width before wrapping (0 for no wrapping)",
+                "default": 0,
+                "uiName": "Text Max Width"
+            },
+            "position": {
+                "type": "double[2]",
+                "description": "Text position on the viewport (as a percentage of the viewport size)",
+                "default": [50.0, 50.0],
+                "uiName": "Screen Position (%)"
+            }
+        },
+        "outputs": {
+            "execOut": {
+                "type": "execution",
+                "description": "Execution output",
+                "uiName": "Out"
+            }
+        },
+        "state": {
+        }
+    }
+}

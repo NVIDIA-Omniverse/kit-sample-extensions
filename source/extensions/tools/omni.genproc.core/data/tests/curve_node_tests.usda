@@ -1,0 +1,206 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (0, 0, 50000)
+                double radius = 500
+            }
+            dictionary Perspective = {
+                double3 position = (3573.924018388546, 2471.734215567539, -1299.0046980227864)
+                double3 target = (-679.422269079614, -96.83168897000623, -893.7507757797234)
+            }
+            dictionary Right = {
+                double3 position = (-50000, 0, -1.1102230246251565e-11)
+                double radius = 500
+            }
+            dictionary Top = {
+                double3 position = (-4.329780281177466e-12, 50000, 1.1102230246251565e-11)
+                double radius = 500
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            dictionary muteness = {
+            }
+        }
+        dictionary renderSettings = {
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.01
+    startTimeCode = 0
+    timeCodesPerSecond = 24
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def DistantLight "defaultLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float angle = 1
+        float intensity = 3000
+        float shaping:cone:angle = 180
+        float shaping:cone:softness
+        float shaping:focus
+        color3f shaping:focusTint
+        asset shaping:ies:file
+        double3 xformOp:rotateXYZ = (315, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def BasisCurves "BasisCurves"
+    {
+        uniform token basis = "bezier"
+        int[] curveVertexCounts = [13]
+        float3[] extent = [(-686.8262, -0.000030517578, -543.5365), (407.673, 0.000030517578, 395.31882)]
+        point3f[] points = [(-686.8262, 0, -206.7894), (-486.37424, 0, 7.9527283), (-97.67923, 0, 395.31882), (-100.05557, 0, 153.58157), (-102.431915, 0, -88.15567), (-46.071747, 0, -543.5365), (73.14194, 0, -234.72095), (192.35562, 0, 74.094604), (82.938934, -0.000030517578, 215.05682), (226.07751, 0, 139.88992), (369.2161, 0.000030517578, 64.72302), (407.673, 0, -98.5224), (373.65677, 0, -191.12009)]
+        uniform token purpose = "guide"
+        custom bool scene_visualization:drawWireframe = 1
+        uniform token type = "cubic"
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def "Results"
+    {
+        def "ClosestPointOnCurve"
+        {
+            custom point3f point = (-94.400055, 0, -9.27529)
+        }
+
+        def "GetCurveData"
+        {
+            custom point3f[] points = [(-686.8262, 0, -206.7894), (-445.0826, 0, 35.800453), (-206.58023, 0, 215.31134), (-100.05557, 0, 153.58157), (-82.70059, 0, -123.15391), (-25.273045, 0, -325.0207), (73.14194, 0, -234.72095), (133.96718, -0.000006781685, 16.355497), (149.3023, -0.000013563371, 144.80176), (226.07751, 0, 139.88992), (335.5151, 0.000013563365, 41.242264), (382.32236, 0.0000067816763, -80.85192), (373.65677, 0, -191.12009)]
+        }
+
+        def "PointOnCurve"
+        {
+            custom point3f point = (-37.953312, 0, -305.2368)
+        }
+
+        def "TagPointsFromPrims"
+        {
+            custom token[] tags = ["outside", "inside", "inside", "outside", "outside", "outside", "outside", "outside", "outside", "outside", "outside", "outside", "outside", "outside", "outside", "outside", "outside", "outside", "outside", "outside", "outside"]
+        }
+
+        def "TransformsToCurve"
+        {
+            custom point3f[] points = [(-1318.63, 5.63098e-13, 749.667), (-1238.1697, 6.0193224e-13, 839.7156), (-1046.3031, 6.9453693e-13, 1053.6162), (-817.30096, 8.050651e-13, 1308.8008), (-625.4342, 8.9766985e-13, 1522.7014), (-544.974, 9.36504e-13, 1612.75), (-441.9034, 8.391076e-13, 1529.5782), (-196.1198, 6.068546e-13, 1330.4146), (97.234825, 3.2964942e-13, 1092.5873), (343.01852, 9.739634e-14, 893.42377), (446.089, 0, 810.252), (490.10492, 0, 904.97595), (595.0659, 0, 1130.0254), (720.34204, 0, 1398.5166), (825.3031, 0, 1623.5662), (869.319, 0, 1718.29)]
+        }
+
+        def "Raycast"
+        {
+            custom point3f[] points = [(0, 0, -2438.44), (0, 0, -2438.44), (0, 0, -2338.44), (0, 0, -2338.44)]
+        }
+
+        def "TagPrimsFromRamp"
+        {
+            custom token[] tags = ["low", "low", "low", "medium", "medium", "medium", "high", "high", "high", "high", "high", "high", "high", "medium", "medium", "medium", "low", "low", "low", "low", "low"]
+        }
+
+        def "ResampleCurves"
+        {
+            custom point3f[] points = [(-745.803, -7.2890765e-7, -326.45886), (-361.6733, 4.3076466e-7, 149.37656), (-171.54166, 8.051003e-9, 178.52577), (-89.67206, -5.6779567e-7, -26.601559), (-30.328583, 1.3247495e-7, -253.59595), (92.224815, 0.0000035381179, -290.04742), (116.20079, -0.000011542852, 65.10874), (199.11449, -0.0000053409167, 155.79381), (298.9068, 0.0000070781266, 77.98836), (373.51862, 0.000010648493, -72.327065), (380.89087, -0.0000096956355, -199.17169)]
+        }
+
+        def "PointsOnCurve"
+        {
+            custom point3f[] points = [(-331.84326, 0, 133.31831), (377.7261, 1.6970444e-7, -178.49014), (-608.2752, 0, -124.17623), (60.84263, 0, -264.4084), (-0.86269, 0, -338.5287), (-569.7538, 0, -84.86235), (105.67385, -0.0000010511769, -135.86243), (-82.926674, 0, -121.47435), (271.60693, 0.000008283321, 110.50808), (362.60233, 0.000011992008, -9.726055)]
+        }
+    }
+
+    def Mesh "Cube"
+    {
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 0, 4, 5, 1, 1, 5, 6, 3, 2, 3, 6, 7, 0, 2, 7, 4, 4, 7, 6, 5]
+        normal3f[] normals = [(0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0)] (
+            interpolation = "faceVarying"
+        )
+        point3f[] points = [(-50, -50, -50), (50, -50, -50), (-50, -50, 50), (50, -50, 50), (-50, 50, -50), (50, 50, -50), (50, 50, 50), (-50, 50, 50)]
+        float2[] primvars:st = [(1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (3.559999942779541, 3.559999942779541, 3.559999942779541)
+        double3 xformOp:translate = (-415.199, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Xform "Xform_01"
+    {
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1318.63, 5.63098e-13, 749.667)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Xform "Xform_02"
+    {
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-544.974, 9.36504e-13, 1612.75)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Xform "Xform_03"
+    {
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (446.089, 0, 810.252)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Xform "Xform_04"
+    {
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (869.319, 0, 1718.29)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Mesh "Cube_01"
+    {
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 0, 4, 5, 1, 1, 5, 6, 3, 2, 3, 6, 7, 0, 2, 7, 4, 4, 7, 6, 5]
+        normal3f[] normals = [(0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0)] (
+            interpolation = "faceVarying"
+        )
+        point3f[] points = [(-50, -50, -50), (50, -50, -50), (-50, -50, 50), (50, -50, 50), (-50, 50, -50), (50, 50, -50), (50, 50, 50), (-50, 50, 50)]
+        float2[] primvars:st = [(1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, -1374.36)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Mesh "Cube_02"
+    {
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 0, 4, 5, 1, 1, 5, 6, 3, 2, 3, 6, 7, 0, 2, 7, 4, 4, 7, 6, 5]
+        normal3f[] normals = [(0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0)] (
+            interpolation = "faceVarying"
+        )
+        point3f[] points = [(-50, -50, -50), (50, -50, -50), (-50, -50, 50), (50, -50, 50), (-50, 50, -50), (50, 50, -50), (50, 50, 50), (-50, 50, 50)]
+        float2[] primvars:st = [(1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (0, 0), (0, 1), (1, 1), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (10, 10, 1)
+        double3 xformOp:translate = (0, 0, -2388.44)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+}
+

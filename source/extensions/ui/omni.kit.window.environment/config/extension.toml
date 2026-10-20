@@ -1,0 +1,87 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.8.1"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Jeffrey Qiu", "Ning Li"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Environment Window"
+description="A window to show and edit environments."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['window', 'environment']
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+category = "Rendering"
+readme  = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+feature = true
+
+[package.target]
+kit = ["107.3"]  # Required for Event 2.0
+
+[package.writeTarget]
+kit = true
+
+[dependencies]
+"omni.kit.property.environment" = {}
+"omni.kit.window.property" = {}
+"omni.kit.environment.core" = {}
+"omni.kit.stage_templates" = {}
+"omni.kit.browser.folder.core" = {}
+"omni.kit.actions.core" = {optional=true}
+"omni.kit.notification_manager" = {}
+"omni.kit.async_engine" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.window.material".
+[[python.module]]
+name = "omni.kit.window.environment"
+
+[settings]
+exts."omni.kit.window.environment".folders = [
+    "https://omniverse-content-production.s3.us-west-2.amazonaws.com/Environments/2023_1"
+]
+exts."omni.kit.window.environment".folders_hide_in_category = ["2023_1"]
+exts."omni.kit.window.environment".custom_folders = []
+exts."omni.kit.window.environment".load_after_startup = false
+exts."omni.kit.window.environment".data.timeout = 30
+exts."omni.kit.window.environment".visible_after_startup = false
+
+[[trigger]]
+menu.name = "Window/Browsers/Environment"
+menu.window = "Environments"
+
+[[test]]
+dependencies = [
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+]
+
+stdoutFailPatterns.exclude = [
+    "*Failed to acquire interface [omni::kit::renderer::IGpuFoundation v0.2]*", # Leak
+]
+
+args = [
+    "--/app/asyncRendering=false",
+    "--/rtx/materialDb/syncLoads=true",
+    "--/omni.kit.plugin/syncUsdLoads=true",
+    "--/rtx/hydra/materialSyncLoads=true",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--no-window",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/exts/omni.kit.window.environment/visible_after_startup=true",
+    "--/exts/omni.kit.window.environment/folders/0=https://omniverse-content-production.s3.us-west-2.amazonaws.com/Assets/Skies/2022_1/Skies",
+    "--/exts/omni.kit.window.environment/folders/1=http://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Scenes/Templates",
+]
+
+[documentation]
+pages = ["docs/Overview.md", "docs/SETTINGS.md", "docs/CHANGELOG.md"]

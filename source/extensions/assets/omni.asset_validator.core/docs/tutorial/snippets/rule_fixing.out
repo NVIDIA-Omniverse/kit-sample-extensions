@@ -1,0 +1,14 @@
+#usda 1.0
+(
+    defaultPrim="Hello"
+    doc = """Generated from Composed Stage of root layer tutorial.usda
+"""
+)
+
+def Xform "Hello"
+{
+    def Sphere "World"
+    {
+    }
+}
+

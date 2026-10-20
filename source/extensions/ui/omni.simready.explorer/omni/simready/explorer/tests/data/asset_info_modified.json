@@ -1,0 +1,118 @@
+[
+  {
+    "_comment": "This is a modified asset compared to the one in asset_info.json",
+    "Relative Path": "/assets/props/box_a01/box_a01.usd",
+    "Thumbnail Path": "/.thumbs/256x256/box_a01.usd.png",
+    "Behaviors": [
+      {
+        "PhysicsVariant": {
+          "Prim Path": "/RootNode",
+          "Values": [
+            "RigidBody"
+          ]
+        }
+      }
+    ],
+    "Extent": [
+      0.6,
+      0.4,
+      0.33
+    ],
+    "Tags": [
+      "modified",
+      "warehouse",
+      "box",
+      "Q188075",
+      "SimReady",
+      "prop",
+      "container",
+      "product packaging"
+    ],
+    "Labels": {
+      "QCode": "Q188075",
+      "Class": "box",
+      "Hierarchy": "container/product packaging/box/modified"
+    },
+    "Asset Type": "Prop",
+    "Simple Name": "box_a01_modified",
+    "Date Modified": "N/A",
+    "Size": "0.0 MB"
+  },
+  {
+    "_comment": "This is the same asset as the one in asset_info.json",
+    "Relative Path": "/assets/props/prop1/prop1.usd",
+    "Thumbnail Path": "/.thumbs/256x256/prop1.usd.png",
+    "Behaviors": [
+      {
+        "PhysicsVariant": {
+          "Prim Path": "/RootNode",
+          "Values": [
+            "RigidBody"
+          ]
+        }
+      }
+    ],
+    "Extent": [
+      1.22,
+      1.02,
+      0.14
+    ],
+    "Tags": [
+      "prop",
+      "obstacle",
+      "props",
+      " SimReady ",
+      "transport unit",
+      "product packaging",
+      "pallet"
+    ],
+    "Labels": {
+      "QCode": "Q505996",
+      "Class": "pallet",
+      "Hierarchy": "transport unit/product packaging/pallet"
+    },
+    "Asset Type": "PROP",
+    "Simple Name": "prop1",
+    "Date Modified": "N/A",
+    "Size": "0.0 MB"
+  },
+  {
+    "_comment": "This is a new asset that is not present in asset_info.json",
+    "Relative Path": "/assets/props/prop_new/prop_new.usd",
+    "Thumbnail Path": "/.thumbs/256x256/prop_new.usd.png",
+    "Behaviors": [
+      {
+        "PhysicsVariant": {
+          "Prim Path": "/RootNode",
+          "Values": [
+            "RigidBody"
+          ]
+        }
+      }
+    ],
+    "Extent": [
+      123,
+      321,
+      514
+    ],
+    "Tags": [
+      "new",
+      "prop",
+      "obstacle",
+      "props",
+      " SimReady ",
+      "equipment",
+      "tool",
+      "container"
+    ],
+    "Labels": {
+      "QCode": "Q987767",
+      "Class": "container",
+      "Hierarchy": "new/equipment/tool/container"
+    },
+    "Asset Type": "PROP",
+    "Simple Name": "prop_new",
+    "Date Modified": "N/A",
+    "Size": "0.0 MB"
+  }
+]

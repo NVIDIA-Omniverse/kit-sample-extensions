@@ -1,0 +1,10 @@
+<project toolsVersion="5.0">
+  <!-- Use this file to include any dependencies for extensions in "services" group. -->
+  <dependency name="omniverse.auth.client.py" linkPath="../_build/target-deps/pip_nv_prebundle/omniverse_auth_client">
+    <package name="omniverse.auth.client.py" version="1.4.0+main.teamcity.922.a45c8a19"/>
+  </dependency>
+  <dependency name="idl.py" linkPath="../_build/target-deps/pip_nv_prebundle/omniverse_idl">
+    <package name="idl.py" version="0.29+master.gitlab.1897.39a57655"/>
+  </dependency>
+
+</project>

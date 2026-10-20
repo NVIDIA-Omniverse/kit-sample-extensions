@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="Home"
+   viewBox="0 0 48 48"
+   version="1.1"
+   sodipodi:docname="navHome_dark.svg"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview9655"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="21.395833"
+     inkscape:cx="21.172347"
+     inkscape:cy="24.093476"
+     inkscape:window-width="1801"
+     inkscape:window-height="1300"
+     inkscape:window-x="389"
+     inkscape:window-y="139"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="Home" />
+  <defs
+     id="defs9651">
+    <style
+       id="style9649">
+      .cls-1 {
+        fill: #9e9e9e;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path
+     id="Path_101"
+     data-name="Path 101"
+     class="cls-1"
+     style="fill:#9e9e9e;fill-opacity:1"
+     d="M35.43,25.89v9.69l-.04,.26-.09,.26-.13,.17-.17,.22-.17,.17-.21,.13-.26,.08-.22,.04h-7.62v-7.75h-5.08v7.75h-7.62l-.26-.04-.22-.08-.21-.13-.22-.17-.17-.22-.04-.17-.08-.26-.04-.26v-9.69h0l.04-.04,11.37-9.56,11.41,9.56,.04,.04Zm4.4-1.38l-1.25,1.51-.13,.13-.26,.08h-.09l-.22-.04-.17-.08-13.73-11.63-13.74,11.63-.22,.13h-.26l-.21-.08-.17-.13-1.25-1.51-.09-.17-.04-.26,.09-.26,.13-.17,14.25-12.06,.35-.26,.34-.17,.43-.04,.39-.04,.43,.04,.39,.04,.39,.17,.3,.26,4.87,4.09v-4.05l.04-.13,.09-.21,.21-.17h4.31l.22,.17,.17,.21v.13l.04,.13v8.23l4.31,3.66,.13,.04,.04,.13,.09,.26-.04,.26-.13,.17Z" />
+</svg>

@@ -1,0 +1,47 @@
+{
+    "PointOnCurve": {
+        "categories": "curve",
+        "categoryDefinitions": "../../config/CurveCategories.json",
+        "description": ["Given a bundle containing curve data and a u-value (between zero and one), ",
+                        "get a point on the curve and the curve tangent at that point. ",
+                        "Note that if multiple curves are present in the bundle, only the first one will be used."],
+        "inputs": {
+            "curvesBundle": {
+                "type": "bundle",
+                "description": "Bundle containing curves data",
+                "uiName": "Curves Bundle"
+            },
+            "uValue": {
+                "type": "float",
+                "optional": true,
+                "description": ["Value from zero to one along curve at which we want to get a point"],
+                "uiName": "U Value",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            }
+        },
+        "outputs": {
+            "point": {
+                "type": "float[3]",
+                "description": "Point on input curve",
+                "uiName": "Point on Curve"
+            },
+            "tangent": {
+                "type": "float[3]",
+                "description": "Curve tangent at point",
+                "uiName": "Tangent at Point"
+            }
+        },
+        "state": {
+            "prevUValue": {
+                "description": ["Previous uValue value for recompute test"],
+                "type": "float"
+            }
+        },
+        "metadata": {
+            "uiName": "Point on Curve"
+        },
+        "version": 1
+    }
+}

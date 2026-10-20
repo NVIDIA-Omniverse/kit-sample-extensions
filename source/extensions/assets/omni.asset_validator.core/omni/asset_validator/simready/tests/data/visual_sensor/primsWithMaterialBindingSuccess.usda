@@ -1,0 +1,39 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    """
+    This USD presents all gprims have valid material binding.
+    """
+)
+
+def Xform "World"
+{
+    def Cube "Cube_01" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </World/Looks/valid_material>
+    }
+
+    def Mesh "Cube_02_full" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding:full = </World/Looks/valid_material>
+    }
+
+    def Scope "Looks"
+    {
+        def Material "valid_material"
+        {
+            token outputs:mdl:surface.connect = </World/Looks/valid_material/Shader.outputs:out>
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @SimPBR.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "SimPBR"
+                token outputs:out
+            }
+        }
+    }
+}

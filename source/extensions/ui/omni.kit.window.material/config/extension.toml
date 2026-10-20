@@ -1,0 +1,157 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.9.1"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Jeffrey Qiu"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Material Window"
+description="A window to show and edit materials."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['window', 'material']
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+category = "Rendering"
+readme  = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+feature = true
+
+[package.target]
+kit = ["107.3"]  # Required for Event 2.0
+
+[package.writeTarget]
+kit = true
+
+[dependencies]
+"omni.kit.browser.material" = {}
+"omni.kit.material.library" = {}
+"omni.kit.window.material_graph" = { optional=true }
+"omni.kit.property.material" = {}
+"omni.kit.window.property" = {}
+"omni.kit.widget.material_preview" = {}
+"omni.kit.actions.core" = {}
+"usdrt.scenegraph" = { optional = true }
+"omni.kit.usd.layers" = { optional=true }
+"omni.kit.notification_manager" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.window.material".
+[[python.module]]
+name = "omni.kit.window.material"
+
+[settings.exts."omni.kit.window.material"]
+folders = [
+    "Base::http://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base",
+    "vMaterials::http://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/vMaterials_2"
+]
+custom_folders = [
+]
+min_thumbnail_size = 32
+max_thumbnail_size = 512
+load_after_startup = false
+data.timeout = 5
+selected.include_children = true
+visible_after_startup = false
+show_capture_thumbnail_menu = true
+
+# Use usdrt to get stage materials. False to traverse all stage.
+stage_materials_with_usdrt = true
+# If stage has MaterialBindingAPI. Default False because there are usd files authored by old version of USD where MaterialBindingAPI schema not applied
+stage_has_material_binding_api = false
+
+# Current panel mode, could be "Library", "Current Stage"，"Selected". Default "" means invisbile.
+panel_mode = ""
+
+[settings.exts."omni.kit.browser.material"]
+# Disable material browser by default
+enabled = false
+
+[[trigger]]
+menu.name = "Window/Browsers/Materials"
+menu.window = "Materials"
+
+[[test]]
+# Give RTX more testing time than the default 300
+timeout = 1200
+
+dependencies = [
+    "omni.kit.ui_test",
+    "omni.kit.window.material_graph",
+    "omni.kit.test_suite.helpers",
+    "omni.kit.hydra_texture-ovrtx",
+]
+
+
+args = [
+    "--no-window",
+    "--/app/fastShutdown=true",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/renderer/multiGpu/enabled=false",
+    "--/renderer/multiGpu/autoEnable=false",
+    "--/renderer/multiGpu/maxGpuCount=1",
+    "--/app/hydraEngine/waitIdle=true",
+    "--/app/asyncRendering=false",
+    "--/exts/omni.kit.browser.material/folders/0=http://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Architecture",
+    "--/exts/omni.kit.browser.material/folders/1=''",
+    "--/exts/omni.kit.browser.material/folders/2=''",
+    "--/exts/omni.kit.window.material/visible_after_startup=true",
+]
+
+stdoutFailPatterns.exclude = [
+    "*[UsdToMdl]*Reached invalid assignment*", # OM-112613 for FSD enabled by default in USD Explorer
+    "*[asyncio] Task exception was never retrieved*", # ModuleNotFoundError from omni.kit.window.material_graph-1.8.14 which does not work for kit 106/105
+]
+
+
+# OM-116097: Segmentation fault with kit 105.2 integ-master in Linux
+[[test_disabled]]
+name = "usdrt"
+# Give RTX more testing time than the default 300
+timeout = 1200
+
+dependencies = [
+    "omni.kit.ui_test",
+    "omni.kit.window.material_graph",
+    "omni.usd",
+    "omni.kit.test_suite.helpers",
+    "omni.kit.hydra_texture-ovrtx",
+    "usdrt.scenegraph",
+]
+args = [
+    "--no-window",
+    "--/app/fastShutdown=true",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/renderer/multiGpu/enabled=false",
+    "--/renderer/multiGpu/autoEnable=false",
+    "--/renderer/multiGpu/maxGpuCount=1",
+    "--/app/hydraEngine/waitIdle=true",
+    "--/app/asyncRendering=false",
+    "--/exts/omni.kit.browser.material/folders/0=http://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Architecture",
+    "--/exts/omni.kit.browser.material/folders/1=''",
+    "--/exts/omni.kit.window.material/visible_after_startup=true",
+    "--/app/useFabricSceneDelegate=1",
+]
+
+stdoutFailPatterns.exclude = [
+    "*[UsdToMdl]*Reached invalid assignment*", # OM-112613 for FSD enabled by default in USD Explorer
+    "*[asyncio] Task exception was never retrieved*", # ModuleNotFoundError from omni.kit.window.material_graph-1.8.14 which does not work for kit 106/105
+]
+
+[documentation]
+pages = ["docs/Overview.md", "docs/SETTINGS.md", "docs/USAGE_PYTHON.md", "docs/CHANGELOG.md"]

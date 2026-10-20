@@ -1,0 +1,22 @@
+{
+    "SelectiveGate": {
+        "exclude" : ["tests"],
+        "version": 0,
+        "categories": ["flowControl"],
+        "uiName": "Select Gate By Index",
+        "description": ["Selects which input can trigger the output execution."],
+        "language": "python",
+        "inputs": {
+            "index": {
+                "type": "int",
+                "description": "Which input is selected."
+            }
+       },
+        "outputs": {
+            "execOut": {
+                "type": "execution",
+                "description": "Execution out."
+            }
+        }
+    }
+}

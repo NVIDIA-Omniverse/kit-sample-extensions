@@ -1,0 +1,82 @@
+{
+    "omni.anim.Timeline": {
+        "version": 2,
+        "description": [ "Timeline Node is a node that lets you create animation curve(s), plays back and samples the value(s) along its time to output values." ],
+        "metadata": {
+            "uiName": "Timeline"
+        },
+        "categories": {"animation": "Nodes dealing with Animation"},
+        "inputs": {
+            "play": {
+                "type": "execution",
+                "description": "Play the timeline from current time",
+                "uiName": "Play"
+            },
+            "playFromStart": {
+                "type": "execution",
+                "description": "Play the timeline from start",
+                "uiName": "Play from Start"
+            },
+            "stop": {
+                "type": "execution",
+                "description": "Stop playback at current time",
+                "uiName": "Stop"
+            },
+            "reverse": {
+                "type": "execution",
+                "description": "Play the timeline backwards from current time",
+                "uiName": "Reverse"
+            },
+            "reverseFromEnd": {
+                "type": "execution",
+                "description": "Play the timeline backwards from end",
+                "uiName": "Reverse from End"
+            },
+            "setNewTime": {
+                "type": "execution",
+                "description": "Set timeline to new time defined in \"New Time\" input",
+                "uiName": "Set New Time"
+            },
+            "newTime": {
+                "type": "double",
+                "description": "New time to set then \"Set New Time\" is triggered",
+                "uiName": "New Time",
+                "default": 0.0
+            },
+            "length": {
+                "type": "double",
+                "description": "Duration of the Timeline node in seconds",
+                "uiName": "Length",
+                "default": 10.0
+            },
+            "framerate": {
+                "type": "double",
+                "description": "Playback frame rate",
+                "uiName": "Framerate",
+                "default": 24.0
+            },
+            "loop": {
+                "type": "bool",
+                "description": "Whether animation should loop when reaches the end (or beginning if playing backwards)",
+                "uiName": "Loop"
+            }
+        },
+        "outputs": {
+            "updated": {
+                "type": "execution",
+                "description": "The Timeline node is ticked and output value(s) resampled and updated",
+                "uiName": "Updated"
+            },
+            "finished": {
+                "type": "execution",
+                "description": "The Timeline node has finished the playback",
+                "uiName": "Finished"
+            },
+            "nodeTime": {
+                "type": "double",
+                "description": "The internal time of Timeline node",
+                "uiName": "Node Time"
+            }
+        }
+    }
+}

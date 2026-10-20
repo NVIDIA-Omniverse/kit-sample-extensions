@@ -1,0 +1,6 @@
+<project toolsVersion="5.0">
+  <!-- Animation Authoring source-selected native curve evaluator. -->
+  <dependency name="AnimX_${config}" linkPath="../_build/target-deps/AnimX/${config}">
+    <package name="animx" version="1.0.0-dev.7684+animx_gcc.94da73e5cf0a661d8ff52772adb55b9b2a585994-${platform_target_abi}-dynamic-${config}" />
+  </dependency>
+</project>

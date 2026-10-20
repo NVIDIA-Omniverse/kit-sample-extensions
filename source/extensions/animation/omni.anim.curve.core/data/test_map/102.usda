@@ -1,0 +1,497 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (0, 0, 50000)
+                double radius = 500
+            }
+            dictionary Perspective = {
+                double3 position = (500.0000000000001, 500.0000000000001, 499.9999999999998)
+                double3 target = (0, 0, 0)
+            }
+            dictionary Right = {
+                double3 position = (-50000, 0, -1.1102230246251565e-11)
+                double radius = 500
+            }
+            dictionary Top = {
+                double3 position = (-4.329780281177466e-12, 50000, 1.1102230246251565e-11)
+                double radius = 500
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            dictionary muteness = {
+            }
+        }
+        dictionary renderSettings = {
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.009999999776482582
+    startTimeCode = 0
+    timeCodesPerSecond = 24
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def Camera "Camera"
+    {
+        float focalLength = 24
+        float focusDistance = 400
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Camera "Camera_Animated"
+    {
+        prepend rel animationData:binding = </World/Camera_Animated/animationData>
+        float focalLength = 24
+        float focusDistance = 400
+        float fStop = 0
+        float horizontalAperture = 20.955
+        float horizontalApertureOffset = 0
+        float verticalAperture = 15.2908
+        float verticalApertureOffset = 0
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 31.773029675636394, 45.34605140477862)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+
+        def AnimationData "animationData"
+        {
+            double focalLength.timeSamples = {
+                0: 24,
+                30: 24,
+                60: 24,
+            }
+            bool focalLength:tangentBroken.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            timecode[] focalLength:tangentTime.timeSamples = {
+                0: [-10, 10],
+                30: [20, 40],
+                60: [40, 70],
+            }
+            double[] focalLength:tangentValue.timeSamples = {
+                0: [24, 24],
+                30: [24, 24],
+                60: [24, 24],
+            }
+            bool focalLength:tangentWeighted.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            double focusDistance.timeSamples = {
+                0: 400,
+                30: 400,
+                60: 400,
+            }
+            bool focusDistance:tangentBroken.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            timecode[] focusDistance:tangentTime.timeSamples = {
+                0: [-10, 10],
+                30: [20, 40],
+                60: [40, 70],
+            }
+            double[] focusDistance:tangentValue.timeSamples = {
+                0: [400, 400],
+                30: [400, 400],
+                60: [400, 400],
+            }
+            bool focusDistance:tangentWeighted.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            double fStop.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            bool fStop:tangentBroken.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            timecode[] fStop:tangentTime.timeSamples = {
+                0: [-10, 10],
+                30: [20, 40],
+                60: [40, 70],
+            }
+            double[] fStop:tangentValue.timeSamples = {
+                0: [0, 0],
+                30: [0, 0],
+                60: [0, 0],
+            }
+            bool fStop:tangentWeighted.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            double horizontalAperture.timeSamples = {
+                0: 20.954999923706055,
+                30: 20.954999923706055,
+                60: 20.954999923706055,
+            }
+            bool horizontalAperture:tangentBroken.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            timecode[] horizontalAperture:tangentTime.timeSamples = {
+                0: [-10, 10],
+                30: [20, 40],
+                60: [40, 70],
+            }
+            double[] horizontalAperture:tangentValue.timeSamples = {
+                0: [20.954999923706055, 20.954999923706055],
+                30: [20.954999923706055, 20.954999923706055],
+                60: [20.954999923706055, 20.954999923706055],
+            }
+            bool horizontalAperture:tangentWeighted.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            double horizontalApertureOffset.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            bool horizontalApertureOffset:tangentBroken.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            timecode[] horizontalApertureOffset:tangentTime.timeSamples = {
+                0: [-10, 10],
+                30: [20, 40],
+                60: [40, 70],
+            }
+            double[] horizontalApertureOffset:tangentValue.timeSamples = {
+                0: [0, 0],
+                30: [0, 0],
+                60: [0, 0],
+            }
+            bool horizontalApertureOffset:tangentWeighted.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            token interpolationType.timeSamples = {
+                0: "bezierSlerp",
+                30: "bezierSlerp",
+                60: "bezierSlerp",
+            }
+            token remappingType.timeSamples = {
+                0: "linear",
+                30: "linear",
+                60: "linear",
+            }
+            double rotateX.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            bool rotateX:tangentBroken.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            timecode[] rotateX:tangentTime.timeSamples = {
+                0: [-10, 10],
+                30: [20, 40],
+                60: [40, 70],
+            }
+            double[] rotateX:tangentValue.timeSamples = {
+                0: [0, 0],
+                30: [0, 0],
+                60: [0, 0],
+            }
+            bool rotateX:tangentWeighted.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            double rotateY.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            bool rotateY:tangentBroken.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            timecode[] rotateY:tangentTime.timeSamples = {
+                0: [-10, 10],
+                30: [20, 40],
+                60: [40, 70],
+            }
+            double[] rotateY:tangentValue.timeSamples = {
+                0: [0, 0],
+                30: [0, 0],
+                60: [0, 0],
+            }
+            bool rotateY:tangentWeighted.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            double rotateZ.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            bool rotateZ:tangentBroken.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            timecode[] rotateZ:tangentTime.timeSamples = {
+                0: [-10, 10],
+                30: [20, 40],
+                60: [40, 70],
+            }
+            double[] rotateZ:tangentValue.timeSamples = {
+                0: [0, 0],
+                30: [0, 0],
+                60: [0, 0],
+            }
+            bool rotateZ:tangentWeighted.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            double scaleX.timeSamples = {
+                0: 1,
+                30: 1,
+                60: 1,
+            }
+            bool scaleX:tangentBroken.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            timecode[] scaleX:tangentTime.timeSamples = {
+                0: [-10, 10],
+                30: [20, 40],
+                60: [40, 70],
+            }
+            double[] scaleX:tangentValue.timeSamples = {
+                0: [1, 1],
+                30: [1, 1],
+                60: [1, 1],
+            }
+            bool scaleX:tangentWeighted.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            double scaleY.timeSamples = {
+                0: 1,
+                30: 1,
+                60: 1,
+            }
+            bool scaleY:tangentBroken.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            timecode[] scaleY:tangentTime.timeSamples = {
+                0: [-10, 10],
+                30: [20, 40],
+                60: [40, 70],
+            }
+            double[] scaleY:tangentValue.timeSamples = {
+                0: [1, 1],
+                30: [1, 1],
+                60: [1, 1],
+            }
+            bool scaleY:tangentWeighted.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            double scaleZ.timeSamples = {
+                0: 1,
+                30: 1,
+                60: 1,
+            }
+            bool scaleZ:tangentBroken.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            timecode[] scaleZ:tangentTime.timeSamples = {
+                0: [-10, 10],
+                30: [20, 40],
+                60: [40, 70],
+            }
+            double[] scaleZ:tangentValue.timeSamples = {
+                0: [1, 1],
+                30: [1, 1],
+                60: [1, 1],
+            }
+            bool scaleZ:tangentWeighted.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            double translateX.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            bool translateX:tangentBroken.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            timecode[] translateX:tangentTime.timeSamples = {
+                0: [-10, 10],
+                30: [20, 40],
+                60: [40, 70],
+            }
+            double[] translateX:tangentValue.timeSamples = {
+                0: [0, 0],
+                30: [0, 0],
+                60: [0, 0],
+            }
+            bool translateX:tangentWeighted.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            double translateY.timeSamples = {
+                0: 0,
+                30: 158.619697,
+                60: 0,
+            }
+            bool translateY:tangentBroken.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            timecode[] translateY:tangentTime.timeSamples = {
+                0: [-10, 10],
+                30: [20, 40],
+                60: [40, 70],
+            }
+            double[] translateY:tangentValue.timeSamples = {
+                0: [0, 0],
+                30: [158.61968994140625, 158.61968994140625],
+                60: [0, 0],
+            }
+            bool translateY:tangentWeighted.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            double translateZ.timeSamples = {
+                0: 0,
+                30: 226.379938,
+                60: 0,
+            }
+            bool translateZ:tangentBroken.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            timecode[] translateZ:tangentTime.timeSamples = {
+                0: [-10, 10],
+                30: [20, 40],
+                60: [40, 70],
+            }
+            double[] translateZ:tangentValue.timeSamples = {
+                0: [0, 0],
+                30: [226.37994384765625, 226.37994384765625],
+                60: [0, 0],
+            }
+            bool translateZ:tangentWeighted.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            double verticalAperture.timeSamples = {
+                0: 15.290800094604492,
+                30: 15.290800094604492,
+                60: 15.290800094604492,
+            }
+            bool verticalAperture:tangentBroken.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            timecode[] verticalAperture:tangentTime.timeSamples = {
+                0: [-10, 10],
+                30: [20, 40],
+                60: [40, 70],
+            }
+            double[] verticalAperture:tangentValue.timeSamples = {
+                0: [15.290800094604492, 15.290800094604492],
+                30: [15.290800094604492, 15.290800094604492],
+                60: [15.290800094604492, 15.290800094604492],
+            }
+            bool verticalAperture:tangentWeighted.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            double verticalApertureOffset.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            bool verticalApertureOffset:tangentBroken.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+            timecode[] verticalApertureOffset:tangentTime.timeSamples = {
+                0: [-10, 10],
+                30: [20, 40],
+                60: [40, 70],
+            }
+            double[] verticalApertureOffset:tangentValue.timeSamples = {
+                0: [0, 0],
+                30: [0, 0],
+                60: [0, 0],
+            }
+            bool verticalApertureOffset:tangentWeighted.timeSamples = {
+                0: 0,
+                30: 0,
+                60: 0,
+            }
+        }
+    }
+
+    def DistantLight "defaultLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float angle = 1
+        float intensity = 3000
+        float shaping:cone:angle = 180
+        float shaping:cone:softness
+        float shaping:focus
+        color3f shaping:focusTint
+        asset shaping:ies:file
+        double3 xformOp:rotateXYZ = (315, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+}
+

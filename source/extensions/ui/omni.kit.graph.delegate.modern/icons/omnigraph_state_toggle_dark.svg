@@ -1,0 +1,9 @@
+<svg id="omnigraph_state_toggle_dark" xmlns="http://www.w3.org/2000/svg" width="22" height="12" viewBox="0 0 22 12">
+  <g id="omnigraph_state_toggle_dark-2" data-name="omnigraph_state_toggle_dark" transform="translate(-426 595) rotate(-90)">
+    <rect id="IconBase" width="12" height="22" transform="translate(583 426)" fill="none"/>
+    <rect id="click_area" width="12" height="22" transform="translate(583 426)" fill="#fff" opacity="0"/>
+    <circle id="dot" cx="2" cy="2" r="2" transform="translate(587 430)" fill="#fff"/>
+    <circle id="dot-2" data-name="dot" cx="2" cy="2" r="2" transform="translate(587 435)" fill="#fff"/>
+    <circle id="dot-3" data-name="dot" cx="2" cy="2" r="2" transform="translate(587 440)" fill="#fff"/>
+  </g>
+</svg>

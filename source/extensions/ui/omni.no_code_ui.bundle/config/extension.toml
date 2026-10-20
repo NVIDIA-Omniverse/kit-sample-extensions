@@ -1,0 +1,35 @@
+[package]
+version = "1.1.5"
+authors = ["Bob White", "Stephen Mackenzie"]
+title = "No Code UI"
+description="Bundle extension for No Code UI / data2ui"
+readme  = "docs/README.md"
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+category = "UI"
+keywords = ["kit", "datadriven", "codeless", "ui", "nocode", "no code", "no", "code"]
+changelog="docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+waiver = "Bundle extension for No Code UI / data2ui"
+support_level = "Sample"
+
+[package.target]
+kit = ["107.0"]
+
+[package.writeTarget]
+kit = true
+
+[dependencies]
+"omni.kit.data2ui.core" = {exact=true, version="1.1.5"}
+"omni.kit.data2ui.usd" = {exact=true, version="1.1.7"}
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.md",
+]
+
+[[test]]
+waiver = "Bundle extension"
+# dependencies = [
+#  ]

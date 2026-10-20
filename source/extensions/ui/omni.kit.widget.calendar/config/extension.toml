@@ -1,0 +1,46 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.0.9"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Ning Li"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Calendar widgets"
+description="A widget to show calendar."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ["kit", "ui", "widget", "calendar"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme = "docs/README.md"
+
+# Preview image and icon. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+# Preview image is shown in "Overview" of Extensions window. Screenshot of an extension might be a good preview image.
+preview_image = "data/preview.png"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "data/icon.png"
+
+category = "Internal"
+
+# We only depend on testing framework currently:
+[dependencies]
+"omni.ui" = {}
+"omni.kit.widget.examples" = { optional=true }
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.widget.searchfield".
+[[python.module]]
+name = "omni.kit.widget.calendar"
+
+[documentation]
+pages = [
+    "docs/CHANGELOG.md",
+]

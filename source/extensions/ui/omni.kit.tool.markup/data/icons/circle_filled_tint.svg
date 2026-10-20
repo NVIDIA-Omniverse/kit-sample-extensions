@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="18"
+   height="18"
+   viewBox="0 0 18 18"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="circle_filled_tint.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs9" />
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:zoom="48.5"
+     inkscape:cx="9"
+     inkscape:cy="9"
+     inkscape:window-width="3440"
+     inkscape:window-height="1369"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5">
+    <sodipodi:guide
+       position="8.9690722,16.206186"
+       orientation="1,0"
+       id="guide11" />
+    <sodipodi:guide
+       position="15.051546,9.0103093"
+       orientation="0,-1"
+       id="guide13" />
+    <sodipodi:guide
+       position="19.773196,0.51546392"
+       orientation="0,-1"
+       id="guide251" />
+  </sodipodi:namedview>
+  <circle
+     style="fill:#ffffff"
+     id="path537"
+     cx="8.9690723"
+     cy="8.9896908"
+     r="8.4948454" />
+</svg>

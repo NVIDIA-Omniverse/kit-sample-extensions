@@ -1,0 +1,23 @@
+<svg id="omnigraph_input_value_dark_uniform" xmlns="http://www.w3.org/2000/svg" width="11" height="15" viewBox="0 0 11 15">
+  <rect id="IconBase" width="11" height="15" transform="translate(0 0)" fill="none"/>
+  <rect id="space" width="11" height="15" transform="translate(0 0)" fill="red" opacity="0"/>
+  <defs>
+    <clipPath id="ring_clip">
+      <rect x="4" y="0" width="7" height="15"/>
+    </clipPath>
+  </defs>
+  <path id="shadow" d="M7.5,0A7.5,7.5,0,0,1,15,7.5c0,4.142-3.358,6.5-7.5,6.5H4.429V0Z" transform="translate(-4.429 0)" fill="#1f2123"/>
+  <g clip-path="url(#ring_clip)">
+    <path id="connection_outer" d="M7.5-.5a7.432,7.432,0,0,1,7.491,6.516A7.484,7.484,0,0,1,7.5,13H4.429V-.5Z" transform="translate(-4.429 2)" fill="#ffffff"/>
+  </g>
+  <g transform="translate(4.45 8.6) scale(1.0) translate(-7.5 -7.5)">
+    <path
+      id="connection_inner"
+      d="M6.2 5.1 V8.3 A1.7 1.7 0 0 0 8.8 8.3 V5.1"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+    />
+  </g>
+</svg>

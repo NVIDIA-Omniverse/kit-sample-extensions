@@ -1,0 +1,27 @@
+[package]
+version = "1.0.1"
+authors = ["NVIDIA"]
+title = "Warp Menu"
+description = "Adds a Warp item to Kit's Edit menu"
+readme  = "docs/README.md"
+repository = "https://github.com/nvidia/warp"
+category = "UI"
+keywords = ["computing", "cuda", "omnigraph", "simulation", "warp"]
+changelog = "docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+support_level = "Sample"
+
+[dependencies]
+"omni.kit.actions.core" = {}
+"omni.kit.menu.utils" = { optional = true }
+"omni.kit.window.content_browser" = { optional = true }
+"omni.ui" = { optional = true }
+
+[[python.module]]
+name = "omni.warp.menu"
+
+[documentation]
+pages = [
+    "docs/CHANGELOG.md",
+]

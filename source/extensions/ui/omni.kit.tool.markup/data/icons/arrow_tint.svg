@@ -1,0 +1,4 @@
+<svg id="arrow_tint" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <rect id="iconBase" width="40" height="40" fill="none"/>
+  <path id="Arrow" d="M5.294,38.333V14.167H0L7.5,0,15,14.167H9.706V38.333Z" transform="translate(0 13.086) rotate(-49)" fill="#fff"/>
+</svg>

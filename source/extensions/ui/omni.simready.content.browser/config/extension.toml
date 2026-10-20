@@ -1,0 +1,89 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[package]
+version = "0.4.3"
+category = "Browsers"
+title = "Simready Search For Content Browser"
+description = "Extends the Omniverse content browser with SimReady asset searching features"
+authors = ["NVIDIA"]
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+keywords = ["browser","assets","content"]
+changelog = "docs/CHANGELOG.md"
+readme = "docs/README.md"
+icon = "data/icon.svg"
+preview_image = "data/preview.png"
+writeTarget.kit = true
+# order = 1000
+
+[dependencies]
+"omni.kit.widget.search_delegate" = {}
+"omni.kit.search.files" = {}
+"omni.kit.widget.extended_searchfield" = {}
+"omni.kit.widget.filebrowser" = {}
+"omni.kit.window.content_browser" = {}
+"omni.kit.window.filepicker" = {}
+"omni.kit.widget.prompt" = {}
+
+# Pip packages are installed by deps/migrated-exts-pip.toml and linked by premake.
+[[python.module]]
+name = "omni.simready.content.browser"
+
+# Expose the dedicated pip_prebundle installed by the repository fetch step.
+[[python.module]]
+path = "pip_prebundle"
+
+[settings]
+# define the IsaacReady assets URL that the content browser can use advanced asset search in.
+exts."omni.simready.content.browser".wscache_root_urls = [
+    "https://omniverse-content-production.s3.amazonaws.com/Assets/Isaac/6.0/Isaac/SimReady",
+    "omniverse://isaac-dev.ov.nvidia.com/Isaac/SimReady"
+]
+# default content root url index into the wscache_root_urls list above
+exts."omni.simready.content.browser".default_wscache_root_url_index = 0
+
+# USD search endpoint
+exts."omni.simready.content.browser".usd_search_endpoint = "https://search.simready.omniverse.nvidia.com/"
+exts."omni.simready.content.browser".usd_search_index_mapping = [
+    ["https://search.simready.omniverse.nvidia.com/", "https://omniverse-content-production.s3.amazonaws.com"],
+    ["https://search.dev.simready.omniverse.nvidia.com/", "https://omniverse-content-staging.s3-us-west-2.amazonaws.com"],
+]
+# Folder inside the mapped index bucket that acts as the tree root in the
+# natural-language (USD search) mode. Bucket-relative so it holds for every
+# endpoint in usd_search_index_mapping.
+exts."omni.simready.content.browser".usd_search_tree_root_subpath = "Assets/Isaac/6.0/Isaac"
+
+
+# define the locations to index files from
+exts."omni.simready.content.browser".file_index_locations = [
+    "https://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/6.0/Isaac/Robots",
+    "https://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/6.0/Isaac/Environments",
+    "https://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/6.0/Isaac/IsaacLab",
+    "https://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/6.0/Isaac/Materials",
+    "https://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/6.0/Isaac/People",
+    "https://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/6.0/Isaac/Props",
+    "https://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/6.0/Isaac/Samples",
+    "https://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/6.0/Isaac/Sensors",
+]
+
+
+[[test]]
+name = "startup"
+enabled = false
+
+[[test]]
+enabled = true
+
+# disable startup test

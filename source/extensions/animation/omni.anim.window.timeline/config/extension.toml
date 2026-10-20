@@ -1,0 +1,67 @@
+[package]
+version = "110.0.1"
+title = "Animation Timeline Window"
+description = "An extensible timeline window."
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+authors = ["Gang Zeng", "Chase Telegin"]
+category = "Window"
+keywords = ["kit", "animation", "timeline"]
+changelog = "docs/CHANGELOG.md"
+readme  = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+
+# Publish target
+writeTarget.kit = true
+writeTarget.usd = true
+
+[[python.module]]
+name = "omni.anim.window.timeline"
+
+[dependencies]
+"omni.timeline" = {}
+"omni.kit.menu.create" = {}
+"omni.ui" = {}
+"omni.kit.commands" = {}
+"omni.anim.curve.core" = {}
+"omni.kit.notification_manager" = {}
+"omni.kit.actions.core" = {}
+"omni.kit.viewport.utility" = {}
+"omni.kit.context_menu" = {}
+"omni.timeline.live_session" = {}
+"omni.kit.widget.options_button" = { optional=true }
+"omni.kit.menu.utils" = {}
+# "omni.kit.hotkeys.core" = {optional=true}
+
+[[test]]
+dependencies = [
+"omni.kit.uiapp",
+"omni.kit.ui_test",
+"omni.kit.hydra_texture-ovrtx",
+"omni.kit.viewport.window",
+"omni.kit.manipulator.camera",
+]
+args = [
+"--/app/file/ignoreUnsavedOnExit=true",
+# Render with OVRTX for Kit 111 tests
+"--/renderer/active=ovrtx",
+"--/renderer/enabled=ovrtx",
+# Turn off any Viewport UI
+"--/app/viewport/forceHideFps=true",
+# Render image
+"--/app/renderer/resolution/height=-1",
+"--/app/renderer/resolution/width=-1",
+"--/app/window/height=600",
+"--/app/window/width=1200",
+# Disable any DPI scaling
+"--/app/docks/disabled=true",
+"--/app/window/dpiScaleOverride=1.0",
+# exts
+"--/exts/omni.anim.window.timeline/show=true",
+"--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+"--no-window"
+]
+timeout = 600
+stdoutFailPatterns.exclude = [
+    "*TypeError: __init__(self, ...) called with invalid `self` argument*",
+]

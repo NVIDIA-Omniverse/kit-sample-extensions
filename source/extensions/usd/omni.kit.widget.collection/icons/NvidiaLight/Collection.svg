@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="33.642" height="31.406" viewBox="0 0 33.642 31.406">
+  <defs>
+    <filter id="Collection" x="0" y="0" width="33.642" height="31.406" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_1" data-name="Group 1" transform="translate(-298.795 -374.501)">
+    <g transform="matrix(1, 0, 0, 1, 298.8, 374.5)" filter="url(#Collection)">
+      <path id="Collection-2" data-name="Collection" d="M16.642,5.578V12.5l-.04.2-.042.225-.08.183-.082.183-.1.164-.122.183-.164.164-.141.143-.185.122-.162.1-.185.1-.183.082-.2.04-.2.021H2.888l-.2-.021-.183-.04-.2-.082-.183-.1-.164-.1L1.8,13.941,1.611,13.8l-.122-.164-.143-.183-.082-.164-.1-.183L1.1,12.921,1.042,12.7l-.021-.2L1,12.3V3.129L1.021,2.9l.021-.2L1.1,2.521l.061-.2.1-.183.082-.185.143-.162.122-.164L1.8,1.465l.162-.1.164-.122.183-.1.2-.04.183-.061.2-.021L3.088,1H6.109l.2.021.2.021.2.061.185.04.183.1.164.122.183.1.143.162.162.164.124.162.1.185.1.183.061.2.061.183.019.2.021.225v.307h6.306l.2.019.2.021.2.061.183.042.185.1.162.1.185.122.141.162.164.164.122.164.1.183.082.183.08.2.042.185.04.2v.223Z" transform="translate(8 5)" fill="#5f4271" fill-rule="evenodd"/>
+    </g>
+    <g id="Collection-3" data-name="Collection" transform="translate(308.016 379.962)" opacity="0.89" style="isolation: isolate">
+      <path id="Path_2" data-name="Path 2" d="M9.59,8.323l2.615.071a5.117,5.117,0,0,1-1.413,3.18A4.051,4.051,0,0,1,7.752,12.7,4.348,4.348,0,0,1,3.3,8.252,4.348,4.348,0,0,1,7.752,3.8a4.156,4.156,0,0,1,3.11,1.272,4.792,4.792,0,0,1,1.2,2.473l-2.686.212a1.719,1.719,0,0,0-1.7-1.413,1.809,1.809,0,0,0-1.343.565,1.72,1.72,0,0,0-.424,1.343A1.813,1.813,0,0,0,7.682,10.16a1.512,1.512,0,0,0,1.272-.495A2.652,2.652,0,0,0,9.59,8.323Z" transform="translate(0)" fill="#b4abb3"/>
+    </g>
+  </g>
+</svg>

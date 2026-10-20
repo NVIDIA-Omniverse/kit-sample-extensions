@@ -1,0 +1,37 @@
+[package]
+title = "Neo Graph Delegate"
+description = "Modern and Flashy Graph Delegate"
+version = "1.1.8"
+authors = ["Victor Yudin, Min Jiang"]
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+keywords = ["graph", "delegate", "neo"]
+changelog = "docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+readme = "docs/README.md"
+category = "Rendering"
+icon = "icons/icon.svg"
+support_level = "Core"
+
+[dependencies]
+"omni.kit.widget.graph" = {}
+"omni.ui" = {}
+
+[[python.module]]
+name = "omni.kit.graph.delegate.neo"
+
+[[test]]
+dependencies = [
+    "omni.kit.mainwindow",
+    "omni.kit.graph.editor.example",
+    "omni.kit.graph.editor.core",
+    "omni.kit.ui_test"
+]
+
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--no-window"
+]
+
+[deprecation]
+warning = "Extension deprecated. Planned for removal in Kit 111. Migrate graph styling to a retained delegate such as omni.kit.graph.delegate.default."

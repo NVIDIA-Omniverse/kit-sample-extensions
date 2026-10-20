@@ -1,0 +1,80 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "1.4.1"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Jeffrey Qiu"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Playlist"
+description="Camera playlist"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ["kit", "ui", "camera", "playlist"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme  = "docs/README.md"
+
+# Preview image and icon. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+# Preview image is shown in "Overview" of Extensions window. Screenshot of an extension might be a good preview image.
+preview_image = "icons/preview.png"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "icons/Camera.png"
+
+category = "Other"
+
+[package.target]
+kit = ["107.3"]  # Required for Event 2.0
+
+[package.writeTarget]
+kit = true
+
+[dependencies]
+"omni.kit.viewport.utility" = {}
+"omni.kit.playlist.core" = {}
+"omni.usd_presenter.sidecar" = { optional=true}
+
+# Main python module this extension provides.
+[[python.module]]
+name = "omni.kit.tool.camera_playlist"
+
+[settings.exts."omni.kit.tool.camera_playlist"]
+visible_after_startup = false
+
+[documentation]
+pages = ["docs/Overview.md", "docs/SETTINGS.md", "docs/USAGE_PYTHON.md", "docs/CHANGELOG.md"]
+
+[[test]]
+dependencies = [
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+]
+
+args = [
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/app/window/width=800",
+    "--/app/window/height=800",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--no-window",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/exts/omni.kit.tool.camera_playlist/visible_after_startup=true",
+]
+
+stdoutFailPatterns.exclude = [
+    "*Hot key already registered:*",
+    "*Failed to acquire interface [omni::kit::renderer::IGpuFoundation v0.2]*", # Leak
+    "*IToken not found when initializing omni.anim.curve.AnimCurve*",
+    # data/tests/camera_playlist.usd's DomeLight texture is a Windows build-machine path that never resolves; Kit 111's
+    # test viewport renders the stage (Kit 110's did not), so the renderer reports it. Irrelevant to camera playlists.
+    "*[rtx.scenedb] Failed to upload DomeLight texture ../../../work/omniverse/git/factory-explorer/*",
+]

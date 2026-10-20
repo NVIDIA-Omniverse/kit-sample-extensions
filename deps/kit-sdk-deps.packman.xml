@@ -1,0 +1,49 @@
+<project toolsVersion="5.0">
+  <!-- Only edit this file to pull kit dependencies. -->
+  <!-- Put all extension-specific dependencies in `ext-deps.packman.xml`. -->
+  <!-- This file contains shared Kit SDK dependencies used by most kit extensions. -->
+
+  <!-- Import Kit SDK all-deps xml file to pull those deps of the same version as in Kit SDK -->
+  <import path="../_build/${platform_target}/${config}/kit/dev/all-deps.packman.xml">
+    <filter include="pybind11" linkPath="../_build/target-deps/pybind11" />
+    <filter include="fmt" linkPath="../_build/target-deps/fmt" />
+    <filter include="doctest" linkPath="../_build/target-deps/doctest" />
+    <filter include="python" linkPath="../_build/target-deps/python" />
+    <filter include="carb_sdk_plugins" linkPath="../_build/target-deps/carb_sdk_plugins" tags="non-redist" />
+    <filter include="msvc" linkPath="../_build/host-deps/msvc"  tags="non-redist" />
+    <filter include="winsdk" linkPath="../_build/host-deps/winsdk"  tags="non-redist" />
+    <filter include="usd-${config}" linkPath="../_build/target-deps/usd/${config}"  tags="non-redist" />
+    <!-- No rtx_plugins: the Kit 111 kernel's all-deps entry points to its producer's private source checkout. -->
+    <filter include="omni_client_library" linkPath="../_build/target-deps/omni_client_library" />
+    <filter include="zlib" linkPath="../_build/target-deps/zlib" />
+    <filter include="imgui" linkPath="../_build/target-deps/imgui" />
+    <filter include="boost_preprocessor" linkPath="../_build/target-deps/boost-preprocessor" />
+  </import>
+
+  <!-- Match Kit App Template production/110.4: the imported nv7-0 doctest
+       package is not publicly downloadable. Keep the SDK pin unchanged. -->
+  <dependency name="doctest" linkPath="../_build/target-deps/doctest">
+    <package name="doctest" version="2.4.5+nv1-3" />
+  </dependency>
+
+  <!-- premake runs on the build host. The Kit kernel's all-deps names its producer's host, which for the
+       cross-built linux-aarch64 kernel is x86_64; same versions as Kit's deps/host-deps.packman.xml. -->
+  <dependency name="premake" linkPath="../_build/host-deps/premake">
+    <package name="premake" version="5.0.0-beta4-utf8-fix-1-manylinux_2_35_x86_64-release" platforms="linux-x86_64 manylinux_2_35_x86_64" />
+    <package name="premake" version="5.0.0-beta4-utf8-fix-1-manylinux_2_35_aarch64-release" platforms="linux-aarch64 manylinux_2_35_aarch64" />
+    <package name="premake" version="5.0.0-beta4-utf8-fix-1-windows-x86_64-release" platforms="windows-x86_64" />
+  </dependency>
+
+  <dependency name="libpng" linkPath="../_build/target-deps/libpng/${config}">
+    <package name="libpng" version="1.6.55-0-windows-x86_64-static-${config}" platforms="windows-x86_64" />
+    <package name="libpng" version="1.6.55-1-${platform_target_abi}-static-${config}" platforms="manylinux_2_35_x86_64 manylinux_2_35_aarch64" />
+  </dependency>
+
+  <!-- Published Kit 111 RTX headers: the SDK import points to its producer source checkout.
+       Use independently published packages for downstream builds (OMPE-114910). -->
+  <dependency name="rtx_plugins" linkPath="../_build/target-deps/rtx_plugins">
+    <package name="rtx_plugins" version="111.0.0+mr50218.386629.5b61b215.gl.windows-x86_64-rendering-usd_25.11_3.12-25fb096436" platforms="windows-x86_64" />
+    <package name="rtx_plugins" version="111.0.0+mr50218.386629.5b61b215.gl.manylinux_2_35_x86_64-rendering-usd_25.11_3.12-25fb096436" platforms="linux-x86_64 manylinux_2_35_x86_64" />
+    <package name="rtx_plugins" version="111.0.0+mr50218.386629.5b61b215.gl.manylinux_2_35_aarch64-rendering-usd_25.11_3.12-25fb096436" platforms="linux-aarch64 manylinux_2_35_aarch64" />
+  </dependency>
+</project>

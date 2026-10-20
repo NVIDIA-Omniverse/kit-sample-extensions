@@ -1,0 +1,52 @@
+[core]
+reloadable = true
+
+[package]
+version = "107.0.4"
+title = "Timeline Widget"
+description = "An extensible timeline widget for Kit-derived windows."
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+category = "Widgets"
+keywords = ["kit", "machinima", "sequencer", "timeline"]
+changelog = "docs/CHANGELOG.md"
+readme  = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+
+[package.writeTarget]
+kit = true
+
+[documentation]
+pages = [
+    "docs/README.md",
+    "docs/CHANGELOG.md",
+]
+
+[dependencies]
+"omni.timeline" = {}
+"omni.kit.commands" = {}
+"omni.ui" = {}
+
+[[python.module]]
+name = "omni.kit.widget.timeline"
+
+[[test]]
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+#    "--no-window"
+]
+
+stdoutFailPatterns.exclude = [
+    "*while unloading all plugins*"
+]
+
+dependencies = [
+"omni.kit.mainwindow",
+"omni.kit.test",
+]
+
+pyCoverageFilter = ["omni.kit.window.timeline", "omni.kit.widget.timeline"]
+
+[[python.module]]
+name = "omni.kit.widget.timeline"

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <g id="angle_curve_dark" transform="translate(-1782 -222)">
+    <rect id="Icon_Base" width="40" height="40" transform="translate(1782 222)" fill="none"/>
+    <g id="Group_3591" data-name="Group 3591" transform="translate(1783.335 230.114)">
+      <path id="Path_3462" data-name="Path 3462" d="M0,20.175,14.658.324,29,20.175" transform="translate(3.786 2.047)" fill="none" stroke="#44a4c8" stroke-linecap="round" stroke-width="1.5"/>
+      <rect id="Rectangle_1089" data-name="Rectangle 1089" width="5.41" height="5.41" transform="translate(1.081 20.289)" fill="#f9f903"/>
+      <rect id="Rectangle_1091" data-name="Rectangle 1091" width="5.41" height="5.41" transform="translate(30.162 20.289)" fill="#f9f903"/>
+      <path id="Path_4932" data-name="Path 4932" d="M7.642,12.269,16.493.307l7.07,9.974" transform="translate(2.005 2.029)" fill="none" stroke="#6d6d6d" stroke-width="1"/>
+      <rect id="Rectangle_1090" data-name="Rectangle 1090" width="5.41" height="5.41" transform="translate(15.96 0)" fill="#f9f903"/>
+      <g id="Ellipse_115" data-name="Ellipse 115" transform="translate(8 10.296)" fill="#fff" stroke="#00b9ff" stroke-width="0.5">
+        <ellipse cx="2.705" cy="2.705" rx="2.705" ry="2.705" stroke="none"/>
+        <ellipse cx="2.705" cy="2.705" rx="2.455" ry="2.455" fill="none"/>
+      </g>
+      <g id="Ellipse_114" data-name="Ellipse 114" transform="translate(23.92 10.296)" fill="#fff" stroke="#00b9ff" stroke-width="0.5">
+        <ellipse cx="2.705" cy="2.705" rx="2.705" ry="2.705" stroke="none"/>
+        <ellipse cx="2.705" cy="2.705" rx="2.455" ry="2.455" fill="none"/>
+      </g>
+    </g>
+  </g>
+</svg>

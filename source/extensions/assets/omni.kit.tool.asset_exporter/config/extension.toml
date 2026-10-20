@@ -1,0 +1,94 @@
+[package]
+title = "Asset Exporter"
+description = "The asset exporter that works for converting USD to common 3D format, like FBX, OBJ, GLTF, and etc."
+version = "5.0.2"
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Locks extension to the Kit version to make the extension work with that version or higher
+writeTarget.kit = true
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme  = "docs/Overview.md"
+
+# Keywords for the extension
+keywords = ["Exporter", "USD", "OBJ", "GLTF", "FBX"]
+
+category = "Tool"
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+# Preview image and icon. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+# Preview image is shown in "Overview" of Extensions window. Screenshot of an extension might be a good preview image.
+preview_image = "data/preview.png"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "data/icon.png"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Roggie Zhang", "Chuan Hung"]
+
+support_level = "Core"
+
+[dependencies]
+"omni.usd" = {}
+"omni.client" = {}
+"omni.ui" = {}
+"omni.kit.menu.utils" = {}
+"omni.kit.asset_converter" = { version = "^6.0.0" }
+"omni.kit.window.content_browser" = {}
+"omni.kit.notification_manager" = {}
+"omni.kit.widget.farm" = {optional=true}
+"omni.kit.widget.prompt" = {}
+"omni.kit.usd.collect" = {}
+"omni.kit.tool.collect" = {}
+"omni.kit.actions.core" = {}
+# Kit 111 EA1: omni.mdl.distill_and_bake is not supported (#1505 removed it); MDL baking on export is disabled.
+# "omni.mdl.distill_and_bake" = {optional=true}
+"omni.kit.window.file_exporter" = {}
+"omni.kit.usdz_export" = {}
+
+[[python.module]]
+name = "omni.kit.tool.asset_exporter"
+
+# Extension test settings
+[[test]]
+args = [
+    "--/app/asyncRendering=false",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--no-window"
+]
+
+dependencies = [
+    "omni.kit.mainwindow",
+    "omni.kit.primitive.mesh",
+    "omni.kit.ui_test",
+    "omni.kit.menu.file",
+    "omni.kit.viewport.window",
+    "omni.kit.selection",
+    "omni.kit.hydra_texture-ovrtx"
+]
+stdoutFailPatterns.include = []
+stdoutFailPatterns.exclude = [
+    "*[Error] [omni.mdl.distill_and_bake.distilling] Material is not bound to any prim, can not distill*",
+    "*[Error] [omni.mdl.distill_and_bake.distilling] Error: can not access entity*", # error from Kit 107 update. To investigate later
+    "*[Error] [rtx.neuraylib.plugin] [BAKER:MISC]*", # driver is too old, baking will be done on CPU, so it's ok
+    "*[Error] [carb] [Plugin: libomni.grpc.lib.so] Could not load the dynamic library*", # will report on aarch64
+    "*[Error] [omni.ext.plugin] [ext: omni.grpc.lib-1.0.0] failed to load*", # will report on aarch64
+    "*[Fatal] [omni.gpu_foundation_factory.plugin] IOMMU Enabled:*", # will report on aarch64 GPU CI runners
+]
+
+pyCoverageFilter = ["omni.kit.tool.asset_exporter"]
+pyCoverageOmit = ["*/tests/*"]
+
+[documentation]
+pages = [
+    "docs/CHANGELOG.md",
+    "docs/Overview.md",
+    "docs/Usage.md",
+    ]

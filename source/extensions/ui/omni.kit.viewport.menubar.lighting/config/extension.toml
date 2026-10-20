@@ -1,0 +1,151 @@
+[package]
+# Semantic Versioning is used: https://semver.org/
+version = "107.3.5"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Roman Zulak"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Lighting item in Viewport Menu Bar"
+description="Adds lighting control into the Viewport's menubar"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ["kit", "ui", "menu", "viewport", "lighting", "light"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme  = "docs/README.md"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "data/icon.png"
+preview_image = "data/preview.png"
+
+
+category = "Internal"
+support_level = "Core"
+
+[package.target]
+kit = ["107.3.0"]
+
+[dependencies]
+"omni.usd" = {}
+"omni.kit.commands" = {}
+"omni.kit.viewport.menubar.core" = {}
+"omni.kit.viewport.utility" = {optional=true}
+"omni.kit.actions.core" = {optional=true}
+"omni.kit.notification_manager" = {optional=true}
+"omni.activity.core" = {optional=true}
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.viewport.menubar.lighting".
+[[python.module]]
+name = "omni.kit.viewport.menubar.lighting"
+
+[settings]
+# Visible by default
+exts."omni.kit.viewport.menubar.lighting".visible = true
+# Visible on the far right of the Viewport by default
+exts."omni.kit.viewport.menubar.lighting".order = 100
+# String or Array of strings with directories that contain usd files to pupoluate lighting menu
+exts."omni.kit.viewport.menubar.lighting".rigs = "${omni.kit.viewport.menubar.lighting}/data/usd"
+# When set to 0 or above, will scan the satge on open and automatically assign a light rig
+exts."omni.kit.viewport.menubar.lighting".defaultRig = "Default"
+# Whether switching to an auto rig when no lights will preserve any user choice
+exts."omni.kit.viewport.menubar.lighting".preserveActiveRig = true
+# When set to above 0, a notification is posted for this amount of time (in seconds)
+exts."omni.kit.viewport.menubar.lighting".notificationDuration = 3
+# List of comma separated values: rigapplied,newscene,nolights,notset,notdefault,force
+exts."omni.kit.viewport.menubar.lighting".rtxRenderSettingsAdjust = ""
+# Pattern to filter out stages that default-rig should not be applied to (defaults to match anoymous layers)
+exts."omni.kit.viewport.menubar.lighting".defaultRigIgnorePattern = "^anon:"
+# Whether switching to the default rig hides default lights or not
+exts."omni.kit.viewport.menubar.lighting".defaultRigHidesViewportLights = true
+# Prim name to import light rig into, uses rig-name when not set/empty
+exts."omni.kit.viewport.menubar.lighting".rigImport.primName = ""
+# Root prim to import into, will use Usd.Stage defaultPrim if not specified
+exts."omni.kit.viewport.menubar.lighting".rigImport.root = "/Environment"
+# The number of levels to traverse looking for lights to remove when importing a rig.
+# Setting to 0 or when importing to Usd.Stage defaultPrim disables any removal
+exts."omni.kit.viewport.menubar.lighting".rigImport.lightRemovalLimit = 2
+# Enable/Disable the auto light rig feature
+persistent.exts."omni.kit.viewport.menubar.lighting".autoLightRig.enabled = true
+# Whether to search for lights only on the defaultPrim hiearachy or the absolute-root
+persistent.exts."omni.kit.viewport.menubar.lighting".autoLightRig.searchFromDefaultPrim = false
+# Whether to apply the light rig before the menu is ever shown
+exts."omni.kit.viewport.menubar.lighting".autoLightRig.enableWithoutMenu = false
+# Whether the enable/disable menu item immediately moves to the startup mode
+exts."omni.kit.viewport.menubar.lighting".autoLightRig.toggleImmediate = false
+# Skip traversal for Usd.Prim and children marked as hide_in_stage_window
+exts."omni.kit.viewport.menubar.lighting".stageWindow.skipHidden = true
+
+
+[[test]]
+name = "USD"
+dependencies = [
+    "omni.kit.viewport.window",
+    "omni.kit.notification_manager",
+    "omni.kit.viewport.utility",
+    "omni.kit.ui_test",
+]
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/persistent/app/viewport/show/flySpeed=false",
+    "--/app/window/width=600",
+    "--/app/window/height=400",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    # Default all UI tests without notifications until testing it explicitly
+    "--/exts/omni.kit.viewport.menubar.lighting/notificationDuration=0",
+    "--/app/viewport/defaults/hud/visible=false",
+    "--/app/viewport/defaults/guide/grid/visible=false",
+    "--/app/viewport/defaults/guide/axis/visible=false",
+    # Kit 111 always runs the OVRTX renderer, whose omni.usd render-settings support resets every /rtx setting to its
+    # default on each stage open and then loads the stage's saved renderSettings. Kit 110 ran these tests without a
+    # renderer, so nothing touched /rtx/sceneDb/ambientLightIntensity there. The tests check the extension's own
+    # ambient adjustments; keep Kit's per-stage render-settings load out of them, as on Kit 110.
+    "--/app/omni.usd/loadRenderSettingsFromUsdStage=false",
+    "--/app/omni.usd/resetRenderSettingsInUsdStage=false",
+    "--no-window"
+]
+
+[[test]]
+name = "USDRT"
+dependencies = [
+    "omni.kit.ui_test",
+    "omni.kit.viewport.window",
+    "omni.kit.notification_manager",
+    "omni.kit.viewport.utility",
+    "usdrt.scenegraph",
+]
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/persistent/app/viewport/show/flySpeed=false",
+    "--/app/window/width=600",
+    "--/app/window/height=400",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    # Default all UI tests without notifications until testing it explicitly
+    "--/exts/omni.kit.viewport.menubar.lighting/notificationDuration=0",
+    "--/app/viewport/defaults/hud/visible=false",
+    "--/app/viewport/defaults/guide/grid/visible=false",
+    "--/app/viewport/defaults/guide/axis/visible=false",
+    # Kit 111 always runs the OVRTX renderer, whose omni.usd render-settings support resets every /rtx setting to its
+    # default on each stage open and then loads the stage's saved renderSettings. Kit 110 ran these tests without a
+    # renderer, so nothing touched /rtx/sceneDb/ambientLightIntensity there. The tests check the extension's own
+    # ambient adjustments; keep Kit's per-stage render-settings load out of them, as on Kit 110.
+    "--/app/omni.usd/loadRenderSettingsFromUsdStage=false",
+    "--/app/omni.usd/resetRenderSettingsInUsdStage=false",
+    "--no-window"
+]
+
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.md",
+]

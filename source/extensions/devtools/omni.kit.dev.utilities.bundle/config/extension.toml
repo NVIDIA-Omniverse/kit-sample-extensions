@@ -1,0 +1,70 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "0.2.2"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Jeff Hanna"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Developer Utilities"
+description="A bundle of utility extensions to aid in the development of Omniverse applications."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ['developer', 'utilities']
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.rst"
+
+category = "Kit::exts"
+readme = "docs/README.md"
+preview_image = "data/preview.png"
+icon = "data/icon.svg"
+
+[dependencies]
+"omni.kit.debug.settings" = {}
+"omni.kit.debug.vscode" = {}
+"omni.kit.window.commands" = {}
+"omni.kit.window.extensions" = {}
+"omni.kit.window.script_editor" = {}
+
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.dev.utilities.bundle".
+[[python.module]]
+name = "omni.kit.dev.utilities.bundle"
+
+
+[settings.exts]
+"omni.kit.debug.vscode".visible_at_startup = false
+omni.kit.debug.settings.visible_at_startup = false
+omni.kit.debug.settings.visibility = false
+
+
+[[test]]
+pyCoverageEnabled = false
+waiver = "Bundle extension"
+
+stdoutFailPatterns.exclude = [
+    "*Model widget event pump is not initialized*",
+    # Python 3.11 related warnings that are not relevant to this extension
+    "*Debugger warning: It seems that frozen modules are being used*",
+    "*make the debugger miss breakpoints. Please pass*",
+    "*to python to disable frozen modules*",
+    "*Note: Debugging will proceed*",
+]
+
+
+[[test]]
+name = "startup"
+
+stdoutFailPatterns.exclude = [
+    "*Model widget event pump is not initialized*",
+    # Python 3.11 related warnings that are not relevant to this extension
+    "*Debugger warning: It seems that frozen modules are being used*",
+    "*make the debugger miss breakpoints. Please pass*",
+    "*to python to disable frozen modules*",
+    "*Note: Debugging will proceed*",
+]

@@ -1,0 +1,79 @@
+[package]
+# Semantic Versioning is used: https://semver.org/
+version = "1.0.12"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Michael Babcock"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Frame Rate Presets in Viewport Menu Bar"
+description="Adds Frame Rate and Sync Presets to the Viewport's menubar"
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ["kit", "ui", "menu", "viewport", "profiler"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.md"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme  = "docs/README.md"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "data/icon.png"
+preview_image = "data/preview.png"
+
+category = "Internal"
+
+[dependencies]
+"omni.kit.viewport.menubar.core" = {}
+"omni.kit.viewport.utility" = {optional=true}
+"omni.kit.window.preferences" = {}  # for THREAD_SYNC_PRESETS
+"omni.rtx.window.settings" = {}  # to check dlss-g support
+"omni.kit.actions.core" = {}  # for hot key support
+"omni.kit.hotkeys.core" = {}  # for hot key support
+
+# Main python module this extension provides, it will be publicly available as "import omni.kit.viewport.menubar.framerate".
+[[python.module]]
+name = "omni.kit.viewport.menubar.framerate"
+
+[settings]
+# Visible by default
+exts."omni.kit.viewport.menubar.framerate".visible = true
+# Visible on the right of the Viewport by default
+exts."omni.kit.viewport.menubar.framerate".order = 90
+# Default preset to apply at startup
+exts."omni.kit.viewport.menubar.framerate".currentPreset = "No Pacing"
+# Show DLSS-G presets if supported
+exts."omni.kit.viewport.menubar.framerate".showDLSSG = true
+
+[[test]]
+dependencies = [
+    "omni.kit.ui_test",
+    "omni.kit.viewport.window",
+]
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/persistent/app/viewport/show/flySpeed=false",
+    "--/app/window/width=600",
+    "--/app/window/height=400",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    "--/app/viewport/defaults/hud/visible=false",
+    "--/app/viewport/defaults/guide/grid/visible=false",
+    "--/app/viewport/defaults/guide/axis/visible=false",
+    "--no-window",
+    "--/app/fastShutdown=1",
+    "--/exts/omni.kit.viewport.menubar.framerate/currentPreset=",  # avoid apply preset in tests, it breaks finalize_image
+    "--/exts/omni.kit.viewport.menubar.framerate/showDLSSG=false"  # avoid golden image depending on dlss-g support
+]
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.md",
+    "docs/SETTINGS.md",
+]

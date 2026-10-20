@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="cube" transform="translate(-1682 -1132)">
+    <g id="backgroud" transform="translate(1682 1132)" fill="#fff" stroke="#707070" stroke-width="1" opacity="0">
+      <rect width="24" height="24" stroke="none"/>
+      <rect x="0.5" y="0.5" width="23" height="23" fill="none"/>
+    </g>
+    <path id="Path_5852" data-name="Path 5852" d="M0-1,8-3V8L0,11Z" transform="translate(1694 1141)" fill="#8e9091"/>
+    <path id="Path_5853" data-name="Path 5853" d="M8-1,0-3V8l8,3Z" transform="translate(1686 1141)" fill="#b2b2b2"/>
+    <path id="Union_61" data-name="Union 61" d="M8,0l8,2L8,4ZM0,2,8,0V4Z" transform="translate(1686 1136)" fill="#c9cacb"/>
+  </g>
+</svg>

@@ -1,0 +1,29 @@
+[package]
+version = "110.1.3"
+title = "Metrics Assembler"
+description = "Helper functions to resolve divergent units on a USD stage."
+authors = ["Ales Borovicka"]
+category = "USD"
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+readme  = "docs/README.md"
+keywords = ["usd"]
+changelog = "docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+support_level = "Core"
+
+[package.writeTarget]
+kit = true
+python = true
+usd = true
+
+[dependencies]
+"omni.usd.libs" = {}
+"omni.usd.schema.metrics.assembler" = { }
+
+[[python.module]]
+name = "omni.metrics.assembler.core"
+
+[[native.plugin]]
+path = "bin/*.plugin"
+recursive = false

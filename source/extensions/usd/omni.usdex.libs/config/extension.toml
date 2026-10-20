@@ -1,0 +1,67 @@
+[package]
+version = "3.0.1"
+title = "OpenUSD Exchange Libraries"
+description = "Vendors the OpenUSD Exchange Libraries so they are easily accessible in Kit."
+authors = [
+    "Andrew Kaufman",
+    "Chuan Hung",
+    "Tim Murphy"
+]
+
+# Category and keywords
+category = "Internal"
+support_level = "Core"
+keywords = [
+    "OpenUSD",
+    'USDEX',
+    'Exchange',
+    "SDK",
+]
+
+# Resource paths in target (final) folder of extension, relative to the root.
+readme  = "docs/Overview.md"
+changelog = "docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+
+# Locks extension to the Kit and USD versions being used or higher
+writeTarget.kit = true
+writeTarget.usd = true
+
+[dependencies]
+"omni.usd.libs" = {}
+
+# USD Exchange Core
+[[native.library]]
+path = "bin/${lib_prefix}usdex_core${lib_ext}"
+
+# USD Exchange RTX
+[[native.library]]
+path = "bin/${lib_prefix}usdex_rtx${lib_ext}"
+
+# TODO: Can this be removed as it only holds tests
+[[python.module]]
+name = "omni.usdex.libs"
+path = "python"
+
+[[python.module]]
+name = "usdex.core"
+path = "python"
+
+[[python.module]]
+name = "usdex.rtx"
+path = "python"
+
+[[test]]
+dependencies = [
+    "omni.usd"
+]
+pythonTests.include = [
+    "omni.usdex.libs.tests.test_usdex.*",
+]
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.md",
+]

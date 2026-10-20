@@ -1,0 +1,205 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.01
+    startTimeCode = 0
+    timeCodesPerSecond = 60
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def Scope "Looks"
+    {
+        def Material "PreviewSurfaceTexture" (
+            prepend apiSchemas = ["NodeGraphNodeAPI"]
+            customData = {
+                dictionary omni = {
+                    dictionary ui = {
+                        dictionary nodegraph = {
+                            dictionary node = {
+                                dictionary pos = {
+                                    dictionary input = {
+                                        float2 universal = (-1402.3788, -102.01926)
+                                    }
+                                    dictionary output = {
+                                        float2 mdl = (-134, 0)
+                                        float2 universal = (-130.1373, 0)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        )
+        {
+            float4 inputs:fallback
+            token outputs:displacement.connect = </World/Looks/PreviewSurfaceTexture/UsdPreviewSurface.outputs:displacement>
+            token outputs:surface.connect = </World/Looks/PreviewSurfaceTexture/UsdPreviewSurface.outputs:surface>
+
+            def Shader "UsdPreviewSurface" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor.connect = </World/Looks/PreviewSurfaceTexture/NodeGraph.outputs:rgb>
+                float inputs:metallic.connect = </World/Looks/PreviewSurfaceTexture/NodeGraph.outputs:r>
+                normal3f inputs:normal.connect = </World/Looks/PreviewSurfaceTexture/normalTex.outputs:rgb>
+                float inputs:roughness.connect = None
+                token outputs:displacement
+                token outputs:surface
+                uniform float2 ui:nodegraph:node:pos = (-575.2221, 0)
+            }
+
+            def NodeGraph "NodeGraph" (
+                customData = {
+                    dictionary omni = {
+                        dictionary ui = {
+                            string[] contextVisibility = ["universal"]
+                            dictionary nodegraph = {
+                                dictionary node = {
+                                    dictionary pos = {
+                                        dictionary input = {
+                                            float2 universal = (-1705.3888, -71.88937)
+                                        }
+                                        dictionary output = {
+                                            float2 universal = (-889.8762, -45.22296)
+                                        }
+                                        float2 universal = (-1005.60803, 30.765587)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            )
+            {
+                float4 inputs:fallback.connect = </World/Looks/PreviewSurfaceTexture.inputs:fallback>
+                float2 inputs:st.connect = </World/Looks/PreviewSurfaceTexture/UsdPrimvarReader_float2.outputs:result>
+                float outputs:r.connect = </World/Looks/PreviewSurfaceTexture/NodeGraph/UsdUVTexture.outputs:r>
+                float outputs:result.connect = </World/Looks/PreviewSurfaceTexture/NodeGraph/NodeGraph.outputs:result>
+                float3 outputs:rgb.connect = </World/Looks/PreviewSurfaceTexture/NodeGraph/UsdUVTexture.outputs:rgb>
+
+                def Shader "UsdUVTexture" (
+                    prepend apiSchemas = ["NodeGraphNodeAPI"]
+                )
+                {
+                    uniform token info:id = "UsdUVTexture"
+                    float4 inputs:fallback.connect = </World/Looks/PreviewSurfaceTexture/NodeGraph.inputs:fallback>
+                    float2 inputs:st.connect = </World/Looks/PreviewSurfaceTexture/NodeGraph.inputs:st>
+                    float outputs:a
+                    float outputs:b
+                    float outputs:g
+                    float outputs:r
+                    float3 outputs:rgb
+                    uniform float2 ui:nodegraph:node:pos = (-1311.1323, -19.875153)
+                }
+
+                def Backdrop "Backdrop" (
+                    prepend apiSchemas = ["NodeGraphNodeAPI"]
+                    customData = {
+                        dictionary omni = {
+                            dictionary ui = {
+                                string[] contextVisibility = ["universal"]
+                                dictionary nodegraph = {
+                                    dictionary node = {
+                                        dictionary pos = {
+                                            float2 universal = (-1419.1606, -179.4787)
+                                        }
+                                        dictionary size = {
+                                            double2 universal = (429.3885498046875, 458.0275573730469)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                )
+                {
+                    uniform token ui:description = "NodegraphBackdrop"
+                    uniform color3f ui:nodegraph:node:displayColor = (0.84, 0.71, 0.29)
+                    uniform float2 ui:nodegraph:node:size = (200, 50)
+                    uniform int ui:nodegraph:node:stackingOrder = -1
+                }
+
+                def NodeGraph "NodeGraph" (
+                    prepend apiSchemas = ["NodeGraphNodeAPI"]
+                    customData = {
+                        dictionary omni = {
+                            dictionary ui = {
+                                string[] contextVisibility = ["universal"]
+                                dictionary nodegraph = {
+                                    dictionary node = {
+                                        dictionary pos = {
+                                            dictionary input = {
+                                                float2 universal = (-1522.3124, 54.732925)
+                                            }
+                                            dictionary output = {
+                                                float2 universal = (-869.6181, 103.99286)
+                                            }
+                                            float2 universal = (-1288.3274, 334.18842)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                )
+                {
+                    float inputs:fallback.connect = </World/Looks/PreviewSurfaceTexture/NodeGraph.inputs:fallback>
+                    float outputs:result.connect = </World/Looks/PreviewSurfaceTexture/NodeGraph/NodeGraph/UsdPrimvarReader_float.outputs:result>
+
+                    def Shader "UsdPrimvarReader_float" (
+                        prepend apiSchemas = ["NodeGraphNodeAPI"]
+                    )
+                    {
+                        uniform token info:id = "UsdPrimvarReader_float"
+                        float inputs:fallback.connect = </World/Looks/PreviewSurfaceTexture/NodeGraph/NodeGraph.inputs:fallback>
+                        float outputs:result
+                        uniform float2 ui:nodegraph:node:pos = (-1183.1765, 158.93665)
+                    }
+                }
+            }
+
+            def Shader "UsdPrimvarReader_float2" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                float2 outputs:result
+                uniform float2 ui:nodegraph:node:pos = (-1317.663, 136.0433)
+            }
+
+            def Backdrop "Backdrop" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+                customData = {
+                    dictionary omni = {
+                        dictionary ui = {
+                            string[] contextVisibility = ["universal"]
+                            dictionary nodegraph = {
+                                dictionary node = {
+                                    dictionary pos = {
+                                        float2 universal = (-1217.934, -214.6164)
+                                    }
+                                    dictionary size = {
+                                        double2 universal = (554.9485473632812, 541.1382446289062)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            )
+            {
+                uniform token ui:description = """MaterialBackdrop
+"""
+                uniform color3f ui:nodegraph:node:displayColor = (0.84, 0.71, 0.29)
+                uniform float2 ui:nodegraph:node:size = (200, 50)
+                uniform int ui:nodegraph:node:stackingOrder = -1
+            }
+        }
+    }
+}
+

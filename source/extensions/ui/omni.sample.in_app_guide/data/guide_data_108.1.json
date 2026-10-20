@@ -1,0 +1,168 @@
+{
+    "steps": [
+        {
+            "ui_type": "window",
+            "target_ui_path": "Content",
+            "title": "Content Browser",
+            "description": "The Content Browser is a portal to file storage and helps you discover and organize your assets",
+            "link": {
+                "label": "Reference...",
+                "url": "https://docs.omniverse.nvidia.com/extensions/latest/ext_core/ext_content-browser.html#content-browser"
+            }
+        },
+        {
+            "ui_type": "window",
+            "target_ui_path": "Stage",
+            "title": "Stage Panel",
+            "description": "The Stage panel is the hierarchical view of the Prims that exist inside your USD Scene. You can use this panel to manage, view and manipulate the stage hierarchy. The Stage also has useful icons for managing Payloads, References and the Live Mode status of Prims.",
+            "link": {
+                "label": "Reference...",
+                "url": "https://docs.omniverse.nvidia.com/extensions/latest/ext_core/ext_stage.html#stage"
+            }
+        },
+        {
+            "ui_type": "window",
+            "target_ui_path": "Property",
+            "title": "Property Panel",
+            "description": "The Property panel provides configurable properties for the prim you selected.",
+            "link": {
+                "label": "Reference...",
+                "url": "https://docs.omniverse.nvidia.com/extensions/latest/ext_core/ext_property-panel.html"
+            }
+        },
+        {
+            "ui_type": "window",
+            "target_ui_path": "Viewport",
+            "title": "RTX Viewport",
+            "description": "The Viewport extension is the primary way you view 3D worlds in Omniverse Kit-based Apps. It’s the window through which you see and navigate your creative work.",
+            "link": {
+                "label": "Reference...",
+                "url": "https://docs.omniverse.nvidia.com/extensions/latest/ext_core/ext_viewport.html"
+            }
+        },
+        {
+            "ui_type": "window",
+            "target_ui_path": "Render Settings",
+            "title": "Render Settings",
+            "description": "The NVIDIA Omniverse RTX™ Renderer is a scalable photo-real renderer leading the convergence of real-time and offline rendering to simulate the world. The Render Settings Panel allows you to control the RTX renderer properties.",
+            "link": {
+                "label": "Reference...",
+                "url": "https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx-renderer_common.html"
+            }
+        },
+        {
+            "ui_type": "menu",
+            "target_ui_path": "Create",
+            "title": "Create Menu",
+            "description": "The Create Menu enhances Omniverse Kit's menu system by adding functionality to create various types of USD primitives, such as shapes, lights, audio sources, cameras, and more.",
+            "link": {
+                "label": "Reference...",
+                "url": "https://docs.omniverse.nvidia.com/kit/docs/omni.kit.menu.create/2.0.1/Overview.html"
+            },
+            "menu_item_text": "Create"
+        },
+        {
+            "ui_type": "widget",
+            "parent_window_ui_path": "Render Settings",
+            "target_ui_path": "Render Settings//Frame/VStack[0]/VStack[0]/HStack[0]/RadioButton[0]",
+            "title": "Common Render Settings",
+            "description": "Settings",
+            "link": {
+                "label": "Reference...",
+                "url": "https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx-renderer_common.html"
+            },
+            "reveal_actions": [
+                {
+                    "action_type": "click",
+                    "ui_path": "Render Settings//Frame/VStack[0]/VStack[0]/HStack[0]/RadioButton[0]"
+                }
+            ]
+        },
+        {
+            "ui_type": "widget",
+            "parent_window_ui_path": "Render Settings",
+            "target_ui_path": "Render Settings//Frame/VStack[0]/VStack[0]/HStack[0]/RadioButton[1]",
+            "title": "Ray Tracing Render Settings",
+            "description": "Settings",
+            "link": {
+                "label": "Reference...",
+                "url": "https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx-renderer_rt.html"
+            },
+            "reveal_actions": [
+                {
+                    "action_type": "click",
+                    "ui_path": "Render Settings//Frame/VStack[0]/VStack[0]/HStack[0]/RadioButton[1]"
+                }
+            ]
+        },
+        {
+            "ui_type": "widget",
+            "parent_window_ui_path": "Render Settings",
+            "target_ui_path": "Render Settings//Frame/VStack[0]/VStack[0]/HStack[0]/RadioButton[2]",
+            "title": "Post Processing Render Settings",
+            "description": "Settings",
+            "link": {
+                "label": "Reference...",
+                "url": "https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx_post-processing.html"
+            },
+            "reveal_actions": [
+                {
+                    "action_type": "click",
+                    "ui_path": "Render Settings//Frame/VStack[0]/VStack[0]/HStack[0]/RadioButton[2]"
+                }
+            ]
+        },
+        {
+            "ui_type": "widget",
+            "parent_window_ui_path": "Render Settings",
+            "target_ui_path": "Render Settings//Frame/VStack[0]/VStack[0]/ScrollingFrame[0]/ZStack[0]/VStack[2]/CollapsableFrame[0]/Frame[0]/ZStack[0]/VStack[0]/Frame[0]/VStack[0]/HStack[4]/FloatSlider[0]",
+            "title": "Float Slider",
+            "description": "Use this slider to change the camera exposure.",
+            "link": {
+                "label": "Reference...",
+                "url": "https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx_post-processing.html#tone-mapping"
+            },
+            "reveal_actions": [
+                {
+                    "action_type": "click",
+                    "ui_path": "Render Settings//Frame/VStack[0]/VStack[0]/HStack[0]/RadioButton[2]"
+                },
+                {
+                    "action_type": "expand",
+                    "ui_path": "Render Settings//Frame/VStack[0]/VStack[0]/ScrollingFrame[0]/ZStack[0]/VStack[2]/CollapsableFrame[0]"
+                },
+                {
+                    "action_type": "scroll",
+                    "ui_path": "Render Settings//Frame/VStack[0]/VStack[0]/ScrollingFrame[0]",
+                    "scroll_target_ui_path": "Render Settings//Frame/VStack[0]/VStack[0]/ScrollingFrame[0]/ZStack[0]/VStack[2]/CollapsableFrame[0]/Frame[0]/ZStack[0]/VStack[0]/Frame[0]/VStack[0]/HStack[4]/FloatSlider[0]"
+                }
+            ]
+        },
+        {
+            "ui_type": "widget",
+            "parent_window_ui_path": "Render Settings",
+            "target_ui_path": "Render Settings//Frame/VStack[0]/VStack[0]/ScrollingFrame[0]/ZStack[0]/VStack[2]/CollapsableFrame[5]/Frame[0]/ZStack[0]/VStack[0]/Frame[0]/VStack[0]/HStack[0]/HStack[0]/VStack[0]/CheckBox[0]",
+            "title": "CheckBox",
+            "description": "Use this checkbox to toggle composite in editor.",
+            "link": {
+                "label": "Reference...",
+                "url": "https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx_post-processing.html#compositing"
+            },
+            "reveal_actions": [
+                {
+                    "action_type": "click",
+                    "ui_path": "Render Settings//Frame/VStack[0]/VStack[0]/HStack[0]/RadioButton[2]"
+                },
+                {
+                    "action_type": "expand",
+                    "ui_path": "Render Settings//Frame/VStack[0]/VStack[0]/ScrollingFrame[0]/ZStack[0]/VStack[2]/CollapsableFrame[5]"
+                },
+                {
+                    "action_type": "scroll",
+                    "ui_path": "Render Settings//Frame/VStack[0]/VStack[0]/ScrollingFrame[0]",
+                    "scroll_target_ui_path": "Render Settings//Frame/VStack[0]/VStack[0]/ScrollingFrame[0]/ZStack[0]/VStack[2]/CollapsableFrame[5]/Frame[0]/ZStack[0]/VStack[0]/Frame[0]/VStack[0]/HStack[0]/HStack[0]/VStack[0]/CheckBox[0]"
+                }
+            ]
+        }
+    ]
+}

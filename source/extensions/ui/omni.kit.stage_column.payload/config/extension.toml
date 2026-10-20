@@ -1,0 +1,48 @@
+[package]
+version = "2.0.5"
+authors = ["NVIDIA"]
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+changelog = "docs/CHANGELOG.md"
+readme = "docs/README.md"
+keywords = ["payload", "stage", "load", "column", "unload"]
+title = "Stage Column Payload"
+description = "Be able to load/unload payload from the 'stage widget'"
+preview_image = "data/preview.png"
+icon = "data/reference.svg"
+category = "other"
+writeTarget.kit = true
+
+[ui]
+name = "Stage Column Payload"
+
+[dependencies]
+"omni.usd" = {}
+"omni.kit.widget.stage" = {}
+"omni.ui" = {}
+
+[[python.module]]
+name = "omni.kit.stage_column.payload"
+
+[documentation]
+pages = [
+    "docs/CHANGELOG.md",
+]
+
+[[test]]
+args = [
+    "--/app/file/ignoreUnsavedStage=true",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--no-window",
+]
+
+stdoutFailPatterns.exclude = [
+]
+
+dependencies = [
+    "omni.kit.mainwindow",
+    "omni.kit.ui_test",
+    "omni.kit.test_suite.helpers",
+    "omni.kit.window.stage",
+    "omni.kit.menu.edit",
+]

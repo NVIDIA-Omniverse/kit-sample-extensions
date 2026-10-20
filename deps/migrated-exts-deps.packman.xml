@@ -1,0 +1,21 @@
+<project toolsVersion="5.0">
+  <!-- Build dependencies for extensions migrated from standalone repositories. -->
+  <import path="../_build/${platform_target}/${config}/kit/dev/all-deps.packman.xml">
+    <filter include="cuda" linkPath="../_build/target-deps/cuda" />
+    <filter include="gsl" linkPath="../_build/target-deps/gsl" />
+    <filter include="usd_ext_anim_retargeting_${config}" linkPath="../_build/target-deps/usd_ext_anim_retargeting/${config}" />
+  </import>
+
+  <!-- Paint System native ray casting dependencies. -->
+  <dependency name="spline_curve" linkPath="../_build/target-deps/spline_curve">
+    <package name="spline_curve" version="105.0.0+master.0.0decaa6b.local" />
+  </dependency>
+  <dependency name="omni_physics" linkPath="../_build/target-deps/omni_physics">
+    <package name="omni_physics" version="110.4.1-65316063-release_omni_110.4-754cc5d5-${platform_target_abi}" platforms="windows-x86_64 manylinux_2_35_x86_64 manylinux_2_35_aarch64" />
+  </dependency>
+
+  <!-- OpenUSD Exchange libraries built for Kit 110's OpenUSD/Python ABI. -->
+  <dependency name="usd-exchange" linkPath="../_build/target-deps/usd-exchange/${config}">
+    <package name="usd-exchange_${usd_flavor}_${usd_ver}_py_${python_ver}" version="3.0.1+${usdex_platform}.${config}" />
+  </dependency>
+</project>

@@ -1,0 +1,72 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: LicenseRef-NvidiaProprietary
+#
+# NVIDIA CORPORATION, its affiliates and licensors retain all intellectual
+# property and proprietary rights in and to this material, related
+# documentation and any modifications thereto. Any use, reproduction,
+# disclosure or distribution of this material and related documentation
+# without an express license agreement from NVIDIA CORPORATION or
+# its affiliates is strictly prohibited.
+
+[package]
+title = "Omni.UI Scene Sample for Manipulating Selected Light"
+version = "2.0.1"  # Semantic Versioning is used: https://semver.org/
+description = "This example shows a 3D manipulator for a selected light"
+category = "Example"  # How to categorize this in the Extension Manager
+changelog = "docs/CHANGELOG.md"
+icon = "data/icon.png"  # Icon to show in the Extension Manager
+keywords = ["ui", "example", "scene", "docs", "documentation", "light"] # Search keywords for the Extension Manager
+preview_image = "data/preview.png"  # Preview to show in the Extension Manager
+readme  = "docs/README.md"  # Path (relative to the root) or content of readme markdown file for UI
+repository = "https://github.com/NVIDIA-Omniverse/kit-app-template"  # URL of the extension source repository
+
+
+[dependencies]
+"omni.ui.scene" = {  }
+"omni.usd" = {  }
+"omni.kit.viewport.utility" = {  }
+"omni.kit.commands" = { }
+
+[[python.module]]  # Main python module this extension provides, it will be publicly available as "import omni.sample.ui_scene.light_manipulator"
+name = "omni.sample.ui_scene.light_manipulator"
+
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.md",
+]
+
+
+[[test]]
+args = [
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/app/viewport/forceHideFps=true",
+    "--/app/viewport/defaults/fillViewport=true",
+    "--/app/viewport/grid/enabled=false",
+    "--/app/viewport/defaults/guide/grid/visible=false",
+    "--/app/viewport/show/lights=false",
+    "--/app/window/hideUi=true",
+    "--/app/window/width=800",
+    "--/app/window/height=600",
+    "--/app/renderer/resolution/width=800",
+    "--/app/renderer/resolution/height=600",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/exts/omni.kit.viewport.window/startup/windowName=Viewport",
+    "--no-window",
+    "--reset-user"
+]
+dependencies = [
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.test_helpers_gfx",
+    "omni.kit.viewport.window",
+    "omni.kit.ui_test",
+]
+
+[[test]]
+name="startup"
+stdoutFailPatterns.exclude = [
+    "*No Viewport Window to add omni.sample.ui_scene.light_manipulator*"
+]

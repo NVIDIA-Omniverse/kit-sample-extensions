@@ -1,0 +1,108 @@
+{
+    "ResampleCurves": {
+        "categories": "curve",
+        "categoryDefinitions": "../../config/CurveCategories.json",
+        "description": ["Resample curves to use a smaller number of segments. Note that currently only cubic bezier curves are considered when resampling."],
+        "uiName": "Resample Curves",
+        "inputs": {
+            "curvesBundle": {
+                "type": "bundle",
+                "description": "Bundle containing curves data",
+                "uiName": "Transform Bundle"
+            },
+            "mode": {
+                "type": "int",
+                "default": 0,
+                "description": ["Resampling mode (0 - resample by number of segments, 1 - resample by step)"],
+                "minimum": 0,
+                "maximum": 1,
+                "uiName": "Mode",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "step": {
+                "description": "When resampling by Step, the number of resampled segments will be the length of the curve divided by this value",
+                "type": "float",
+                "default": 1.0,
+                "uiName": "Step",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "numberOfSegments": {
+                "description": "When resampling by number of segments, this value specifies the number of segments in the resampled curve",
+                "type": "int",
+                "default": 10,
+                "uiName": "Number of Points",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "avoidSharpTurns": {
+                "description": "Experimental setting to fit a resampled curve with equal and opposite tangents on either side of each control point",
+                "type": "bool",
+                "default": false,
+                "uiName": "Avoid Sharp Turns",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "verbose": {
+                "description": "print verbose information",
+                "type": "bool",
+                "default": false,
+                "uiName": "Verbose",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            }
+        },
+        "outputs": {
+            "curvesBundle": {
+                "type": "bundle",
+                "description": "Bundle containing curves data",
+                "uiName": "Curve Bundle"
+            }
+        },
+        "tokens": {
+            "points": "points",
+            "curveVertexCounts": "curveVertexCounts",
+            "basis": "basis",
+            "bezier": "bezier",
+            "bspline": "bspline",
+            "catmullRom": "catmullRom",
+            "wrap": "wrap",
+            "pinned": "pinned",
+            "periodic": "periodic",
+            "nonperiodic": "nonperiodic",
+            "type": "type",
+            "cubic": "cubic",
+            "linear": "linear",
+            "transform": "transform"
+        },
+        "state": {
+            "prevMode": {
+                "description": ["Previous mode value for recompute test"],
+                "type": "int"
+            },
+            "prevStep": {
+                "description": ["Previous step value for recompute test"],
+                "type": "float"
+            },
+            "prevNumberOfSegments": {
+                "description": ["Previous numberOfSegments value for recompute test"],
+                "type": "int"
+            },
+            "prevAvoidSharpTurns": {
+                "description": ["Previous avoidSharpTurns value for recompute test"],
+                "type": "bool"
+            },
+            "prevVerbose": {
+                "description": ["Previous verbose value for recompute test"],
+                "type": "bool"
+            }
+        },
+        "version": 1
+    }
+}

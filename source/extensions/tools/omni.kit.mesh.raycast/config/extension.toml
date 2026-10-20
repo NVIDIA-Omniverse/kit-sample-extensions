@@ -1,0 +1,62 @@
+[package]
+# Semantic Versionning is used: https://semver.org/
+version = "110.0.2"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["Gang Zeng"]
+
+# The title and description fields are primarly for displaying extension info in UI
+title = "Paint System Raycast"
+description = "Raycast on geometry."
+
+# URL of the extension source repository.
+repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+
+# Keywords for the extension
+keywords = ["paint", "scene query", "raycast"]
+
+# Location of change log file in target (final) folder of extension, relative to the root.
+# More info on writing changelog: https://keepachangelog.com/en/1.0.0/
+changelog="docs/CHANGELOG.rst"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+readme = "docs/README.md"
+
+# Icon is shown in Extensions window, it is recommended to be square, of size 256x256.
+icon = "icons/Preferences.svg"
+
+# Preview image and icon. Folder named "data" automatically goes in git lfs (see .gitattributes file).
+# Preview image is shown in "Overview" of Extensions window. Screenshot of an extension might be a good preview image.
+preview_image = "icons/preview.png"
+
+category = "Other"
+
+display_name = "mesh raycast"
+
+# Publish target
+writeTarget.kit = true
+writeTarget.usd = true
+
+[dependencies]
+"omni.activity.core" = {}
+"omni.usd" = {}
+"omni.usd.schema.physx" = {}
+
+[[python.module]]
+name = "omni.kit.mesh.raycast"
+
+[[native.plugin]]
+path = "bin/*.plugin"
+recursive = false
+
+[[test]]
+dependencies = [
+    "omni.kit.primitive.mesh"
+]
+
+[settings]
+exts."omni.kit.mesh.raycast".bvhNumPrimsPerLeaf = 15
+exts."omni.kit.mesh.raycast".bvhPreReservedSize = 100  # num of empty bounds to create in BVH for future bounds addition
+# if bvhBuildOnFirstRequired is true(default is True), BVH won't be initialized at stage opened.
+# then BVH will be built when set BvhRefreshRate to eFast for the first time.
+# exts."omni.kit.mesh.raycast".bvhBuildOnFirstRequired = false

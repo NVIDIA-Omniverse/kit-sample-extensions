@@ -1,0 +1,55 @@
+{
+    "TagPointsFromPrims": {
+        "categories": "tagging",
+        "categoryDefinitions": "../../config/CurveCategories.json",
+        "description": ["Given input points and tagged mesh prims, create a tag for each point based on what prim contains that point. ",
+                        "If a point is not contained within any tagged mesh prim, it is given the defaultTag. ",
+                        "If a point is contained within multiple tagged mesh prims, the tag from the first encountered prim is used."],
+        "uiName": "Tag Points from Prims",
+        "inputs": {
+            "bundle": {
+                "type": "bundle",
+                "description": "Bundle containing tagged prims",
+                "uiName": "Tagged Bundle Prims"
+            },
+            "points": {
+                "type": "float[3][]",
+                "description": "Vertices to be tagged",
+                "uiName": "Points"
+            },
+            "tagName": {
+                "type": "token",
+                "default": "tag",
+                "description": "Tag attribute to look for in prims",
+                "uiName": "Tag Attribute Name"
+            },
+            "defaultTag": {
+                "type": "token",
+                "default": "",
+                "description": "Default value assigned to any point not inside a tagged prim",
+                "uiName": "Default Tag Value"
+            }
+        },
+        "outputs": {
+            "tags": {
+                "description": "Per-point tags",
+                "type": "token[]"
+            }
+        },
+        "state": {
+            "prevPoints": {
+                "description": ["Previous points value for recompute test"],
+                "type": "float[3][]"
+            },
+            "prevTagName": {
+                "description": ["Previous tagName value for recompute test"],
+                "type": "token"
+            },
+            "prevDefaultTag": {
+                "description": ["Previous defaultTag value for recompute test"],
+                "type": "token"
+            }
+        },
+        "version": 1
+    }
+}

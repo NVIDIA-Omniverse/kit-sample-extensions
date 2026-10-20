@@ -1,0 +1,54 @@
+[package]
+title = "Kit Timeline Minibar"
+description = "a compact playback toolbar"
+version = "1.3.1"
+category = "Other"
+authors = ["NVIDIA"]
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+keywords = ["timeline", "viewport", "minibar"]
+
+changelog = "docs/CHANGELOG.md"
+readme = "docs/README.md"
+icon = "data/icon.svg"
+preview_image = "data/preview.png"
+
+[package.target]
+kit = ["107.3"]
+
+[dependencies]
+"omni.ui" = {}
+"omni.timeline" = {}
+"omni.timeline.live_session" = {optional=true}
+"omni.kit.viewport.registry" = {}
+"omni.kit.viewport.menubar.display" = {optional=true}
+
+[[python.module]]
+name = "omni.kit.timeline.minibar"
+
+[settings]
+# this flag is deprecated, not support speedup until we solved modify fps issue.
+exts."omni.kit.timeline.minibar".speedupEnable = false
+# If toggleByHover is true, the minibar will show when mouse hover buttom of viewport
+exts."omni.kit.timeline.minibar".toggleByHover = true
+
+[documentation]
+pages = ["docs/Overview.md", "docs/SETTINGS.md", "docs/USAGE_PYTHON.md", "docs/CHANGELOG.md"]
+
+[[test]]
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/app/file/ignoreUnsavedOnExit=true",
+    "--/app/window/width=800",
+    "--/app/window/height=800",
+    "--no-window"
+]
+dependencies = [
+    "omni.kit.ui_test",
+    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.viewport.window",
+    "omni.kit.viewport.menubar.display",
+    "omni.kit.usd.layers",
+    "omni.timeline.live_session",
+    "omni.kit.collaboration.channel_manager"
+]

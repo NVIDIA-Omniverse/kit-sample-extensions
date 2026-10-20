@@ -1,0 +1,43 @@
+{
+    "LoadTexture2D": {
+        "description": [ "Loads one or more textures from disk and output them in a bundle" ],
+        "metadata": {
+            "uiName": "load texture 2d"
+        },
+        "inputs": {
+            "active": {
+                "description": "Is the LoadTexture2D node currently active?",
+                "type": "bool",
+                "default": true,
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "textures": {
+                "description": [ "Texture paths to load from" ],
+                "type": "string",
+                "metadata": {
+                    "allowMultiInputs": "1",
+                    "uiType": "filePath"
+                }
+            }
+        },
+        "outputs": {
+            "bundle": {
+                "description": [ "output bundle of texture(s) data" ],
+                "type": "bundle"
+            }
+        },
+        "state": {
+            "prevActive": {
+                "description": "Previous active value for recompute test",
+                "type": "bool"
+            },
+            "prevTextures": {
+                "description": "Combined texture paths from previous run",
+                "type": "string"
+            }
+        },
+        "tokens": [ "valid", "width", "height", "bitDepth", "componentCount", "mode", "data" ]
+    }
+}

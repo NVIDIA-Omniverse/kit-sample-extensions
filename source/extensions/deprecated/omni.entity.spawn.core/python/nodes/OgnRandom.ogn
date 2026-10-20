@@ -1,0 +1,14 @@
+{
+    "Random": {
+        "exclude" : ["tests"],
+        "description": ["Generate a number between 0 and 1 using Python random.random()."],
+        "language": "python",
+        "metadata": {"hidden": "true"},
+        "outputs": {
+            "value": {
+                "type": "float",
+                "description": "Generated float point randome value."
+            }
+        }
+    }
+}

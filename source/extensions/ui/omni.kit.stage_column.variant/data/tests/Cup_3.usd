@@ -1,0 +1,77 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (50006.77154228268, -1.1103733830682453e-11, 0)
+                double radius = 500
+            }
+            dictionary Perspective = {
+                double3 position = (21.052880663730484, 21.989596781631267, 25.365656106871793)
+                double3 target = (-0.009308646266309673, 0.9274074716344742, 4.303466796875)
+            }
+            dictionary Right = {
+                double3 position = (0, -50006.672766821786, -1.1103711898124266e-11)
+                double radius = 500
+            }
+            dictionary Top = {
+                double3 position = (0, 0, 50008.60693359375)
+                double radius = 500
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            dictionary muteness = {
+            }
+        }
+        dictionary renderSettings = {
+        }
+    }
+    metersPerUnit = 0.01
+    upAxis = "Z"
+)
+
+def Xform "Cup" (
+    assetInfo = {
+        asset identifier = @./assets/Cup/Cup.2.usd@
+        string name = "Cup"
+    }
+    kind = "component"
+    payload = @./Cup_payload.2.usd@</Cup>
+    variants = {
+        string modelingVariant = "CupA"
+    }
+    add variantSets = "modelingVariant"
+)
+{
+    def Scope "Scope" (
+        payload = [
+            @./Cup_2.usd@,
+            @./Cup_payload.2.usd@
+        ]
+        delete references = @./Cup.geom.usd@</Cup>
+    )
+    {
+    }
+    variantSet "modelingVariant" = {
+        "CupA" {
+
+        }
+        "CupB" {
+
+        }
+        "CupC" {
+
+        }
+        "CupD" {
+
+        }
+    }
+}
+
+def Scope "Scope" (
+    references = @./Cup.usd@
+)
+{
+}
+

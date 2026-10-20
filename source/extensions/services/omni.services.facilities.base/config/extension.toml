@@ -1,0 +1,20 @@
+[package]
+title = "Kit services base facility"
+version = "1.0.5"
+changelog = "docs/CHANGELOG.md"
+readme = "docs/README.md"
+icon = "data/icon.png"
+preview_image = "data/preview.png"
+description = "Kit micro services base facility. Use facilities to implement stateful objects (such as DB connection pools) to be used with stateless services"
+category = "services"
+authors = ["Jozef van Eenbergen", "Philippe Sawicki"]
+repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
+slackids = ["@U010NFP76BU"]
+keywords = ["kit", "service", "facility"]
+toggleable = false
+
+[dependencies]
+
+# Main python module this extension provides
+[[python.module]]
+name = "omni.services.facilities.base"
