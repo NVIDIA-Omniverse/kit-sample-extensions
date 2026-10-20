@@ -16,7 +16,7 @@ Extensions are grouped by domain under [`source/extensions`](source/extensions):
 
 | Group | Examples and uses |
 | --- | --- |
-| [Animation](source/extensions/animation) | Animation curves, curve editing, timeline tools, and animation preferences. |
+| [Animation](source/extensions/animation) | Animation preferences and USD animation settings. |
 | [Assets](source/extensions/assets) | Asset validation, import and export, and general 3D asset conversion. |
 | [Deprecated](source/extensions/deprecated) | Deprecated extensions retained together for review before removal. |
 | [Developer tools](source/extensions/devtools) | Settings inspection, command macros, profiling, and development utilities. |
@@ -25,7 +25,6 @@ Extensions are grouped by domain under [`source/extensions`](source/extensions):
 | [UI](source/extensions/ui) | Widgets, browsers, property interfaces, manipulators, and application windows. |
 | [USD](source/extensions/usd) | Collections, variant editing, semantic properties, and other USD workflows. |
 | [Utilities](source/extensions/utils) | Stage opening, client helpers, light rigs, and application integrations. |
-| [Warp](source/extensions/warp) | Warp integration and GPU compute examples. |
 | [Web](source/extensions/web) | Web messaging, deep links, streaming integration, and cloud configuration. |
 
 See [Compatibility](#compatibility) for Kit-version and dependency guidance.
@@ -46,7 +45,7 @@ extension-specific usage and settings.
 - Git and [Git LFS](https://git-lfs.com/) to retrieve source and binary assets.
 - A development environment matching one of the configured release platforms:
   Windows x86-64, Linux x86-64, or Linux aarch64. Native compilation requires the
-  platform's build toolchain; Windows uses Visual Studio 2022 / MSVC v143.
+  platform's build toolchain; Windows requires locally installed Visual Studio 2022 / MSVC v143 and Windows SDK.
 - Access to the Kit SDK packages and extension dependencies pinned by this
   repository.
 - Hardware and drivers compatible with the selected Kit SDK and the extensions

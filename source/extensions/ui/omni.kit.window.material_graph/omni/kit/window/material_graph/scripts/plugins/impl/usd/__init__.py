@@ -1,1 +1,0 @@
-"""USD plugin implementation package."""

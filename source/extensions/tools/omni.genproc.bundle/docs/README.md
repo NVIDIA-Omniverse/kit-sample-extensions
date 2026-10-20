@@ -1,2 +1,0 @@
-# [omni.genproc.bundle]
-

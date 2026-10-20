@@ -7,7 +7,6 @@ __pycache__/
 *.py[cod]
 /.cache/
 /.last_build
-/source/extensions/warp/omni.warp.core/.last_build
 /.vscode/settings.json
 /user.repo.toml
 *.packman.xml.user

@@ -1,13 +1,12 @@
-<project toolsVersion="5.0" remotes="kit-sdk">
-  <!-- Published Kit 111 publiclibs build, including Kit PR #3202 (705e997a).
-       Source: 705e997a000ef733f02b039f7d63f6132262c573, publication run 39017959432 (17 Oct 2026).
-       Versions/checksums are from the published kit-sdk-publication-1 receipts. -->
-  <remote2 name="kit-sdk">
-    <transport actions="download" protocol="https" packageLocation="artifactory.pdx.nvidia.com/artifactory/ct-omniverse-generic-local/kit/111.0.0.dev39017959432+gh.publiclibs.705e997a/${name}@${version}" />
+<project toolsVersion="5.0" remotes="kit-kernel">
+  <!-- Kit 111 publiclibs fdb8d7a4: Windows/Linux x86-64 use the public feature aliases.
+       SHA256 values match Kit publication run 39334777388, attempt 4 delivery receipts.
+       ARM is internal-only and is removed from the public staging manifest. -->
+  <remote2 name="kit-kernel">
+    <transport actions="download" protocol="https" packageLocation="d4i3qtqj3r0z5.cloudfront.net/${name}@${version}" />
   </remote2>
   <dependency name="kit_sdk_${config}" linkPath="../_build/${platform_target}/${config}/kit" tags="${config} non-redist">
-    <package name="kit-sdk" version="111.0.0+dev_next_111_publiclibs.7.705e997a.gh.manylinux_2_35_x86_64.release" platforms="linux-x86_64 manylinux_2_35_x86_64" checksum="bbff604a6ef79197eba541a08f914d9d3402b94ee3fa4ed812172710bf814b36" />
-    <package name="kit-sdk" version="111.0.0+dev_next_111_publiclibs.7.705e997a.gh.manylinux_2_35_aarch64.release" platforms="linux-aarch64 manylinux_2_35_aarch64" checksum="7e032e427f4af13780b10e94484b2fab8bb75cda37fb3ca536cfbda9d6b1218a" />
-    <package name="kit-sdk" version="111.0.0+dev_next_111_publiclibs.7.705e997a.gh.windows-x86_64.release" platforms="windows-x86_64" checksum="6bf55582e568e218b5798095eba7adfa51f1a11a30a7460752edbdeaedf3f880" />
+    <package name="kit-kernel" version="111.0.0+feature.manylinux_2_35_x86_64.release" platforms="linux-x86_64 manylinux_2_35_x86_64" checksum="f4e5073210176a3b5e8744aa6ae2417637ba4c2a0afb14f631081ecd20fb72e5" />
+    <package name="kit-kernel" version="111.0.0+feature.windows-x86_64.release" platforms="windows-x86_64" checksum="99830d32d4202b21c5d3f5d230bf0dc2a7e723e0c9bffd8f2c5f9fcb6f084831" />
   </dependency>
 </project>

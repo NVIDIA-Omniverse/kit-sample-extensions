@@ -41,6 +41,47 @@ usdex_ver = "3.0"
 # tests need something missing are skipped in [repo_test.suites.alltests] exclude.
 [exclusions]
 extensions = [
+# Public staging omits extensions whose native packages are unavailable publicly.
+    "omni.anim.curve.bundle",
+    "omni.anim.curve.core",
+    "omni.anim.curve.ui",
+    "omni.anim.curve_editor",
+    "omni.anim.timeline",
+    "omni.anim.window.timeline",
+    "omni.configurator_publisher",
+    "omni.kit.asset_converter",
+    "omni.kit.converter.common",
+    "omni.kit.converter.gsplat",
+    "omni.kit.tool.asset_exporter",
+    "omni.kit.tool.asset_importer",
+    "omni.kit.tool.measure",
+    "omni.kit.viewport.navigation.measure",
+    "omni.kit.viewport.navigation.usd_explorer.bundle",
+    "omni.sample.minimap",
+    "omni.scene.optimizer.analysis",
+    "omni.scene.optimizer.bundle",
+    "omni.scene.optimizer.core",
+    "omni.scene.optimizer.ui",
+    "omni.scene.optimizer.validators",
+    "omni.services.convert.asset",
+    "omni.services.starfleet.auth",
+    "omni.warp.core",
+    "omni.warp.graph",
+# Public staging omits RTX-header consumers until their build package is public.
+    "omni.anim.shared.core",
+    "omni.curve.creator",
+    "omni.curve.manipulator",
+    "omni.genproc.bundle",
+    "omni.genproc.core",
+    "omni.genproc.ui",
+    "omni.graph.visualization.nodes",
+    "omni.kit.text3d",
+    "omni.kit.window.material",
+    "omni.kit.window.material_graph",
+    "omni.ramp",
+    "omni.scene.visualization.bundle",
+    "omni.scene.visualization.core",
+    "omni.scene.visualization.ui",
     # Internal support level: excluded from EA1 build, tests and precaching.
     "omni.anim.camera_tool",                   # needs omni.physx, unavailable in the selected Kit 111 registry
     "omni.entity.spawn.bundle",                # needs excluded omni.entity.spawn.core and omni.entity.spawn.ui
@@ -60,6 +101,8 @@ extensions = [
 # Match Kit 111's MSVC 14.3x toolchain and the passing Windows setup in PR #152.
 msbuild.vs_version = "vs2022"
 msbuild.msvc_version = "v143"
+# Public Windows builds use the locally installed Visual Studio and Windows SDK.
+msbuild.link_host_toolchain = true
 premake.extra_args."++" = ["--excluded-extensions=${conf:exclusions.extensions}"]
 
 # The published producer currently delivers release kernels, not debug.
@@ -70,15 +113,10 @@ fetch.packman_target_files_to_pull = [
     "${root}/deps/kit-sdk.packman.xml",
     "${root}/deps/kit-sdk-deps.packman.xml",
     "${root}/deps/migrated-exts-deps.packman.xml",
-    "${root}/deps/migrated-physics-deps.packman.xml",
     "${root}/deps/assets-deps.packman.xml",
     "${root}/deps/ui-deps.packman.xml",
-    "${root}/deps/services-deps.packman.xml",
-    "${root}/deps/warp-build-deps.packman.xml",
-    "${root}/deps/usd-optimize-deps.packman.xml",
     "${root}/deps/particle-deps.packman.xml",
     "${root}/deps/animation-deps.packman.xml",
-    "${root}/deps/animation-authoring-deps.packman.xml",
 ]
 
 # List of pip files to pip install from (in order)
@@ -87,7 +125,6 @@ fetch.pip.files_to_pull = [
     "${root}/deps/migrated-exts-pip.toml",
     "${root}/deps/package-explorer-pip.toml",
     "${root}/deps/services-pip.toml",
-    "${root}/deps/warp-build-pip.toml",
     "${root}/deps/asset-validator-pip.toml",
     "${root}/deps/animation-pip.toml",
 ]
@@ -105,14 +142,7 @@ fetch.after_pull_commands."++" = [
 ]
 
 pre_build.commands."++" = [
-    [
-        "${root}/_build/target-deps/python/python",
-        "${root}/source/extensions/warp/omni.warp.core/build.py",
-        "--pip-path", "${root}/_build/target-deps/pip_prebundle_warp_build",
-        "--msvc-path", "${root}/_build/host-deps/msvc",
-        "--winsdk-path", "${root}/_build/host-deps/winsdk",
-        "--cuda-path", "${root}/_build/target-deps/warp_cuda",
-    ],
+
 ]
 
 # This is a cludge WAR for the lack of control repo_publish / repo_publish_exts gives in filtering files out from the packages.
@@ -151,7 +181,6 @@ exclude = [
     "tests-omni.app.*${shell_ext}",
     # These extensions work, but their tests need something Kit 111 does not provide.
     "tests-omni.kit.viewport.navigation.camera_manipulator${shell_ext}", # tests need omni.hydra.usdrt_delegate, omni.rtx.shadercache.vulkan
-    "tests-omni.kit.window.material${shell_ext}",                      # tests need omni.kit.window.material_graph
     "tests-omni.kit.window.movie_capture${shell_ext}",                 # tests need omni.kit.environment.sunstudy, omni.rtx.tests
     "tests-omni.usd.schema.scene.visualization${shell_ext}",           # standard SDK harness needs qualification after retiring the particle app; previously solver exit 55
     # The test dependencies of these two do not exist for Kit 111 in CI's registries (solver exit 55). The fleet's pods
@@ -165,7 +194,6 @@ exclude = [
     "tests-omni.app.*${shell_ext}",
     # These extensions work, but their tests need something Kit 111 does not provide.
     "tests-omni.kit.viewport.navigation.camera_manipulator${shell_ext}", # tests need omni.hydra.usdrt_delegate, omni.rtx.shadercache.vulkan
-    "tests-omni.kit.window.material${shell_ext}",                      # tests need omni.kit.window.material_graph
     "tests-omni.kit.window.movie_capture${shell_ext}",                 # tests need omni.kit.environment.sunstudy, omni.rtx.tests
     "tests-omni.usd.schema.scene.visualization${shell_ext}",           # standard SDK harness needs qualification after retiring the particle app; previously solver exit 55
     # The test dependencies of these two do not exist for Kit 111 in CI's registries (solver exit 55). The fleet's pods
@@ -184,10 +212,7 @@ args = [
 # These extensions contain no first-party pybind modules. Their pip bundles include
 # charset_normalizer native modules, which trigger stubgen discovery but produce no stubs.
 exts_exclude = [
-    # omni.anim.shared.core ships pure Python/OGN code and a native plugin, but no pybind module.
     # Stubgen discovers the native payload but therefore cannot produce any .pyi files.
-    "omni.anim.shared.core",
-    "omni.configurator_publisher",
     "omni.simready.content.browser",
 ]
 
@@ -229,21 +254,13 @@ use_packman_to_upload_archive = false
 
 # Extensions to publish, include and exclude among those discovered by kit. Wildcards are supported.
 exts.include = [
-    "omni.anim.curve.bundle",
-    "omni.anim.curve.core",
-    "omni.anim.curve.ui",
-    "omni.anim.curve_editor",
     "omni.anim.graph.schema",
-    "omni.anim.shared.core",
     # omni.anim.test.base is intentionally omitted: animation-authoring also excludes it from publication.
-    "omni.anim.timeline",
-    "omni.anim.window.timeline",
     "omni.kit.preferences.animation",
     "omni.sample.csv_reader",
     "omni.sample.gesture_viewport",
     "omni.sample.gesture_window",
     "omni.sample.in_app_guide",
-    "omni.sample.minimap",
     "omni.sample.reticle",
     "omni.sample.ui_scatter_tool",
     "omni.sample.ui_scene.light_manipulator",
@@ -252,29 +269,8 @@ exts.include = [
     "omni.sample.ui_scene.widget_info",
     "omni.asset_validator.core",
     "omni.asset_validator.ui",
-    "omni.configurator_publisher",
-    "omni.curve.creator",
-    "omni.curve.manipulator",
-    "omni.genproc.bundle",
-    "omni.genproc.core",
-    "omni.genproc.ui",
-    "omni.kit.asset_converter",
-    "omni.kit.converter.common",
-    "omni.kit.converter.gsplat",
     "omni.kit.mesh.raycast",
-    "omni.kit.tool.asset_exporter",
-    "omni.kit.tool.asset_importer",
     "omni.metropolis.agent_registry",
-    "omni.ramp",
-    "omni.scene.optimizer.analysis",
-    "omni.scene.optimizer.bundle",
-    "omni.scene.optimizer.core",
-    "omni.scene.optimizer.ui",
-    "omni.scene.optimizer.validators",
-    "omni.scene.visualization.bundle",
-    "omni.scene.visualization.core",
-    "omni.scene.visualization.ui",
-    "omni.services.convert.asset",
     "omni.simready.content.browser",
     "omni.usd.metrics.assembler",
     "omni.usd.metrics.assembler.ui",
@@ -285,7 +281,6 @@ exts.include = [
     "semantics.schema.editor",
     "semantics.schema.property",
 
-    "omni.graph.visualization.nodes",
     "omni.kit.browser.asset",
     "omni.kit.browser.configurator_samples",
     "omni.kit.browser.core",
@@ -327,7 +322,6 @@ exts.include = [
     "omni.kit.search.service",
     "omni.kit.stage_column.payload",
     "omni.kit.stage_column.variant",
-    "omni.kit.text3d",
     "omni.kit.thumbnails.mdl",
     "omni.kit.thumbnails.usd",
     "omni.kit.timeline.minibar",
@@ -355,8 +349,6 @@ exts.include = [
     "omni.kit.widgets.custom",
     "omni.kit.window.collection",
     "omni.kit.window.environment",
-    "omni.kit.window.material_graph",
-    "omni.kit.window.material",
     "omni.kit.window.modifier.titlebar",
     "omni.kit.window.movie_capture",
     "omni.kit.window.quicksearch",
@@ -374,7 +366,6 @@ exts.include = [
     "omni.services.farm.agent.runner",
     "omni.services.pip_archive",
     "omni.services.render",
-    "omni.services.starfleet.auth",
     "omni.services.transport.client.base",
     "omni.services.transport.client.http_async",
     "omni.services.transport.server.base",
@@ -385,8 +376,6 @@ exts.include = [
     "omni.storage_api.auth",
     "omni.usd_viewer.samples",
     "omni.kit.viewport.navigation.core",
-    "omni.kit.viewport.navigation.measure",
-    "omni.kit.viewport.navigation.usd_explorer.bundle",
     "omni.kit.viewport.navigation.camera_manipulator",
     "omni.kit.viewport.navigation.capture_no_ansel",
     "omni.kit.viewport.navigation.waypoint",
@@ -400,10 +389,7 @@ exts.include = [
     "omni.kit.usd_explorer.tooltip",
     "omni.kit.viewport.menubar.markup",
     "omni.kit.viewport.menubar.waypoint",
-    "omni.kit.tool.measure",
     "omni.cloud.open_stage",
-    "omni.warp.core",
-    "omni.warp.graph",
     "omni.warp.menu",
     "omni.wrapp.package_explorer",
     "omni.web.log_downloader",
@@ -430,10 +416,11 @@ publish_verification = true
 ########################################################################################################################
 
 [repo_precache_exts]
-# Staging uses the public integration registries matching the full SDK.
+# Staging uses the production registries from the matching kernel kit-core.json.
+# Explicit URLs retain the existing command-scoped Storage discovery bypass.
 registries = [
-    { name = "integ-sdk", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/integ/111.0/aee4d54e/sdk/111.0/705e997a" },
-    { name = "integ-shared", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/integ/111.0/aee4d54e/shared" },
+    { name = "kit/prod/sdk", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/sdk/111.0/fdb8d7a4" },
+    { name = "kit/prod/default", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/111/shared" },
 ]
 # OMPE-114910: remove these appends once all SDK pins stage the facade and runtime provider.
 links.exts.include."++" = ["usdrt.scenegraph.ovstage", "usdrt.scenegraph"]
@@ -475,12 +462,12 @@ ext_folders = [
 
 # Precache from the package in test jobs.
 [repo_kit_pull_extensions]
-# Producer builds inherit the SDK registries; staging activates integ-only delivery.
+# Producer builds retain internal discovery; staging activates production-only delivery.
 registries.internal = []
 registry_default = "public"
 registries.public = [
-    { name = "integ-sdk", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/integ/111.0/aee4d54e/sdk/111.0/705e997a" },
-    { name = "integ-shared", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/integ/111.0/aee4d54e/shared" },
+    { name = "kit/prod/sdk", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/sdk/111.0/fdb8d7a4" },
+    { name = "kit/prod/default", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/111/shared" },
 ]
 environment = [{ name = "staging" }]
 # Leave out excluded extensions. Staging also resets inherited registry fields
@@ -488,11 +475,11 @@ environment = [{ name = "staging" }]
 kit_extra_args."++" = [
     "--/app/extensions/excluded=${conf:exclusions.extensions}",
     "--/exts/omni.kit.registry.nucleus/registries=[]",
-    "--/exts/omni.kit.registry.nucleus/registries/0/name=integ-sdk",
-    "--/exts/omni.kit.registry.nucleus/registries/0/url=https://ovextensionsprod.blob.core.windows.net/exts/kit/integ/111.0/aee4d54e/sdk/111.0/705e997a",
+    "--/exts/omni.kit.registry.nucleus/registries/0/name=kit/prod/sdk",
+    "--/exts/omni.kit.registry.nucleus/registries/0/url=https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/sdk/111.0/fdb8d7a4",
     "--/exts/omni.kit.registry.nucleus/registries/0/optional=false",
-    "--/exts/omni.kit.registry.nucleus/registries/1/name=integ-shared",
-    "--/exts/omni.kit.registry.nucleus/registries/1/url=https://ovextensionsprod.blob.core.windows.net/exts/kit/integ/111.0/aee4d54e/shared",
+    "--/exts/omni.kit.registry.nucleus/registries/1/name=kit/prod/default",
+    "--/exts/omni.kit.registry.nucleus/registries/1/url=https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/111/shared",
     "--/exts/omni.kit.registry.nucleus/registries/1/optional=false",
 ]
 
@@ -541,7 +528,6 @@ exts.exclude = [
     "omni.kit.tool.teleport",
     "omni.kit.window.section",
 
-    "omni.warp.core", # External dependency.
     # Vendored bindings whose generated stubs contain C++-qualified type names that are invalid Python syntax.
     "omni.usdex.libs",
     # Kit extscache extension; preloading its public module triggers a circular import in omni.kit.property.usd during checkapi.
@@ -570,13 +556,11 @@ exts.skip_check = [
     "omni.services.client",
     "omni.services.collect",
     "omni.services.render",
-    "omni.services.starfleet.auth",
     "omni.services.transport.server.http",
     "omni.services.transport.client.http_async",
     "omni.services.facilities.monitoring.progress",
     "omni.services.usd",
     "omni.kit.debug.settings",
-    "omni.graph.visualization.nodes",
     "omni.kit.graph.delegate.default",
     "omni.kit.graph.delegate.modern",
     "omni.kit.graph.delegate.neo",
@@ -584,15 +568,12 @@ exts.skip_check = [
     "omni.kit.graph.editor.example",
     "omni.kit.graph.widget.variables",
     "omni.kit.widget.material_preview",
-    "omni.kit.window.material_graph",
-    "omni.kit.text3d",
     "omni.kit.converter.geojson",
     "omni.kit.language.core",
     "omni.kit.viewport.navigation.camera_manipulator",
     "omni.kit.viewport.navigation.core",
     "omni.kit.usd_explorer.render",
     "omni.kit.usd_explorer.tooltip",
-    "omni.kit.tool.measure",
 ]
 
 skip_toplevel_packages."++" = [
@@ -668,14 +649,12 @@ extensions = [
     "omni.kit.thumbnails.mdl",
     "omni.kit.widget.zoombar",
     "omni.kit.window.environment",
-    "omni.kit.window.material",
     "omni.simready.explorer",
     "omni.kit.menu.stage",
     "omni.kit.viewport.menubar.framerate",
     "omni.kit.viewport.menubar.lighting",
     "omni.storage_api.auth",
     "omni.web.deeplink",
-    "omni.kit.tool.measure",
 ]
 
 extension_roots = [

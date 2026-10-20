@@ -1,1 +1,0 @@
-# [omni.anim.curve.bundle]

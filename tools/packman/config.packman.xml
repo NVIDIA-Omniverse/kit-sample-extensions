@@ -1,26 +1,5 @@
-<config remotes="pdx-generic pdx-s3 cloudfront">
-    <!-- Pull: third-party / OSS packages mirrored into ct-omniverse-generic, served by the
-         PDX read-through cache (authless). -->
-    <remote2 name="pdx-generic">
-        <transport actions="download" protocol="https" packageLocation="artifactory.pdx.nvidia.com/artifactory/ct-omniverse-generic/pkgs/${name}/${name}@${version}" />
-        <transport actions="list" protocol="https" packageLocation="omnipackages.nvidia.com/api/v1/list/artifactory" timeout="600" />
-    </remote2>
-    <!-- Pull: first-party packages and packman labels. These are published to S3 as they always
-         have been; omniverse-internal-packages-remote fronts that bucket and the it-artifactory-s3
-         backend indexes the same set. -->
-    <remote2 name="pdx-s3">
-        <transport actions="download" protocol="https" packageLocation="artifactory.pdx.nvidia.com/artifactory/omniverse-internal-packages-remote/${name}@${version}" />
-        <transport actions="list" protocol="https" packageLocation="omnipackages.nvidia.com/api/v1/list/it-artifactory-s3" timeout="600" />
-    </remote2>
-    <!-- Also use CloudFront as a final download fallback, as PR152 does: ARM physxsdk
-         5.9.1.64ca84b0-release-omni-110.3-linux-aarch64 is available there but absent from PDX.
-         Publish target unchanged. Extension registry and changelog publishers also
-         run `packman resolve -r=cloudfront` to obtain the public
-         URL of something they just pushed, and that URL is handed to consumers who cannot reach
-         PDX. The list transport is gone - nothing names it, and it-artifactory-s3 indexes the same
-         bucket. -->
+<config remotes="cloudfront">
     <remote2 name="cloudfront">
         <transport actions="download" protocol="https" packageLocation="d4i3qtqj3r0z5.cloudfront.net/${name}@${version}" />
-        <transport actions="upload" protocol="s3" packageLocation="packages-for-cloudfront" />
     </remote2>
 </config>
