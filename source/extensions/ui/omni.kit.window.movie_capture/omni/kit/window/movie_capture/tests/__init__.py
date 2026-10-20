@@ -14,5 +14,6 @@ from .test_movie_capture_disk_space_dialog import *
 from .test_movie_capture_mp4_ovc import *
 from .test_movie_capture_window_startup import *
 from .test_output_settings_widget import *
+from .test_render_settings_engines import *
 from .test_restart_capture import *
 from .test_set_ui_values import *

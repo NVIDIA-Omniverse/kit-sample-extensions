@@ -3,6 +3,11 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.0.12] - 2026-10-20
+### Fixed
+- OMPE-112504: `default_render_preset` accepts a comma-separated priority list; the first mode the active
+  engine supports is used. The default is now `"RaytracedLighting, RealTimePathTracing"`, so it resolves on ovrtx.
+
 ## [3.0.11] - 2026-10-13
 ### Changed
 - Kit 111 tests: `test_capture_with_render_product_all_modes` skips RTX-Minimal and logs the reason as a warning. Since `omni.kit.capture.viewport`

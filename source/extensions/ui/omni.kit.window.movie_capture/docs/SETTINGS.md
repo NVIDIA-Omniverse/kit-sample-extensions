@@ -58,7 +58,7 @@
 - **Description**: Sets the default value for samples per pixel per iteration during movie capture rendering.
 
 ### exts."omni.kit.window.movie_capture".default_render_preset
-- **Default Value**: RaytracedLighting
+- **Default Value**: RaytracedLighting, RealTimePathTracing
 - **Description**: Determines the default render preset mode to be used during movie capture.
 
 ### exts."omni.kit.window.movie_capture".default_capture_type

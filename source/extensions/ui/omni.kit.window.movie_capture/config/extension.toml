@@ -6,7 +6,7 @@ description = "Render and capture the viewport for a single frame or multiple on
 icon = "data/icon.png"
 preview_image = "data/preview.png"
 readme = "docs/README.md"
-version = "3.0.11"
+version = "3.0.12"
 changelog = "docs/CHANGELOG.md"
 keywords = ["render", "sequence", "farm", "movie"]
 repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
@@ -90,10 +90,14 @@ fps_list = "24, 25, 30, 50, 60"
 # Supported values are ".png", ".tga", ".exr", and ".mp4"
 default_capture_type = ".png"
 
-# Default render mode to set when showing the movie capture window
+# Default render mode to set when showing the movie capture window.
 # Supported values are "RaytracedLighting", "PathTracing", "RealTimePathTracing",
 # "MinimalRendering" (requires `/persistent/rtx/modes/minimal/enabled`), and "iray".
-default_render_preset = "RaytracedLighting"
+# May also be a comma-separated priority list (e.g. "RaytracedLighting, RealTimePathTracing"):
+# the first mode that's actually available for the active render engine is used, so a single
+# setting value degrades gracefully across engines that don't support every mode (e.g. the
+# ovrtx runtime has no RaytracedLighting mode).
+default_render_preset = "RaytracedLighting, RealTimePathTracing"
 
 # Default samples per pixel per iteration to set when showing the movie capture window
 # Recommended value is 1 to get better performance for multi-GPUs

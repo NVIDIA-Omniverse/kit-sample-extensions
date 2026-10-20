@@ -176,7 +176,7 @@ class RenderModel(ui.AbstractItemModel):
         # selected render which is the selected item in the combo box
         default_render_mode = self._settings.get(DEFAULT_RENDER_PRESET_SETTING_PATH)
         if default_render_mode:
-            self._selected_render = self._get_render_from_mode(default_render_mode) or self._active_render
+            self._selected_render = self._get_render_from_mode_list(default_render_mode) or self._active_render
         else:
             self._selected_render = self._active_render
 
@@ -266,7 +266,9 @@ class RenderModel(ui.AbstractItemModel):
         return 1
 
     def set_render_mode(self, mode: str) -> bool:
-        render_info = self._get_render_from_mode(mode)
+        # `mode` may be a single mode or a comma-separated priority list; see
+        # _get_render_from_mode_list.
+        render_info = self._get_render_from_mode_list(mode) if mode else None
         if render_info:
             self.selected_render = render_info
             self.selected_index = self._get_selection_index(use_current=False)
@@ -280,6 +282,21 @@ class RenderModel(ui.AbstractItemModel):
         for render in self._renders:
             if render.mode == mode:
                 return render
+        return None
+
+    def _get_render_from_mode_list(self, mode_list: str) -> Optional[RenderInfo]:
+        # DEFAULT_RENDER_PRESET_SETTING_PATH may hold a comma-separated priority
+        # list (e.g. "RaytracedLighting, RealTimePathTracing"): try each mode in
+        # order and use the first one that's actually available for the current
+        # engine, so a single setting value degrades gracefully across engines
+        # that don't support every mode (e.g. ovrtx has no RaytracedLighting).
+        for mode in mode_list.split(","):
+            mode = mode.strip()
+            if not mode:
+                continue
+            render_info = self._get_render_from_mode(mode)
+            if render_info:
+                return render_info
         return None
 
     def _set_active_render(self, render: Optional[RenderInfo]):
