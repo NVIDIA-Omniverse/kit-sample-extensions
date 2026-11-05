@@ -12,7 +12,7 @@ import carb.settings
 import omni.ext
 import omni.kit.menu.utils
 import omni.ui as ui
-import wrapp
+import ovpackage as wrapp
 from omni.kit.browser.core import TreeBrowserWidget
 
 from .actions import deregister_actions, register_actions

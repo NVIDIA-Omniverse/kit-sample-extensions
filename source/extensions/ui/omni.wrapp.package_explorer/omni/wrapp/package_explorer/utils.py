@@ -24,7 +24,7 @@ import omni.kit.commands
 import omni.kit.undo
 import omni.ui as ui
 import omni.usd
-import wrapp
+import ovpackage as wrapp
 from omni.kit.async_engine import run_coroutine
 from pxr import Gf, Sdf, Tf, Usd, UsdGeom
 

@@ -38,9 +38,10 @@
 python = "../_build/target-deps/python"
 packages = [
     "aioboto3==15.5.0",
+    "aiohttp==3.14.4",
     "semver==3.0.4",
-    "urllib3>=2.8.0",
-    "ovpackage[local,s3]==0.2.1",  # Public WRAPP-compatible API; explicit local and S3 backend dependencies.
+    "urllib3==2.8.0",
+    "ovpackage[local,s3]~=0.3.0",  # Public WRAPP-compatible API; explicit local and S3 backend dependencies.
     "typer==0.23.1",  # Used by ovpackage.
 ]
 target = "../_build/target-deps/pip_prebundle_package_explorer"
