@@ -4,7 +4,8 @@ Changelog
 This document records all notable changes to ``omni.wrapp.explorer`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
-## [2.4.6] - 2026-11-04
+## [2.5.0] - 2026-11-05
+- Release Package Explorer 2.5.0 for Kit 111.
 - Upgrade ovpackage to 0.3.x, allowing patch updates and retaining the local and S3 backend dependencies.
 - Use the ovpackage Python API while preserving the existing Package Explorer API.
 - Pin bundled urllib3 to 2.8.0 and aiohttp to 3.14.4 to address reported security vulnerabilities.
