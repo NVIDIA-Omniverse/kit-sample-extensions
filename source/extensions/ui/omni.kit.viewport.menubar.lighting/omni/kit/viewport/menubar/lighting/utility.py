@@ -14,7 +14,9 @@ from typing import Callable, Dict, Optional, Sequence, Union
 
 import carb
 import omni.usd
-from pxr import Sdf, Usd, UsdGeom, UsdUtils
+from pxr import Sdf, Usd, UsdGeom, UsdLux, UsdUtils
+
+_LIGHT_API_BFS_LIMIT = 128
 
 
 def _make_light_mode_setting_key(usd_context: omni.usd.UsdContext) -> str:
@@ -45,6 +47,18 @@ def _get_usd_rt_stage(stage: Usd.Stage):
     except (ImportError, ModuleNotFoundError):
         pass
     return None
+
+
+def _get_light_prims(root: Usd.Prim):
+    # Ignore authored caches: lights can be created, removed or resynced between menu actions.
+    # The native traversal includes instance proxies and light filters; keep only the same
+    # default-predicate LightAPI prims the Python traversal would visit.
+    list_api = getattr(UsdLux, "LightListAPI", None) or UsdLux.ListAPI
+    stage = root.GetStage()
+    for path in list_api(root).ComputeLightList(list_api.ComputeModeIgnoreCache):
+        prim = stage.GetPrimAtPath(path)
+        if prim and Usd.PrimDefaultPredicate(prim) and prim.HasAPI(UsdLux.LightAPI):
+            yield prim
 
 
 class VisibilityEdit:
@@ -84,6 +98,13 @@ class VisibilityEdit:
     def __is_hidden_in_stage_window(self, usd_prim: Usd.Prim):
         return usd_prim.GetMetadata("hide_in_stage_window") if self.__skip_stage_window_hidden else False
 
+    def __has_hidden_ancestor(self, prim: Usd.Prim):
+        while prim and not prim.IsPseudoRoot():
+            if self.__is_hidden_in_stage_window(prim):
+                return True
+            prim = prim.GetParent()
+        return False
+
     @carb.profiler.profile
     def __get_prim_iterator(self, predicate):
         # If UsdRt is available, use it to pre-prune the traversal to only given types
@@ -121,6 +142,13 @@ class VisibilityEdit:
                 for prim in yield_prim(api_types):
                     yield prim
                 return
+
+        if not self.__prim_types and self.__api_types and tuple(self.__api_types) == ("LightAPI",):
+            for prim in _get_light_prims(self.__stage.GetPseudoRoot()):
+                if self.__skip_stage_window_hidden and self.__has_hidden_ancestor(prim):
+                    continue
+                yield prim
+            return
 
         iterator = iter(self.__stage.Traverse(predicate))
         for prim in iterator:
@@ -339,7 +367,10 @@ def stage_has_api_type(stage: Usd.Stage, api_type, search_from_default_prim: boo
 
     # Breadth-first search because its likely a light wont be deeply nested in a hierarchy
     # that a model might have and would more likely appear in a shallow hierachy off of the root.
+    visited = 0
+
     def iterate_children(children_lists, api_type):
+        nonlocal visited
         child_children = []
         for children in children_lists:
             if not children:
@@ -347,6 +378,14 @@ def stage_has_api_type(stage: Usd.Stage, api_type, search_from_default_prim: boo
             for child in children:
                 if child.HasAPI(api_type) and not _is_runtime_fallback_light(child):
                     return True
+                visited += 1
+                # Keep the cheap early exit for shallow lights. For a large or lightless stage,
+                # do the remaining discovery in native USD rather than visiting every prim in Python.
+                if api_type is UsdLux.LightAPI and visited == _LIGHT_API_BFS_LIMIT:
+                    return any(
+                        prim != root and not prim.IsInstanceProxy() and not _is_runtime_fallback_light(prim)
+                        for prim in _get_light_prims(root)
+                    )
                 child_children.append(child.GetChildren())
 
         if child_children:

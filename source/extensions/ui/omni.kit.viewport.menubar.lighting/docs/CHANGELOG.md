@@ -3,6 +3,10 @@
 This document records all notable changes to ``omni.kit.viewport.menubar.lighting`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [Unreleased]
+### Fixed
+- OMPE-120226: Reduce Python traversal overhead when discovering and collecting lights on large USD stages.
+
 ## [107.3.5] - 2026-10-16
 ### Changed
 - Give the existing Kit 111 compatibility changes a distinct package version: use USD query fallbacks and ignore the runtime fallback light.
