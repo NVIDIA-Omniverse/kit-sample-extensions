@@ -2,6 +2,10 @@
 
 Omniverse Kit Graph Variables Panel
 
+## [2.1.2] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [2.1.1] - 2025-10-17
 ### Fixed
 - OMPE-68374: Updated repository url

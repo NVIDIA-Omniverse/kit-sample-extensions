@@ -1,6 +1,6 @@
 [package]
 # Semantic Versioning is used: https://semver.org/
-version = "0.1.2"
+version = "0.1.4"
 
 # Lists people or organizations that are considered the "authors" of the package.
 authors = ["Bob White"]
@@ -33,7 +33,7 @@ preview_image = "data/preview.png"
 icon = "data/icon.png"
 
 [package.target]
-kit = ["107.3"]
+kit = ["111.0"]
 
 [package.writeTarget]
 kit = true
@@ -57,7 +57,7 @@ pages = [
 
 [[test]]
 dependencies = [
-    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.hydra_texture",
     "omni.kit.viewport.window",
     "omni.kit.ui_test",
     "omni.kit.test_suite.helpers",

@@ -3,6 +3,10 @@
 This document records all notable changes to ``omni.kit.widget.sliderbar`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [1.1.1] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.1.0] - 2025-08-20
 ### Chnaged
 - Update to event 2.0

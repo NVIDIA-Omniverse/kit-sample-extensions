@@ -3,6 +3,23 @@
 This document records all notable changes to ``omni.kit.tool.teleport`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [107.4.5] - 2026-11-05
+
+### Changed
+
+- Remove the temporary `-ovrtx` tag from `omni.kit.hydra_texture` dependency requests.
+
+## [107.4.4] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
+## [107.4.3] - 2026-10-15
+### Fixed
+- The teleport arc no longer flattens into a line when the camera zooms out. Past its reference frustum (a 36m target seen through the default 60 degree lens) the arc is built for that frustum and scaled up about the eye, so it keeps its on-screen shape. Its 2km display cutoff scales with the frustum too.
+- The zoomed-out arc is drawn under one translate-and-scale transform with eye-relative vertices, which removes its triangulation artifacts.
+- The arc's translucent start fades in smoothly (smoothstep from 10% alpha) and no longer changes when orbiting: it is one camera-facing ribbon instead of stacked translucent tube segments.
+- Looking down, the arc starts at the bottom of the screen (offset along the camera's up axis, not world up), and the target faces the camera's heading instead of an arbitrary direction when seen from high above.
+
 ## [107.4.2] - 2026-10-15
 ### Fixed
 - Kit 111: the teleport target follows the surface under the cursor again, through the viewport pick query (`request_query`) instead of the removed world-ray query; no dependency on omni.kit.raycast.query.

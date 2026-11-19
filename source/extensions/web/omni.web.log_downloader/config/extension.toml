@@ -7,8 +7,9 @@
 # license agreement from NVIDIA CORPORATION is strictly prohibited.
 
 [package]
+target.kit = ["111.0"]
 title = "Web Log Downloader"
-version = "2.0.1"  # Semantic Versioning is used: https://semver.org/
+version = "2.0.2"  # Semantic Versioning is used: https://semver.org/
 description = "Extension for downloading Kit log files via web messaging interface"
 category = "Web"  # How to categorize this in the Extension Manager
 changelog = "docs/CHANGELOG.md"

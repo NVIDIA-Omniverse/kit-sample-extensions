@@ -32,7 +32,7 @@ class FastNavigation:
         """Initialize FastNavigation with default settings and menu entries."""
         self._settings: carb.settings.ISettings = carb.settings.get_settings()
 
-        # Disable Fast Navigation for https://nvidia-omniverse.atlassian.net/browse/OM-24911
+        # Disable Fast Navigation for OM-24911
         self._settings.set("/renderer/eco_mode_enable", False)
 
         self._stop_max: int = self._settings.get(SETTING_CAMERA_MOVE_TEST)

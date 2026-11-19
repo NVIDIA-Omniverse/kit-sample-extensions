@@ -69,13 +69,8 @@ async def open_stage_async(path: str):
     server_only_path = omni.client.make_url(scheme=broken_url.scheme, host=broken_url.host, port=broken_url.port)
 
     try:
-        result, server_info = await omni.client.get_server_info_async(server_only_path)
-        if result == omni.client.Result.OK:
-            logged_user_name = server_info.username
-            logged_user_id = server_info.connection_id
-            if logged_user_name.endswith("@nvidia.com"):
-                settings_interface.set_bool("/crashreporter/devOnlyOverridePrivacyAndForceUpload", True)
-    except Exception as e:
+        await omni.client.get_server_info_async(server_only_path)
+    except Exception:
         pass
 
     omni.client.add_bookmark(broken_url.host, server_only_path)

@@ -1,6 +1,10 @@
 # Changelog
 Graph Usd Commands
 
+## [1.3.7] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.3.6] - 2026-02-24
 ### Fixed
 - Revert changes in 1.3.5

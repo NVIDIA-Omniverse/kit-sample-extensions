@@ -1,6 +1,6 @@
 [package]
 # Semantic Versioning is used: https://semver.org/
-version = "1.6.11"
+version = "1.6.13"
 
 # Lists people or organizations that are considered the "authors" of the package.
 authors = ["John Han", "Quan Chen"]
@@ -33,7 +33,7 @@ category = "Other"
 display_name = "prim icon"
 
 [package.target]
-kit = ["107.3"]  # Required for Event 2.0
+kit = ["111.0"]
 
 [package.writeTarget]
 kit = true
@@ -83,7 +83,7 @@ exts."omni.kit.waypoint.core".enable_hotkeys = false
 [[test]]
 dependencies = [
     "omni.kit.hotkeys.core",
-    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.hydra_texture",
     "omni.kit.viewport.window",
     "omni.kit.ui_test",
     "omni.kit.test_suite.helpers",

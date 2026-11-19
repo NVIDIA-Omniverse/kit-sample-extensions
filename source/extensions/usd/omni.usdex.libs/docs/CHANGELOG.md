@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.0.2] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [3.0.1] - 2026-10-07
 - Update to OpenUSD Exchange 3.0.1
 

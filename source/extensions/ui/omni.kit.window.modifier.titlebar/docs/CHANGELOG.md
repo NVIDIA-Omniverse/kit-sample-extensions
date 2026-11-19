@@ -3,6 +3,16 @@
 This document records all notable changes to ``omni.kit.window.modifier.titlebar`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [107.0.5] - 2026-11-10
+
+### Changed
+
+- Rebuild native plugins and bindings against Kit 111.1 main_publiclibs.45 for registry publication.
+
+## [107.0.4] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [107.0.3] - 2026-04-10
 ### Changed
 - Made extension cross-platform: builds and loads on Linux as a no-op (Windows-only functionality)
@@ -61,7 +71,7 @@ This project adheres to `Semantic Versioning <https://semver.org/>`_.
 ## [105.1.9]
 =============
 ### Changed
-- Fix https://nvidia-omniverse.atlassian.net/browse/OM-99138
+- Fix OM-99138
 
 ## [105.1.8]
 =============

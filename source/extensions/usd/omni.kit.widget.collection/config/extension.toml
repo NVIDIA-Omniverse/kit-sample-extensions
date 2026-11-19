@@ -1,7 +1,7 @@
 [package]
 title = "USD Collection Widget (Preview)"
 description = "USD Collection Widget"
-version = "0.3.4"
+version = "0.3.5"
 category = "Internal"
 authors = ["Eoin Murphy"]
 keywords = ["collection", "outliner", "usd"]
@@ -9,7 +9,7 @@ changelog = "docs/CHANGELOG.md"
 preview_image = "data/preview.png"
 icon = "data/icon.png"
 readme = "docs/README.md"
-target.kit = ["106.5.0"]
+target.kit = ["111.0"]
 
 [dependencies]
 "omni.kit.context_menu" = {}

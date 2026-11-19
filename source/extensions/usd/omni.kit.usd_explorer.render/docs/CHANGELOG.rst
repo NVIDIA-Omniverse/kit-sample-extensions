@@ -6,6 +6,11 @@ This document records all notable changes to ``omni.kit.usd_explorer.render.pres
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
 
+[1.1.2] - 2026-10-23
+Changed
+-------
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 [1.1.1] - 2026-08-19
 ====================
 Changed

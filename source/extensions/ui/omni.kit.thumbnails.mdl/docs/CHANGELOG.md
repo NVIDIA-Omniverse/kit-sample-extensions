@@ -4,6 +4,16 @@
 This document records all notable changes to ``omni.kit.thumbnails.mdl`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [1.2.4] - 2026-11-05
+
+### Changed
+
+- Remove the temporary `-ovrtx` tag from `omni.kit.hydra_texture` dependency requests.
+
+## [1.2.3] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.2.2] - 2026-10-12
 ### Changed
 - Kit 111 tests: `test_mdl_thumbnail` no longer asserts the default context is unedited at the end. Kit 111 marks every open stage as edited on any /rtx settings write (sticky), so the generator's temporary render settings flag it. Accepted for EA1; EA2 ticket: OMPE-<to be filed>.

@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.4.6] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [2.4.5] - 2024-03-01
 ### Fixed
 - OM-121112: Fix for quicksearch items disappearing in Action Graph when expanded.

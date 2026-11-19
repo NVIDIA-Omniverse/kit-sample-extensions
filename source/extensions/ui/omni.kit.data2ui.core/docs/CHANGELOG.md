@@ -2,6 +2,16 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.1.9] - 2026-11-05
+
+### Changed
+- Keep Data2UI Core, Data2UI USD, No Code UI Bundle, and No Code UI Authoring on shared version 1.1.9.
+
+## [1.1.8] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+- Align the No-Code UI and Data2UI extensions on shared version 1.1.8.
+
 ## [1.1.5] - 2026-10-16
 ### Fixed:
 - No dependency on `omni.hydra.usdrt_delegate`, which Kit 111 does not have (OVRTX renders Fabric and OVStage). The

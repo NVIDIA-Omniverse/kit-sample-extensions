@@ -1,5 +1,6 @@
 [package]
-version = "1.5.0"
+target.kit = ["111.0"]
+version = "1.5.1"
 title = "Sample Viewport Reticle"
 description="An example kit extension of a viewport reticle using omni.ui.scene."
 authors=["Matias Codesal"]

@@ -12,6 +12,10 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+# [110.4.1] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 # [110.4.0] - 2026-09-18
 ### Changed
 - Updated to Kit 110.4.0 and Physics 110.4.1.

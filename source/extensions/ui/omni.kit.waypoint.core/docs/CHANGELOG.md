@@ -3,6 +3,16 @@
 This document records all notable changes to ``omni.kit.waypoint.core`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [1.6.13] - 2026-11-05
+
+### Changed
+
+- Remove the temporary `-ovrtx` tag from `omni.kit.hydra_texture` dependency requests.
+
+## [1.6.12] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.6.11] - 2026-10-15
 ### Changed
 - Kit 111 EA1 tests only: the test process no longer fails on the published libraries' string-write refusal lines (OVStage "existing attribute ... has a different type", then `pump_apply_usd_changes failed (12)` and `PUMP apply_usd_changes ... failed`). Every test passes; the libraries fix is #2840. Remove the exclusions for EA2.

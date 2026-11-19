@@ -2,6 +2,10 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.3.5] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [0.3.4] - 2026-10-16
 ### Fixed
 - The tests no longer depend on `omni.hydra.usdrt_delegate`, which Kit 111 does not have. The published 0.3.3 still

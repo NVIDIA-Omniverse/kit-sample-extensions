@@ -1,0 +1,98 @@
+{
+    "CurveVisualizer": {
+        "description": ["Display Curve"],
+        "inputs": {
+            "curveBundle": {
+                "description": "Input curve data",
+                "type": "bundle"
+            },
+            "active": {
+                "default": true,
+                "description": ["Display curve data"],
+                "type": "bool",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "scale": {
+                "default": 1.0,
+                "description": ["Scale"],
+                "type": "float",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "visualizeCurves": {
+                "default": true,
+                "description": ["Visualize curves"],
+                "type": "bool",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "visualizeCurveSegments": {
+                "default": false,
+                "description": ["Visualize curve segments"],
+                "type": "bool",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "visualizeTangents": {
+                "default": false,
+                "description": ["Visualize tangents"],
+                "type": "bool",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "visualizeSampledTangents": {
+                "default": false,
+                "description": ["Visualize sampled tangents"],
+                "type": "bool",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "visualizeControlPoints": {
+                "default": false,
+                "description": [ "Visualize control points" ],
+                "type": "bool",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "tessellation": {
+                "type": "int",
+                "default": 10,
+                "minimum": 1,
+                "maximum": 200,
+                "description": "tessellation factor",
+                "metadata": {
+                    "displayGroup": "parameters",
+                    "uiName": "Tessellation"
+                }
+            }
+        },
+        "metadata": {
+            "uiName": "scene visualization: curve visualizer"
+        },
+        "tokens": {
+            "points": "points",
+            "curveVertexCounts": "curveVertexCounts",
+            "basis": "basis",
+            "bezier": "bezier",
+            "bspline": "bspline",
+            "catmullRom": "catmullRom",
+            "wrap": "wrap",
+            "pinned": "pinned",
+            "periodic": "periodic",
+            "nonperiodic": "nonperiodic",
+            "type": "type",
+            "cubic": "cubic",
+            "linear": "linear",
+            "transform": "transform"
+        },
+        "version": 1
+    }
+}

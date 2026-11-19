@@ -1,7 +1,8 @@
 [package]
+target.kit = ["111.0"]
 title = "Property Window Edit API Schema"
 description = "This adds a add menu item 'Edit API Schema'"
-version = "1.0.4"
+version = "1.0.5"
 category = "External"
 changelog = "docs/CHANGELOG.md"
 preview_image = "data/preview.png"

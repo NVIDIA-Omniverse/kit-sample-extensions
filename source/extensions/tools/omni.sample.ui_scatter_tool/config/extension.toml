@@ -1,7 +1,8 @@
 [package]
+target.kit = ["111.0"]
 title = "Sample omni.ui Scatter Window"
 description = "The full end to end example of the window"
-version = "1.2.0"
+version = "1.2.1"
 category = "Scatter"
 authors = ["Khariton Kantiev"]
 repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"

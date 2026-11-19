@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.21.3] - 2026-10-29
+
+### Fixed
+- Align the UI package and its exact Core dependency at 1.21.3 so UI tests can locate Core fixtures in versioned registry installations.
+
+## [1.21.2] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.21.1] - 2026-10-06
 ### Fixed
 - Do not ship a second copy of core's `pip_prebundle`. With two copies, `omni.asset_validator` had two origins

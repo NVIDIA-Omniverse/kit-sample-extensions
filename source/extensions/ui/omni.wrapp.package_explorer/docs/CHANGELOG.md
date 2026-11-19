@@ -4,6 +4,10 @@ Changelog
 This document records all notable changes to ``omni.wrapp.explorer`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [2.4.6] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [2.4.5] - 2026-10-15
 - Replace omni_wrapp_minimal with public ovpackage 0.2.1, retaining the wrapp Python API and explicitly installing local/S3 backend dependencies.
 - Remove obsolete Package Explorer dependencies from the general UI pip bundle; Package Explorer uses its dedicated prebundle.

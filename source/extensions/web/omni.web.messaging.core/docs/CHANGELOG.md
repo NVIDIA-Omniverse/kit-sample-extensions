@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [0.0.1] - 2025-10-21
 
 ### Added

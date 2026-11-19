@@ -20,7 +20,7 @@ class TestUsdService(base.BaseServiceTest):
         assert result == {"file_uri": ""}
 
     # async def test_open_stage(self):
-    #    stage = "omniverse://ov-sandbox.nvidia.com/Users/"
+    #    stage = "omniverse://nucleus.example.com/Users/"
     #    result, status = await self._post_request_async("/kit/usd/stage", stage)
     #    assert status == 200
 

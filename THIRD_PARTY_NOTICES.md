@@ -1871,8 +1871,9 @@ Exhibit B - "Incompatible With Secondary Licenses" Notice
 | opensearch-py | 2.8.0 | Apache-2.0 | https://pypi.org/project/opensearch-py/ | `deps/services-pip.toml` |
 | ovpackage (local, s3 extras) | 0.2.1 | Apache-2.0 | https://pypi.org/project/ovpackage/0.2.1/ | `deps/package-explorer-pip.toml` |
 | prometheus_client | 0.12.0 | Apache-2.0 AND BSD-2-Clause | https://pypi.org/project/prometheus_client/ | `deps/services-pip.toml` |
+| psutil | 7.1.1 | BSD-3-Clause | https://pypi.org/project/psutil/ | `deps/devtools-pip.toml` |
 | pyjwt | 2.13.0 | MIT | https://pypi.org/project/pyjwt/ | `deps/services-pip.toml` |
-| pynvml | 11.0.0 | BSD License | https://pypi.org/project/pynvml/ | `deps/services-pip.toml` |
+| pynvml | 11.0.0 | BSD License | https://pypi.org/project/pynvml/ | `deps/devtools-pip.toml, deps/services-pip.toml` |
 | pyperclip | 1.8.0 | BSD License | https://pypi.org/project/pyperclip/ | `deps/asset-validator-pip.toml, deps/services-pip.toml` |
 | pyyaml | 6.0.1 | MIT | https://pypi.org/project/pyyaml/ | `deps/services-pip.toml` |
 | redis | 5.0.5 | MIT | https://pypi.org/project/redis/ | `deps/services-pip.toml` |
@@ -1881,6 +1882,7 @@ Exhibit B - "Incompatible With Secondary Licenses" Notice
 | requests | 2.33.0 | Apache-2.0 | https://pypi.org/project/requests/ | `deps/services-pip.toml` |
 | semver | 3.0.4 | BSD-3-Clause | https://github.com/python-semver/python-semver/blob/master/LICENSE.txt | `deps/package-explorer-pip.toml` |
 | setuptools | 80.10.2 | MIT | https://pypi.org/project/setuptools/ | `deps/services-pip.toml` |
+| toml | 0.10.2 | MIT | https://pypi.org/project/toml/ | `deps/devtools-pip.toml` |
 | typer | 0.23.1 | MIT | https://pypi.org/project/typer/ | `deps/package-explorer-pip.toml` |
 | typing_extensions | 4.14.1 | PSF-2.0 | https://pypi.org/project/typing_extensions/ | `deps/services-pip.toml` |
 | urllib3 | >=2.8.0 | MIT | https://pypi.org/project/urllib3/ | `deps/migrated-exts-pip.toml, deps/package-explorer-pip.toml, deps/services-pip.toml` |
@@ -1897,6 +1899,10 @@ Exhibit B - "Incompatible With Secondary Licenses" Notice
 | llvm (clang+llvm-warp) | 22.1.8 | Apache License v2.0 with LLVM Exceptions | https://github.com/llvm/llvm-project/blob/main/llvm/LICENSE.TXT | `llvm-deps.packman.xml, licenses/llvm-LICENSE.txt` |
 | nlohmann_json | 3.10.5.1-b440a32a | MIT | https://github.com/nlohmann/json/blob/v3.10.5/LICENSE.MIT | `assets-deps.packman.xml` |
 | python (CPython, NVIDIA repackage) | 3.10.15+nv3 / 3.10.13+nv2 / 3.10.10+nv1 | PSF-2.0 (plus bundled component licences) | https://github.com/python/cpython/blob/v3.10.15/LICENSE | `target-deps.packman.xml` |
+| rapidjson | 5.2.1-b4cf59b6-repackaged | MIT (+ BSD msinttypes; JSON license only in bin/jsonchecker) | https://github.com/Tencent/rapidjson/blob/master/license.txt | `behavior-tree-deps.packman.xml` |
+| sse2neon | 8731384-main.aebc61a0 | MIT | https://github.com/DLTcollab/sse2neon/blob/master/LICENSE | `animation-deps.packman.xml` |
+| valijson | 0.4.3a71e89e | BSD-2-Clause | https://github.com/tristanpenman/valijson/blob/master/LICENSE | `behavior-tree-deps.packman.xml` |
+| xxhash | 0.8.0 | BSD-2-Clause | https://github.com/Cyan4973/xxHash/blob/v0.8.0/LICENSE | `animation-deps.packman.xml` (linked from the Kit SDK dependency set) |
 
 ### 2.5 Components of the asset converter native library
 

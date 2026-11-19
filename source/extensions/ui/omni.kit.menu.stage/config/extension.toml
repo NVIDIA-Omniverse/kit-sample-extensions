@@ -1,7 +1,8 @@
 [package]
+target.kit = ["111.0"]
 title = "Kit Stage Menu Options"
 description = "Menu options related to USD Stage"
-version = "1.2.7"
+version = "1.2.8"
 category = "Internal"
 authors = ["Ed Quigley"]
 repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"

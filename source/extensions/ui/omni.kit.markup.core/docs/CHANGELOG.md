@@ -3,6 +3,22 @@
 This document records all notable changes to ``omni.kit.markup.core`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [1.3.9] - 2026-11-05
+
+### Changed
+
+- Run the playbar test in an isolated profile, unreliable only on ARM and x86 Linux; keep other platforms and neighboring tests reliable.
+
+## [1.3.8] - 2026-11-05
+
+### Changed
+
+- Remove the temporary `-ovrtx` tag from `omni.kit.hydra_texture` dependency requests.
+
+## [1.3.7] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.3.6] - 2026-10-15
 ### Changed
 - Kit 111 EA1 tests only: the test process no longer fails on the published libraries' string-write refusal lines (OVStage "existing attribute ... has a different type", then `pump_apply_usd_changes failed (12)` and `PUMP apply_usd_changes ... failed`). Every test passes; the libraries fix is #2840. Remove the exclusions for EA2.

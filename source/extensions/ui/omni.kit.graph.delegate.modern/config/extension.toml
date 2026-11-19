@@ -1,7 +1,8 @@
 [package]
+target.kit = ["111.0"]
 title = "Modern Graph Delegate"
 description = "Modern Graph Delegate"
-version = "1.10.15"
+version = "1.10.17"
 authors = ["Min Jiang, Victor Yudin"]
 repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
 keywords = ["graph", "node", "editor"]
@@ -15,6 +16,8 @@ support_level = "Sample"
 [dependencies]
 "omni.kit.widget.graph" = {}
 "omni.ui" = {}
+# Tests enable the shared fixtures introduced in Default Delegate 1.2.7.
+"omni.kit.graph.delegate.default" = { version = "1.2.7", optional = true }
 
 [[python.module]]
 name = "omni.kit.graph.delegate.modern"
@@ -22,7 +25,7 @@ name = "omni.kit.graph.delegate.modern"
 [[test]]
 dependencies = [
     "omni.kit.mainwindow",
-    "omni.kit.graph.editor.example",
+    "omni.kit.graph.delegate.default",
     "omni.kit.graph.editor.core",
     "omni.kit.ui_test"
 ]

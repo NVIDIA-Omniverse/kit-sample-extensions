@@ -1,7 +1,8 @@
 [package]
+target.kit = ["111.0"]
 # Semantic Versioning is used: https://semver.org/
 
-version = "0.9.10"
+version = "0.9.11"
 
 category = "Sample"
 

@@ -1,6 +1,6 @@
 [package]
 # Semantic Versionning is used: https://semver.org/
-version = "107.0.3"
+version = "107.0.5"
 authors = ["John Han"]
 title = "Main Window title bar modifier"
 description = "To modify the icon, title strings, background color on the main window' title bar"
@@ -18,7 +18,7 @@ icon = "icons/titlebar.png"
 "omni.kit.uiapp" = {}
 
 [package.target]
-kit = ["107.0.3"]
+kit = ["111.0"]
 
 [package.writeTarget]
 python = true

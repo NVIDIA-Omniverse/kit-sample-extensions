@@ -55,7 +55,7 @@ async def async_search(query: str, url: str, telemetry_context: Optional[Telemet
 
     async for results in ngsearch.async_search(
         "red rusty barrel",
-        "omniverse://test.ov.nvidia.com/",
+        "omniverse://nucleus.example.com/",
         telemetry_context = TelemetryContext(
             app_name="create",
             app_version="1.2.3",
@@ -104,7 +104,7 @@ async def paginated_search(
 
     async for results in ngsearch.paginated_search(
         "description:blue ext:usd",
-        "omniverse://rc.ov.nvidia.com/Projects",
+        "omniverse://nucleus.example.com/Projects",
         return_embeddings=True,
         batch_size=30,
         telemetry_context = TelemetryContext(
@@ -179,7 +179,7 @@ async def get_embedding_hierarchy(
 
     results = await ngsearch.get_embedding_hierarchy(
         "description:blue ext:usd",
-        "omniverse://rc.ov.nvidia.com/Projects",
+        "omniverse://nucleus.example.com/Projects",
         return_embeddings=True,
         telemetry_context = TelemetryContext(
             app_name="create",
@@ -251,8 +251,8 @@ async def get_embedding_hierarchy_multiserver(
     results = await ngsearch.get_embedding_hierarchy_multiserver(
         "description:blue ext:usd",
         [
-            "omniverse://rc.ov.nvidia.com/Projects",
-            "omniverse://content.ov.nvidia.com/Projects",
+            "omniverse://nucleus.example.com/Projects",
+            "omniverse://nucleus-two.example.com/Projects",
             "s3://omniverse-content-production/Assets/",
         ],
         return_embeddings=True,
@@ -326,7 +326,7 @@ async def get_embeddings(queries: List[str], url: str) -> List[str]:
     import asyncio
 
     async def example():
-        results = await get_embeddings(["red rusty barrel"], "omniverse://rc.ov.nvidia.com/")
+        results = await get_embeddings(["red rusty barrel"], "omniverse://nucleus.example.com/")
         for result in results:
             arr = pickle.loads(result.encode('latin1'))
             print(arr)
@@ -363,7 +363,7 @@ async def telemetry_event_click(
 
     response = await ngsearch.telemetry_event_click(
         query="description:blue ext:usd",
-        url="omniverse://rc.ov.nvidia.com/Projects",
+        url="omniverse://nucleus.example.com/Projects",
         n = 8,
         n_results_total = 32,
         asset_id = 1,
@@ -434,7 +434,7 @@ async def telemetry_event_results_presented(
 
     response = await ngsearch.telemetry_event_results_presented(
         query="description:blue ext:usd",
-        url="omniverse://rc.ov.nvidia.com/Projects",
+        url="omniverse://nucleus.example.com/Projects",
         n = 8,
         n_results_total = 32,
         time_to_present = 0.1,

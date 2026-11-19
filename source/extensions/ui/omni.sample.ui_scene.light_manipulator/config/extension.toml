@@ -9,8 +9,9 @@
 # its affiliates is strictly prohibited.
 
 [package]
+target.kit = ["111.0"]
 title = "Omni.UI Scene Sample for Manipulating Selected Light"
-version = "2.0.1"  # Semantic Versioning is used: https://semver.org/
+version = "2.0.3"  # Semantic Versioning is used: https://semver.org/
 description = "This example shows a 3D manipulator for a selected light"
 category = "Example"  # How to categorize this in the Extension Manager
 changelog = "docs/CHANGELOG.md"
@@ -59,7 +60,7 @@ args = [
     "--reset-user"
 ]
 dependencies = [
-    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.hydra_texture",
     "omni.kit.test_helpers_gfx",
     "omni.kit.viewport.window",
     "omni.kit.ui_test",

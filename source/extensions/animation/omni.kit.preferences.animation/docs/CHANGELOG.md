@@ -2,6 +2,10 @@
 
 This document records all notable changes to `omni.kit.preferences.animation` extension. This project adheres to `Semantic Versioning <https://semver.org/>`.
 
+## [1.5.1] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.5.0] - 2025-12-15
 ### Changed
 - Updated kit-sdk version

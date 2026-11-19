@@ -1,5 +1,15 @@
 # Changelog
 
+## [110.1.4] - 2026-11-10
+
+### Changed
+
+- Rebuild native plugins and bindings against Kit 111.1 main_publiclibs.45 for registry publication.
+
+## [110.1.3] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [110.1.2] - 2026-10-16
 ### Changed
 - Issue a fresh package for verified Windows signing and signed publication metadata.

@@ -2,6 +2,10 @@
 
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [1.1.2] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.1.1] - 2025-08-21
 ### Changed
 - OMPE-56848: Fixed "Detected deprecated setting" in tests by load/save usd files in kit

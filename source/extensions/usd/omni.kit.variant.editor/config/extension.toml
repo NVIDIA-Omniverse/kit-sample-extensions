@@ -1,7 +1,7 @@
 [package]
 title = "Variant Editor"
 description = "Tool for authoring and editing variant sets"
-version = "107.5.13"
+version = "107.5.14"
 category = "Utility"
 authors = ["Adam Shaw"]
 keywords = ["kit", "usd", "variant"]
@@ -10,7 +10,7 @@ preview_image = "data/preview.png"
 icon = "data/variant_editor_icon_base.svg"
 readme = "docs/README.md"
 writeTarget.kit = true
-target.kit = ["110.0"]  # Required for Event 2.0
+target.kit = ["111.0"]
 
 [documentation.pages]
 "Overview" = "docs/overview.md"

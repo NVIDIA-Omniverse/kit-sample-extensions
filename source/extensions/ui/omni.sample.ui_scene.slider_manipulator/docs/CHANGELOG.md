@@ -2,6 +2,20 @@
 
 omni.sample.ui_scene.slider_manipulator
 
+## [2.0.4] - 2026-11-05
+
+### Changed
+
+- Remove the temporary `-ovrtx` tag from `omni.kit.hydra_texture` dependency requests.
+
+## [2.0.3] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
+## [2.0.2] - 2026-10-23
+### Removed
+- Legacy viewport registration and selection suppression, including the dependency on `omni.kit.manipulator.viewport`. The sample uses `omni.kit.viewport.registry` for viewport integration.
+
 ## [2.0.1] - 2026-01-14
 ### Fixed
 - Add guard for zero width to prevent division by zero in slider drag

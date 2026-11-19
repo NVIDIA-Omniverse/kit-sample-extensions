@@ -9,7 +9,6 @@
 __all__ = ["SliderExtension"]
 
 import omni.ext
-from omni.kit.manipulator.viewport import ManipulatorFactory
 from omni.kit.viewport.registry import RegisterScene
 
 from .slider_registry import SliderRegistry
@@ -19,14 +18,8 @@ class SliderExtension(omni.ext.IExt):
     """The entry point to the extension"""
 
     def on_startup(self, ext_id):
-        # Viewport Next: omni.kit.viewport.window
         self._slider_registry = RegisterScene(SliderRegistry, "omni.example.ui_scene.slider_manipulator")
-        # Viewport Legacy: omni.kit.window.viewport
-        self._slider_factory = ManipulatorFactory.create_manipulator(SliderRegistry)
 
     def on_shutdown(self):
-        ManipulatorFactory.destroy_manipulator(self._slider_factory)
-        self._slider_factory = None
-
         self._slider_registry.destroy()
         self._slider_registry = None

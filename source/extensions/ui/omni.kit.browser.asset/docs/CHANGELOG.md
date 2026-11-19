@@ -3,6 +3,10 @@
 This document records all notable changes to ``omni.kit.browser.asset`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [1.3.18] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.3.17] - 2026-10-06
 ### Changed
 - Asset folders use the S3 regional endpoint `omniverse-content-production.s3.us-west-2.amazonaws.com` instead of the legacy `s3-us-west-2` form. Under an Omniverse Storage API sign-in, omni.client 2.75 serves the regional endpoint directly and denies the legacy form.

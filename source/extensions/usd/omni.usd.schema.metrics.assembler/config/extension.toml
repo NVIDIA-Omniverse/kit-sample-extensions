@@ -4,10 +4,11 @@ reloadable = false
 order = -150
 
 [package]
+target.kit = ["111.0"]
 title = "USD Schema For Metrics Assembler"
 description="USD Schema For Metrics Assembler"
 toggleable = false
-version = "110.1.2"
+version = "110.1.4"
 authors = ["Ales Borovicka"]
 category = "Example"
 repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"

@@ -15,8 +15,17 @@ from omni.ui.tests.test_base import OmniUiTest
 from pxr import Gf, UsdGeom
 
 from ..teleport_manipulator import (
+    ARC_REFERENCE_DISTANCE_CM,
+    ARC_REFERENCE_TAN_HALF_FOV,
+    BEAM_FADE_MIN_ALPHA,
+    BEAM_FADE_SEGMENTS,
+    BEAM_RGB,
     POINT_COUNT,
     Bezier4,
+    build_beam_fade_ribbon,
+    get_arc_frustum_scale,
+    get_beam_fade_alpha,
+    get_beam_start,
     get_bezier_offset,
     get_label_offset,
     get_ring_probe_offset,
@@ -82,6 +91,139 @@ class TestTeleportUnitsMath(OmniUiTest):
         self.assertAlmostEqual(get_bezier_offset(10000.0, 1.0), 15.0)
         self.assertAlmostEqual(get_bezier_offset(100.0, 0.01), 0.15)
 
+    async def test_arc_frustum_scale(self):
+        """The arc is drawn for its reference frustum and scaled up about the eye when the frustum is larger."""
+        ref_tan = ARC_REFERENCE_TAN_HALF_FOV
+        # Up to the reference frustum the arc is unchanged.
+        self.assertEqual(get_arc_frustum_scale(100.0, ref_tan), 1.0)
+        self.assertEqual(get_arc_frustum_scale(ARC_REFERENCE_DISTANCE_CM, ref_tan), 1.0)
+        # Zoomed out: the frustum at the target grows with the distance.
+        self.assertAlmostEqual(get_arc_frustum_scale(4 * ARC_REFERENCE_DISTANCE_CM, ref_tan), 4.0)
+        # A wider lens grows the frustum too; a narrower one at the reference distance never shrinks the arc.
+        self.assertAlmostEqual(get_arc_frustum_scale(ARC_REFERENCE_DISTANCE_CM, 2 * ref_tan), 2.0)
+        self.assertEqual(get_arc_frustum_scale(ARC_REFERENCE_DISTANCE_CM, 0.5 * ref_tan), 1.0)
+        # Unknown field of view (orthographic, no camera): unscaled.
+        self.assertEqual(get_arc_frustum_scale(10 * ARC_REFERENCE_DISTANCE_CM, 0.0), 1.0)
+
+    async def test_beam_start_stays_at_the_bottom_of_the_screen(self):
+        """The beam starts 5cm ahead and 2cm screen-down of the eye, whichever way the camera looks."""
+        eye = Gf.Vec3d(10.0, 170.0, -3.0)
+
+        # Level view (Y up): screen-down is world-down, as the beam always assumed.
+        start = get_beam_start(eye, Gf.Vec3d(0, 0, -1), Gf.Vec3d(0, 1, 0), 1.0)
+        self.assertTrue(Gf.IsClose(start, eye + Gf.Vec3d(0.0, -2.0, -5.0), 1e-9))
+
+        # Looking straight down, the camera's up is world -Z. The start stays 2cm screen-down of the view axis
+        # (below the screen center) instead of moving onto the view axis, as a world-down offset did.
+        start = get_beam_start(eye, Gf.Vec3d(0, -1, 0), Gf.Vec3d(0, 0, -1), 1.0)
+        self.assertTrue(Gf.IsClose(start, eye + Gf.Vec3d(0.0, -5.0, 2.0), 1e-9))
+
+        # Scaled with the stage units.
+        start = get_beam_start(eye, Gf.Vec3d(0, -1, 0), Gf.Vec3d(0, 0, -1), 0.01)
+        self.assertTrue(Gf.IsClose(start, eye + Gf.Vec3d(0.0, -0.05, 0.02), 1e-12))
+
+    async def test_facing_from_above_follows_the_camera_heading(self):
+        """The target's facing is the camera-to-target direction, nudged toward the camera's heading."""
+        from ..teleport import FACING_HEADING_BIAS, get_facing_origin
+
+        world_up = Gf.Vec3d(0, 1, 0)
+        target = Gf.Vec3d(0, 0, 0)
+
+        def facing(cam_pos, cam_forward, cam_up):
+            origin = get_facing_origin(cam_pos, cam_forward, cam_up, world_up, (cam_pos - target).GetLength())
+            away = target - origin  # the target faces away from the origin
+            return (away - world_up * Gf.Dot(away, world_up)).GetNormalized()
+
+        # Level view toward a target straight ahead: unchanged, it faces along the view.
+        self.assertTrue(Gf.IsClose(facing(Gf.Vec3d(0, 0, 1000), Gf.Vec3d(0, 0, -1), world_up), Gf.Vec3d(0, 0, -1), 1e-9))
+
+        # Level view toward a target off to the side: still essentially the camera-to-target direction.
+        cam_pos = Gf.Vec3d(1000, 0, 1000)
+        to_target = (target - cam_pos).GetNormalized()
+        self.assertGreater(Gf.Dot(facing(cam_pos, Gf.Vec3d(0, 0, -1), world_up), to_target), 0.99)
+
+        # Straight above the target looking down, top of the screen toward -Z: the camera-to-target direction has
+        # no ground component, so the facing is the camera's heading (the top of the screen).
+        down = facing(Gf.Vec3d(0, 1000, 0), Gf.Vec3d(0, -1, 0), Gf.Vec3d(0, 0, -1))
+        self.assertTrue(Gf.IsClose(down, Gf.Vec3d(0, 0, -1), 1e-9))
+        self.assertGreater(FACING_HEADING_BIAS, 0.0)
+
+    async def test_beam_fade_ribbon(self):
+        """The fading beam start is one eye-facing ribbon whose alpha ramps smoothly along the curve."""
+        from omni.ui import color as cl
+
+        # Smoothstep over the fade: the minimum alpha at the start, 1 at the end and beyond, always rising.
+        self.assertAlmostEqual(get_beam_fade_alpha(0), BEAM_FADE_MIN_ALPHA)
+        self.assertAlmostEqual(get_beam_fade_alpha(BEAM_FADE_SEGMENTS), 1.0)
+        self.assertAlmostEqual(get_beam_fade_alpha(4 * BEAM_FADE_SEGMENTS), 1.0)
+        alphas = [get_beam_fade_alpha(k) for k in range(BEAM_FADE_SEGMENTS + 1)]
+        self.assertEqual(alphas, sorted(alphas))
+        # Gentle at both ends (no corner where the beam turns opaque): the end steps are far smaller than the middle.
+        middle_step = alphas[BEAM_FADE_SEGMENTS // 2 + 1] - alphas[BEAM_FADE_SEGMENTS // 2]
+        self.assertLess(alphas[1] - alphas[0], middle_step / 10)
+        self.assertLess(alphas[-1] - alphas[-2], middle_step / 10)
+
+        # The real beam path, eye-relative (the eye is the origin): a level camera 2.5m above the ground and a
+        # target 36m ahead. Its on-screen direction reverses inside the ribbon section, where the raw cross
+        # product changes sign.
+        bezier = Bezier4(get_beam_start(Gf.Vec3d(0.0), Gf.Vec3d(0, 0, -1), Gf.Vec3d(0, 1, 0)),
+                         Gf.Vec3d(0.0, -250.0, -3600.0), Gf.Vec3d(0, 1, 0), 3600.0)
+        curve = [bezier.get_point_more(j) for j in range(41)]
+        half_width = 0.06
+        positions, colors, counts, indices = build_beam_fade_ribbon(curve, half_width)
+
+        self.assertEqual(len(positions), 2 * len(curve))
+        self.assertEqual(counts, [4] * (len(curve) - 1))
+        self.assertEqual(len(indices), 4 * (len(curve) - 1))
+        self.assertEqual(len(colors), len(indices))  # one color per face-vertex
+        previous_side = None
+        for k, point in enumerate(curve):
+            left, right = Gf.Vec3d(*positions[2 * k]), Gf.Vec3d(*positions[2 * k + 1])
+            side = left - right
+            # Centered on the curve, the tube's width, and perpendicular to the view ray (faces the eye).
+            self.assertTrue(Gf.IsClose((left + right) / 2, point, 1e-9))
+            self.assertAlmostEqual(side.GetLength(), 2 * half_width)
+            self.assertAlmostEqual(Gf.Dot(side.GetNormalized(), point.GetNormalized()), 0.0)
+            # Left and right never swap between samples, so no quad twists into a bow-tie.
+            if previous_side is not None:
+                self.assertGreater(Gf.Dot(side, previous_side), 0.0)
+            previous_side = side
+        # Each face-vertex takes the alpha of its curve point, so adjacent quads share colors at the seam.
+        for color, index in zip(colors, indices):
+            self.assertEqual(color, cl(*BEAM_RGB, get_beam_fade_alpha(index // 2)))
+
+        # Orthographic camera: the ribbon faces the fixed view direction, not the ray from the eye.
+        view = Gf.Vec3d(0, 0, -1)
+        positions, _, _, _ = build_beam_fade_ribbon(curve, half_width, view)
+        for k in range(len(curve)):
+            side = Gf.Vec3d(*positions[2 * k]) - Gf.Vec3d(*positions[2 * k + 1])
+            self.assertAlmostEqual(Gf.Dot(side, view), 0.0)
+            self.assertAlmostEqual(side.GetLength(), 2 * half_width)
+
+    async def test_facing_holds_where_its_ground_direction_vanishes(self):
+        """Near the point below the camera the facing has no ground direction: the previous facing is kept."""
+        from types import SimpleNamespace
+
+        from ..teleport import Teleport, get_facing_origin
+
+        up = Gf.Vec3d(0, 1, 0)
+        cam_pos = Gf.Vec3d(0, 1000, 0)
+        state = SimpleNamespace(_widgetPos=None, _last_facing_ground=None)
+        angles = []
+        # Sweep the target toward the bottom of the screen (+Z) through the point where the nudged facing cancels.
+        for z in [5.0 * k for k in range(0, 41)]:
+            state._widgetPos = Gf.Vec3d(0, 0, z)
+            origin = get_facing_origin(cam_pos, Gf.Vec3d(0, -1, 0), Gf.Vec3d(0, 0, -1), up, (cam_pos - state._widgetPos).GetLength())
+            origin = Teleport._stabilize_facing_origin(state, origin, up)
+            away = state._widgetPos - origin
+            ground = away - up * Gf.Dot(away, up)
+            # Always a usable ground direction: never the arbitrary zero-length fallback.
+            self.assertGreater(ground.GetLength(), 0.0)
+            angles.append(ground.GetNormalized())
+        # It faces the top of the screen (-Z) before the cancellation point and turns around after it.
+        self.assertTrue(Gf.IsClose(angles[0], Gf.Vec3d(0, 0, -1), 1e-9))
+        self.assertTrue(Gf.IsClose(angles[-1], Gf.Vec3d(0, 0, 1), 1e-9))
+
     async def test_label_offset_scales_with_stage_units(self):
         """The position label sits the same physical height above the target on any stage."""
         # 240 + 1000/1000*50 = 290cm
@@ -113,6 +255,95 @@ class TestTeleportUnitsMath(OmniUiTest):
 
 class TestTeleportUnits(TestTeleportBase):
     """Stage- and viewport-dependent units behavior."""
+
+    async def test_z_up_top_down_target_and_beam(self):
+        """Exercise the Z-up angle branch and real beam construction in centimeters and meters."""
+        import math
+        from types import SimpleNamespace
+        from unittest.mock import patch
+
+        from omni.ui import scene as sc
+        from pxr import Sdf
+
+        from .. import teleport_manipulator as beam
+        from ..teleport_page import TELE_BEAM_VISIBLE
+
+        if is_viewport_legacy():
+            self.skipTest("Requires the modern viewport camera")
+
+        viewport = get_active_viewport()
+        old_camera = viewport.camera_path
+        stage = omni.usd.get_context().get_stage()
+        old_up = UsdGeom.GetStageUpAxis(stage)
+        old_units = UsdGeom.GetStageMetersPerUnit(stage)
+        camera_path = "/TeleportZUpTestCamera"
+        self.assertFalse(stage.GetPrimAtPath(camera_path))
+        camera = UsdGeom.Camera.Define(stage, camera_path)
+        # Identity rotation: looks down -Z, with screen-up along +Y. No look-at pole ambiguity.
+        translation = camera.AddTranslateOp()
+        model = self._teleport.get_model()
+        old_beam = self._settings.get(TELE_BEAM_VISIBLE)
+        state_names = ("_widgetPos", "_widgetUp", "_current_angle", "_last_facing_ground",
+                       "_need_skip_teleport_frame", "_draging")
+        old_state = {name: getattr(self._teleport, name) for name in state_names}
+        scene = sc.SceneView()
+        try:
+            UsdGeom.SetStageUpAxis(stage, UsdGeom.Tokens.z)
+            viewport.camera_path = camera_path
+            self._settings.set(TELE_BEAM_VISIBLE, True)
+            with scene.scene:
+                manipulator = beam.TeleportManipulator(model=model)
+            for meters_per_unit in (0.01, 1.0):
+                with self.subTest(meters_per_unit=meters_per_unit):
+                    UsdGeom.SetStageMetersPerUnit(stage, meters_per_unit)
+                    translation.Set(Gf.Vec3d(0, 0, 10 / meters_per_unit))
+                    camera.GetPrim().CreateAttribute("omni:kit:centerOfInterest", Sdf.ValueTypeNames.Vector3d).Set(
+                        Gf.Vec3d(0, 0, -10 / meters_per_unit)
+                    )
+                    await ui_test.wait_n_updates(5)
+                    self._teleport._need_skip_teleport_frame = False
+                    self._teleport._draging = False
+                    self._teleport._last_facing_ground = None
+                    # Only the viewport pick is supplied; camera reads, axis selection, widget and model are real.
+                    hit = SimpleNamespace(valid=True, hit_position=(0, 0, 0), normal=(0, 0, 1))
+                    self._teleport.on_moved((0.0, 0.0), hit)
+                    self.assertTrue(Gf.IsClose(model.world_up, Gf.Vec3d.ZAxis(), 1e-9))
+                    self.assertTrue(Gf.IsClose(model.visual_up, Gf.Vec3d.ZAxis(), 1e-9))
+                    ground_front = Gf.Vec3d(model.visual_front[0], model.visual_front[1], 0).GetNormalized()
+                    self.assertTrue(Gf.IsClose(ground_front, -Gf.Vec3d.YAxis(), 1e-9))
+                    self.assertAlmostEqual(math.cos(model.angle), 0.0, places=6)
+                    self.assertAlmostEqual(math.sin(model.angle), -1.0, places=6)
+                    self.assertTrue(self._teleport._widget.can_teleport())
+
+                    # Observe the curve produced by draw(), including its real camera-up and unit conversions.
+                    model.visible = True
+                    with patch.object(beam, "Bezier4", wraps=Bezier4) as curve:
+                        manipulator.on_build()
+                    curve.assert_called_once()
+                    start, end, up, distance = curve.call_args.args
+                    self.assertTrue(Gf.IsClose(start * meters_per_unit, Gf.Vec3d(0, -0.02, -0.05), 1e-9))
+                    self.assertTrue(Gf.IsClose(end * meters_per_unit, Gf.Vec3d(0, 0, -10), 1e-9))
+                    self.assertTrue(Gf.IsClose(up, Gf.Vec3d.ZAxis(), 1e-9))
+                    arc = Bezier4(*curve.call_args.args, **curve.call_args.kwargs)
+                    chord_control = start + (end - start) / 200.0
+                    bulge = (arc.p2 - chord_control) * meters_per_unit
+                    self.assertAlmostEqual(bulge[0], 0.0)
+                    self.assertAlmostEqual(bulge[1], 0.0)
+                    self.assertGreater(bulge[2], 0.0)
+        finally:
+            scene.scene.clear()
+            model.visible = False
+            for name, value in old_state.items():
+                setattr(self._teleport, name, value)
+            if old_beam is None:
+                self._settings.destroy_item(TELE_BEAM_VISIBLE)
+            else:
+                self._settings.set(TELE_BEAM_VISIBLE, old_beam)
+            viewport.camera_path = old_camera
+            stage.RemovePrim(camera_path)
+            UsdGeom.SetStageUpAxis(stage, old_up)
+            UsdGeom.SetStageMetersPerUnit(stage, old_units)
+            await ui_test.wait_n_updates(5)
 
     async def test_units_scale_property(self):
         """TeleportModel.units_scale converts centimeters to stage units for any stage."""

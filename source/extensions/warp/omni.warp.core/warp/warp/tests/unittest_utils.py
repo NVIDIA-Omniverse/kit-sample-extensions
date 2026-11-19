@@ -1,0 +1,588 @@
+# SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+import ctypes
+import ctypes.util
+import functools
+import gc
+import importlib.util
+import io
+import os
+import re
+import sys
+import tempfile
+import time
+import unittest
+import xml.etree.ElementTree as ET
+
+
+def _normalize_direct_test_sys_path():
+    """Keep direct test execution from shadowing installed top-level packages.
+
+    Running a test file by path makes Python place that file's directory first
+    on ``sys.path``. For files under ``warp/tests``, that can make test
+    packages such as ``warp/tests/cuda`` shadow unrelated installed packages
+    with the same top-level name. Keep the repository root importable while
+    removing the tests package root from import precedence.
+    """
+    tests_root = os.path.dirname(os.path.abspath(__file__))
+    repo_root = os.path.dirname(os.path.dirname(tests_root))
+    normalized_sys_path = {os.path.abspath(path or os.getcwd()) for path in sys.path}
+
+    if repo_root not in normalized_sys_path:
+        sys.path.insert(0, repo_root)
+
+    sys.path[:] = [path for path in sys.path if os.path.abspath(path or os.getcwd()) != tests_root]
+
+
+_normalize_direct_test_sys_path()
+
+import numpy as np  # noqa: E402
+
+import warp as wp  # noqa: E402
+
+pxr = importlib.util.find_spec("pxr")
+USD_AVAILABLE = pxr is not None
+
+
+def make_isolated_kernel(func, **kwargs):
+    """Build a :class:`warp.Kernel` in a module of its own.
+
+    A kernel that fails to build fails its whole module, so a test that builds a
+    deliberately broken kernel has to keep it out of the test file's module.
+    ``@wp.kernel(module="unique")`` covers the decorator form; this covers the
+    kernels tests construct directly, and the cases where ``module="unique"``
+    would surface the failure too early (it hashes, and so builds, the kernel at
+    decoration time). The module name is keyed on the definition site rather than
+    the qualified name alone, so a test that rebinds the same name to several
+    broken kernels still gets one module each.
+    """
+    key = f"{func.__module__}.{func.__qualname__}:{func.__code__.co_firstlineno}"
+    return wp.Kernel(func=func, module=wp.get_module(key), **kwargs)
+
+
+# default test mode (see get_test_devices())
+#   "basic" - only run on CPU and first GPU device
+#   "unique" - run on CPU and all unique GPU arches
+#   "unique_or_2x" - run on CPU and all unique GPU arches. If there is a single GPU arch, add a second GPU if it exists.
+#   "all" - run on all devices
+test_mode = "unique_or_2x"
+
+coverage_enabled = False
+coverage_temp_dir = None
+coverage_branch = None
+
+try:
+    if sys.platform == "win32":
+        LIBC = ctypes.CDLL("ucrtbase.dll")
+    else:
+        LIBC = ctypes.CDLL(ctypes.util.find_library("c"))
+except OSError:
+    print("Failed to load the standard C library")
+    LIBC = None
+
+
+def get_selected_cuda_test_devices(mode: str | None = None):
+    """Returns a list of CUDA devices according the selected ``mode`` behavior.
+
+    If ``mode`` is ``None``, the ``global test_mode`` value will be used and
+    this list will be a subset of the devices returned from ``get_test_devices()``.
+
+    Args:
+        mode: ``"basic"``, returns a list containing up to a single CUDA device.
+          ``"unique"``, returns a list containing no more than one device of
+          every CUDA architecture on the system.
+          ``"unique_or_2x"`` behaves like ``"unique"`` but adds up to one
+          additional CUDA device if the system only devices of a single CUDA
+          architecture.
+    """
+
+    if mode is None:
+        mode = test_mode
+
+    if mode == "basic":
+        if wp.is_cuda_available():
+            return [wp.get_device("cuda:0")]
+        else:
+            return []
+
+    cuda_devices = wp.get_cuda_devices()
+    first_cuda_devices = {}
+
+    for d in cuda_devices:
+        if d.arch not in first_cuda_devices:
+            first_cuda_devices[d.arch] = d
+
+    selected_cuda_devices = list(first_cuda_devices.values())
+
+    if mode == "unique_or_2x" and len(selected_cuda_devices) == 1 and len(cuda_devices) > 1:
+        for d in cuda_devices:
+            if d not in selected_cuda_devices:
+                selected_cuda_devices.append(d)
+                break
+
+    return selected_cuda_devices
+
+
+def get_test_devices(mode: str | None = None):
+    """Returns a list of devices based on the mode selected.
+
+    Args:
+        mode: The testing mode to specify which devices to include. If not provided or ``None``, the
+          ``global test_mode`` value will be used.
+          "basic": Returns the CPU and the first GPU device when available.
+          "unique": Returns the CPU and all unique GPU architectures.
+          "unique_or_2x" (default): Behaves like "unique" but adds up to one additional CUDA device
+            if the system only devices of a single CUDA architecture.
+          "all": Returns all available devices.
+    """
+    if mode is None:
+        mode = test_mode
+
+    devices = []
+
+    if mode == "basic":
+        # only run on CPU and first GPU device
+        if wp.is_cpu_available():
+            devices.append(wp.get_device("cpu"))
+        if wp.is_cuda_available():
+            devices.append(wp.get_device("cuda:0"))
+    elif mode == "unique" or mode == "unique_or_2x":
+        # run on CPU and a subset of GPUs
+        if wp.is_cpu_available():
+            devices.append(wp.get_device("cpu"))
+        devices.extend(get_selected_cuda_test_devices(mode))
+    elif mode == "all":
+        # run on all devices
+        devices = wp.get_devices()
+    else:
+        raise ValueError(f"Unknown test mode selected: {mode}")
+
+    return devices
+
+
+def get_cuda_test_devices(mode=None):
+    devices = get_test_devices(mode=mode)
+    return [d for d in devices if d.is_cuda]
+
+
+def get_cuda_device_pair_with_peer_access_support(devices=None):
+    """Return the first CUDA pair where ``peer_device`` can access ``target_device`` allocations."""
+
+    if devices is None:
+        devices = wp.get_cuda_devices()
+
+    cuda_devices = [device for device in devices if device.is_cuda]
+    for target_device in cuda_devices:
+        for peer_device in cuda_devices:
+            if target_device != peer_device and wp.is_peer_access_supported(target_device, peer_device):
+                return target_device, peer_device
+
+    return None
+
+
+def get_cuda_device_pair_with_mempool_access_support(devices=None):
+    """Return the first CUDA pair where ``peer_device`` can access ``target_device`` memory pools."""
+
+    if devices is None:
+        devices = wp.get_cuda_devices()
+
+    cuda_devices = [device for device in devices if device.is_cuda]
+    for target_device in cuda_devices:
+        for peer_device in cuda_devices:
+            if target_device != peer_device and wp.is_mempool_access_supported(target_device, peer_device):
+                return target_device, peer_device
+
+    return None
+
+
+def get_test_devices_with_graph_capture_allocation(mode: str | None = None):
+    """Like :func:`get_test_devices`, but drops devices that cannot allocate during graph capture.
+
+    Use this getter to gate tests that allocate inside a graph capture so they skip
+    cleanly on devices without the capability. CUDA requires memory-pool support
+    (``cudaMallocAsync`` is the only capture-safe allocator); CPU/APIC capture
+    allocates through the host allocator (kept valid by APIC region retention) and is
+    always supported. See ``warp._src.context._is_graph_capture_allocation_supported``.
+    """
+    from warp._src.context import _is_graph_capture_allocation_supported  # noqa: PLC0415
+
+    return [d for d in get_test_devices(mode) if _is_graph_capture_allocation_supported(d)]
+
+
+def is_cuda_graph_module_load_supported(device) -> bool:
+    """Return whether modules can be loaded during CUDA graph capture."""
+    driver_version = wp.get_cuda_driver_version()
+    return not device.is_cuda or (driver_version is not None and driver_version >= (12, 3))
+
+
+def get_test_devices_with_cuda_graph_module_load(mode: str | None = None):
+    """Like :func:`get_test_devices`, but drops CUDA devices using drivers older than 12.3.
+
+    CUDA module loading during graph capture requires a driver supporting CUDA
+    12.3 or newer. CPU devices pass through unchanged because CPU graph capture
+    uses APIC recording rather than CUDA driver graph capture.
+    """
+    return [d for d in get_test_devices(mode) if is_cuda_graph_module_load_supported(d)]
+
+
+def get_test_devices_with_graph_capture_allocation_and_cuda_graph_module_load(mode: str | None = None):
+    """Like :func:`get_test_devices_with_graph_capture_allocation`, but also gates CUDA graph module loading."""
+    return [d for d in get_test_devices_with_graph_capture_allocation(mode) if is_cuda_graph_module_load_supported(d)]
+
+
+def get_cuda_test_devices_with_mempool(mode=None):
+    """Like :func:`get_cuda_test_devices`, but drops CUDA devices without memory pool support.
+
+    See :func:`get_test_devices_with_graph_capture_allocation` for context on why mempool
+    support is required for in-capture allocation on CUDA.
+    """
+    return [d for d in get_cuda_test_devices(mode) if d.is_mempool_supported]
+
+
+def get_selected_cuda_test_devices_with_mempool(mode: str | None = None):
+    """Like :func:`get_selected_cuda_test_devices`, but drops CUDA devices without memory pool support.
+
+    See :func:`get_test_devices_with_graph_capture_allocation` for context on why mempool
+    support is required for in-capture allocation on CUDA.
+    """
+    return [d for d in get_selected_cuda_test_devices(mode) if d.is_mempool_supported]
+
+
+class StreamCapture:
+    def __init__(self, stream_name):
+        self.stream_name = stream_name  # 'stdout' or 'stderr'
+        self.saved = None
+        self.target = None
+        self.tempfile = None
+
+    def begin(self):
+        # Flush the stream buffers managed by libc.
+        # This is needed at the moment due to Carbonite not flushing the logs
+        # being printed out when extensions are starting up.
+        if LIBC is not None:
+            LIBC.fflush(None)
+
+        # Get the stream object (sys.stdout or sys.stderr)
+        self.saved = getattr(sys, self.stream_name)
+        self.target = os.dup(self.saved.fileno())
+
+        # Create temporary capture stream
+        self.tempfile = io.TextIOWrapper(
+            tempfile.TemporaryFile(buffering=0),
+            encoding="utf-8",
+            errors="replace",
+            newline="",
+            write_through=True,
+        )
+
+        # Redirect the stream
+        os.dup2(self.tempfile.fileno(), self.saved.fileno())
+        setattr(sys, self.stream_name, self.tempfile)
+
+    def end(self):
+        # The following sleep doesn't seem to fix the test_print failure on Windows
+        # if sys.platform == "win32":
+        #    # Workaround for what seems to be a Windows-specific bug where
+        #    # the output of CUDA's printf is not being immediately flushed
+        #    # despite the context synchronization.
+        #    time.sleep(0.01)
+        if LIBC is not None:
+            LIBC.fflush(None)
+
+        # Restore the original stream
+        os.dup2(self.target, self.saved.fileno())
+        os.close(self.target)
+
+        # Read the captured output
+        self.tempfile.seek(0)
+        res = self.tempfile.buffer.read()
+        self.tempfile.close()
+
+        # Restore the stream object
+        setattr(sys, self.stream_name, self.saved)
+
+        return str(res.decode("utf-8"))
+
+
+# Subclasses for specific streams
+class StdErrCapture(StreamCapture):
+    def __init__(self):
+        super().__init__("stderr")
+
+
+class StdOutCapture(StreamCapture):
+    def __init__(self):
+        super().__init__("stdout")
+
+
+class CheckOutput:
+    def __init__(self, test):
+        self.test = test
+
+    def __enter__(self):
+        # wp.force_load()
+
+        self.capture = StdOutCapture()
+        self.capture.begin()
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        # ensure any stdout output is flushed
+        wp.synchronize()
+
+        s = self.capture.end()
+        if s != "":
+            print(s.rstrip())
+
+            # fail if test produces unexpected output (e.g.: from wp.expect_eq() builtins)
+            # we allow strings starting of the form "Module xxx load on device xxx"
+            # for lazy loaded modules
+            filtered_s = "\n".join(
+                [line for line in s.splitlines() if not (line.startswith("Module") and "load on device" in line)]
+            )
+
+            if filtered_s.strip():
+                self.test.fail(f"Unexpected output:\n'{s.rstrip()}'")
+
+
+def assert_array_equal(result: wp.array, expect: wp.array):
+    np.testing.assert_equal(result.numpy(), expect.numpy())
+
+
+def assert_np_equal(result: np.ndarray, expect: np.ndarray, tol=0.0):
+    if tol != 0.0:
+        # TODO: Get all tests working without the .flatten()
+        np.testing.assert_allclose(result.flatten(), expect.flatten(), atol=tol, equal_nan=True)
+    else:
+        # TODO: Get all tests working with strict=True
+        np.testing.assert_array_equal(result, expect)
+
+
+# if check_output is True any output to stdout will be treated as an error
+def create_test_func(func, device, check_output, device_check=None, **kwargs):
+    # pass args to func
+    @functools.wraps(func)
+    def test_func(self):
+        if device_check is not None:
+            device_check(self, device)
+
+        if check_output:
+            with CheckOutput(self):
+                func(self, device, **kwargs)
+        else:
+            func(self, device, **kwargs)
+
+    return test_func
+
+
+def skip_test_func(self):
+    # A function to use so we can tell unittest that the test was skipped.
+    self.skipTest("No suitable devices to run the test.")
+
+
+def sanitize_identifier(s):
+    """replace all non-identifier characters with '_'"""
+
+    s = str(s)
+    if s.isidentifier():
+        return s
+    else:
+        return re.sub(r"\W|^(?=\d)", "_", s)
+
+
+def add_function_test(cls, name, func, devices=None, check_output=True, device_check=None, **kwargs):
+    if devices is None:
+        setattr(cls, name, create_test_func(func, None, check_output, device_check=device_check, **kwargs))
+    elif isinstance(devices, list):
+        if not devices:
+            # No devices to run this test
+            setattr(cls, name, skip_test_func)
+        else:
+            for device in devices:
+                setattr(
+                    cls,
+                    name + "_" + sanitize_identifier(device),
+                    create_test_func(func, device, check_output, device_check=device_check, **kwargs),
+                )
+    else:
+        setattr(
+            cls,
+            name + "_" + sanitize_identifier(devices),
+            create_test_func(func, devices, check_output, device_check=device_check, **kwargs),
+        )
+
+
+def add_kernel_test(cls, kernel, dim, name=None, expect=None, inputs=None, devices=None, inputs_factory=None):
+    if inputs is not None and inputs_factory is not None:
+        raise ValueError("Only one of `inputs` and `inputs_factory` may be provided.")
+
+    def test_func(self, device):
+        args = []
+        test_inputs = inputs_factory(device) if inputs_factory is not None else inputs
+        if test_inputs:
+            args.extend(test_inputs)
+
+        if expect:
+            # allocate outputs to match results
+            result = wp.array(expect, dtype=int, device=device)
+            output = wp.zeros_like(result)
+
+            args.append(output)
+
+        # Force-load the same module variant that wp.launch() will use so that
+        # we don't generate any log output during launch. CPU launches always
+        # use a block dimension of 1, regardless of the launch default.
+        load_block_dim = 1 if wp.get_device(device).is_cpu else None
+        kernel.module.load(device, block_dim=load_block_dim)
+
+        with CheckOutput(self):
+            wp.launch(kernel, dim=dim, inputs=args, device=device)
+
+        # check output values
+        if expect:
+            assert_array_equal(output, result)
+
+    if name is None:
+        name = kernel.key
+
+    # device is required for kernel tests, so use all devices if none were given
+    if devices is None:
+        devices = get_test_devices()
+
+    # register test func with class for the given devices
+    for d in devices:
+        # use a function to forward the device to the inner test function
+        def test_func_wrapper(test, device=d):
+            test_func(test, device)
+
+        setattr(cls, name + "_" + sanitize_identifier(d), test_func_wrapper)
+
+
+# helper that first calls the test function to generate all kernel permutations
+# so that compilation is done in one-shot instead of per-test
+def add_function_test_register_kernel(cls, name, func, devices=None, **kwargs):
+    func(None, None, **kwargs, register_kernels=True)
+    add_function_test(cls, name, func, devices=devices, **kwargs)
+
+
+def write_junit_results(
+    outfile: str,
+    test_records: list,
+    tests_run: int,
+    tests_failed: int,
+    tests_errored: int,
+    tests_skipped: int,
+    test_duration: float,
+):
+    """Write a JUnit XML from our report data
+
+    The report file is needed for GitLab to add test reports in merge requests.
+    """
+    root = ET.Element(
+        "testsuite",
+        name="Warp Tests",
+        failures=str(tests_failed),
+        errors=str(tests_errored),
+        skipped=str(tests_skipped),
+        tests=str(tests_run),
+        time=f"{test_duration:.3f}",
+    )
+
+    for test_data in test_records:
+        test_classname = test_data[0]
+        test_methodname = test_data[1]
+        test_duration = test_data[2]
+        test_status = test_data[3]
+
+        test_case = ET.SubElement(
+            root, "testcase", classname=test_classname, name=test_methodname, time=f"{test_duration:.3f}"
+        )
+
+        if test_status == "FAIL":
+            failure = ET.SubElement(test_case, "failure", message=str(test_data[4]))
+            failure.text = str(test_data[5])  # Stacktrace
+        elif test_status == "ERROR":
+            error = ET.SubElement(test_case, "error")
+            error.text = str(test_data[5])  # Stacktrace
+        elif test_status == "SKIP":
+            skip = ET.SubElement(test_case, "skipped")
+            # Set the skip reason
+            skip.set("message", str(test_data[4]))
+
+    tree = ET.ElementTree(root)
+
+    if hasattr(ET, "indent"):
+        ET.indent(root)  # Pretty-printed XML output
+
+    tree.write(outfile, encoding="utf-8", xml_declaration=True)
+
+
+class ParallelJunitTestResult(unittest.TextTestResult):
+    def __init__(self, stream, descriptions, verbosity):
+        stream = type(stream)(sys.stderr)
+        self.test_record = []
+        super().__init__(stream, descriptions, verbosity)
+
+    def startTest(self, test):
+        if self.showAll:
+            self.stream.writeln(f"{self.getDescription(test)} ...")
+            self.stream.flush()
+        self.start_time = time.perf_counter_ns()
+        super(unittest.TextTestResult, self).startTest(test)
+
+    def stopTest(self, test):
+        super().stopTest(test)
+        # Force garbage collection of CPU-side allocations to reduce peak
+        # host RSS in parallel test runs.
+        gc.collect()
+
+    def _add_helper(self, test, dots_message, show_all_message):
+        if self.showAll:
+            self.stream.writeln(f"{self.getDescription(test)} ... {show_all_message}")
+        elif self.dots:
+            self.stream.write(dots_message)
+        self.stream.flush()
+
+    def _record_test(self, test, code, message=None, details=None):
+        duration = round((time.perf_counter_ns() - self.start_time) * 1e-9, 3)  # [s]
+        self.test_record.append((test.__class__.__name__, test._testMethodName, duration, code, message, details))
+
+    def addSuccess(self, test):
+        super(unittest.TextTestResult, self).addSuccess(test)
+        self._add_helper(test, ".", "ok")
+        self._record_test(test, "OK")
+
+    def addError(self, test, err):
+        super(unittest.TextTestResult, self).addError(test, err)
+        self._add_helper(test, "E", "ERROR")
+        self._record_test(test, "ERROR", str(err[1]), self._exc_info_to_string(err, test))
+
+    def addFailure(self, test, err):
+        super(unittest.TextTestResult, self).addFailure(test, err)
+        self._add_helper(test, "F", "FAIL")
+        self._record_test(test, "FAIL", str(err[1]), self._exc_info_to_string(err, test))
+
+    def addSkip(self, test, reason):
+        super(unittest.TextTestResult, self).addSkip(test, reason)
+        self._add_helper(test, "s", f"skipped {reason!r}")
+        self._record_test(test, "SKIP", reason)
+
+    def addExpectedFailure(self, test, err):
+        super(unittest.TextTestResult, self).addExpectedFailure(test, err)
+        self._add_helper(test, "x", "expected failure")
+        self._record_test(test, "OK", "expected failure")
+
+    def addUnexpectedSuccess(self, test):
+        super(unittest.TextTestResult, self).addUnexpectedSuccess(test)
+        self._add_helper(test, "u", "unexpected success")
+        self._record_test(test, "FAIL", "unexpected success")
+
+    def addSubTest(self, test, subtest, err):
+        super(unittest.TextTestResult, self).addSubTest(test, subtest, err)
+        if err is not None:
+            self._add_helper(test, "E", "ERROR")
+            # err is (class, error, traceback)
+            self._record_test(test, "FAIL", str(err[1]), self._exc_info_to_string(err, test))
+
+    def printErrors(self):
+        pass

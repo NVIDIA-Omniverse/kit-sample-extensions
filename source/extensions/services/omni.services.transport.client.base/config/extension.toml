@@ -1,6 +1,7 @@
 [package]
+target.kit = ["111.0"]
 title = "Omniverse micro service Consumer"
-version = "1.2.5"
+version = "1.2.6"
 changelog = "docs/CHANGELOG.md"
 readme = "docs/README.md"
 icon = "data/icon.png"

@@ -145,7 +145,7 @@ class usd_explorerTooltipWrapper:
             tooltip_data = tooltips_reader.get_tooltip_by_name(tooltip_name)
             if tooltip_data is None:
                 carb.log_warn(f"Please check if tooltip for {tooltip_name} is defined correctly.")
-            shortcut, doc_link, text_desc, image_desc = tooltip_data
+            shortcut, text_desc, doc_link, image_desc = tooltip_data
             widget.set_style(tooltip_style)
             try:
                 global g_text_desc_height

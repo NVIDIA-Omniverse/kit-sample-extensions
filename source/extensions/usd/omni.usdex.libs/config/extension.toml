@@ -1,5 +1,6 @@
 [package]
-version = "3.0.1"
+target.kit = ["111.0"]
+version = "3.0.2"
 title = "OpenUSD Exchange Libraries"
 description = "Vendors the OpenUSD Exchange Libraries so they are easily accessible in Kit."
 authors = [

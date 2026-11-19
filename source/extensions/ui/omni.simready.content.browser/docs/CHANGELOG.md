@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.4.4] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [0.4.3] - 2026-10-15
 - Remove the unused extension-local pip file and nonstandard dependency block. The central migrated-extensions pip manifest owns the existing dedicated bundle.
 

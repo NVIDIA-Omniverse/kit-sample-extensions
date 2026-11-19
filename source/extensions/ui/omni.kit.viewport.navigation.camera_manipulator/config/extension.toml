@@ -1,7 +1,7 @@
 [package]
 # Semantic Versionning is used: https://semver.org/
 
-version = "110.0.4"
+version = "110.0.7"
 
 # Lists people or organizations that are considered the "authors" of the package.
 authors = ["Ning Li"]
@@ -27,7 +27,7 @@ icon = "data/icon.svg"
 writeTarget.kit = true
 
 [package.target]
-kit = ["107.3"]  # Required for Event 2.0
+kit = ["111.0"]
 
 [dependencies]
 "omni.kit.viewport.navigation.core" = {}
@@ -71,7 +71,7 @@ exts."omni.ui".clickGesture.multiClickWait = 200
 name="ui"
 pythonTests.include = [ "omni.kit.viewport.navigation.camera_manipulator.tests.test_ui*" ]
 dependencies = [
-    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.hydra_texture",
     "omni.kit.viewport.window",
     "omni.kit.ui_test",
     "omni.kit.test_suite.helpers",
@@ -79,8 +79,6 @@ dependencies = [
     "omni.kit.notification_manager",
 ]
 "filter:platform"."windows-x86_64".dependencies = [
-    # fix [Error][gpu.foundation.plugin] Cannot load shader file
-    "omni.rtx.shadercache.d3d12",
     "omni.kit.viewport.window",
     "omni.kit.ui_test",
     "omni.kit.test_suite.helpers",
@@ -132,13 +130,12 @@ pythonTests.include = [
     "omni.kit.viewport.navigation.camera_manipulator.tests.test_extent*",
 ]
 dependencies = [
-    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.hydra_texture",
     "omni.kit.viewport.window",
     "omni.kit.ui_test",
     "omni.kit.test_suite.helpers",
     "omni.kit.viewport.menubar.display",
     "omni.kit.notification_manager",
-    # "omni.rtx.shadercache.vulkan",  # legacy RTX shader cache; absent from Kit 111 (OVRTX)
     # "omni.hydra.usdrt_delegate",  # removed from Kit 111 (K111-RENDER-001); OVRTX renders Fabric/ovstage directly
     "usdrt.scenegraph", # bring in FSD, required for one of the tests
 ]

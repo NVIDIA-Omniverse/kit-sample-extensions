@@ -1,6 +1,6 @@
 [package]
 # Semantic Versionning is used: https://semver.org/
-version = "1.0.19"
+version = "1.0.22"
 
 # Lists people or organizations that are considered the "authors" of the package.
 authors = ["Ning Li"]
@@ -25,7 +25,7 @@ preview_image = "data/preview.png"
 icon = "data/icon.svg"
 
 [package.target]
-kit = ["107.3"]  # Required for Event 2.0
+kit = ["111.0"]
 
 [dependencies]
 "omni.kit.viewport.navigation.core" = {}
@@ -41,16 +41,10 @@ exts."omni.kit.viewport.navigation.teleport".visible= true
 
 [[test]]
 dependencies = [
-    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.hydra_texture",
     "omni.kit.viewport.window",
     "omni.kit.ui_test",
     "omni.kit.viewport.menubar.display",
-    # "omni.rtx.shadercache.vulkan",  # legacy RTX shader cache; absent from Kit 111 (OVRTX)
-]
-
-"filter:platform"."windows-x86_64".dependencies = [
-    # fix [Error][gpu.foundation.plugin] Cannot load shader file
-    # "omni.rtx.shadercache.d3d12",  # legacy RTX shader cache; absent from Kit 111 (OVRTX)
 ]
 
 args = [

@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.3.3] - 2026-11-05
+
+### Changed
+
+- Remove the temporary `-ovrtx` tag from `omni.kit.hydra_texture` dependency requests.
+
+## [1.3.2] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.3.1] - 2026-04-07
 ### Changed
 - Fixing TOML layout to address publishing error

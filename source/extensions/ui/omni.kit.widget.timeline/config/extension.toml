@@ -2,7 +2,8 @@
 reloadable = true
 
 [package]
-version = "107.0.4"
+target.kit = ["111.0"]
+version = "107.0.5"
 title = "Timeline Widget"
 description = "An extensible timeline widget for Kit-derived windows."
 repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"

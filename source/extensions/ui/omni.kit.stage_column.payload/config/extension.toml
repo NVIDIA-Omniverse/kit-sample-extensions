@@ -1,5 +1,6 @@
 [package]
-version = "2.0.5"
+target.kit = ["111.0"]
+version = "2.0.6"
 authors = ["NVIDIA"]
 repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
 changelog = "docs/CHANGELOG.md"

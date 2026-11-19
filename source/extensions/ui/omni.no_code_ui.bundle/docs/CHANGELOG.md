@@ -2,6 +2,16 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.1.9] - 2026-11-05
+
+### Fixed
+- Follow the Data2UI USD 1.1.9 exact dependency pin for its explicit renderer test dependency.
+
+## [1.1.8] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+- Align the No-Code UI and Data2UI extensions on shared version 1.1.8.
+
 ## [1.1.5] - 2026-10-16
 ### Fixed:
 - The exact pin on `omni.kit.data2ui.usd` follows its version, 1.1.7 (Kit 111 fix for `NoneType ... GetPrimsWithTypeName`).

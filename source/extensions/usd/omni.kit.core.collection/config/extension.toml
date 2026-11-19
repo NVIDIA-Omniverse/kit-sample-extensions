@@ -1,7 +1,8 @@
 [package]
+target.kit = ["111.0"]
 title = "USD Collection Utils (Preview)"
 description = "USD Collection Utils"
-version = "0.2.4"
+version = "0.2.5"
 category = "Internal"
 authors = ["Eoin Murphy"]
 keywords = ["collection", "outliner", "usd"]

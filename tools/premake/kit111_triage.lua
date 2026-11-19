@@ -6,6 +6,7 @@ newoption {
 }
 
 local excluded = {
+    ["omni.usd.fileformat.sbsar"] = "K111-USD-003",
     ["omni.kit.window.material_graph"] = "K111-UI-001",
     ["omni.scene.optimizer.core"] = "K111-USD-001",
     ["omni.usd.schema.metrics.assembler"] = "K111-USD-002",
@@ -16,6 +17,7 @@ local excluded = {
 -- Re-enable an extension by deleting its line here (and from [repo_publish_exts] exts.exclude in repo.toml).
 -- Reasons and re-enable criteria: docs/kit111-issues.md, "Kit 111 EA1 scope".
 local not_supported_ea1 = {
+    ["omni.kit.xr.cloudxr"] = "K111-EA1-002: requires the Kit XR stack; source restored pending Kit 111 qualification",
     ["omni.metropolis.agent_registry"] = "K111-EA1-003: needs the Isaac Sim stack (omni.isaac.ml_archive), not on Kit 111",
 }
 

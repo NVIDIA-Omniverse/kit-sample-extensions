@@ -1,6 +1,7 @@
 [package]
+target.kit = ["111.0"]
 # Semantic Versioning is used: https://semver.org/
-version = "104.1.26"
+version = "104.1.28"
 
 # Lists people or organizations that are considered the "authors" of the package.
 authors = ["Jeffrey Qiu, Jeff Hanna"]
@@ -44,7 +45,7 @@ exts."omni.kit.markup.core".visible_startup = false
 
 [[test]]
 dependencies = [
-    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.hydra_texture",
     "omni.kit.viewport.window",
     "omni.kit.ui_test",
     "omni.kit.test_suite.helpers",

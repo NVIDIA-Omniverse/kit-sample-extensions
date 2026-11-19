@@ -3,6 +3,10 @@
 This document records all notable changes to ``omni.kit.browser.sample`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [1.4.10] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.4.9] - 2025-01-09
 ### Changed
 - OMPE-27665: Add python API document.

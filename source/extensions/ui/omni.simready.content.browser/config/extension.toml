@@ -14,7 +14,8 @@
 # limitations under the License.
 
 [package]
-version = "0.4.3"
+target.kit = ["111.0"]
+version = "0.4.4"
 category = "Browsers"
 title = "Simready Search For Content Browser"
 description = "Extends the Omniverse content browser with SimReady asset searching features"
@@ -48,8 +49,7 @@ path = "pip_prebundle"
 [settings]
 # define the IsaacReady assets URL that the content browser can use advanced asset search in.
 exts."omni.simready.content.browser".wscache_root_urls = [
-    "https://omniverse-content-production.s3.amazonaws.com/Assets/Isaac/6.0/Isaac/SimReady",
-    "omniverse://isaac-dev.ov.nvidia.com/Isaac/SimReady"
+    "https://omniverse-content-production.s3.amazonaws.com/Assets/Isaac/6.0/Isaac/SimReady"
 ]
 # default content root url index into the wscache_root_urls list above
 exts."omni.simready.content.browser".default_wscache_root_url_index = 0
@@ -58,7 +58,6 @@ exts."omni.simready.content.browser".default_wscache_root_url_index = 0
 exts."omni.simready.content.browser".usd_search_endpoint = "https://search.simready.omniverse.nvidia.com/"
 exts."omni.simready.content.browser".usd_search_index_mapping = [
     ["https://search.simready.omniverse.nvidia.com/", "https://omniverse-content-production.s3.amazonaws.com"],
-    ["https://search.dev.simready.omniverse.nvidia.com/", "https://omniverse-content-staging.s3-us-west-2.amazonaws.com"],
 ]
 # Folder inside the mapped index bucket that acts as the tree root in the
 # natural-language (USD search) mode. Bucket-relative so it holds for every

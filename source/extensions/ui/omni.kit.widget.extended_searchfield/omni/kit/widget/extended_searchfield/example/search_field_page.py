@@ -155,7 +155,7 @@ class ExtendedSearchFieldPage(ExamplePage):
             self._result_field = ui.StringField()
 
         for field in self._fields:
-            field.search_dir = "omniverse://test.ov.nvidia.com"
+            field.search_dir = "omniverse://nucleus.example.com"
 
         self._result_field.enabled = False
 

@@ -26,8 +26,8 @@
 #include <omni/geometry/Curves.h>
 #include <omni/graph/core/iComputeGraph.h>
 #include <omni/graph/core/tuple.h>
-#include <omni/math/linalg/SafeCast.h>
-#include <omni/math/linalg/vec.h>
+#include <usdrt/gf/vec.h>
+#include <type_traits>
 
 // clang-format off
 #include "UsdPCH.h"
@@ -1578,7 +1578,6 @@ inline void MeshUtils::DrawBasisCurvesFromUSD(ISceneVisualization::IDrawingInter
                                               pxr::UsdPrim prim,
                                               const ISceneDeclutter::Options& options)
 {
-    using omni::math::linalg::safeCastToOmni;
     using omni::math::linalg::vec3f;
     using omni::math::linalg::vec4f;
     using namespace omni::geometry::curves;
@@ -1660,7 +1659,17 @@ inline void MeshUtils::DrawBasisCurvesFromUSD(ISceneVisualization::IDrawingInter
         std::iota(widthIndices.begin(), widthIndices.end(), 0);
     }
 
-    std::vector<vec3f> points(safeCastToOmni(pointsUSD.data()), safeCastToOmni(pointsUSD.data() + pointsUSD.size()));
+    // Preserve the existing packed-point copy, with its layout assumption checked explicitly.
+    static_assert(sizeof(vec3f) == sizeof(pxr::GfVec3f) && alignof(vec3f) == alignof(pxr::GfVec3f),
+                  "USD and runtime points must retain the same packed layout");
+    static_assert(std::is_trivially_copyable<vec3f>::value && std::is_trivially_copyable<pxr::GfVec3f>::value,
+                  "Point copying requires trivially copyable values");
+    std::vector<vec3f> points;
+    if (!pointsUSD.empty())
+    {
+        const auto* pointData = reinterpret_cast<const vec3f*>(pointsUSD.data());
+        points.assign(pointData, pointData + pointsUSD.size());
+    }
 
 
     pxr::TfToken basisToken;

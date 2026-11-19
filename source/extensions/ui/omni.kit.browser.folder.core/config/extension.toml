@@ -1,7 +1,8 @@
 [package]
+target.kit = ["111.0"]
 # Semantic Versionning is used: https://semver.org/
 
-version = "2.1.1"
+version = "2.1.3"
 
 # Lists people or organizations that are considered the "authors" of the package.
 authors = ["Jeffrey Qiu"]
@@ -28,7 +29,7 @@ icon = "data/icon.png"
 [dependencies]
 "omni.kit.browser.core" = {}
 "omni.kit.window.filepicker" = {}
-"omni.kit.widget.nucleus_connector" = {}
+"omni.kit.widget.connection_manager" = {}
 # Non-optional: a non-retryable scan failure has no other surface.
 "omni.kit.notification_manager" = {}
 # Imported directly by the add-collection dialogs, so not left to a transitive dependency.

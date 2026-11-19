@@ -2,6 +2,16 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.1.9] - 2026-11-05
+
+### Fixed
+- Explicitly select the OVRTX viewport provider in test dependencies when the test application does not select a renderer.
+
+## [1.1.8] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+- Align the No-Code UI and Data2UI extensions on shared version 1.1.8.
+
 ## [1.1.7] - 2026-10-16
 ### Fixed
 - Kit 111: the `stage:opened` handler (`extension.py`), `prepopulate_viewport_items` (`model.py`) and the OmniGraph event

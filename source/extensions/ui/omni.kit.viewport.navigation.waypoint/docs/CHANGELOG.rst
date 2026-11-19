@@ -4,6 +4,16 @@ CHANGELOG
 
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+[1.1.2] - 2026-11-05
+Fixed
+-----
+- Explicitly select the OVRTX viewport provider in test dependencies when the test application does not select a renderer.
+
+[1.1.1] - 2026-10-23
+Changed
+-------
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 [1.1.0] - 2026-04-07
 Changed
 ------

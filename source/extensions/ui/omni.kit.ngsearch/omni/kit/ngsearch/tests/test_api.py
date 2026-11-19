@@ -695,7 +695,7 @@ class TestNGSearchAPI(omni.kit.test.AsyncTestCase):
 
             result = await telemetry_event_results_presented(
                 query="description:blue ext:usd",
-                url="omniverse://rc.ov.nvidia.com/Projects",
+                url="omniverse://nucleus.example.com/Projects",
                 n=8,
                 n_results_total=32,
                 time_to_present=0.1,

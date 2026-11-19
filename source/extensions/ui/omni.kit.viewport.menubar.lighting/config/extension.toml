@@ -1,6 +1,6 @@
 [package]
 # Semantic Versioning is used: https://semver.org/
-version = "107.3.5"
+version = "107.3.6"
 
 # Lists people or organizations that are considered the "authors" of the package.
 authors = ["Roman Zulak"]
@@ -31,7 +31,7 @@ category = "Internal"
 support_level = "Core"
 
 [package.target]
-kit = ["107.3.0"]
+kit = ["111.0"]
 
 [dependencies]
 "omni.usd" = {}

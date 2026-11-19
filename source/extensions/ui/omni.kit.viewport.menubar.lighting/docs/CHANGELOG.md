@@ -3,6 +3,10 @@
 This document records all notable changes to ``omni.kit.viewport.menubar.lighting`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [107.3.6] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [107.3.5] - 2026-10-16
 ### Changed
 - Give the existing Kit 111 compatibility changes a distinct package version: use USD query fallbacks and ignore the runtime fallback light.

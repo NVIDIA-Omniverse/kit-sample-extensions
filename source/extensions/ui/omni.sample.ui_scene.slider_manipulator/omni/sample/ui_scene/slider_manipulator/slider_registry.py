@@ -20,17 +20,6 @@ class SliderChangedGesture(SliderManipulator.SliderChangedGesture):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def on_began(self):
-        # When the user drags the slider, we don't want to see the selection
-        # rect. In Viewport Next, it works well automatically because the
-        # selection rect is a manipulator with its gesture, and we add the
-        # slider manipulator to the same SceneView.
-        # In Viewport Legacy, the selection rect is not a manipulator. Thus it's
-        # not disabled automatically, and we need to disable it with the code.
-        from omni.kit.viewport.utility import disable_selection, get_active_viewport
-
-        self.__disable_selection = disable_selection(get_active_viewport())
-
     def on_changed(self):
         """Called when the user moved the slider"""
         if not hasattr(self.gesture_payload, "slider_value"):
@@ -40,16 +29,11 @@ class SliderChangedGesture(SliderManipulator.SliderChangedGesture):
         # Change the model. Slider watches it and it will update the mesh.
         self.sender.model.set_floats(self.sender.model.get_item("value"), [slider_value])
 
-    def on_ended(self):
-        # This re-enables the selection in the Viewport Legacy
-        self.__disable_selection = None
-
 
 class SliderRegistry:
     """
-    Created by omni.kit.viewport.registry or omni.kit.manipulator.viewport per
-    viewport. Keeps the manipulator and some properties that are needed to the
-    viewport.
+    Created by omni.kit.viewport.registry per viewport. Keeps the manipulator
+    and some properties that are needed by the viewport.
     """
 
     def __init__(self, description: Optional[Dict[str, Any]] = None):

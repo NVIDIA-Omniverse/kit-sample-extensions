@@ -1,7 +1,8 @@
 [package]
+target.kit = ["111.0"]
 title = "Default Graph Delegate"
 description = "Simple and Elegant Graph Delegate"
-version = "1.2.6"
+version = "1.2.8"
 authors = ["Victor Yudin, Min Jiang"]
 repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
 keywords = ["graph", "shader", "editor"]
@@ -21,7 +22,6 @@ name = "omni.kit.graph.delegate.default"
 [[test]]
 dependencies = [
     "omni.kit.mainwindow",
-    "omni.kit.graph.editor.example",
     "omni.kit.graph.editor.core",
     "omni.kit.ui_test"
 ]

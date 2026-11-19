@@ -1,6 +1,6 @@
 [package]
 # Semantic Versionning is used: https://semver.org/
-version = "107.2.1"
+version = "107.2.4"
 
 # Lists people or organizations that are considered the "authors" of the package.
 authors = ["Jeffrey Qiu", "Gang Zeng", "Greg Amato"]
@@ -32,7 +32,7 @@ keywords = ["section", "tool"]
 changelog="docs/CHANGELOG.md"
 
 [package.target]
-kit = ["109.0.0"]  # Required for Event 2.0
+kit = ["111.0"]
 
 [package.writeTarget]
 kit = true
@@ -95,5 +95,4 @@ args = [
 dependencies = [
     "omni.kit.uiapp",
     "omni.kit.ui_test",
-    "omni.kit.hydra_texture-ovrtx",
 ]

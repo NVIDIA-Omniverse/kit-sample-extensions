@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.8] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.2.7] - 2025-03-20
 ### Changed
 - Updated documentation with AI agent.

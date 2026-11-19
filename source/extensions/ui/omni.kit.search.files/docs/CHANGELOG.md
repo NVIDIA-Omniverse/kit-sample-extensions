@@ -1,6 +1,10 @@
 # Changelog
 This document records all notable changes to ``omni.kit.search.files`` extension.
 
+## [1.0.5] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.0.4] - 2022-04-19
 - Disable recursive searches on nucleus
 

@@ -3,6 +3,10 @@
 This document records all notable changes to ``omni.kit.widget.searchfield`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [1.0.32] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.0.31] - 2025-04-09
 ### Fixed
 - Fix doc build errors

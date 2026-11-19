@@ -19,7 +19,7 @@ import omni.usd
 from omni.kit.viewport.utility.camera_state import ViewportCameraState as VpCamera
 from omni.ui import color as cl
 from omni.ui import scene as sc
-from pxr import Gf, UsdGeom
+from pxr import Gf, Usd, UsdGeom
 
 from .cylinder2 import Counts, Indices, Points
 from .teleport_widget import MAX_SLOPE_ANGLE_DEF, MAX_SLOPE_ANGLE_PATH, get_stage_up
@@ -85,6 +85,130 @@ def get_bezier_offset(distance: float, units_scale: float = 1.0) -> float:
     distance_cm = distance / units_scale
     offset_cm = (distance_cm**0.5) / 4.0 if distance_cm < 3600 else 15
     return offset_cm * units_scale
+
+
+# The beam arc is tuned for targets up to 36m away, seen through Kit's default camera (60 degree horizontal
+# field of view: tan(30) = 0.5 * horizontalAperture 20.955 / focalLength 18.147).
+ARC_REFERENCE_DISTANCE_CM = 3600.0
+ARC_REFERENCE_TAN_HALF_FOV = 0.5 * 20.955 / 18.147
+# The beam is hidden past 2km, measured in the reference frustum (distance / get_arc_frustum_scale).
+ARC_MAX_REFERENCE_DISTANCE_CM = 200000.0
+
+
+def get_arc_frustum_scale(distance_cm: float, tan_half_fov: float) -> float:
+    """How much larger the view frustum is at the target than the arc's reference frustum (never below 1).
+
+    The frustum's world width at the target is 2 * distance * tan(fov / 2). Past the reference the beam is
+    built for the reference frustum and then scaled about the eye by this factor. Scaling about the eye
+    projects to the same image, so the arc keeps its on-screen shape when the camera zooms out.
+    """
+    if distance_cm <= 0.0 or tan_half_fov <= 0.0:
+        return 1.0
+    return max(1.0, (distance_cm * tan_half_fov) / (ARC_REFERENCE_DISTANCE_CM * ARC_REFERENCE_TAN_HALF_FOV))
+
+
+BEAM_RGB = (0.2, 0.77, 0.99)
+# The beam fades in over its first BEAM_FADE_SEGMENTS fine segments (of the 40 in the ribbon section),
+# from BEAM_FADE_MIN_ALPHA to opaque.
+BEAM_FADE_SEGMENTS = 25
+BEAM_FADE_MIN_ALPHA = 0.1
+
+
+def get_beam_fade_alpha(segment: int) -> float:
+    """Alpha at the START of fine beam segment `segment` (the end of segment - 1).
+
+    Smoothstep rather than linear: a linear ramp has a corner where it reaches full opacity, which the eye
+    sees as an edge (Mach band). Smoothstep starts gently and meets the opaque beam with zero slope.
+    """
+    x = min(1.0, max(0.0, segment / BEAM_FADE_SEGMENTS))
+    return BEAM_FADE_MIN_ALPHA + (1.0 - BEAM_FADE_MIN_ALPHA) * x * x * (3.0 - 2.0 * x)
+
+
+def build_beam_fade_ribbon(curve_points: list, half_width: float, view_direction: Gf.Vec3d = None):
+    """One camera-facing ribbon mesh along `curve_points` (eye-relative: the eye is the origin).
+
+    `view_direction` is the fixed viewing direction of an orthographic camera; for a perspective camera
+    (None) each point is viewed along the ray from the eye, which is the point itself.
+
+    The fading start of the beam is translucent. Drawn as tube segments it showed both the front and back
+    faces, and their alpha stacked differently depending on the draw order relative to the view, so orbiting
+    changed it. A ribbon facing the eye is a single layer with the tube's on-screen width (the beam is flat
+    colored), and one mesh through the exact curve points has no seams or overlapping segments.
+
+    Returns (positions, colors, vertex_counts, vertex_indices) for sc.PolygonMesh. Colors are one per
+    face-vertex, faded with get_beam_fade_alpha(curve point index).
+    """
+    last = len(curve_points) - 1
+    positions = []
+    previous_side = None
+    for k, point in enumerate(curve_points):
+        tangent = curve_points[min(k + 1, last)] - curve_points[max(k - 1, 0)]
+        # The eye is the origin, so for a perspective camera `point` is also the direction from the eye.
+        side = Gf.Cross(tangent, view_direction if view_direction is not None else point)
+        length = side.GetLength()
+        if length <= 1e-9 * max(tangent.GetLength(), 1e-12) * max(point.GetLength(), 1.0):
+            # The curve heads straight along the view ray here: keep the previous side (no zero-width pinch).
+            side = previous_side if previous_side is not None else Gf.Vec3d(0.0)
+        else:
+            side = side / length * half_width
+            # The cross product flips sign where the curve's on-screen direction reverses; keep the ribbon's
+            # left and right consistent so adjacent quads do not twist into bow-ties.
+            if previous_side is not None and Gf.Dot(side, previous_side) < 0.0:
+                side = -side
+        previous_side = side
+        positions.append(point + side)
+        positions.append(point - side)
+
+    vertex_counts = [4] * last
+    vertex_indices = []
+    colors = []
+    for k in range(last):
+        quad = [2 * k, 2 * k + 1, 2 * k + 3, 2 * k + 2]
+        vertex_indices.extend(quad)
+        colors.extend(cl(*BEAM_RGB, get_beam_fade_alpha(index // 2)) for index in quad)
+    return [[p[0], p[1], p[2]] for p in positions], colors, vertex_counts, vertex_indices
+
+
+def get_beam_start(eye: Gf.Vec3d, forward: Gf.Vec3d, camera_up: Gf.Vec3d, units_scale: float = 1.0) -> Gf.Vec3d:
+    """Where the beam starts: 5cm in front of the eye and 2cm below it on SCREEN (the camera's up axis).
+
+    Offsetting along the world up axis put the start at the bottom of the screen only for a level view: looking
+    down, world-down is the view direction, so the start moved up the screen to its center.
+    """
+    return eye + forward * (5 * units_scale) - camera_up * (2 * units_scale)
+
+
+def get_camera_up(camera_state, fallback: Gf.Vec3d) -> Gf.Vec3d:
+    """The camera's up axis in world space, or `fallback` when there is no usable camera."""
+    fallback = Gf.Vec3d(fallback[0], fallback[1], fallback[2])
+    try:
+        up = camera_state.usd_camera.ComputeLocalToWorldTransform(Usd.TimeCode.Default()).TransformDir(Gf.Vec3d.YAxis())
+    except Exception:  # noqa: BLE001 -- no usable camera: fall back to the world up axis
+        return fallback
+    length = up.GetLength()
+    return up / length if length > 0.0 else fallback
+
+
+def is_camera_orthographic(camera_state) -> bool:
+    try:
+        return camera_state.usd_camera.GetProjectionAttr().Get() == UsdGeom.Tokens.orthographic
+    except Exception:  # noqa: BLE001 -- no usable camera: treat as perspective
+        return False
+
+
+def get_camera_tan_half_fov(camera_state) -> float:
+    """tan(horizontal fov / 2) of a perspective camera, or 0.0 when unknown (orthographic, missing attributes)."""
+    if is_camera_orthographic(camera_state):
+        return 0.0
+    try:
+        camera = camera_state.usd_camera
+        aperture = camera.GetHorizontalApertureAttr().Get()
+        focal_length = camera.GetFocalLengthAttr().Get()
+    except Exception:  # noqa: BLE001 -- no usable camera: draw the arc unscaled
+        return 0.0
+    if not aperture or not focal_length:
+        return 0.0
+    return 0.5 * float(aperture) / float(focal_length)
 
 
 def get_label_offset(distance: float, units_scale: float = 1.0) -> float:
@@ -233,10 +357,18 @@ class TeleportManipulator(sc.Manipulator):
         except:
             return
         # The beam starts a fixed physical offset in front of and below the camera (5cm / 2cm).
-        mid_pos = pos + (target - pos).GetNormalized() * (5 * units)
-        c_pos = Gf.Vec3d(mid_pos[0], mid_pos[1] - 2 * units * world_up[1], mid_pos[2] - 2 * units * world_up[2])
+        view_forward = (target - pos).GetNormalized()
+        c_pos = get_beam_start(pos, view_forward, get_camera_up(camera_state, world_up), units)
+        # An orthographic camera views along one fixed direction; the fading ribbon must face it.
+        ribbon_view = view_forward if is_camera_orthographic(camera_state) else None
         vert_count = len(Indices)
-        bezier4 = Bezier4(c_pos, self._pos, world_up, distance, units_scale=units)
+        # Build the beam for the arc's reference frustum, relative to the eye: the target is pulled toward the
+        # eye by the frustum scale. The beam is drawn under one transform that moves it to the eye and scales it
+        # back up, so its vertices stay small (float precision) and its shape is the reference arc's.
+        eye = Gf.Vec3d(pos[0], pos[1], pos[2])
+        frustum_scale = get_arc_frustum_scale(distance_cm, get_camera_tan_half_fov(camera_state))
+        arc_target = (Gf.Vec3d(self._pos[0], self._pos[1], self._pos[2]) - eye) / frustum_scale
+        bezier4 = Bezier4(c_pos - eye, arc_target, world_up, distance / frustum_scale, units_scale=units)
         prev_points = []
 
         self._gizmo.clear()
@@ -357,7 +489,8 @@ class TeleportManipulator(sc.Manipulator):
                                     geometry.face_vertex_indices,
                                 )
 
-            if self.model.beam_visible and distance_cm < 200000:
+            # The 2km beam cutoff applies to the reference-frustum arc, so it scales with the frustum like the arc.
+            if self.model.beam_visible and distance_cm / frustum_scale < ARC_MAX_REFERENCE_DISTANCE_CM:
                 thickness = 0.06 * units
                 # Dimensionless ratios: the unit propagates from the already-converted thickness.
                 reduce_factor = 0.99
@@ -379,47 +512,51 @@ class TeleportManipulator(sc.Manipulator):
                         return 3
                     return 2
 
-                for i in range(POINT_COUNT):
-                    if i < 10:
-                        for j in range(i * 4, (i + 1) * 4):
-                            s = bezier4.get_point_more(j)
-                            e = bezier4.get_point_more(j + 1)
-                            if self._use_mesh:
-                                points = BeamPoint(s, e, thickness, prev_points).get_points()
-                                prev_points = points
-                                # TODO: waiting OM-42395 fix then set color tranparent
-                                mesh_color = cl(0.2, 0.77, 0.99, 0.1 * (j + 1))
-                                sc.PolygonMesh(points, [mesh_color] * vert_count, Counts, Indices)
+                # One transform moves the eye-relative reference beam to the eye and scales it up to the frustum.
+                eye_translation = sc.Matrix44.get_translation_matrix(eye[0], eye[1], eye[2])
+                frustum_scaling = sc.Matrix44.get_scale_matrix(frustum_scale, frustum_scale, frustum_scale)
+                with sc.Transform(transform=eye_translation):
+                    with sc.Transform(transform=frustum_scaling):
+                        for i in range(POINT_COUNT):
+                            if i < 10:
+                                if self._use_mesh:
+                                    if i == 0:
+                                        # The fading start (the 40 fine segments) is one camera-facing ribbon.
+                                        fine_points = [bezier4.get_point_more(j) for j in range(10 * 4 + 1)]
+                                        sc.PolygonMesh(*build_beam_fade_ribbon(fine_points, thickness, ribbon_view))
+                                    continue
+                                for j in range(i * 4, (i + 1) * 4):
+                                    s = bezier4.get_point_more(j)
+                                    e = bezier4.get_point_more(j + 1)
+                                    mesh_color = cl(0.2, 0.77, 0.99, 0.05 * (j + 1))
+                                    sc.Line(
+                                        [s[0], s[1], s[2]],
+                                        [e[0], e[1], e[2]],
+                                        thickness=get_line_thickness(distance_cm) / 5,
+                                        color=mesh_color,
+                                    )
+
                             else:
-                                mesh_color = cl(0.2, 0.77, 0.99, 0.05 * (j + 1))
-                                sc.Line(
-                                    [s[0], s[1], s[2]],
-                                    [e[0], e[1], e[2]],
-                                    thickness=get_line_thickness(distance_cm) / 5,
-                                    color=mesh_color,
-                                )
+                                s = bezier4.get_point(i)
+                                e = bezier4.get_point(i + 1)
+                                if self._use_mesh:
+                                    factor = i - 5
+                                    thickness = thickness / (reduce_factor - (i - 5) / 10000)
+                                    # TODO: waiting OM-42395 fix then set color tranparent
+                                    mesh_color = cl(0.2, 0.77, 0.99, 1)
 
-                    else:
-                        s = bezier4.get_point(i)
-                        e = bezier4.get_point(i + 1)
-                        if self._use_mesh:
-                            factor = i - 5
-                            thickness = thickness / (reduce_factor - (i - 5) / 10000)
-                            # TODO: waiting OM-42395 fix then set color tranparent
-                            mesh_color = cl(0.2, 0.77, 0.99, 1)
+                                    points = BeamPoint(s, e, thickness, prev_points).get_points()
+                                    prev_points = points
 
-                            points = BeamPoint(s, e, thickness, prev_points).get_points()
-                            prev_points = points
-
-                            sc.PolygonMesh(points, [mesh_color] * vert_count, Counts, Indices)
-                        else:
-                            mesh_color = cl(0.2, 0.77, 0.99, 1)
-                            sc.Line(
-                                [s[0], s[1], s[2]],
-                                [e[0], e[1], e[2]],
-                                thickness=get_line_thickness(distance_cm) / 5,
-                                color=mesh_color,
-                            )
+                                    sc.PolygonMesh(points, [mesh_color] * vert_count, Counts, Indices)
+                                else:
+                                    mesh_color = cl(0.2, 0.77, 0.99, 1)
+                                    sc.Line(
+                                        [s[0], s[1], s[2]],
+                                        [e[0], e[1], e[2]],
+                                        thickness=get_line_thickness(distance_cm) / 5,
+                                        color=mesh_color,
+                                    )
         return True
 
     def _get_max_slope_angle(self):

@@ -9,6 +9,7 @@
 # its affiliates is strictly prohibited.
 from .test_browser_model import *
 from .test_collection_refresh import *
+from .test_connection_manager import *
 from .test_detail_items import *
 from .test_folder_browser_widget import *
 from .test_remove_after_cancel import *

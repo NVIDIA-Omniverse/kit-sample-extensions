@@ -4,18 +4,18 @@ import pathlib
 from unittest.mock import patch
 
 import carb
-import omni.kit.actions.core
 import omni.kit.app
 import omni.kit.capture.viewport
 import omni.kit.test
 import omni.kit.ui_test as ui_test
 import omni.ui
 from omni.kit.test_suite.helpers import wait_stage_loading
+from omni.kit.viewport.utility import get_active_viewport
 from omni.kit.window.movie_capture import MovieCaptureExtension
 from omni.kit.window.movie_capture.base_widget import WINDOW_HEIGHT, WINDOW_WIDTH
 from omni.kit.window.movie_capture.render_settings_widget import RenderInfo
 from omni.ui.tests.test_base import OmniUiTest
-from pxr import UsdRender
+from pxr import Gf, UsdGeom, UsdRender
 
 KIT_ROOT = pathlib.Path(carb.tokens.acquire_tokens_interface().resolve("${kit}")).parent.parent.parent
 OUTPUTS_DIR = pathlib.Path(omni.kit.test.get_test_output_path())
@@ -30,6 +30,7 @@ DEFAULT_FRAME_SHUTTER_OPEN_SETTING_PATH = "/exts/omni.kit.window.movie_capture/d
 DEFAULT_FRAME_SHUTTER_CLOSE_SETTING_PATH = "/exts/omni.kit.window.movie_capture/default_frame_shutter_close"
 DEFAULT_IRAY_ITERATION_SETTING_PATH = "/exts/omni.kit.window.movie_capture/default_iray_iterations"
 DEFAULT_IRAY_SUBFRAMES_PER_FRAME_SETTING_PATH = "/exts/omni.kit.window.movie_capture/default_iray_subframes_per_frame"
+TEST_RENDER_PRODUCT_PATH = "/Render/RenderView"
 
 
 class TestSetUiValues(OmniUiTest):
@@ -46,6 +47,27 @@ class TestSetUiValues(OmniUiTest):
     async def tearDown(self):
         await super().tearDown()
         self._movie_capture_ext = None
+
+    @staticmethod
+    def _create_render_product(stage, render_product_path: str) -> UsdRender.Product:
+        """Author a render product with the UsdRender schemas.
+
+        This is the render product the deprecated ``omni.kit.menu.aov`` "Create > AOV" action used to author
+        (OMPE-117510): a product under ``/Render`` with color render vars and the active viewport camera as its
+        camera target, so capturing can retarget the camera relationship and restore it afterwards.
+        """
+        UsdGeom.Scope.Define(stage, "/Render")
+        UsdGeom.Scope.Define(stage, "/Render/Vars")
+        render_product = UsdRender.Product.Define(stage, render_product_path)
+        render_product.CreateResolutionAttr(Gf.Vec2i(1280, 720))
+        for var_name in ("HdrColor", "LdrColor"):
+            render_var = UsdRender.Var.Define(stage, f"/Render/Vars/{var_name}")
+            render_var.CreateSourceNameAttr(var_name)
+            render_product.GetOrderedVarsRel().AddTarget(render_var.GetPath())
+        viewport = get_active_viewport()
+        if viewport is not None and viewport.camera_path:
+            render_product.GetCameraRel().SetTargets([viewport.camera_path])
+        return render_product
 
     async def test_set_ui_values_1_read_back_saved_options(self):
         test_usd_path = os.path.join(TEST_USD_DIR, "options_save_test.usda")
@@ -184,32 +206,6 @@ class TestSetUiValues(OmniUiTest):
             self.assertEqual(capture_options.ptmb_fso, -1.0)
             self.assertEqual(capture_options.ptmb_fsc, 1.0)
 
-    async def test_set_ui_values_3_sunstudy(self):
-        # The Sunstudy movie type exists only when omni.kit.environment.sunstudy is enabled (it is optional, and absent
-        # from Kit 111 builds and registries); selecting it otherwise also breaks the next test's movie-type index.
-        if not omni.kit.app.get_app().get_extension_manager().is_extension_enabled("omni.kit.environment.sunstudy"):
-            self.skipTest("omni.kit.environment.sunstudy is not available")
-        self._movie_capture_ext.show_window(None, True)
-        mc_window = omni.ui.Workspace.get_window("Movie Capture")
-        if mc_window is None:
-            self.fail("Failed to get Movie Capture window")
-        else:
-            capture_settings_widget = self._movie_capture_ext._window._capture_settings_widget
-            # switch to sunstudy ui
-            capture_settings_widget._ui_kit_combobox_movie_type.model.get_item_value_model(None, 0).as_int = 1
-            for _ in range(2):
-                await omni.kit.app.get_app().next_update_async()
-
-            self.assertEqual(capture_settings_widget._ui_capture_range_sunstudy.visible, True)
-            self.assertEqual(capture_settings_widget._ui_capture_range_sequence.visible, False)
-            # 2 minutes 10 seconds is 130 seconds
-            capture_settings_widget._ui_sunstudy_movie_length_minutes_input.value = 2
-            capture_settings_widget._ui_sunstudy_movie_length_seconds_input.value = 10
-
-            capture_options, farm_options = self._movie_capture_ext._window._read_kit_capture_options(False)
-            self.assertEqual(capture_options.movie_type, 1)
-            self.assertEqual(capture_options.sunstudy_movie_length_in_seconds, 130)
-
     async def test_set_ui_values_4_render_product_and_ext_settings(self):
         self._movie_capture_ext.show_window(None, True)
         mc_window = omni.ui.Workspace.get_window("Movie Capture")
@@ -270,11 +266,14 @@ class TestSetUiValues(OmniUiTest):
             self.assertEqual(capture_options.ptmb_fsc, 0.5)
 
             # Create a new render product
-            action_registry = omni.kit.actions.core.get_action_registry()
-            action_registry.execute_action("omni.kit.menu.aov", "create_single_aov")
+            stage = omni.usd.get_context().get_stage()
+            self._create_render_product(stage, TEST_RENDER_PRODUCT_PATH)
             # Make sure the render product is created
             await self.assertTrueWithRetry(
-                lambda: omni.usd.get_context().get_stage().GetPrimAtPath("/Render/RenderView") is not None
+                lambda: omni.usd.get_context()
+                .get_stage()
+                .GetPrimAtPath(TEST_RENDER_PRODUCT_PATH)
+                .IsA(UsdRender.Product)
             )
 
             # Choose the new render product
@@ -282,10 +281,10 @@ class TestSetUiValues(OmniUiTest):
             render_settings_widget._refresh_render_products()
             render_product_model = render_settings_widget._ui_render_product.model
             for index, item in enumerate(render_product_model.get_item_children()):
-                if render_product_model.get_item_value_model(item).as_string == "/Render/RenderView":
+                if render_product_model.get_item_value_model(item).as_string == TEST_RENDER_PRODUCT_PATH:
                     render_product_model.get_item_value_model(None, 0).set_value(index)
             capture_options, _ = self._movie_capture_ext._window._read_kit_capture_options(False)
-            self.assertEqual(capture_options.render_product, "/Render/RenderView")
+            self.assertEqual(capture_options.render_product, TEST_RENDER_PRODUCT_PATH)
             self.assertEqual(capture_options.file_type, ".exr")
 
             with patch.object(omni.kit.capture.viewport.CaptureExtension, "start") as mock_start_capture:

@@ -1,5 +1,9 @@
 # Changelog
 
+## [110.1.4] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [110.1.3] - 2026-05-28
 ### Fixed
 - MetricsAssemblerUI.on_shutdown was clearing a misspelled attribute (_stage_event_subs) instead of the real subscription list (_stage_event_sub), leaking event-dispatcher subscriptions on every extension reload (OMPE-91950 / NVBug 6118163).

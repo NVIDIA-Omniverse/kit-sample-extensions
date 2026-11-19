@@ -1,4 +1,5 @@
 [package]
+target.kit = ["111.0"]
 authors = ["Jozef van Eenbergen"]
 category = "Internal"
 changelog = "docs/CHANGELOG.md"
@@ -10,7 +11,7 @@ readme = "docs/README.md"
 repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
 slackids = ["@U010NFP76BU"]
 title = "Thumbnail generator for USD"
-version = "1.0.14"
+version = "1.0.16"
 
 [dependencies]
 "omni.client" = {}
@@ -61,7 +62,7 @@ pythonTests.exclude = ["omni.kit.thumbnails.usd.tests.test_thumbnail_generator.I
 
 dependencies = [
     "omni.kit.viewport.window",
-    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.hydra_texture",
 ]
 
 args = [

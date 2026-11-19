@@ -79,8 +79,7 @@ def movie_capture_cancel():
 
 # Unit test for starting/cancelling/restarting movie capture on particular scene.
 class TestMovieCaptureWindowTestReset(OmniUiTest):
-    # This folder will be used write the goldens under
-    # kit\source\extensions\omni.rtx.tests\data\golden\
+    # Capture output subdirectory for the restart regression.
     TEST_PATH = "rtx_movie_capture_restart"
 
     async def setUp(self):
@@ -88,7 +87,7 @@ class TestMovieCaptureWindowTestReset(OmniUiTest):
         # wait settings to take effect (relevant for loading)
         await self.wait_n_updates(10)
 
-        # The original bug-report scene, collected into the test data:
+        # Use the bundled scene for the original capture restart regression.
         scene_path = os.path.join(DATA_PATH, "tests", "usd", "Collected_CaptureCrash_OM-105513_OM-90352.usd")
         self._context = omni.usd.get_context()
         await self._context.open_stage_async(scene_path)
@@ -105,7 +104,7 @@ class TestMovieCaptureWindowTestReset(OmniUiTest):
     async def test_movie_capture_window_test_restart(self):
         # # await wait_for_update()
         # The original repro steps for OM-105513 where given as:
-        #   1) Load the bug-report scene (Collected_CaptureCrash)
+        #   1) Load the local capture-crash regression stage.
         #      =>Done in 'setUp'
         #   2) Open Movie Capture (extension: omni.kit.window.movie_capture)
         #   3) Change the output path to some valid path.

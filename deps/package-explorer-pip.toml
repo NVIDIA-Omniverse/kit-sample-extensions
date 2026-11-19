@@ -31,7 +31,7 @@
 # For many other pip packages used by default we install them in `pip_prebundle` folder to make available without need to install immediately.
 
 # NOTE - For any new packages added to this list, please make sure that the license is compatible with Omniverse (i.e. avoid GPL/LGPL) and
-# that a SWIPAT bug report is filed for legal to validate if there is no existing ticket.
+# that the package has completed NVIDIA's third-party software review.
 
 # Package Explorer
 [[dependency]]
@@ -50,4 +50,4 @@ install_dependencies = true
 append_to_install_folder = true
 gather_licenses_path = "../_build/PACKAGE-LICENSES/PIP-prebundled-LICENSES.txt"
 # All packages are public. CI image default index is empty; retain its working mirror.
-extra_args = ["--index-url", "https://pypi.org/simple", "-v"]
+extra_args = [ "--index-url=https://pypi.org/simple", "-v" ]

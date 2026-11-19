@@ -31,12 +31,7 @@ import omni.kit.app
 
 from .folder_identity import derive_folder_key, find_links_async, local_url_key, resolve_folder_key
 
-_legacy_nucleus_connector = False
-try:
-    from omni.kit.widget.nucleus_connector import connect
-except ImportError:
-    _legacy_nucleus_connector = True
-    from omni.kit.widget.nucleus_connector import get_connector_instance
+from omni.kit.widget.connection_manager import ensure_connection
 
 THUMBNAIL_PATH = ".thumbs"
 THUMBNAIL_SIZE = 256
@@ -587,53 +582,32 @@ class FileSystemFolder(AbstractBrowserFolder):
             self.last_traverse_result = result
             return True
 
-        if self.__connect_nucleus(on_connected_fn):
-            # Connection launched; the answer arrives through on_connected_fn. Deliberately leave
-            # last_traverse_result as None - nothing has been decided yet.
-            return False
+        self.__connect_nucleus(on_connected_fn)
+        # Connection launched; the answer arrives through on_connected_fn. Deliberately leave
+        # last_traverse_result as None - nothing has been decided yet.
+        return False
 
-        # No connector available, so no callback will ever arrive: settle it here instead.
-        self.last_traverse_result = classify_result(self._last_stat_result)
-        return True
-
-    def __connect_nucleus(self, on_connected_fn) -> bool:
+    def __connect_nucleus(self, on_connected_fn) -> None:
         """
         Attempt to open a nucleus connection for this folder's server.
 
-        Return True if a connection was actually launched, in which case the caller must wait for
-        ``on_connected_fn``. False means nothing was started and no callback will arrive, so the
-        caller has to settle the outcome itself.
+        Preserve the traversal's callback contract while the connection manager performs
+        authentication asynchronously.
         """
         broken_url = omni.client.break_url(self.url)
         server_url = omni.client.make_url(scheme="omniverse", host=broken_url.host)
 
-        def __on_connect_result(result: bool):
+        async def __connect():
+            try:
+                result = await ensure_connection(server_url, show_connecting_dialog=True)
+            except Exception as error:
+                carb.log_warn(f"Connection failed for {server_url}: {error}")
+                result = False
             if on_connected_fn:
                 on_connected_fn(self, result)
 
-        # OMPE-31528: Make it compatible with different nucleus connector API
-        if _legacy_nucleus_connector:
-            nucleus_connector = get_connector_instance()
-            if not nucleus_connector:
-                carb.log_warn(f"No nucleus connector available, cannot connect {server_url}")
-                return False
-            carb.log_info(f"Trying to connect {server_url}")
-            nucleus_connector.connect(
-                broken_url.host,
-                server_url,
-                on_success_fn=lambda *_: __on_connect_result(True),
-                on_failed_fn=lambda *_: __on_connect_result(False),
-            )
-            return True
-
         carb.log_info(f"Trying to connect {server_url}")
-        connect(
-            broken_url.host,
-            server_url,
-            on_success_fn=lambda *_: __on_connect_result(True),
-            on_failed_fn=lambda *_: __on_connect_result(False),
-        )
-        return True
+        asyncio.ensure_future(__connect())
 
     def create_file_object(self, url: str) -> FileSystemFile:
         """

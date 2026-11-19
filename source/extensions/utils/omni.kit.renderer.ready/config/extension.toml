@@ -1,5 +1,6 @@
 [package]
-version = "1.0.0"
+target.kit = ["111.0"]
+version = "1.0.1"
 authors = ["Jeff Hanna"]
 title = "Renderer Ready Log"
 description = "Lightweight extension that logs 'RTX ready' when the first rendered frame is delivered. No UI dependencies."

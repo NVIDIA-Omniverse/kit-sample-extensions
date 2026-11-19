@@ -2,6 +2,10 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.9.11] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [0.9.10] - 2026-05-13
 ### Changed
 - Migrated `apply_deeplink_request` handling to pure Events 2.0: subscribe via `carb.eventdispatcher.observe_event` and dispatch via `dispatch_event`; removed the Events 1.0 message-bus alias bridge (`carb.events.type_from_string` + `omni.kit.app.register_event_alias` + `message_bus.dispatch`).

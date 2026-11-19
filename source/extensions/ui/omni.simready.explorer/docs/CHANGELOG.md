@@ -4,6 +4,10 @@ Changelog
 This document records all notable changes to ``omni.simready.explorer`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [1.1.5] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.1.4] - 2025-09-23
 ### Changed
 - OMPE-64544: Use temp directory when renaming for DGXC test failure

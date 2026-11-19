@@ -2,6 +2,10 @@
 
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [1.3.9] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.3.8] - 2026-10-16
 ### Changed
 - Give the existing Kit 111 compatibility changes a distinct package version: compose camera layers when copying cameras and hide the private runtime camera.

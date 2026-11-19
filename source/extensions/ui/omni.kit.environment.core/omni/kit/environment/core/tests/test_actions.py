@@ -13,6 +13,7 @@
 ## distribution of this software and related documentation without an express
 ## license agreement from NVIDIA CORPORATION is strictly prohibited.
 ##
+import asyncio
 from pathlib import Path
 
 import carb
@@ -113,6 +114,11 @@ class TestActions(OmniUiTest):
         window_ref = ui_test.WindowRef(warning_window, "")
         delete_btn_ref = window_ref.find_all("**/Button[*].text=='Delete'")[0]
         await delete_btn_ref.click()
+
+        # App updates can finish before the viewport presents the imported sky and its fallback light.
+        viewport = get_active_viewport()
+        self.assertIsNotNone(viewport)
+        await asyncio.wait_for(viewport.wait_for_rendered_frames(2), timeout=60)
 
         await self.finalize_test(
             golden_img_dir=GOLDEN_IMAGE_PATH,

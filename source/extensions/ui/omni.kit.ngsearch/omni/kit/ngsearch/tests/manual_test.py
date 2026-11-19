@@ -420,7 +420,7 @@ if __name__ == "__main__":
             # # NOTE: Keep the commented out URLs just as examples for the test S3 bucket
             # # They are commented out for now, as DeepSearch is currentyl disable on that S3 bucket.
             for test_url in [
-                "omniverse://rc-r15.ov.nvidia.com/Projects/DeepSearch",
+                "omniverse://nucleus.example.com/Projects/DeepSearch",
                 # "s3://deepsearch-test-bucket/Projects/DeepSearch",
                 "s3://omniverse-content-production/Assets/Machinima/BannerlordII/Props",
                 # "https://deepsearch-test-bucket.s3.eu-central-1.amazonaws.com/Projects/DeepSearch",
@@ -430,7 +430,7 @@ if __name__ == "__main__":
 
             await ManualCheck().run_multiserver(
                 [
-                    "omniverse://rc-r15.ov.nvidia.com/Projects/DeepSearch",
+                    "omniverse://nucleus.example.com/Projects/DeepSearch",
                     "s3://omniverse-content-production/Assets/Machinima/BannerlordII/Props",
                 ]
             )

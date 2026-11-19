@@ -1,0 +1,52 @@
+{
+    "PointVisualizer": {
+        "description": ["Display Point"],
+        "inputs": {
+            "active": {
+                "default": true,
+                "description": ["Display point"],
+                "type": "bool",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "points": {
+                "type": ["float[3]", "float[3][]"],
+                "description": "foobar",
+                "$default": [0, 0, 0],
+                "uiName": "Points"
+            },
+            "aims": {
+                "type": ["float[3]", "float[3][]"],
+                "description": "foobar",
+                "$default": [0, 0, 0],
+                "uiName": "Aims"
+            },
+            "tags": {
+                "type": ["token", "token[]"],
+                "description": "foobar",
+                "uiName": "Tags"
+            },
+            "pointSize": {
+                "type": "float",
+                "description": "foobar",
+                "default": 1.0,
+                "uiName": "Point Size"
+            },
+            "aimScale": {
+                "type": "float",
+                "description": "foobar",
+                "default": 1.0,
+                "uiName": "Aim Scale"
+            }
+        },
+        "metadata": {
+            "uiName": "scene visualization: point visualizer"
+        },
+        "tokens": {
+            "points": "points",
+            "transform": "transform"
+        },
+        "version": 1
+    }
+}

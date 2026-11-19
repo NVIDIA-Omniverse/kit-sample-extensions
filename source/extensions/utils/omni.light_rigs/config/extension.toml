@@ -1,7 +1,8 @@
 [package]
+target.kit = ["111.0"]
 # Semantic Versionning is used: https://semver.org/
 
-version = "106.3.7"
+version = "106.3.8"
 
 # Lists people or organizations that are considered the "authors" of the package.
 authors = ["Jeff Hanna"]

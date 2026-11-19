@@ -1,5 +1,5 @@
 [package]
-version = "1.1.5"
+version = "1.1.9"
 authors = ["Bob White", "Stephen Mackenzie"]
 title = "No Code UI"
 description="Bundle extension for No Code UI / data2ui"
@@ -14,14 +14,14 @@ waiver = "Bundle extension for No Code UI / data2ui"
 support_level = "Sample"
 
 [package.target]
-kit = ["107.0"]
+kit = ["111.0"]
 
 [package.writeTarget]
 kit = true
 
 [dependencies]
-"omni.kit.data2ui.core" = {exact=true, version="1.1.5"}
-"omni.kit.data2ui.usd" = {exact=true, version="1.1.7"}
+"omni.kit.data2ui.core" = {exact=true, version="1.1.9"}
+"omni.kit.data2ui.usd" = {exact=true, version="1.1.9"}
 
 [documentation]
 pages = [
