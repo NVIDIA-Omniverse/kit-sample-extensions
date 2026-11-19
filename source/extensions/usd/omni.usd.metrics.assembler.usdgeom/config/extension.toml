@@ -1,5 +1,6 @@
 [package]
-version = "0.1.0"
+target.kit = ["111.0"]
+version = "0.1.1"
 title = "Metrics Assembler UsdGeom Rules"
 description = "Custom Metrics Assembler resolve rules for UsdGeom (camera) scene-unit attributes."
 authors = ["NVIDIA"]

@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.1.8] - 2026-11-10
+
+### Changed
+
+- Remove the redundant Hydra Texture test dependency; it is already supplied by the normal dependency graph.
+
+## [1.1.7] - 2026-11-05
+
+### Changed
+
+- Remove the temporary `-ovrtx` tag from `omni.kit.hydra_texture` dependency requests.
+
+## [1.1.6] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
+## [1.1.5] - 2026-10-23
+### Changed
+- Require the retained OVRTX HydraTexture provider instead of allowing the legacy provider to resolve.
+
 ## [1.1.4] - 2026-08-26
 ### Fixed
 - OMPE-80508: Fix two call sites that still used the deprecated `omni.kit.renderer_capture` module

@@ -2,6 +2,10 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.3.8] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [0.3.7] - 2026-10-16
 ### Changed
 - Give the existing Kit 111 compatibility changes a distinct package version: use composed USD queries when runtime collection queries are unavailable or incomplete.

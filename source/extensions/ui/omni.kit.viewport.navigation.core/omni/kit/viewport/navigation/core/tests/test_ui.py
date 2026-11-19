@@ -100,7 +100,6 @@ class TestNavigationBar(OmniUiTest):
                 direction=self._navigaiton_bar._direction,
             )
             self._option_button.state = False
-            # https://docs.google.com/presentation/d/1gbWFNoNsKq9slCRaBicaF9QAbhLiY8ZM_4l-DkFSRq0/edit#slide=id.g15bcfa696e3_0_54
             # Add separator for review tools
             self._separator = ViewportNavigationSeparator()
 

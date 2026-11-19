@@ -1,0 +1,51 @@
+{
+    "PointInstancerVisualizer": {
+        "description": ["Display Point Instancer"],
+        "inputs": {
+            "pointInstancerBundle": {
+                "description": "Input point instancer data",
+                "type": "bundle"
+            },
+            "prototypesBundle": {
+                "type": "bundle",
+                "description": "Bundle containing prototype data",
+                "optional": true,
+                "metadata": {
+                    "uiName": "Prototypes"
+                }
+            },
+            "active": {
+                "default": true,
+                "description": ["visualize bundle data"],
+                "type": "bool",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            },
+            "scale": {
+                "default": 1.0,
+                "type": "float",
+                "description": "Scale factor applied to instance frame visualization",
+                "metadata": {
+                    "displayGroup": "parameters"
+                }
+            }
+        },
+        "metadata": {
+            "uiName": "scene visualization: point instancer visualizer"
+        },
+        "tokens": {
+            "positions": "positions",
+            "orientations": "orientations",
+            "scales": "scales",
+            "protoIndices": "protoIndices",
+            "transform": "transform",
+            "points": "points",
+            "extent": "extent",
+            "bboxMinCorner": "bboxMinCorner",
+            "bboxMaxCorner": "bboxMaxCorner",
+            "bboxTransform": "bboxTransform"
+        },
+        "version": 1
+    }
+}

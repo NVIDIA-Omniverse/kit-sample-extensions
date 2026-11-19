@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [1.0.4] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.0.3] - 2025-03-29
 - OMPE-59133: Removed usage of omni.kit.widget.settings.deprecated"
 

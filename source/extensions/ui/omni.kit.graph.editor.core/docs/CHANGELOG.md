@@ -2,6 +2,10 @@
 
 Omniverse Kit MDL UsdShade Editor
 
+## [1.5.9] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.5.8] - 2026-02-24
 ### Fixed
 - revert changes in 1.5.7

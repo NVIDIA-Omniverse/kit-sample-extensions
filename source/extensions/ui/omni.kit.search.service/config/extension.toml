@@ -1,6 +1,7 @@
 [package]
+target.kit = ["111.0"]
 title = "Search Service Extension"
-version = "0.1.13"
+version = "0.1.14"
 category = "Other"
 authors = ["Artem Rozantsev", "Michael Shelley"]
 description="A plugin to connect kit to the search service for file and tag search."

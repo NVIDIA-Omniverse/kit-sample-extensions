@@ -4,6 +4,11 @@ CHANGELOG
 
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+[0.2.1] - 2026-10-23
+Changed
+-------
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 [0.2.0] - 2024-11-29
 Changed
 -------

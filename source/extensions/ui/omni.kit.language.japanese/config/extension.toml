@@ -1,6 +1,7 @@
 [package]
+target.kit = ["111.0"]
 # Semantic Versioning is used: https://semver.org/
-version = "1.1.4"
+version = "1.1.6"
 
 category = "Utilities"
 support_level = "Sample"
@@ -64,7 +65,7 @@ args = [
 ]
 
 dependencies = [
-    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.hydra_texture",
     "omni.kit.renderer.capture",
     "omni.kit.mainwindow",
     "omni.kit.window.preferences",

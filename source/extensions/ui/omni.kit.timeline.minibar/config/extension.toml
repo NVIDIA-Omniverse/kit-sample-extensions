@@ -1,7 +1,7 @@
 [package]
 title = "Kit Timeline Minibar"
 description = "a compact playback toolbar"
-version = "1.3.1"
+version = "1.3.3"
 category = "Other"
 authors = ["NVIDIA"]
 repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
@@ -13,7 +13,7 @@ icon = "data/icon.svg"
 preview_image = "data/preview.png"
 
 [package.target]
-kit = ["107.3"]
+kit = ["111.0"]
 
 [dependencies]
 "omni.ui" = {}
@@ -45,7 +45,7 @@ args = [
 ]
 dependencies = [
     "omni.kit.ui_test",
-    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.hydra_texture",
     "omni.kit.viewport.window",
     "omni.kit.viewport.menubar.display",
     "omni.kit.usd.layers",

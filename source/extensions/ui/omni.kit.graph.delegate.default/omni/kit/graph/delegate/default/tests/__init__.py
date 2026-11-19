@@ -7,4 +7,8 @@
 # license agreement from NVIDIA CORPORATION is strictly prohibited.
 #
 from .test_default_delegate import TestDelegate
-from .test_delegate import TestDefaultDelegate
+# The example-derived fixture suite is internal; public source exports retain TestDelegate.
+from pathlib import Path
+
+if Path(__file__).with_name("test_delegate.py").is_file():
+    from .test_delegate import TestDefaultDelegate

@@ -53,29 +53,25 @@ This way, it's necessary to synchronize the camera with the viewport.
 
 Another way to put the manipulator to the viewport is to register it in the main
 viewport `sc.SceneView`. This way, the manipulator's gestures can interact with
-the gestures of the main transform manipulator. The Viewport Legacy and Viewport
-Next have different ways to register manipulators. Viewport Legasyc has a
-registry module, `ManipulatorFactory`. And the Viewport Next has registry object
-`RegisterScene`. Fortunately, it's possible to write code that is compatible
-with both of them.
+the gestures of the main transform manipulator. Use `RegisterScene` from
+`omni.kit.viewport.registry` to register the manipulator with
+`omni.kit.viewport.window`.
 
 ```python
-# Viewport Next: omni.kit.viewport.window
+from omni.kit.viewport.registry import RegisterScene
+
 self._slider_registry = RegisterScene(SliderRegistry, "omni.example.ui_scene.slider_manipulator")
-# Viewport Legacy: omni.kit.window.viewport
-self._slider_factory = ManipulatorFactory.create_manipulator(SliderRegistry)
 ```
 
-Both Viewport Legacy and Viewport Next will construct the given class under the
-appropriate `sc.SceneView` object. The given class `SliderRegistry` is a simple
+The viewport registry constructs the given class under the appropriate
+`sc.SceneView` object. The given class `SliderRegistry` is a simple
 class that creates a manipulator.
 
 ```python
 class SliderRegistry:
     """
-    Created by omni.kit.viewport.registry or omni.kit.manipulator.viewport per
-    viewport. Keeps the manipulator and some properties that are needed to the
-    viewport.
+    Created by omni.kit.viewport.registry per viewport. Keeps the manipulator
+    and some properties that are needed by the viewport.
     """
 
     def __init__(self, description: Optional[Dict[str, Any]] = None):
@@ -87,14 +83,8 @@ class SliderRegistry:
             self.__slider_manipulator = None
 ```
 
-The manipulator will appear in both Viewport Legacy and Viewport Next and
-correctly interact with other viewport manipulators, including camera transform,
-object transform and rect selection manipulators. The rect selection of Viewport
-Legacy is not implemented as a manipulator. Thus it requires additional code to
-disable it when the user drags the slider.
-
-
-```python
-from omni.kit.viewport.utility import get_active_viewport, disable_selection
-re_enable_when_destroyed = disable_selection(get_active_viewport())
-```
+The manipulator shares the viewport's `sc.SceneView` with the camera transform,
+object transform and rectangle selection manipulators. Their gestures participate
+in the same gesture management, so the slider does not need to disable viewport
+selection explicitly while dragging. Destroy the `RegisterScene` handle during
+extension shutdown to unregister the slider.

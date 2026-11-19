@@ -1,7 +1,8 @@
 [package]
+target.kit = ["111.0"]
 title = "Graph Editor Core"
 description = "Common framework for Graph Editors in Kit"
-version = "1.5.8"
+version = "1.5.9"
 authors = ["Victor Yudin"]
 repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
 keywords = ["graph", "editor", "nodes"]

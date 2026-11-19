@@ -1,4 +1,5 @@
 [package]
+target.kit = ["111.0"]
 authors = ["Kit Team"]
 category = "services"
 changelog = "docs/CHANGELOG.md"
@@ -10,7 +11,7 @@ readme  = "docs/README.md"
 repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
 slackids = ["@U010NFP76BU"]
 title = "Service Pip Archive"
-version = "0.18.16"
+version = "0.18.17"
 
 # publish to each platform & kit version separately
 writeTarget.platform = true

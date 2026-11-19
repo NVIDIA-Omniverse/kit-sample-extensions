@@ -923,7 +923,7 @@ class ExtendedSearchField(SearchDelegate):
 
         # NOTE: this implementation is suboptimal, some filters for search backend are being constructed
         #   that are not needed in this context. The is a ticket to verify field types in search grammar
-        #   https://nvidia-omniverse.atlassian.net/browse/OM-53841 when it is going to be completed. This
+        #   OM-53841 when it is going to be completed. This
         #   verification functionality need to be adjusted.
 
         # try creating query filters

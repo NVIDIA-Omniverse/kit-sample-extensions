@@ -72,9 +72,9 @@ class TestUtils(OmniUiTest):
 
     def test_is_omniverse_url(self):
         for valid in [
-            "omniverse://ov.rc.nvidia.com",
-            "omniverse://ov.rc.nvidia.com/Projects/Something/Random/",
-            "omniverse://ov.rc.nvidia.com/Projects/Something/Random/file.usd",
+            "omniverse://nucleus.example.com",
+            "omniverse://nucleus.example.com/Projects/Something/Random/",
+            "omniverse://nucleus.example.com/Projects/Something/Random/file.usd",
             "omniverse://localhost/Projects/Something/Random",
         ]:
             assert is_omniverse_url(valid)
@@ -93,9 +93,9 @@ class TestUtils(OmniUiTest):
 
     def test_is_supported_url(self):
         for valid in [
-            "omniverse://ov.rc.nvidia.com",
-            "omniverse://ov.rc.nvidia.com/Projects/Something/Random/",
-            "omniverse://ov.rc.nvidia.com/Projects/Something/Random/file.usd",
+            "omniverse://nucleus.example.com",
+            "omniverse://nucleus.example.com/Projects/Something/Random/",
+            "omniverse://nucleus.example.com/Projects/Something/Random/file.usd",
             "omniverse://localhost/Projects/Something/Random",
             "https://fake-bucket.s3.fake-region.amazonaws.com",
         ]:

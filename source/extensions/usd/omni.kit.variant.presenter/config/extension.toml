@@ -1,6 +1,6 @@
 [package]
 # Semantic Versioning is used: https://semver.org/
-version = "107.1.8"
+version = "107.1.9"
 
 # Lists people or organizations that are considered the "authors" of the package.
 authors = ["Lindsay Moore"]
@@ -30,7 +30,7 @@ icon = "data/icon.svg"
 preview_image = "data/preview.png"
 
 writeTarget.kit = true
-target.kit = ["107.3"]  # Required for Event 2.0
+target.kit = ["111.0"]
 
 [documentation.pages]
 "Overview" = "docs/overview.md"

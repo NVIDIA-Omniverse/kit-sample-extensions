@@ -3,6 +3,20 @@
 This document records all notable changes to ``omni.kit.viewport.menubar.framerate`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [1.0.15] - 2026-11-10
+
+### Fixed
+- Use the viewport tick rate to select the nearest frame-pacing preset after Kit removed the rendering run-loop settings. Cycling from a hidden `60x2` preset selects `60` again.
+
+## [1.0.14] - 2026-11-05
+
+### Fixed
+- Explicitly select the OVRTX viewport provider in test dependencies when the test application does not select a renderer.
+
+## [1.0.13] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.0.12] - 2026-10-15
 ### Fixed
 - "Cycle frame-pacing presets" (action `FramePacingCyclePresets`, SHIFT+ALT+P) no longer freezes the app when the current

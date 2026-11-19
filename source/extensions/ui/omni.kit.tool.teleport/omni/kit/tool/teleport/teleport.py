@@ -40,6 +40,29 @@ PERSISTENT_SETTINGS_PREFIX = "/persistent"
 PERSISTENT_TELE_EYE_HEIGHT = PERSISTENT_SETTINGS_PREFIX + TELE_EYE_HEIGHT
 RING_RADIUS = 95
 
+# Fraction of the target distance by which the target's facing is nudged toward the camera's heading.
+FACING_HEADING_BIAS = 0.1
+# Below this ground fraction of the facing vector, its direction is unreliable and the previous one is kept.
+FACING_MIN_GROUND_FRACTION = 0.01
+
+
+def get_facing_origin(cam_pos: Gf.Vec3d, cam_forward: Gf.Vec3d, cam_up: Gf.Vec3d, world_up: Gf.Vec3d, distance: float):
+    """The point the teleport target faces away from: the camera, nudged back along its heading.
+
+    The target faces along the camera-to-target direction on the ground. Seen from high above, that direction
+    shrinks toward nothing and the target's facing became arbitrary. Moving the camera point back along the
+    camera's heading (the top of the screen, on the ground) by a small fraction of the distance adds a facing
+    that dominates only when looking steeply down; in other views the camera-to-target direction dominates.
+    """
+    # forward + up points to the top of the screen; on the ground it is the camera's heading at any pitch.
+    heading = cam_forward + cam_up
+    heading = heading - world_up * Gf.Dot(heading, world_up)
+    length = heading.GetLength()
+    if length <= 0.0:
+        return cam_pos
+    return cam_pos - heading / length * (FACING_HEADING_BIAS * distance)
+
+
 TELE_ENABLED_GLOBAL_EVENT: str = "omni.kit.tool.teleport.TOOL_ENABLED"
 TELE_ENABLED_EVENT: int = carb.events.type_from_string(TELE_ENABLED_GLOBAL_EVENT)
 register_event_alias(TELE_ENABLED_EVENT, TELE_ENABLED_GLOBAL_EVENT)
@@ -71,6 +94,7 @@ class Teleport:
         self._start_draging = False
         self._draging = False
         self._current_angle = 0
+        self._last_facing_ground = None
         self._need_skip_teleport_frame = False
         # first click and first will trigger with click teleport button
         # that cause unexpect behavior, so we need skip them
@@ -425,6 +449,23 @@ class Teleport:
         self._widgetUp = normal_up
         return pos, world_up
 
+    def _stabilize_facing_origin(self, facing_pos: Gf.Vec3d, world_up: Gf.Vec3d) -> Gf.Vec3d:
+        """Keep the previous facing where the facing has (almost) no ground direction.
+
+        A facing that points away from the camera everywhere has to turn around somewhere near the point below
+        the camera; there the ground direction vanishes and the angle would be arbitrary. Hold the last facing
+        through that point instead.
+        """
+        away = self._widgetPos - facing_pos
+        ground = away - world_up * Gf.Dot(away, world_up)
+        if ground.GetLength() > FACING_MIN_GROUND_FRACTION * away.GetLength():
+            self._last_facing_ground = ground.GetNormalized()
+            return facing_pos
+        last = self._last_facing_ground
+        if last is None:
+            return facing_pos
+        return self._widgetPos - last * away.GetLength()
+
     @carb.profiler.profile
     def on_moved(self, coords: Sequence[float], hit_result):
         """Update the teleport widget and model based on movement. Compute widget position and orientation from the ray query results.
@@ -447,18 +488,32 @@ class Teleport:
         self._widgetPos = Gf.Vec3d(pos[0], pos[1], pos[2])
         cam_state = VpCamera()
         cam_pos = cam_state.position_world
+        cam_xform = cam_state.usd_camera.ComputeLocalToWorldTransform(Usd.TimeCode.Default())
+        # The target faces away from this point: the camera, nudged back along its heading (see get_facing_origin).
+        facing_pos = get_facing_origin(
+            cam_pos,
+            cam_xform.TransformDir(Gf.Vec3d(0, 0, -1)),
+            cam_xform.TransformDir(Gf.Vec3d(0, 1, 0)),
+            Gf.Vec3d(world_up[0], world_up[1], world_up[2]),
+            (cam_pos - self._widgetPos).GetLength(),
+        )
+        facing_pos = self._stabilize_facing_origin(facing_pos, Gf.Vec3d(world_up[0], world_up[1], world_up[2]))
 
         if UsdGeom.GetStageUpAxis(vp_util.get_active_viewport().stage) == "Y":
-            self._current_angle = self._calculate_angle(self._widgetPos[0], self._widgetPos[2], cam_pos[0], cam_pos[2])
+            self._current_angle = self._calculate_angle(
+                self._widgetPos[0], self._widgetPos[2], facing_pos[0], facing_pos[2]
+            )
         else:
-            self._current_angle = self._calculate_angle(self._widgetPos[0], self._widgetPos[1], cam_pos[0], cam_pos[1])
+            self._current_angle = self._calculate_angle(
+                self._widgetPos[0], self._widgetPos[1], facing_pos[0], facing_pos[1]
+            )
         self._current_angle += math.pi * 0.5
 
         use_ring_manipulator = self.is_using_ring_manipulator()
 
         self._widget.set_widget_position(self._widgetPos)
         self._widget.set_direction_and_up(
-            (cam_pos - self._widgetPos).GetNormalized(), self._widgetUp, use_ring_manipulator
+            (facing_pos - self._widgetPos).GetNormalized(), self._widgetUp, use_ring_manipulator
         )
         # Get the current position and forward
 
@@ -486,7 +541,7 @@ class Teleport:
         self._teleport_model.world_up = world_up
         self._teleport_model.position = self._widgetPos
         self._teleport_model.visual_up = self._widgetUp
-        self._teleport_model.visual_front = (cam_pos - self._widgetPos).GetNormalized()
+        self._teleport_model.visual_front = (facing_pos - self._widgetPos).GetNormalized()
         self._teleport_model.visible = show_manipulator
 
     def on_drag(self, hit_result):  # pragma: no cover -- currently unused

@@ -5,6 +5,16 @@ CHANGELOG
 This document records all notable changes to ``omni.kit.viewport.menubar.bottom`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+[1.0.9] - 2026-11-05
+Changed
+-------
+- Remove the temporary ``-ovrtx`` tag from ``omni.kit.hydra_texture`` dependency requests.
+
+[1.0.8] - 2026-10-23
+Changed
+-------
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 [1.0.7] - 2026-08-28
 Changed
 ------

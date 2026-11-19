@@ -1,6 +1,6 @@
 [package]
 # Semantic Versionning is used: https://semver.org/
-version = "1.1.0"
+version = "1.1.2"
 
 # Lists people or organizations that are considered the "authors" of the package.
 authors = ["Ning Li"]
@@ -25,7 +25,7 @@ preview_image = "data/preview.png"
 icon = "data/icon.svg"
 
 [package.target]
-kit = ["107.3"]
+kit = ["111.0"]
 
 [dependencies]
 "omni.kit.viewport.navigation.core" = {}
@@ -43,6 +43,7 @@ exts."omni.kit.viewport.navigation.waypoint".visible= true
 
 [[test]]
 dependencies = [
+    "omni.kit.viewport.rtx",
     "omni.kit.viewport.window",
     "omni.kit.ui_test",
     "omni.kit.viewport.menubar.display",

@@ -2,6 +2,14 @@
 
 Default Delegate for Graph View
 
+## [1.2.8] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
+## [1.2.7] - 2026-10-23
+### Changed
+- Run delegate tests with internal fixtures instead of the retired graph editor example and Neo delegate.
+
 ## [1.2.6] - 2026-03-06
 ### Fixed
 - OMPE-84863: omni.kit.graph.delegate.default test failed in DGXC

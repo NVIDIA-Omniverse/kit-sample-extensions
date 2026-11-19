@@ -1,6 +1,7 @@
 [package]
+target.kit = ["111.0"]
 title = "Kit services base facility"
-version = "1.0.5"
+version = "1.0.6"
 changelog = "docs/CHANGELOG.md"
 readme = "docs/README.md"
 icon = "data/icon.png"

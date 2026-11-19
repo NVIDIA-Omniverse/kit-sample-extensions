@@ -1,6 +1,7 @@
 [package]
+target.kit = ["111.0"]
 # Semantic Versionning is used: https://semver.org/
-version = "1.0.23"
+version = "1.0.26"
 
 # Lists people or organizations that are considered the "authors" of the package.
 authors = ["Ning Li", "Jeff Hanna"]
@@ -40,16 +41,11 @@ exts."omni.kit.viewport.navigation.capture".enable= true
 
 [[test]]
 dependencies = [
-    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.hydra_texture",
     "omni.kit.viewport.window",
     "omni.kit.ui_test",
     "omni.kit.viewport.menubar.display",
-    # "omni.rtx.shadercache.vulkan",  # legacy RTX shader cache; absent from Kit 111 (OVRTX)
     # "omni.kit.markup.core",  # one test uses "TakeMarkupScreenshotCommand"
-]
-"filter:platform"."windows-x86_64".dependencies = [
-    # fix [Error][gpu.foundation.plugin] Cannot load shader file
-    # "omni.rtx.shadercache.d3d12",  # legacy RTX shader cache; absent from Kit 111 (OVRTX)
 ]
 
 args = [

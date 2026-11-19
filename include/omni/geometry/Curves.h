@@ -12,8 +12,8 @@
 
 #include <carb/Defines.h>
 
-#include <omni/math/linalg/matrix.h>
-#include <omni/math/linalg/vec.h>
+#include <usdrt/gf/matrix.h>
+#include <usdrt/gf/vec.h>
 
 #include <vector>
 

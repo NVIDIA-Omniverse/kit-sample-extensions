@@ -1,4 +1,4 @@
 <project toolsVersion="5.0">
-  <!-- Internal producer tools retain the shared consumer pins below. -->
+  <!-- Shared consumer tool pins for public source builds. -->
   <import path="repo-deps-public.packman.xml" />
 </project>

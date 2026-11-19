@@ -3,6 +3,22 @@
 This document records all notable changes to ``omni.kit.window.section`` extension.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [107.2.4] - 2026-11-10
+
+### Changed
+
+- Remove the redundant Hydra Texture test dependency; it is already supplied by the normal dependency graph.
+
+## [107.2.3] - 2026-11-05
+
+### Changed
+
+- Remove the temporary `-ovrtx` tag from `omni.kit.hydra_texture` dependency requests.
+
+## [107.2.2] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [107.2.1] - 2026-10-16
 ### Changed
 - Give the existing Kit 111 compatibility changes a distinct package version: release observer guards and stage listeners before shutdown.

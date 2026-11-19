@@ -1,5 +1,6 @@
 [package]
-version = "0.0.1"
+target.kit = ["111.0"]
+version = "0.0.2"
 authors = ["NVIDIA"]
 title = "Web Messaging Core"
 description = "Core WebRTC messaging utilities for Omniverse Kit extensions using omni.kit.livestream.messaging"

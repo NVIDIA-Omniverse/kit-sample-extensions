@@ -5,6 +5,7 @@
     <filter include="gsl" linkPath="../_build/target-deps/gsl" />
   </import>
 
+  <!-- CloudXR runtime binaries. -->
 
   <!-- OpenUSD Exchange libraries built for Kit 110's OpenUSD/Python ABI. -->
   <dependency name="usd-exchange" linkPath="../_build/target-deps/usd-exchange/${config}">

@@ -1,5 +1,5 @@
 [package]
-version = "1.1.5"
+version = "1.1.9"
 authors = ["Bob White", "Victor Yudin"]
 title = "Data Driven Core"
 description="Actions, commands, menus for creating USD objects used in Data Driven UI workflows"
@@ -13,7 +13,7 @@ icon = "data/icon.png"
 support_level = "Sample"
 
 [package.target]
-kit = ["107.0"]
+kit = ["111.0"]
 
 [package.writeTarget]
 kit = true

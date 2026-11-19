@@ -17,21 +17,22 @@ Extensions are grouped by domain under [`source/extensions`](source/extensions):
 | Group | Examples and uses |
 | --- | --- |
 | [Animation](source/extensions/animation) | Animation preferences and USD animation settings. |
-| [Assets](source/extensions/assets) | Asset validation, import and export, and general 3D asset conversion. |
-| [Deprecated](source/extensions/deprecated) | Deprecated extensions retained together for review before removal. |
+| [Assets](source/extensions/assets) | Asset validation, import, and export workflows. |
+| [Deprecated](source/extensions/deprecated) | Animation graph schema used by supported asset workflows. |
 | [Developer tools](source/extensions/devtools) | Settings inspection, command macros, profiling, and development utilities. |
+| [Physics](source/extensions/physics) | Physics scene authoring and preview tools. |
 | [Services](source/extensions/services) | Service clients, transports, facilities, rendering, and asset workflow services. |
-| [Tools](source/extensions/tools) | Curve creation, procedural workflows, scene recording, and other authoring tools. |
+| [Tools](source/extensions/tools) | Curve creation, scene visualization, and other authoring tools. |
 | [UI](source/extensions/ui) | Widgets, browsers, property interfaces, manipulators, and application windows. |
 | [USD](source/extensions/usd) | Collections, variant editing, semantic properties, and other USD workflows. |
 | [Utilities](source/extensions/utils) | Stage opening, client helpers, light rigs, and application integrations. |
+| [Warp](source/extensions/warp) | Warp integration and GPU compute examples. |
 | [Web](source/extensions/web) | Web messaging, deep links, streaming integration, and cloud configuration. |
 
 See [Compatibility](#compatibility) for Kit-version and dependency guidance.
 
-This release ships extensions. The generated manifest under
-[`source/apps`](source/apps) locks and precaches extension dependencies for the
-build tools; it is not an example application.
+This release ships extensions. The build tools generate an application manifest
+to lock and precache their dependencies; example applications are not included.
 
 Each extension directory is named for its extension identifier. Its
 `config/extension.toml` declares dependencies, Python modules or native plugins,
@@ -45,13 +46,22 @@ extension-specific usage and settings.
 - Git and [Git LFS](https://git-lfs.com/) to retrieve source and binary assets.
 - A development environment matching one of the configured release platforms:
   Windows x86-64, Linux x86-64, or Linux aarch64. Native compilation requires the
-  platform's build toolchain; Windows requires locally installed Visual Studio 2022 / MSVC v143 and Windows SDK.
+  platform's build toolchain. On Windows, install Visual Studio 2022 with the
+  Desktop development with C++ workload (MSVC v143) and a Windows SDK. Compiler
+  and Windows SDK packages are not downloaded by this repository.
 - Access to the Kit SDK packages and extension dependencies pinned by this
   repository.
 - Hardware and drivers compatible with the selected Kit SDK and the extensions
   you want to run. Rendering and GPU-dependent tests require an appropriate GPU.
 
 Use a short checkout path on Windows to avoid path-length and build-tool issues.
+
+> **Windows / Warp:** Building Warp requires the Visual Studio 2022 C++ toolchain
+> (MSVC v143). The pinned CUDA 12.9 toolkit rejects MSVC 14.50 and newer with an
+> `unsupported Microsoft Visual Studio version` error. If you have newer Visual
+> Studio versions installed alongside VS 2022, keep the VS 2022 selection and
+> Windows pre-build environment setup in `repo.toml`; this ensures Warp uses the
+> repository's selected compiler instead of discovering the newest installation.
 
 ### Get the source and build
 
@@ -64,7 +74,7 @@ git lfs pull
 
 From the repository root, build the release configuration:
 
-**Windows (PowerShell):**
+**Windows (Developer PowerShell for Visual Studio 2022):**
 
 ```powershell
 .\repo.bat build

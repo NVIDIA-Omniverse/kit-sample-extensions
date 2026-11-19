@@ -1,5 +1,9 @@
 # Changelog
 
+## [107.0.5] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [107.0.4] - 2026-05-27
 ### Fixed
 - Raise a clear `ValueError` (naming the offending `event_type`) in `TimelineValueModel.__init__` when the requested `event_type` is not in the timeline dispatch table, instead of later crashing with `TypeError: 'NoneType' object is not callable` when the missing getter is invoked.

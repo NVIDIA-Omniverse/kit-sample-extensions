@@ -3,6 +3,14 @@
 This document records all notable changes to ``omni.kit.browser.folder.core`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [2.1.3] - 2026-10-28
+### Changed
+- Connect through Connection Manager directly instead of the deprecated Nucleus Connector shim, preserving traversal completion callbacks.
+
+## [2.1.2] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [2.1.1] - 2026-09-09
 ### Fixed
 - OMPE-109433: a browser torn down without `destroy()` no longer reports its worker's

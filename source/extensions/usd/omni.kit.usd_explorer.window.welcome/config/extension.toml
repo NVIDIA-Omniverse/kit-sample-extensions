@@ -1,6 +1,6 @@
 [package]
 # Semantic Versioning is used: https://semver.org/
-version = "1.2.0"
+version = "1.2.1"
 
 # Lists people or organizations that are considered the "authors" of the package.
 authors = ["Jeff Hanna", "Bob White"]
@@ -25,7 +25,7 @@ preview_image = "data/preview.png"
 icon = "data/icon.svg"
 
 [package.target]
-kit = ["107.3"]
+kit = ["111.0"]
 
 [dependencies]
 "omni.ui" = {}

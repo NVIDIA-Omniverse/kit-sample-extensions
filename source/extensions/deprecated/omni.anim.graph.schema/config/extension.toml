@@ -14,12 +14,13 @@ reloadable = false
 order = -100
 
 [package]
+target.kit = ["111.0"]
 readme = "docs/README.md"
 changelog = "docs/CHANGELOG.md"
 icon = "data/icon.png"
 # Use the Extension Manager category fallback as the preview for this nonvisual schema.
 preview_image = "data/icon.png"
-version = "110.4.0"
+version = "110.4.1"
 category = "Animation"
 title = "USD Animation Graph schema"
 description="USD Animation Graph schema"

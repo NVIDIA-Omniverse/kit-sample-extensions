@@ -14,7 +14,14 @@ def usd_environment(root, config):
     env["PYTHONPATH"] = os.pathsep.join(
         str(path.resolve()) for path in (usd_root / "lib/python", root / "_build/target-deps/animation-schema-python")
     )
-    library_paths = os.pathsep.join(str((usd_root / path).resolve()) for path in ("lib", "bin"))
+    # The stock USD package uses the SDK's separate TBB dependency at load time.
+    tbb_root = root / "_build" / "target-deps" / "tbb" / config
+    library_paths = os.pathsep.join(
+        str(path.resolve())
+        for dependency in (usd_root, tbb_root)
+        for path in (dependency / "lib", dependency / "bin")
+        if path.is_dir()
+    )
     env["PATH"] = library_paths + os.pathsep + env.get("PATH", "")
     if os.name == "nt":
         env["PXR_USD_WINDOWS_DLL_PATH"] = library_paths
@@ -25,9 +32,15 @@ def usd_environment(root, config):
 
 def generate_schema(root, config, input_file, output_dir):
     python, usd_root, env = usd_environment(root, config)
+    # Stock OpenUSD packages the generator beside its Python bindings; older
+    # Kit USD packages installed the same entry point under bin.
+    generators = (usd_root / "bin/usdGenSchema", usd_root / "lib/python/pxr/Usd/usdGenSchema.py")
+    generator = next((path for path in generators if path.is_file()), None)
+    if generator is None:
+        raise FileNotFoundError(f"The selected USD dependency has no schema generator: {generators}")
     output_dir.mkdir(parents=True, exist_ok=True)
     subprocess.run(
-        [str(python), str(usd_root / "bin/usdGenSchema"), str(input_file), str(output_dir)],
+        [str(python), str(generator), str(input_file), str(output_dir)],
         check=True,
         env=env,
     )

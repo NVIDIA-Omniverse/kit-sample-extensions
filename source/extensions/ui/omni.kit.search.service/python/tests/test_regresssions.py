@@ -22,13 +22,13 @@ class TestSearchPlugin(omni.kit.test.AsyncTestCase):
         return model
 
     async def test_get_prefixes(self) -> None:
-        """Regression test for: https://omniverse-jirasw.nvidia.com/browse/OMFP-3284"""
+        """Regression test for: OMFP-3284"""
         model = self.get_search_model()
         response = await model.get_prefixes(self.url)
         self.assertEqual(response, [])
 
     async def test_list(self) -> None:
-        """Regression test for: https://omniverse-jirasw.nvidia.com/browse/OMFP-3284"""
+        """Regression test for: OMFP-3284"""
         model = self.get_search_model()
         with (
             patch.object(NGSearchServiceModel, "_search", autospec=True) as mock_search,

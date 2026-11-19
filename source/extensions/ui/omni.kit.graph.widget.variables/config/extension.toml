@@ -1,7 +1,8 @@
 [package]
+target.kit = ["111.0"]
 title = "Graph Variables Widget"
 description = "Panel for editing variables on Kit Graphs"
-version = "2.1.1"
+version = "2.1.2"
 authors = ["Keenan Patterson"]
 repository = "https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
 keywords = ["graph", "editor", "variables"]

@@ -30,7 +30,7 @@
 
 
 # NOTE - For any new packages added to this list, please make sure that the license is compatible with Omniverse (i.e. avoid GPL/LGPL) and
-# that a SWIPAT bug report is filed for legal to validate if there is no existing ticket.
+# that the package has completed NVIDIA's third-party software review.
 # Build tools stay separate and do not pull runtime dependencies.
 # Resolve all runtime package pins together in the next block; sequential overlays
 # previously installed conflicting AWS SDK versions and repeated aiohttp/urllib3.
@@ -46,18 +46,18 @@ download_only = false
 install_dependencies = false
 append_to_install_folder = true
 gather_licenses_path = "../_build/PACKAGE-LICENSES/PIP-prebundled-LICENSES.txt"
-extra_args = ["--index-url", "https://pypi.org/simple"]
+extra_args = [ "--index-url=https://pypi.org/simple" ]
 
 # For many other pip packages used by default we install them in `pip_prebundle` folder to make available without need to install immediately.
 
 # NOTE - For any new packages added to this list, please make sure that the license is compatible with Omniverse (i.e. avoid GPL/LGPL) and
-# that a SWIPAT bug report is filed for legal to validate if there is no existing ticket.
+# that the package has completed NVIDIA's third-party software review.
 [[dependency]]
 python = "${root}/_build/target-deps/python"
 packages = [
-    "aioboto3==15.5.0",                # OSRB: https://nvbugs/4895046
-    "aiobotocore==2.25.1",             # Required by aioboto3 15.5.0; OSRB: https://nvbugs/4576936
-    "multidict==6.7.0",                # OSRB: https://nvbugs/5082113
+    "aioboto3==15.5.0",
+    "aiobotocore==2.25.1",             # Required by aioboto3 15.5.0
+    "multidict==6.7.0",
     "prometheus_client==0.12.0",
     "aiokafka==0.9.0",
     "databases==0.7.0",
@@ -65,8 +65,7 @@ packages = [
     "aiomysql==0.3.0",
     "aiosqlite==0.19.0",
     # Specifying typing_extensions version explicitely here. It is a dependency of asyncpg.
-    # it has a Python license which requires special approval from the SWIPAT team.
-    # We already have this approval with Kit for 3.7.4.3.
+    # It has a Python Software Foundation license (PSF-2.0).
     "typing_extensions==4.14.1",
     "pyperclip==1.8.0",
     "watchdog==4.0.0",
@@ -105,7 +104,7 @@ platforms = ["*"]
 download_only = false
 append_to_install_folder = true
 gather_licenses_path = "../_build/PACKAGE-LICENSES/PIP-prebundled-LICENSES.txt"
-extra_args = ["--index-url", "https://pypi.org/simple"]
+extra_args = [ "--index-url=https://pypi.org/simple" ]
 
 # [linux] pyjwt dependency used by omni.auth client. [crypto] is required in order for jwt decode to work with rs216 algorithm.
 [[dependency]]
@@ -119,7 +118,7 @@ platforms = ["linux-*"]
 download_only = false
 append_to_install_folder = true
 gather_licenses_path = "../_build/PACKAGE-LICENSES/PIP-prebundled-LICENSES.txt"
-extra_args = ["--index-url", "https://pypi.org/simple"]
+extra_args = [ "--index-url=https://pypi.org/simple" ]
 
 # [windows] pyjwt dependency used by omni.auth client. omni.auth client wrapper extension will not work in Windows since [crypo] is required in order to jwt decode to work with rs216 algorithm.
 [[dependency]]
@@ -133,4 +132,4 @@ platforms = ["windows-*"]
 download_only = false
 append_to_install_folder = true
 gather_licenses_path = "../_build/PACKAGE-LICENSES/PIP-prebundled-LICENSES.txt"
-extra_args = ["--index-url", "https://pypi.org/simple"]
+extra_args = [ "--index-url=https://pypi.org/simple" ]

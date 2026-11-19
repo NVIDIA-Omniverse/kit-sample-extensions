@@ -31,7 +31,7 @@ def build_usdskel_preferences(pref_builder: PreferenceBuilder):
         if _g_settings.get(PERSISTENT_SETTINGS_PREFIX + "/omnihydra/useSkelAdapterBlendShape") is None:
             _g_settings.set_default_bool(
                 # OM-46552
-                # https://nvidia-omniverse.atlassian.net/browse/OM-46552
+                # OM-46552
                 PERSISTENT_SETTINGS_PREFIX + "/omnihydra/useSkelAdapterBlendShape",
                 False,
             )

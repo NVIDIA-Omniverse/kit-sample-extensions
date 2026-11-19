@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.21.3] - 2026-10-29
+
+### Fixed
+- Align Core and UI package versions so UI tests can locate Core fixtures in versioned registry installations.
+
+## [1.21.1] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.21.0] - 2026-09-02
 ### Changed
 - Update `usd-validation-nvidia` Python dependency to `1.21.0`.

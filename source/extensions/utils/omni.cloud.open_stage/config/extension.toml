@@ -1,6 +1,7 @@
 [package]
+target.kit = ["111.0"]
 # Semantic Versionning is used: https://semver.org/
-version = "1.0.11"
+version = "1.0.12"
 
 # The title and description fields are primarily for displaying extension info in UI
 title = "Omniverse Cloud Open Stage"

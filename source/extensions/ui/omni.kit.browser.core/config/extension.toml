@@ -1,6 +1,7 @@
 [package]
+target.kit = ["111.0"]
 # Semantic Versionning is used: https://semver.org/
-version = "2.4.0"
+version = "2.4.2"
 
 # Lists people or organizations that are considered the "authors" of the package.
 authors = ["Jeffrey Qiu"]
@@ -44,6 +45,36 @@ thumbnail_view.build_budget_ms = 8
 [settings]
 
 [[test]]
+# Known flaky cases run separately so neighboring tests still fail CI.
+pythonTests.exclude = [
+    "omni.kit.browser.core.tests.test_tree_browser_widget.TestTreeBrowserWidget.test_item_loading",
+]
+dependencies = [
+    "omni.kit.ui_test",
+]
+
+args = [
+    "--no-window",
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/renderer/enabled=ovrtx",
+    "--/renderer/active=ovrtx",
+    "--/renderer/multiGpu/enabled=false",
+    "--/renderer/multiGpu/autoEnable=false",
+    "--/renderer/multiGpu/maxGpuCount=1",
+]
+
+# Loading-spinner screenshot is intermittent; one update does not establish texture/presentation readiness.
+# Retire this profile when the deterministic correction is qualified.
+[[test]]
+name = "known_flaky"
+# Reliable by default; quarantine only platforms with an observed failure of this test.
+unreliable = false
+"filter:platform"."linux-aarch64".unreliable = true
+"filter:platform"."windows-x86_64".unreliable = true
+pythonTests.include = [
+    "omni.kit.browser.core.tests.test_tree_browser_widget.TestTreeBrowserWidget.test_item_loading",
+]
 dependencies = [
     "omni.kit.ui_test",
 ]

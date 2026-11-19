@@ -2,6 +2,10 @@
 
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [1.4.2] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.4.1] - 2025-09-22
 ### Changed
 - OMPE-64397: omni.kit.tool.camera_playlist needs ui.Menu & ui.Separator to use menu_compatibility=False

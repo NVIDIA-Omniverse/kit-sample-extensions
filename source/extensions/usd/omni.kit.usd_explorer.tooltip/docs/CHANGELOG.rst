@@ -18,6 +18,11 @@ Changed
 Removed
 -----------
 
+[1.0.3] - 2026-10-23
+Changed
+-------
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 [1.0.2] - 2026-04-15
 ====================
 

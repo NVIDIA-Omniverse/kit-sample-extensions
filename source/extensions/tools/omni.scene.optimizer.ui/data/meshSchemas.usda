@@ -1,0 +1,45 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    metersPerUnit = 1
+    notes = "Gprim </World/cube1/cube2> has an ancestor prim that is also a Gprim, which is not allowed."
+    upAxis = "Z"
+)
+
+def Xform "World"
+{
+    def Mesh "cube1" (
+       prepend apiSchemas = ["ShadowAPI"]
+    )
+    {
+        float3[] extent = [(4.3954496, -0.5, -0.5), (5.3954496, 0.5, 0.5)]
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 2, 3, 5, 4, 4, 5, 7, 6, 6, 7, 1, 0, 1, 7, 5, 3, 6, 0, 2, 4]
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0)] (
+            interpolation = "faceVarying"
+        )
+        point3f[] points = [(4.3954496, -0.5, 0.5), (5.3954496, -0.5, 0.5), (4.3954496, 0.5, 0.5), (5.3954496, 0.5, 0.5), (4.3954496, 0.5, -0.5), (5.3954496, 0.5, -0.5), (4.3954496, -0.5, -0.5), (5.3954496, -0.5, -0.5)]
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        float3 xformOp:translate:pivot = (4.8954496, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate:pivot", "!invert!xformOp:translate:pivot", "xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+        
+    def Mesh "cube2"
+    {
+        float3[] extent = [(6.0265555, -0.5, -0.5), (7.0265555, 0.5, 0.5)]
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 2, 3, 5, 4, 4, 5, 7, 6, 6, 7, 1, 0, 1, 7, 5, 3, 6, 0, 2, 4]
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0)] (
+            interpolation = "faceVarying"
+        )
+        point3f[] points = [(6.0265555, -0.5, 0.5), (7.0265555, -0.5, 0.5), (6.0265555, 0.5, 0.5), (7.0265555, 0.5, 0.5), (6.0265555, 0.5, -0.5), (7.0265555, 0.5, -0.5), (6.0265555, -0.5, -0.5), (7.0265555, -0.5, -0.5)]
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        float3 xformOp:translate:pivot = (6.5265555, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate:pivot", "!invert!xformOp:translate:pivot", "xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+}
+

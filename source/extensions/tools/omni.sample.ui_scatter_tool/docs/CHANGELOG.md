@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.1] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.2.0] - 2025-10-26
 ### Added
 - Comprehensive test suite for ScatterCreatePointInstancerCommand (18 test cases)

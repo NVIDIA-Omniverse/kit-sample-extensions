@@ -1,6 +1,6 @@
 [package]
 # Semantic Versionning is used: https://semver.org/
-version = "1.1.1"
+version = "1.1.2"
 
 # Lists people or organizations that are considered the "authors" of the package.
 authors = ["Jeffrey Qiu"]
@@ -32,7 +32,7 @@ icon = "icons/Camera.png"
 category = "Other"
 
 [package.target]
-kit = ["107.3"]  # Required for Event 2.0
+kit = ["111.0"]
 
 [package.writeTarget]
 kit = true

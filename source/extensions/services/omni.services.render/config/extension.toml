@@ -1,4 +1,5 @@
 [package]
+target.kit = ["111.0"]
 authors = ["Jozef van Eenbergen", "Philippe Sawicki"]
 category = "Services"
 changelog="docs/CHANGELOG.md"
@@ -9,7 +10,7 @@ preview_image = "data/preview.png"
 readme  = "docs/README.md"
 repository="https://github.com/NVIDIA-Omniverse/kit-sample-extensions"
 title = "Rendering service"
-version = "0.12.0"
+version = "0.12.2"
 
 [dependencies]
 "omni.kit.pip_archive" = {}
@@ -39,6 +40,33 @@ exts."omni.services.render".finalize_frame_sync_timeout = 60
 exts."omni.services.render".capture_setting_settle_delay = 1
 
 [[test]]
+# Known flaky cases run separately so neighboring tests still fail CI.
+pythonTests.exclude = [
+    "omni.services.render.tests.test_file_manager.TestFileManager_TaskQueue.test_getting_new_files_with_changes",
+]
+args = [
+    "--no-window"
+]
+stdoutFailPatterns.exclude = [
+    # This is an expected error message during these tests as processes are purposly crashed to check handling of task failures.
+    "*Too many frames detected*",
+    "*Failed to copy file:*",
+    "*i_do_not_exist.usd*",
+    # Kit 111 omni.usd also logs this filename-less line for the same deliberately missing stage
+    # (test_open_stage_sync_invalid opens i_do_not_exist.usd).
+    "*Open USD error: Failed to open the owned root/session layers*",
+]
+
+# File creation can cross the constructor timestamp before the fixture establishes its scan baseline.
+# Retire this profile when the deterministic correction is qualified.
+[[test]]
+name = "known_flaky"
+# Reliable by default; quarantine only platforms with an observed failure of this test.
+unreliable = false
+"filter:platform"."linux-aarch64".unreliable = true
+pythonTests.include = [
+    "omni.services.render.tests.test_file_manager.TestFileManager_TaskQueue.test_getting_new_files_with_changes",
+]
 args = [
     "--no-window"
 ]

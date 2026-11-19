@@ -3,6 +3,16 @@
 This document records all notable changes to ``omni.kit.viewport.menubar.display`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [104.1.28] - 2026-11-05
+
+### Changed
+
+- Remove the temporary `-ovrtx` tag from `omni.kit.hydra_texture` dependency requests.
+
+## [104.1.27] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [104.1.26] - 2023-10-17
 ### Changed
 - OMFP-2692 - Fixed checked state when the window was created by another extension.

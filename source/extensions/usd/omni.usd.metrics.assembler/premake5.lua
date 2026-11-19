@@ -30,10 +30,6 @@ project_ext_plugin(ext, "omni.usd.metrics.assembler.plugin")
     includedirs {
         "include",
         targetDepsDir.."/carb_sdk_plugins/include",
-        targetDepsDir.."/usd_ext_physics/%{cfg.buildcfg}/include",
-    }
-    libdirs {
-        targetDepsDir.."/usd_ext_physics/%{cfg.buildcfg}/lib",
     }
     -- add USD dependency
     additional_libs = {

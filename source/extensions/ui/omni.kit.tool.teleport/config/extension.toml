@@ -1,7 +1,7 @@
 [package]
 # Semantic Versionning is used: https://semver.org/
 
-version = "107.4.2"
+version = "107.4.5"
 
 # Lists people or organizations that are considered the "authors" of the package.
 authors = ["Ning Li", "Jeff Hanna"]
@@ -26,7 +26,7 @@ preview_image = "data/preview.png"
 icon = "data/icon.png"
 
 [package.target]
-kit = ["107.3.0"]
+kit = ["111.0"]
 
 [package.writeTarget]
 kit = true
@@ -85,7 +85,7 @@ args = [
 
 dependencies = [
     "omni.kit.ui_test",
-    "omni.kit.hydra_texture-ovrtx",
+    "omni.kit.hydra_texture",
     "omni.kit.viewport.window",
 ]
 

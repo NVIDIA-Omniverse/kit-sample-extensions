@@ -3,6 +3,16 @@
 This document records all notable changes to ``omni.kit.browser.core`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [2.4.2] - 2026-11-05
+
+### Changed
+
+- Run the loading-image test in an isolated profile, unreliable only on ARM Linux and Windows; keep x86 Linux and neighboring tests reliable.
+
+## [2.4.1] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [2.4.0] - 2026-08-25
 ### Added
 - OMPE-101618: `TreeCategoryDelegate.build_loading_overlay`, for putting a control over a loading

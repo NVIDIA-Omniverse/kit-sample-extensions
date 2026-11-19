@@ -1,5 +1,6 @@
 [package]
-version = "0.8.4"
+target.kit = ["111.0"]
+version = "0.8.5"
 authors = ["NVIDIA Omniverse Team"]
 title = "Creo Camera Manipulator"
 description = "Creo-style pan-only camera manipulator using Kit's gesture system and RegisterScene API."

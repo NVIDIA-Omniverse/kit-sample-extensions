@@ -2,6 +2,10 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [107.5.14] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [107.5.13] - 2026-09-11
 ### Fixed
 - OMPE-89478: test_variant_content waited a fixed delay for the reference/payload rows, so `find_all` could run before the tree rebuilt and see one row instead of two; it now waits for the expected count

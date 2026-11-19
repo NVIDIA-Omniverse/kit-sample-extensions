@@ -1,5 +1,6 @@
 [package]
-version = "1.0.1"
+target.kit = ["111.0"]
+version = "1.0.2"
 authors = ["NVIDIA"]
 title = "Warp Menu"
 description = "Adds a Warp item to Kit's Edit menu"

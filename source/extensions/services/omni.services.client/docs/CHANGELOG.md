@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.10] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [0.5.9] - 2026-08-06
 ### Fixed
 - NVBug 6570026: Resolve local transport routes nested through multiple included routers with FastAPI 0.139 while retaining compatibility with FastAPI 0.120.
@@ -75,7 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.1] - 2020-10-07
 ### Fixes
-- Add `fastapi` as a test dependency. This should go away after SWIPAT approval.
+- Add `fastapi` as a test dependency. This should go away after third-party review approval.
 
 ## [0.1.0] - 2020-08-25
 ### Fixes

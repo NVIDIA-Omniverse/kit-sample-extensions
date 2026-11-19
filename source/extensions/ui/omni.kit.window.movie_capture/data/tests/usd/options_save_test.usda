@@ -32,7 +32,7 @@
             int mp4_encoding_rc_target_quality = 16
             bool mp4_encoding_video_full_range_flag = 1
             string output_format = ".tga"
-            string output_path = "C:/Users/quchen/Documents/Kit/shared/capture"
+            string output_path = "C:/capture-output"
             bool overwrite_existing_frame_checked = 0
             bool pathtrace_mb_checked = 1
             double pathtrace_mb_frame_shutter_close = 0.6

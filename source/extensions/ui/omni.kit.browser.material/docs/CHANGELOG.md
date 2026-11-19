@@ -3,6 +3,15 @@
 This document records all notable changes to ``omni.kit.browser.material`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [1.7.2] - 2026-11-05
+
+### Fixed
+- Explicitly select the OVRTX viewport provider in test dependencies when the test application does not select a renderer.
+
+## [1.7.1] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.7.0] - 2026-08-27
 ### Changed
 - OMPE-101618: materials are read off the main thread, so a slow file no longer costs the app its

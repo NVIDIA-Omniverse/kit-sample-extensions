@@ -1,0 +1,7 @@
+<project toolsVersion="5.0">
+
+  <dependency name="warp-cuda" linkPath="../_build/target-deps/warp_cuda">
+    <package name="warp-cuda" version="12.9.1-0-${platform_target_abi}-release"/>
+  </dependency>
+
+</project>

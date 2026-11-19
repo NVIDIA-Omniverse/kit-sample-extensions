@@ -4,6 +4,21 @@ CHANGELOG
 
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+[1.0.22] - 2026-11-05
+Changed
+-------
+- Remove the temporary ``-ovrtx`` tag from ``omni.kit.hydra_texture`` dependency requests.
+
+[1.0.21] - 2026-10-23
+Changed
+-------
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
+[1.0.20] - 2026-10-23
+Changed
+-------
+- Version the cleanup of obsolete RTX shader-cache test configuration.
+
 [1.0.19] - 2025-10-01
 Changed
 ------

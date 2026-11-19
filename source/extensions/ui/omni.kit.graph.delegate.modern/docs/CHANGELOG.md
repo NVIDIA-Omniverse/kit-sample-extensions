@@ -2,6 +2,15 @@
 
 Modern Delegate for Graph View
 
+## [1.10.17] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+- Require Default Delegate 1.2.7 or a compatible newer version for the internal test fixtures.
+
+## [1.10.16] - 2026-10-23
+### Changed
+- Run delegate tests with internal fixtures instead of the retired graph editor example and Neo delegate.
+
 ## [1.10.15] - 2026-02-24
 ### Changed
 - Revert changes in 1.10.14

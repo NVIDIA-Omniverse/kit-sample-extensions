@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.8] - 2026-11-17
+
+### Deprecated
+- Mark the Agent Runner extension as deprecated because the Farm backend has been deprecated.
+
+## [0.7.7] - 2026-11-16
+
+### Changed
+- Mark the successful-task statistics test as unreliable on Linux x86-64 after recurring timeouts; keep the remaining runner tests enabled.
+
+## [0.7.6] - 2026-11-12
+
+### Fixed
+- Explicitly select OVRTX for the runner tests so the render task can capture frames when Kit's test app defaults to running without a renderer.
+
+## [0.7.5] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [0.7.4] - 2026-08-13
 ### Fixed
 - OMPE-103669: Accept absolute USD paths in expected Farm runner test errors.

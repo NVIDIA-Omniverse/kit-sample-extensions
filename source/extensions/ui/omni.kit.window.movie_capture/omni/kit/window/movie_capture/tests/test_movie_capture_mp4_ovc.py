@@ -409,13 +409,13 @@ class TestMovieCaptureMp4Ovc(OmniUiTest):
         Sections A-E above validate the URI-aware branching with mocked boundaries. This
         test is the counterpart that exercises the same code paths end-to-end against a
         real Nucleus server, real ``omni.client`` calls, real ``omni.videoencoding`` encode
-        and a real capture pipeline -- the thing Roman asked for on MR !549 ("nothing about
-        that call sequence guarantees the render was captured to a video file").
+        and a real capture pipeline.
 
         Gated to skip unless the kit app is running in OVC mode, since it requires:
           - a real renderer producing frames into a real temp directory,
           - a real ``omni.videoencoding`` encode pass,
-          - network reachability to ``dev.eu-swe.dgxctest.omniverse.nvidia.com``.
+          - an explicitly configured writable Nucleus root in
+            ``/exts/omni.kit.window.movie_capture/tests/nucleus_root``.
 
         Under the standard local / CI test runner ``_is_ovc_mode()`` is False, so the test
         skips cleanly. Under the ETM-on-DGXC runner the test executes for real.
@@ -431,7 +431,12 @@ class TestMovieCaptureMp4Ovc(OmniUiTest):
         # video_encoding must be importable in the test environment so .mp4 is a real option.
         self.assertIn(".mp4", CAPTURE_FILE_TYPES)
 
-        nucleus_root = "omniverse://dev.eu-swe.dgxctest.omniverse.nvidia.com/Projects/omni.kit.window.movie_capture"
+        nucleus_root = carb.settings.get_settings().get_as_string(
+            "/exts/omni.kit.window.movie_capture/tests/nucleus_root"
+        )
+        if not nucleus_root:
+            self.skipTest("Real DGXC capture test requires an explicit writable Nucleus test root")
+        self.assertTrue(nucleus_root.startswith("omniverse://"), "Nucleus test root must be an omniverse URL")
 
         # Verify the test bucket exists on Nucleus. If it does not, try to create it; if
         # creation fails, fail the test rather than silently uploading to a path the runner

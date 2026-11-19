@@ -1,5 +1,5 @@
 [package]
-version = "1.1.5"
+version = "1.1.9"
 authors = ["Bob White"]
 title = "No Code UI"
 description="Bundle extension for Authoring No Code UI / data2ui"
@@ -14,13 +14,13 @@ waiver = "Bundle extension for No Code UI / data2ui"
 support_level = "Sample"
 
 [package.target]
-kit = ["107.0"]
+kit = ["111.0"]
 
 [package.writeTarget]
 kit = true
 
 [dependencies]
-"omni.no_code_ui.bundle" = {exact=true, version="1.1.5"}
+"omni.no_code_ui.bundle" = {exact=true, version="1.1.9"}
 "omni.kit.menu.utils" = {}
 "omni.kit.context_menu" = {}
 "omni.kit.property.usd" = {}

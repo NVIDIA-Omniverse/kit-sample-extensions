@@ -170,7 +170,7 @@ class TestTeleportGeneral(TestTeleportBase):
         await ui_test.emulate_mouse_move(ui_test.Vec2(250, 250))
         await ui_test.wait_n_updates(30)
         # Cube floor position = height + Cube Size
-        # TODO: it's not stable, sometimes failed in CI
+        # TODO: it's not stable, sometimes failed in gitlab ci
         # self.assertAlmostEqual(self._teleport._widgetPos[1], cube_top_height + 1.0, 4)
 
         # Reset camera

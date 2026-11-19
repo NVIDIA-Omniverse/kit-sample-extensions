@@ -3,6 +3,21 @@
 This document records all notable changes to ``omni.kit.environment.core`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [1.4.9] - 2026-11-05
+
+### Changed
+
+- Remove the temporary `-ovrtx` tag from `omni.kit.hydra_texture` dependency requests.
+
+## [1.4.8] - 2026-10-30
+
+### Fixed
+- Wait for rendered viewport frames after deleting the extra light in the dynamic-sky image test, so application updates do not allow capture of an empty frame.
+
+## [1.4.7] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.4.6] - 2026-10-16
 ### Changed
 - Give the existing Kit 111 compatibility changes a distinct package version: ignore runtime fallback lights and safely replace duplicate warning windows.

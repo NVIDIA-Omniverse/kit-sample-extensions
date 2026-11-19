@@ -1,5 +1,5 @@
 [package]
-version = "1.1.4"
+version = "1.1.8"
 authors = ["Victor Yudin, Min Jiang"]
 title = "Material Preview Widget"
 description="Render material preview widget in the secondary USD Context"
@@ -10,7 +10,7 @@ icon = "data/icon.png"
 readme  = "docs/README.md"
 category = "Rendering"
 writeTarget.kit = true
-target.kit = ["107.3"]  # Required for Event 2.0
+target.kit = ["111.0"]
 
 # Keywords for the extension
 keywords = ["kit", "remote", "renderer", "material", "preview"]
@@ -37,7 +37,6 @@ args = [
 ]
 
 dependencies = [
-    "omni.kit.hydra_texture-ovrtx",
 ]
 
 stdoutFailPatterns.exclude = [

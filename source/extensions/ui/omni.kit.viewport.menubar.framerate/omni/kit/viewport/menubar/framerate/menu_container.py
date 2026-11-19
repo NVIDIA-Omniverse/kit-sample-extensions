@@ -234,7 +234,8 @@ class MenuContainer(ViewportMenuContainer):
         # The current preset is not offered (a DLSS-G "x2" preset kept without DLSS-G, or a custom or empty value):
         # go to the offered preset with the nearest render rate, else the first. Cycling an infinite list until it
         # found the current preset never ended here and froze the app.
-        rate_key = "/app/runLoops/rendering_0/rateLimitFrequency"
+        # Kit removed the rendering run loop; the viewport tick rate is the preset's render rate.
+        rate_key = "/persistent/app/viewport/defaults/tickRate"
         rate = self._known_presets.get(current_preset, {}).get(rate_key)
         if rate is None:
             return names[0]

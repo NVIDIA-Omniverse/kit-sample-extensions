@@ -3,6 +3,10 @@
 This document records all notable changes to ``omni.kit.ngsearch`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+## [0.3.4] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [0.3.3] - 2023-10-25
 ### Updated
 - coverage exclusion cleanup

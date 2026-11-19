@@ -7,7 +7,7 @@ from omni.kit.ngsearch import async_search, StatusType
 import asyncio
 
 async def do_ngsearch():
-    url = "omniverse://rc.ov.nvidia.com/Projects/DeepSearch/"
+    url = "omniverse://nucleus.example.com/Projects/DeepSearch/"
     query = "red rusty barrel"
     results = await async_search(query, url)
 

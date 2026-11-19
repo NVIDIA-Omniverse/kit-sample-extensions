@@ -5,6 +5,11 @@ CHANGELOG
 This document records all notable changes to ``omni.kit.viewport.menubar.nav_bar_toggle`` extension.
 This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
+[1.0.5] - 2026-10-23
+Changed
+-------
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 [1.0.4] - 2026-04-14
 Fixed
 ------

@@ -99,7 +99,7 @@ class TestUI(OmniUiTest):
         self._search_queries = []
         with fake_server("FakeSearchService"):
             with searchfield(self.search_fn) as field:
-                field.search_dir = "omniverse://test.ov.nvidia.com"
+                field.search_dir = "omniverse://nucleus.example.com"
                 # Wait one frame
                 await omni.kit.app.get_app().next_update_async()
                 container = field._container
@@ -191,7 +191,7 @@ class TestUI(OmniUiTest):
         with fake_server("FakeDeepSearchService"):
             with searchfield(self.search_fn) as field:
                 await omni.kit.app.get_app().next_update_async()
-                field.search_dir = "omniverse://test.ov.nvidia.com"
+                field.search_dir = "omniverse://nucleus.example.com"
                 # Wait one frame
                 await omni.kit.app.get_app().next_update_async()
                 search_menu: SearchMenu = field._popup_menus[1]
@@ -235,7 +235,7 @@ class TestUI(OmniUiTest):
         with fake_server("FakeDeepSearchService"):
             with searchfield(self.search_fn) as field:
                 await omni.kit.app.get_app().next_update_async()
-                field.search_dir = "omniverse://test.ov.nvidia.com"
+                field.search_dir = "omniverse://nucleus.example.com"
                 # Wait one frame
                 await omni.kit.app.get_app().next_update_async()
                 clear_button: ui.Button = field._clear_button
@@ -287,7 +287,7 @@ class TestUI(OmniUiTest):
                 assert not image_menu._button
                 assert not search_menu._button
 
-                field.search_dir = "omniverse://test.ov.nvidia.com"
+                field.search_dir = "omniverse://nucleus.example.com"
                 await omni.kit.app.get_app().next_update_async()
                 await omni.kit.app.get_app().next_update_async()
 
@@ -331,7 +331,7 @@ class TestUI(OmniUiTest):
 
         with fake_server("FakeSearchService") as server:
             with searchfield(self.search_fn, auto_search_delay=delay) as field:
-                field.search_dir = "omniverse://test.ov.nvidia.com"
+                field.search_dir = "omniverse://nucleus.example.com"
                 # Wait one frame
                 await omni.kit.app.get_app().next_update_async()
                 # single click on search field
@@ -363,7 +363,7 @@ class TestUI(OmniUiTest):
 
         with fake_server("FakeSearchService"):
             with searchfield(self.search_fn, auto_search_delay=delay) as field:
-                field.search_dir = "omniverse://test.ov.nvidia.com"
+                field.search_dir = "omniverse://nucleus.example.com"
                 # Wait one frame
                 await omni.kit.app.get_app().next_update_async()
                 # single click on search field
@@ -403,8 +403,8 @@ class TestUI(OmniUiTest):
             "description:abc": {"description": "abc"},
             'description:"a b"': {"description": "a b"},
             "description:a description:b": {"description": "a b"},
-            "created_by:user@example.com": {"created_by": "user@example.com"},
-            "modified_by:user@example.com": {"modified_by": "user@example.com"},
+            "created_by:author@example.com": {"created_by": "author@example.com"},
+            "modified_by:author@example.com": {"modified_by": "author@example.com"},
             "larger_than:5": {"larger_than": "5"},
             'larger_than:"5 MB"': {"larger_than": "5 MB"},
             "smaller_than:5": {"smaller_than": "5"},
@@ -428,7 +428,7 @@ class TestUI(OmniUiTest):
                 # Wait one frame
                 await omni.kit.app.get_app().next_update_async()
 
-                field.search_dir = "omniverse://test.ov.nvidia.com"
+                field.search_dir = "omniverse://nucleus.example.com"
                 await omni.kit.app.get_app().next_update_async()
 
                 search_menu: SearchMenu = field._popup_menus[1]
@@ -454,7 +454,7 @@ class TestUI(OmniUiTest):
         self._search_queries = []
         with fake_server("FakeSearchService"):
             with searchfield(self.search_fn) as field:
-                field.search_dir = "omniverse://test.ov.nvidia.com"
+                field.search_dir = "omniverse://nucleus.example.com"
                 # Wait one frame
                 await omni.kit.app.get_app().next_update_async()
                 # single click on search field

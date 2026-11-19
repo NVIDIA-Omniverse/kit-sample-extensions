@@ -3,6 +3,42 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.0.18] - 2026-11-10
+
+### Changed
+
+- Remove the redundant Hydra Texture test dependency; it is already supplied by the normal dependency graph.
+
+## [3.0.17] - 2026-11-05
+
+### Changed
+
+- Remove the temporary `-ovrtx` tag from `omni.kit.hydra_texture` dependency requests.
+
+## [3.0.16] - 2026-11-05
+
+### Fixed
+- Explicitly select the OVRTX viewport provider in test dependencies when the test application does not select a renderer.
+
+## [3.0.15] - 2026-10-27
+### Changed
+- OMPE-117510: The render-product UI test authors `/Render/RenderView` with the `UsdRender` schemas instead of the
+  deprecated `omni.kit.menu.aov` "Create > AOV" action, and no longer declares that extension as a test dependency.
+
+## [3.0.14] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
+## [3.0.13] - 2026-10-22
+### Changed
+- Remove obsolete Sunstudy and internal RTX test dependency declarations and the unsupported Sunstudy UI test.
+- Keep the capture restart regression self-contained using its bundled scene.
+
+## [3.0.12] - 2026-10-20
+### Fixed
+- OMPE-112504: `default_render_preset` accepts a comma-separated priority list; the first mode the active
+  engine supports is used. The default is now `"RaytracedLighting, RealTimePathTracing"`, so it resolves on ovrtx.
+
 ## [3.0.11] - 2026-10-13
 ### Changed
 - Kit 111 tests: `test_capture_with_render_product_all_modes` skips RTX-Minimal and logs the reason as a warning. Since `omni.kit.capture.viewport`

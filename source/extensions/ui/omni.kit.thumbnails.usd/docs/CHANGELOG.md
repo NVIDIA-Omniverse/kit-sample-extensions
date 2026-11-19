@@ -2,6 +2,16 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.16] - 2026-11-05
+
+### Changed
+
+- Remove the temporary `-ovrtx` tag from `omni.kit.hydra_texture` dependency requests.
+
+## [1.0.15] - 2026-10-23
+
+- Require Kit 111.0 or later to prevent compatibility collisions with Kit 110.4 packages.
+
 ## [1.0.14] - 2026-10-12
 ### Fixed
 - Kit 111: the default thumbnail template references nothing Kit 111 does not ship. The floor material is a built-in UsdPreviewSurface instead of `../../../NVIDIA/Materials/Base/Wall_Board/Cardboard.mdl`, and the dome light has no texture instead of `Marbles/textures/HDRI/B2_2k_256_4k.hdr`; both files are absent in Kit 111 and logged errors. The rendered thumbnail is unchanged.
